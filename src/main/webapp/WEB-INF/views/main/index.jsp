@@ -9,17 +9,14 @@
 		margin: 0;
 	}
 	section {
-<<<<<<< HEAD
 		width: 1000px;
 		height: 400px;
 		border: 1px solid black;
 		margin: auto;
-=======
-	width: 1000px;
-	height: 400px;
-	border: 1px solid black;
-	margin: auto;
->>>>>>> 88a6d0bfbfd61f40ff390b677bb178dd854e658d
+		width: 1000px;
+		height: 400px;
+		border: 1px solid black;
+		margin: auto;
 	}
 	.sec1 {
 		background: #E0F7FA;

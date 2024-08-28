@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-<<<<<<< HEAD
-/* 기존 스타일은 그대로 유지됩니다 */
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 * {
@@ -216,190 +214,6 @@ footer table {
 		document.getElementsByClassName("mmenu")[n].style.display = "none";
 	}
 	
-=======
-@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
-	* {
-		margin: 0;
-	}
-	body {
-		margin: 0;
-		font-family: 'Hahmlet';
-	}
-	header {
-		width: 100%;
-		margin: auto;
-	}
-	#section1 {
-		width: 100%;
-		height: 80px;
-		margin: auto;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	#section1 #logo {
-		width: 200px;
-		height: 75px;
-		margin-left: 50px;
-	}
-	#section1 #loginMenu {
-		width: 375px;
-		font-size: 20px;
-		font-weight: 600;
-	}
-	#section1 #loginMenu a {
-		text-decoration: none;
-		color: black;
-	}
-	#section1 #loginMenu a:hover {
-		text-decoration: none;
-		color: green;
-		font-weight: 900;
-	}
-	#section1 #loginMenu #memberMenu {
-		position: absolute;
-		left: 1670px;
-		top: 52px;
-		padding-left: 0;
-		width: 110px;
-		background: white;
-		display: none;
-		z-index: 10;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
-	#section1 #loginMenu #memberMenu > li {
-		list-style-type: none;
-		width: 110px;
-		height: 30px;
-		line-height: 30px;
-		text-align: center;
-		cursor: pointer;
-		border-bottom: 1px solid #ddd;
-	}
-	#section1 #loginMenu #memberMenu > li:hover {
-		text-decoration: underline;
-		color: green;
-	}
-	#section1 #loginMenu > li {
-		display: inline-block;
-		list-style-type: none;
-		width: 200px;
-		height: 50px;
-		line-height: 30px;
-		text-align: center;
-		font-weight: 900;
-		position: relative;
-		z-index: 5;
-	}
-	#supMenu {
-		display: inline-block;
-	}
-	#section1 #loginMenu #cusMenu {
-	    padding-left: 0;
-	    position: absolute;
-	    top: 50px; /* 메뉴가 나타날 위치 */
-	    background: white;
-	    display: none; /* 처음에 숨김 처리 */
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-	    z-index: 10; /* 다른 요소보다 위에 나타나도록 설정 */
-	}
-	#section1 #loginMenu #cusMenu > li {
-	    list-style-type: none; /* 리스트 스타일 제거 */
-	    width: 150px; /* 메뉴 폭 */
-	    height: 35px; /* 메뉴 높이 */
-	    line-height: 35px; /* 텍스트 세로 정렬 */
-	    text-align: center; /* 텍스트 가운데 정렬 */
-	    cursor: pointer; /* 포인터 모양 변경 */
-	    border-bottom: 1px solid #ddd; /* 테두리 */
-	}
-	#section1 #loginMenu #cusMenu > li:hover {
-	    text-decoration: underline; /* 마우스 오버 시 밑줄 */
-	    color: green; /* 마우스 오버 시 텍스트 색상 변경 */
-	}
-	header > nav {
-		width: 1200px;
-		height: 70px;
-		margin: auto;
-		line-height: 50px;
-		font-family: 'Gugi';
-	}
-	header > nav a {
-		text-decoration: none;
-		color: black;
-	}
-	header > nav a:hover {
-		text-decoration: underline;
-		color: green;
-		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-	}
-	header > nav #main {
-		padding-left: 0;
-		margin-left: 100px;
-	}
-	header > nav #main > li {
-		display: inline-block;
-		list-style-type: none;
-		width: 200px;
-		height: 50px;
-		line-height: 30px;
-		text-align: center;
-		font-weight: 900;
-		position: relative;
-		z-index: 5;
-	}
-	header > nav #main > li > .menu {
-		padding-left: 0;
-		position: absolute;
-		left: 0;
-		top: 48px;
-		background: white;
-		visibility: hidden;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
-	header > nav #main > li > .menu > li {
-		list-style-type: none;
-		width: 200px;
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #ddd;
-	}
-	footer {
-		padding-top: 10px;
-		padding-bottom: 5px;
-		width: 100%;
-		height: auto;
-		margin: auto;
-		font-family: 'Hahmlet';
-		margin-top: 30px;
-		font-size: 13px;
-		background: #9AB973;
-		color: white;
-		text-align: center;
-	}
-	footer table {
-		width: 100%;
-		max-width: 1000px;
-		margin: auto;
-	}
-	
-	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
-			flex-direction: column;
-			text-align: center;
-		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
-		}
-		footer table, footer td {
-			font-size: 11px;
-		}
-	}
-</style>
-
-<script>
->>>>>>> 88a6d0bfbfd61f40ff390b677bb178dd854e658d
 	function viewMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "visible";
 	}
@@ -407,25 +221,7 @@ footer table {
 	function hideMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
 	}
-<<<<<<< HEAD
-=======
-	
-	function viewCus() {
-		document.getElementById("cusMenu").style.display = "block";
-	}
-	
-	function hideCus() {
-		document.getElementById("cusMenu").style.display = "none";
-	}
-	
-	function viewMy() {
-		document.getElementById("memberMenu").style.display = "block";
-	}
-	
-	function hideMy() {
-		document.getElementById("memberMenu").style.display = "none";
-	}
->>>>>>> 88a6d0bfbfd61f40ff390b677bb178dd854e658d
+
 </script>
 
     <sitemesh:write property="head"/>
@@ -442,7 +238,6 @@ footer table {
 
             <div id="loginMenu">
                 <c:if test="${userid==null}">
-<<<<<<< HEAD
                     <a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
                     <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
                     <ul>
@@ -455,39 +250,17 @@ footer table {
                     </li>
                     </ul>
                 </c:if>
-
                 <c:if test="${userid!=null}">
                     <span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">  XXX님 |
                         <ul class="mmenu">
-=======
-                    <a href="../member/member"> 회원가입 </a> |
-                    <a href="../login/login"> 로그인 </a> |
-                    <div id="supMenu" onmouseover="viewCus()" onmouseout="hideCus()"> 고객센터
-                        <ul id="cusMenu">
-                            <li> 공지사항 </li>
-                            <li> 예약문의 </li>
-                            <li> 이벤트 </li>
-                        </ul>
-                    </div>
-                </c:if>
-
-                <c:if test="${userid!=null}">
-                    <span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()">  XXX님 |
-                        <ul id="memberMenu">
->>>>>>> 88a6d0bfbfd61f40ff390b677bb178dd854e658d
                             <li> 회원정보 </li>
                             <li> 예약정보 </li>
                             <li> 나의문의 </li>
                         </ul>
                     </span>
                     <a href="../login/logout"> 로그아웃 </a> |
-<<<<<<< HEAD
                     <span id="supMenu" onmouseover="viewCmenu(1)" onmouseout="hideCmenu(1)"> 고객센터
                         <ul class="cmenu">
-=======
-                    <span id="supMenu" onmouseover="viewCus()" onmouseout="hideCus()"> 고객센터
-                        <ul id="cusMenu">
->>>>>>> 88a6d0bfbfd61f40ff390b677bb178dd854e658d
                             <li> 공지사항 </li>
                             <li> 예약문의 </li>
                             <li> 이벤트 </li>
