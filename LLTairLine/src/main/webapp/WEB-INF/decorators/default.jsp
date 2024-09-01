@@ -172,7 +172,7 @@ footer {
 	font-family: 'Hahmlet';
 	margin-top: 30px;
 	font-size: 13px;
-	background: #0572F9;
+	background: #150084;
 	color: white;
 	text-align: center;
 }

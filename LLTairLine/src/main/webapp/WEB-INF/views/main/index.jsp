@@ -10,11 +10,7 @@
 	}
 	section {
 		width: 1000px;
-		height: 400px;
-		border: 1px solid black;
-		margin: auto;
-		width: 1000px;
-		height: 400px;
+		height: 100%;
 		border: 1px solid black;
 		margin: auto;
 	}
@@ -38,19 +34,19 @@
 </head>
 <body>
     <section id="container1" class="sec1">
-        1
+        1<br><br><br><br><br>
     </section>
 
     <section id="container2" class="sec2">
-        2
+        2<br><br><br><br><br>
     </section>
 
     <section id="container3" class="sec3">
-        3
+        3<br><br><br><br><br>
     </section>
 
     <section id="container4" class="sec4">
-        4
+        4<br><br><br><br><br>
     </section>
 </body>
 </html>
