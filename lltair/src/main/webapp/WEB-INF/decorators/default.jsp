@@ -244,7 +244,7 @@ footer table {
                     <li id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
                         <ul class="cmenu">
                             <li><a href="../gongji/list"> 공지사항 </a></li>
-                            <li> 예약문의 </li>
+                            <li><a href="../reserv/inquiryList"> 예약문의 </a></li>
                             <li> 이벤트 </li>
                         </ul>
                     </li>
@@ -261,8 +261,8 @@ footer table {
                     <a href="../login/logout"> 로그아웃 </a> |
                     <span id="supMenu" onmouseover="viewCmenu(1)" onmouseout="hideCmenu(1)"> 고객센터
                         <ul class="cmenu">
-                            <li> 공지사항 </li>
-                            <li> 예약문의 </li>
+                            <li><a href="../gongji/list"> 공지사항 </a></li>
+                            <li><a href="../reserv/inquiryList"> 예약문의 </a></li>
                             <li> 이벤트 </li>
                         </ul>
                     </span>

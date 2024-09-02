@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
+<style type="text/css">
 	section {
 		width: 1000px;
 		height: 600px;
@@ -44,49 +44,36 @@
 		box-sizing: border-box; /* 패딩을 너비 계산에 포함 */
 		border-radius: 5px; /* 버튼의 둥근 모서리 */
 	}
-	section #badge1 {
-		background: #DF251F; /* 배지 배경색 */
-		padding: 3px; /* 배지 패딩 */
-		font-size: 11px; /* 배지 글자 크기 */
-		font-weight: 900;
-		margin-right: 5px; /* 배지 사이 간격 */
-		border-radius: 3px; /* 배지의 둥근 모서리 */
-	}
-	section #badge2 {
-		background: #65FF5E; /* 배지 배경색 */
-		padding: 3px; /* 배지 패딩 */
-		font-size: 11px; /* 배지 글자 크기 */
-		margin-right: 5px; /* 배지 사이 간격 */
-		border-radius: 3px; /* 배지의 둥근 모서리 */
-	}
+	
 </style>
+
 </head>
 <body>
 <section>
 	<table>
-		<caption><h2> 공 지 사 항 </h2></caption> <!-- 테이블 제목 -->
-		<tr align="center">
-			<td> 제 목 </td>
+		<caption><h3>예약 관련 문의</h3></caption>
+		<tr>
+			<td> 제목 </td>
 			<td> 작성자 </td>
 			<td> 조회수 </td>
 			<td> 작성일 </td>
 		</tr>
-		<tr align="center">
-			<td align="center">
-				<span id="badge1">필독</span> <!-- '필독' 배지 -->
-				<span id="badge2">공지</span> <!-- '공지' 배지 -->
-				<a href="#"> 공지사항의 제목이 들어감 </a> <!-- 제목 링크 -->
-			</td>
-			<td> 작성자 이름 </td>
+		<tr>
+			<td> title </td>
+			<td> writer </td>
 			<td> readnum </td>
 			<td> writeday </td>
 		</tr>
-		<c:if test="${userid=='admin'}"> <!-- 관리자인 경우에만 표시 -->
-		<tr align="right">
-			<td colspan="4"><a href="write" id="write"> 글쓰기 </a></td> <!-- 글쓰기 버튼 -->
+		<tr>
+			<td colspan="4">
+				<a href="write"><input id="write" type="button" value="문의하기"></a>
+			</td>
 		</tr>
-		</c:if>
+	
 	</table>
+	
+	
+
 </section>
 </body>
 </html>
