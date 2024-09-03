@@ -225,7 +225,7 @@ footer table {
 </script>
 
     <sitemesh:write property="head"/>
-    kkkk
+    
 </head>
 <body>
     <header>
