@@ -14,5 +14,10 @@ public class GongjiController {
 	public String list() {
 		return "/gongji/list";
 	}
+	
+	@RequestMapping("/gongji/write")
+	public String write() {
+		return "/gongji/write";
+	}
 
 }
