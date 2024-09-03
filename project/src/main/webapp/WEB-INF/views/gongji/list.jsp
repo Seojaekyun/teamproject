@@ -83,7 +83,9 @@
 		</tr>
 		<c:if test="${userid=='admin'}"> <!-- 관리자인 경우에만 표시 -->
 		<tr align="right">
-			<td colspan="4"><a href="write" id="write"> 글쓰기 </a></td> <!-- 글쓰기 버튼 -->
+			<td colspan="4"> <!-- 글쓰기 버튼 -->
+				<a href="write"><input id="write" type="button" value="문의하기"></a>
+			</td>
 		</tr>
 		</c:if>
 	</table>

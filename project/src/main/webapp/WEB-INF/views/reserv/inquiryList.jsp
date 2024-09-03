@@ -64,7 +64,7 @@
 			<td> readnum </td>
 			<td> writeday </td>
 		</tr>
-		<tr>
+		<tr align="right">
 			<td colspan="4">
 				<a href="write"><input id="write" type="button" value="문의하기"></a>
 			</td>
