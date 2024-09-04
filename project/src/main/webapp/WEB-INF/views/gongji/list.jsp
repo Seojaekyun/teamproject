@@ -64,7 +64,7 @@
 <body>
 <section>
 	<table>
-		<caption><h2> 공 지 사 항 </h2></caption> <!-- 테이블 제목 -->
+		<caption><h3> 공 지 사 항 </h3></caption> <!-- 테이블 제목 -->
 		<tr align="center">
 			<td> 제 목 </td>
 			<td> 작성자 </td>
