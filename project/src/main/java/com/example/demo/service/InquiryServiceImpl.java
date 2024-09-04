@@ -44,7 +44,7 @@ public class InquiryServiceImpl implements InquiryService {
 	@Override
 	public String readnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
-		System.out.println(id);
+		//System.out.println(id);
 		mapper.readnum(id);
 		
 		return "redirect:/inquiry/content?id="+id;

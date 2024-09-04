@@ -24,7 +24,7 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String list(HttpServletRequest request, Model model) {
 		ArrayList<GongjiDto> glist=mapper.list();
-		System.out.println(glist);
+		//System.out.println(glist);
 		
 		model.addAttribute("glist", glist);
 		
@@ -46,7 +46,7 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String readnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
-		System.out.println(id);
+		//System.out.println(id);
 		mapper.readnum(id);
 		
 		return "redirect:/gongji/content?id="+id;
