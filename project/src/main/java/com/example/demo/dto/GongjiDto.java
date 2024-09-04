@@ -1,5 +1,10 @@
 package com.example.demo.dto;
 
-public class GongjiDto {
+import lombok.Data;
 
+@Data
+public class GongjiDto {
+	private int id, state;
+	private String title, content, writedat, writer;
+	
 }

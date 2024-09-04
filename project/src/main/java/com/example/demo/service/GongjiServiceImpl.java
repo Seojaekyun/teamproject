@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class GongjiServiceImpl implements GongjiService {
 	@Autowired
 	private GongjiMapper mapper;
+	private SqlSession sqlSession;
 	
 	@Override
 	public String list(HttpServletRequest request, Model model) {
@@ -30,6 +32,7 @@ public class GongjiServiceImpl implements GongjiService {
 	
 	@Override
 	public String writeOk(GongjiDto gdto, HttpSession session) {
+		mapper.writeOk(gdto);
 		
 		return "redirect:/gongji/list";
 	}
