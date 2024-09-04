@@ -42,34 +42,33 @@
 </script>
 </head>
 <body> <!-- inquiry/write.jsp -->
-
 <section>
-	<c:if test="${userid==null}"> 
-      <div> <span onclick="vform()"> 비회원 문의 확인하기 </span> </div>
-      <c:if test="${err!=null}">
-       <div style="font-size:11px;color:red;"> 문의번호가 일치하지 않습니다 </div>
-      </c:if>
-      <div style="display:none;" id="vform">
-         <form method="post" action="nonMemberView">
-           <input type="text" name="inqNumber"><br>
-           <input type="submit" value="문의 확인">
-         </form>
-      </div>
-     </c:if>
-     <form method="post" action="writeOk">
-      <h3 align="center"> 관리자에게 문의하기 </h3>
-      <div> 
-         <select name="title">
-           <option value="0"> 예약접수 관련 문의 </option>
-           <option value="1"> 탑승수속 관련 문의 </option>
-           <option value="2"> 예약취소 관련 문의 </option>
-           <option value="3"> 웹사이트 관련 문의 </option>
-           <option value="4"> 기타 문의 </option>
-         </select>
-      </div>
-      <div> <textarea name="content" maxlength="200"></textarea> </div>
-      <div> <input type="submit" value="문의 등록"> </div>
-     </form>
-    </section>
+	<c:if test="${userid==null}">
+		<div><span onclick="vform()">비회원 문의 확인하기</span></div>
+		<c:if test="${err!=null}">
+			<div style="font-size:11px;color:red;">문의번호가 일치하지 않습니다</div>
+		</c:if>
+		<div style="display:none;" id="vform">
+			<form method="post" action="nonMemberView">
+				<input type="text" name="inqNumber"><br>
+				<input type="submit" value="문의 확인">
+			</form>
+		</div>
+	</c:if>
+	<form method="post" action="writeOk">
+		<h3 align="center">관리자에게 문의하기</h3>
+		<div>
+			<select name="title">
+				<option value="0">예약접수 관련 문의</option>
+				<option value="1">탑승수속 관련 문의</option>
+				<option value="2">예약취소 관련 문의</option>
+				<option value="3">웹사이트 관련 문의</option>
+				<option value="4">기타 문의</option>
+			</select>
+		</div>
+		<div><textarea name="content" maxlength="200"></textarea></div>
+		<div><input type="submit" value="문의 등록"></div>
+	</form>
+</section>
 </body>
 </html>

@@ -50,6 +50,7 @@
 
 </head>
 <body>
+
 <section>
 	<table>
 		<caption><h3>예약 관련 문의</h3></caption>
@@ -90,9 +91,9 @@
 				<a href="write"><input id="write" type="button" value="문의하기"></a>
 			</td>
 		</tr>
-	
 	</table>
 	
 </section>
+
 </body>
 </html>

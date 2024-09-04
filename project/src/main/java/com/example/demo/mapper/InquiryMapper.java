@@ -8,7 +8,6 @@ import com.example.demo.dto.InquiryDto;
 
 @Mapper
 public interface InquiryMapper {
-
 	ArrayList<InquiryDto> list();
 	void writeOk(InquiryDto idto);
 	void readnum(String id);
