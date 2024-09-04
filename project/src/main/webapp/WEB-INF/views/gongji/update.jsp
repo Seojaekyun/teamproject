@@ -43,6 +43,9 @@
    }
   </style>
   <script>
+	window.onload=function() {
+		document.uform.state[${gdto.state}].checked=true;
+	}
     
   </script>
 </head>
@@ -50,10 +53,10 @@
   
    <section>
     <form method="post" action="updateOk" name="uform">
-     <input type="hidden" name="id" value="id">
+     <input type="hidden" name="id" value="${gdto.id}">
      <h3> 공지사항 수정 </h3>
-     <div> <input type="text" name="title" placeholder="제 목" value="title"> </div>
-     <div> <textarea name="content" placeholder="공지사항 내용">content</textarea> </div>
+     <div> <input type="text" name="title" placeholder="제 목" value="${gdto.title}"></div>
+     <div> <textarea name="content" placeholder="공지사항 내용"> ${gdto.content} </textarea> </div>
      <div> 
            <input type="radio" name="state" value="0"> 일반공지
            <input type="radio" name="state" value="1"> 상시공지

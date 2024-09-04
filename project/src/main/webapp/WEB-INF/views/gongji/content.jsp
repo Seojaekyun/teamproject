@@ -41,16 +41,22 @@
 </style>
 </head>
 <body> <!-- gongji/content.jsp -->
+
 <section>
 	<h3> 공지사항 </h3>
-	<div> 제목 </div>
-	<div> 조회수 <span id="rnum">(조회수)</span></div>
-	<div id="content"> 내용 </div>
+	<div> ${gdto.title } </div>
+	<div> 조회수 ${gdto.readnum } </div>
+	<div id="content"> ${gdto.content } </div>
 	<div id="btn">
-		<a href=""> 목록 </a>
-		<a href=""> 수정 </a>
-		<a href=""> 삭제 </a>
+		<a href="list"> 목록 </a>
+		<a href="update?id=${gdto.id }"> 수정 </a><!-- 로그인 작업 후 삭제 -->
+		<a href="delete?id=${gdto.id }"> 삭제 </a><!-- 로그인 작업 후 삭제 -->
+		<c:if test="${userid=='admin' }">
+		<a href="update?id=${gdto.id }"> 수정 </a>
+		<a href="delete?id=${gdto.id }"> 삭제 </a>
+		</c:if>
 	</div>
 </section>
+
 </body>
 </html>

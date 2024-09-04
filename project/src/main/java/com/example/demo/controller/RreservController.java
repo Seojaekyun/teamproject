@@ -10,9 +10,9 @@ public class RreservController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	@RequestMapping("/reserv/inquiryList")
-	public String inquiryList() {
-		return "/reserv/inquiryList";
+	@RequestMapping("/reserv/list")
+	public String list() {
+		return "/reserv/list";
 	}
 
 }

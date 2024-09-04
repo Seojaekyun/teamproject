@@ -48,6 +48,7 @@
 <body>
 	<section>
 		<form method="post" action="writeOk">
+		<input type="hidden" name="writer" value="tester"><!-- 로그인 작업 후 관리자 아이디로 수정 -->
 			<h3>공지사항</h3>
 			<div><input type="text" name="title" placeholder="제 목"></div>
 			<div><textarea name="content" placeholder="공지 내용"></textarea></div>

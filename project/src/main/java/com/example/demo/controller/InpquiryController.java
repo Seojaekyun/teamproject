@@ -7,53 +7,55 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dto.GongjiDto;
+import com.example.demo.dto.InquiryDto;
 import com.example.demo.service.GongjiService;
+import com.example.demo.service.InquiryService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class GongjiController {
+public class InpquiryController {
 	@Autowired
-	@Qualifier("gs")
-	private GongjiService service;
+	@Qualifier("is")
+	private InquiryService service;
 	
-	@RequestMapping("/gongji/list")
+	@RequestMapping("/inquiry/list")
 	public String list(HttpServletRequest request, Model model) {
 		return service.list(request, model);
 	}
 	
-	@RequestMapping("/gongji/write")
+	@RequestMapping("/inquiry/write")
 	public String write() {
 		return service.write();
 	}
 	
-	@RequestMapping("/gongji/writeOk")
-	public String write(GongjiDto gdto, HttpSession session) {
-		return service.writeOk(gdto, session);
+	@RequestMapping("/inquiry/writeOk")
+	public String write(InquiryDto idto, HttpSession session) {
+		return service.writeOk(idto, session);
 	}
 	
-	@RequestMapping("/gongji/readnum")
+	@RequestMapping("/inquiry/readnum")
 	public String readnum(HttpServletRequest request) {
 		return service.readnum(request);
 	}
 	
-	@RequestMapping("/gongji/content")
+	@RequestMapping("/inquiry/content")
 	public String content(HttpServletRequest request, Model model) {
 		return service.content(request, model);
 	}
 	
-	@RequestMapping("/gongji/update")
+	@RequestMapping("/inquiry/update")
 	public String update(HttpServletRequest request, Model model) {
 		return service.update(request, model);
 	}
 	
-	@RequestMapping("/gongji/updateOk")
-	public String update(GongjiDto gdto) {
-		return service.updateOk(gdto);
+	@RequestMapping("/inquiry/updateOk")
+	public String update(InquiryDto idto) {
+		return service.updateOk(idto);
 	}
 	
-	@RequestMapping("/gongji/delete")
+	@RequestMapping("/inquiry/delete")
 	public String delete(HttpServletRequest request) {
 		return service.delete(request);
 	}

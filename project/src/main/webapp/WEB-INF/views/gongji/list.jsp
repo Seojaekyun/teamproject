@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,20 +72,31 @@
 			<td> 조회수 </td>
 			<td> 작성일 </td>
 		</tr>
+		<c:forEach items="${glist }" var="gdto">
 		<tr align="center">
 			<td align="center">
+				<c:if test="${gdto.state==2 }">
 				<span id="badge1">필독</span> <!-- '필독' 배지 -->
+				</c:if>
+				<c:if test="${gdto.state==1 }">
 				<span id="badge2">공지</span> <!-- '공지' 배지 -->
-				<a href="#"> 공지사항의 제목이 들어감 </a> <!-- 제목 링크 -->
+				</c:if>
+				<a href="readnum?id=${gdto.id}"> ${gdto.title } </a> <!-- 제목 링크 -->
 			</td>
-			<td> 작성자 이름 </td>
-			<td> readnum </td>
-			<td> writeday </td>
+			<td> ${gdto.writer } </td>
+			<td> ${gdto.readnum } </td>
+			<td> ${gdto.writeday } </td>
+		</tr>
+		</c:forEach>
+		<tr align="right"><!-- 로그인 작업 후 삭제 -->
+			<td colspan="4">
+				<a href="write"><input id="write" type="button" value="테스트작성"></a>
+			</td>
 		</tr>
 		<c:if test="${userid=='admin'}"> <!-- 관리자인 경우에만 표시 -->
 		<tr align="right">
 			<td colspan="4"> <!-- 글쓰기 버튼 -->
-				<a href="write"><input id="write" type="button" value="문의하기"></a>
+				<a href="write"><input id="write" type="button" value="작성하기"></a>
 			</td>
 		</tr>
 		</c:if>

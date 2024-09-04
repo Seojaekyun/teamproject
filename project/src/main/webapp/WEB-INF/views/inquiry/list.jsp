@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,18 +53,38 @@
 <section>
 	<table>
 		<caption><h3>예약 관련 문의</h3></caption>
-		<tr>
+		<tr align="center">
 			<td> 제목 </td>
 			<td> 작성자 </td>
 			<td> 조회수 </td>
 			<td> 작성일 </td>
 		</tr>
-		<tr>
-			<td> title </td>
+		<c:forEach items="${ilist}" var="idto">
+		<tr align="center">
+			<td align="center">
+				<a href="readnum?id=${idto.id}">
+					<c:if test="${idto.title==0}">
+					<span id="s1">예약접수 관련 문의</span>
+					</c:if>
+					<c:if test="${idto.title==1}">
+					<span id="s2">탑승수속 관련 문의</span>
+					</c:if>
+					<c:if test="${idto.title==2}">
+					<span id="s1">예약취소 관련 문의</span>
+					</c:if>
+					<c:if test="${idto.title==3}">
+					<span id="s2">웹사이트 관련 문의</span>
+					</c:if>
+					<c:if test="${idto.title==4}">
+					<span id="s1">기타 문의</span>
+					</c:if>
+				</a>
+			</td>
 			<td> writer </td>
-			<td> readnum </td>
-			<td> writeday </td>
+			<td> ${idto.readnum} </td>
+			<td> ${idto.writeday} </td>
 		</tr>
+		</c:forEach>
 		<tr align="right">
 			<td colspan="4">
 				<a href="write"><input id="write" type="button" value="문의하기"></a>
@@ -72,8 +93,6 @@
 	
 	</table>
 	
-	
-
 </section>
 </body>
 </html>

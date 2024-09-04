@@ -8,39 +8,37 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.example.demo.dto.GongjiDto;
-import com.example.demo.mapper.GongjiMapper;
-
+import com.example.demo.dto.InquiryDto;
+import com.example.demo.mapper.InquiryMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-@Qualifier("gs")
-public class GongjiServiceImpl implements GongjiService {
+@Qualifier("is")
+public class InquiryServiceImpl implements InquiryService {
 	@Autowired
-	private GongjiMapper mapper;
+	private InquiryMapper mapper;
 	private SqlSession sqlSession;
 	
 	@Override
 	public String list(HttpServletRequest request, Model model) {
-		ArrayList<GongjiDto> glist=mapper.list();
-		System.out.println(glist);
+		ArrayList<InquiryDto> ilist=mapper.list();
+				
+		model.addAttribute("ilist", ilist);
 		
-		model.addAttribute("glist", glist);
-		
-		return "/gongji/list";
+		return "/inquiry/list";
 	}
 	
 	@Override
 	public String write() {
-		return "/gongji/write";
+		return "/inquiry/write";
 	}
 	
 	@Override
-	public String writeOk(GongjiDto gdto, HttpSession session) {
-		mapper.writeOk(gdto);
+	public String writeOk(InquiryDto idto, HttpSession session) {
+		mapper.writeOk(idto);
 		
-		return "redirect:/gongji/list";
+		return "redirect:/inquiry/list";
 	}
 
 	@Override
@@ -49,35 +47,35 @@ public class GongjiServiceImpl implements GongjiService {
 		System.out.println(id);
 		mapper.readnum(id);
 		
-		return "redirect:/gongji/content?id="+id;
+		return "redirect:/inquiry/content?id="+id;
 	}
 
 	@Override
 	public String content(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
-		GongjiDto gdto=mapper.content(id);
+		InquiryDto idto=mapper.content(id);
 		
-		gdto.setContent(gdto.getContent().replace("\r\n", "<br>"));
+		idto.setContent(idto.getContent().replace("\r\n", "<br>"));
 		
-		model.addAttribute("gdto", gdto);		
+		model.addAttribute("idto", idto);		
 		
-		return "/gongji/content";
+		return "/inquiry/content";
 	}
 
 	@Override
 	public String update(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
-		GongjiDto gdto=mapper.content(id);
+		InquiryDto idto=mapper.content(id);
 		
-		model.addAttribute("gdto", gdto);
+		model.addAttribute("idto", idto);
 		
-		return "/gongji/update";
+		return "/inquiry/update";
 	}
 
 	@Override
-	public String updateOk(GongjiDto gdto) {
-		mapper.updateOk(gdto);
-		return "redirect:/gongji/content?id="+gdto.getId();
+	public String updateOk(InquiryDto idto) {
+		mapper.updateOk(idto);
+		return "redirect:/inquiry/content?id="+idto.getId();
 	}
 
 	@Override
@@ -85,7 +83,7 @@ public class GongjiServiceImpl implements GongjiService {
 		String id=request.getParameter("id");
 		mapper.delete(id);
 		
-		return "redirect:/gongji/list";
+		return "redirect:/inquiry/list";
 	}
 	
 
