@@ -216,7 +216,7 @@
 		<div id="section1">
 			<div id="logo">
 				<a href="../main/index">
-					<img src="../static/resources/123.png" width="200px" height="75px">
+					<img src="../static/resources/eltlogo.png" width="200px" height="75px">
 				</a>
 			</div>
 			<div id="loginMenu">
