@@ -9,5 +9,4 @@
 		values(#{title},#{content},#{state},now(),#{writer})
 	</insert>
 	
-	
 </mapper>
