@@ -270,133 +270,6 @@ footer table {
             </div>
         </div>
 
-<<<<<<< HEAD
-	<div id="section1">
-	
-		<!-- 로고 -->
-		<div id="logo">
-			
-			<!-- 로그 클릭시 홈페이지로 돌아오기 -->
-			<a href ="../main/index">
-			
-				<!-- 로고 디자인 -->
-			<img src="../static/resources/123.png" width="200px" height="75px">
-		
-			
-			</a>
-			
-		</div>
-		
-		<!-- 회원가입 | 로그인 | 고객문의  -->
-		<div id="loginMenu">
-		
-		
-			<!-- 비회원 있을시 로그인 메뉴  -->
-			<c:if test="${userid==null}">
-			
-			<!-- 회원가입 -->
-			<a href="../member/member"> 회원가입 </a> |
-			
-			<!-- 로그인 -->
-			<a href="../login/login"> 로그인 </a> |
-			
-			<!-- 고객문의 -->
-			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
-                <ul id="memberMenu">
-                    <li> 공지사항 </li>
-                    <li> 예약문의 </li>
-                    <li> 이벤트 </li>
-                </ul>
-            </span>
-			</c:if>
-			
-			
-			<!-- 로그인 시 로그인 메뉴 -->
-			<c:if test="${userid!=null}">
-			
-			<!-- 회원가입 -->
-			<a href="../member/content"> ${name}님 </a> |
-			
-			<!-- 로그인 -->
-			<a href="../login/logout"> 로그아웃 </a> |
-			
-			<!-- 고객문의 -->
-			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
-                <ul id="memberMenu">
-                    <li> 공지사항 </li>
-                    <li> 예약문의 </li>
-                    <li> 이벤트 </li>
-                </ul>
-            </span>
-			</c:if>
-			
-			
-			
-			
-		</div>
-		
-		
-		</div>
-	
-	<nav>
-	
-		<ul id="main">
-			<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
-				<ul class="menu">
-					<li> 
-						<a href="../menu/index1">여행 준비</a> 
-					</li>
-					
-					<li>
-						<a href="../menu/index2">여행</a>
-					</li>
-					
-					<li>
-						<a href="../menu/index3">예약 취소</a>
-					</li>
-					
-				</ul>
-			</li>
-			
-			<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 항공권
-				<ul class="menu">
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-				</ul>
-			</li>
-			
-			<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
-				<ul class="menu">
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-				</ul>
-			</li>
-			
-			<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)"> 여행지
-				<ul class="menu">
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-				</ul>
-			</li>
-			
-			<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔
-				<ul class="menu">
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-				</ul>
-			</li>
-			
-			
-		</ul>
-	
-	</nav>
-	
-	
-=======
         <nav>
             <ul id="main">
                 <li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
@@ -437,7 +310,7 @@ footer table {
             </ul>
         </nav>
     </header>
->>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
+
 
     <sitemesh:write property="body"/>
 
