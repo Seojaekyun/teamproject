@@ -53,9 +53,9 @@
 
 <section>
 	<table>
-		<caption><h3>예약 관련 문의</h3></caption>
+		<caption><h3> Q & A </h3></caption>
 		<tr align="center">
-			<td> 제목 </td>
+			<td> 문의사항 </td>
 			<td> 작성자 </td>
 			<td> 조회수 </td>
 			<td> 작성일 </td>

@@ -227,7 +227,7 @@
 						<li id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
 							<ul class="cmenu">
 								<li><a href="../gongji/list"> 공지사항 </a></li>
-								<li><a href="../inquiry/list"> 예약문의 </a></li>
+								<li><a href="../inquiry/list"> Q & A </a></li>
 								<li> 이벤트 </li>
 							</ul>
 						</li>
@@ -245,7 +245,7 @@
 					<span id="supMenu" onmouseover="viewCmenu(1)" onmouseout="hideCmenu(1)"> 고객센터
 						<ul class="cmenu">
 							<li><a href="../gongji/list"> 공지사항 </a></li>
-							<li><a href="../inquiry/list"> 예약문의 </a></li>
+							<li><a href="../inquiry/list"> Q & A </a></li>
 							<li> 이벤트 </li>
 						</ul>
 					</span>
