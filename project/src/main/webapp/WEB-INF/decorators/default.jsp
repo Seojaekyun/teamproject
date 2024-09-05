@@ -319,9 +319,9 @@ function hideMy() {
 			<!-- 고객문의 -->
 			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
                 <ul id="memberMenu">
-                    <li> 회원정보 </li>
-                    <li> 예약정보 </li>
-                    <li> 자유게시판 </li>
+                    <li> 공지사항 </li>
+                    <li> 예약문의 </li>
+                    <li> 이벤트 </li>
                 </ul>
             </span>
 			</c:if>
@@ -331,7 +331,7 @@ function hideMy() {
 			<c:if test="${userid!=null}">
 			
 			<!-- 회원가입 -->
-			<a href="../member/content"> XXX님 </a> |
+			<a href="../member/content"> ${name}님 </a> |
 			
 			<!-- 로그인 -->
 			<a href="../login/logout"> 로그아웃 </a> |
@@ -339,9 +339,9 @@ function hideMy() {
 			<!-- 고객문의 -->
 			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
                 <ul id="memberMenu">
-                    <li> 회원정보 </li>
-                    <li> 예약정보 </li>
-                    <li> 자유게시판 </li>
+                    <li> 공지사항 </li>
+                    <li> 예약문의 </li>
+                    <li> 이벤트 </li>
                 </ul>
             </span>
 			</c:if>

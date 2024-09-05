@@ -20,5 +20,6 @@ public class MemberController {
 	{
 		return service.member();
 	}
-
+	
+	
 }
