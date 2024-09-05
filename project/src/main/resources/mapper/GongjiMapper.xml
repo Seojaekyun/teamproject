@@ -21,5 +21,6 @@
 	<delete id="delete">
 		delete from gongji where id=#{param}
 	</delete>
+
 	
 </mapper>
