@@ -130,67 +130,237 @@
 		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
 	}
 	header > nav #main {
-		padding-left: 0;
-		margin-left: 100px;
-	}
-	header > nav #main > li {
-		display: inline-block;
-		list-style-type: none;
-		width: 200px;
-		height: 50px;
-		line-height: 30px;
+      padding-left:0px;
+      margin-left:100px;
+   }
+   
+   header > nav #main > li { /* 주메뉴 */
+      display:inline-block;
+      list-style-type:none;
+      width:340px;
+      height:50px;
+      line-height:30px;
+      text-align:center;
+      font-weight:900;
+      position:relative;
+      
+      
+      
+      z-index: 5;
+      
+      
+      /*border:1px solid black;*/
+   }
+
+
+	header > nav #main > li > .menu { /* 하위메뉴 ul태그 */
+      padding-left:0px;
+      position:absolute;
+      left:0px;
+      top:48px;
+      background:white;
+      visibility:hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+   }
+   
+   header > nav #main > li > .menu > li { /* 하위메뉴내의 메뉴 */
+      list-style-type:none;
+      width:340px;
+      height:35px;
+      line-height:35px;
+      border-bottom:1px solid #ddd;
+      
+      
+    					
+    					
+   }
+   
+   
+   /*
+   header > nav #main > li > .menu > li:last-child {
+      border-bottom:1px solid green;
+    }
+    */
+
+
+/* 푸터 스타일 */
+footer {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    font-family: 'Hahmlet';
+    margin-top: 30px;
+    font-size: 13px;
+    background: #9AB973;
+    color: white;
+    text-align: center;
+}
+
+footer table {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    header, #outer #first, nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    footer table, footer td {
+        font-size: 11px;
+    }
+}
+
+
+/*중앙 컨텐츠*/
+
+@media (max-width: 768px) {
+	header, #outer #first, nav ul {
+		flex-direction: column;
 		text-align: center;
-		font-weight: 900;
-		position: relative;
-		z-index: 5;
 	}
-	header > nav #main > li > .menu {
-		padding-left: 0;
-		position: absolute;
-		left: 0;
-		top: 48px;
-		background: white;
-		visibility: hidden;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	nav ul li {
+		display: block;
+		margin: 10px 0;
 	}
-	header > nav #main > li > .menu > li {
-		list-style-type: none;
-		width: 200px;
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #ddd;
+	footer table, footer td {
+		font-size: 11px;
 	}
-	footer {
-		padding-top: 10px;
-		padding-bottom: 5px;
-		width: 100%;
-		height: auto;
-		margin: auto;
-		font-family: 'Hahmlet';
-		margin-top: 30px;
-		font-size: 13px;
-		background: #150084;
-		color: white;
-		text-align: center;
-	}
-	footer table {
-		width: 100%;
-		max-width: 1000px;
-		margin: auto;
-	}
-	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
-			flex-direction: column;
-			text-align: center;
-		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
-		}
-		footer table, footer td {
-			font-size: 11px;
-		}
-	}
+}
+
+.air_service{
+	position: relative;
+	background-image: url('../static/resources/background.jpg'); 
+	background-size: cover; 
+	width: 100%;  
+	height: 503px;
+	background-repeat: no-repeat;
+	z-index:0;
+
+}
+
+.air_align{
+margin-left: 73px;
+margin-right: 73px;
+display: flex; /* Flexbox 컨테이너로 설정 */
+flex-direction: column; /* 수직 방향으로 정렬 */
+align-items: center; /* 중앙 정렬 */
+
+
+}
+
+
+.air_contentbox{
+	position: relative;
+	 
+    top: 5.3rm; /* 원하는 위치로 조정 */
+    left: 0; /* 원하는 위치로 조정 */
+   /* width: 1150px; 
+    height: 284px; */
+    width: 90%;
+    heigth: 70%; 
+    display: flex;
+    flex-direction: column; /*수직 방향으로 콘텐츠 정렬 */
+    justify-content: center; 
+    align-items: center; 
+    z-index:2;
+}
+
+
+
+
+.air_widget{
+position: absolute;
+    top: 7.4rem;
+    display: block;
+    width: 100%;
+    height: 54px;
+    content: "";
+    z-index: 1;
+    margin: auto;
+
+}
+
+.booking_widget_list{
+list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100ox;
+    position: relative;
+}
+
+
+.booking_widget_list:before{
+position: absolute;
+    top: 0;
+    left: 1.3rem;
+    display: block;
+    width: calc(100% - 2.6rem);
+    height: 100%;
+    content: none;
+    background-color: #65728a;
+}
+
+.booking_widget_list li {
+	flex: 1;
+    text-align: center;
+    border: 1px solid #65728a;
+    padding-block: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin: 0.5px;
+    background-color: #65728a;
+    z-index:2;
+}
+
+#booking_menu{
+display: inline-block;
+}
+
+.booking_widget_list button {
+    width: 100%; /* 버튼이 li 요소의 너비를 꽉 채우도록 설정 */
+    height: 100%; /* 버튼이 li 요소의 높이를 꽉 채우도록 설정 */
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* 버튼 내의 텍스트 중앙 정렬을 위해 Flexbox 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.booking_widget_list button span {
+    font-size: 16px;
+        color: white;
+    position: relative; /* 텍스트의 위치 조정을 위해 relative 설정 */
+    top: -5px; /* 텍스트를 위로 이동시킬 값을 조정 */
+    
+}
+
+.booking_contents {
+	position: relative;
+    width: 100%;
+    height: 220px;
+    z-index: 3;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    margin-top: -10px;
+}
 </style>
 <script>
 	function viewCmenu(n) {
@@ -223,12 +393,14 @@
 				</a>
 			</div>
 			<div id="loginMenu">
-				<c:if test="${userid==null}">
+				<c:if test="${userid!=null&&userid=='admin'}">
 					<!-- 관리 홈 예시 -->
-					<a href="#" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+				</c:if>
+				<c:if test="${userid==null}">
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
-					
+			
 				</c:if>
 										
 				<c:if test="${userid!=null}">
@@ -290,33 +462,88 @@
 				</li>
 			</ul>
 		</nav>
-	</header>
-<sitemesh:write property="body"/>
-	<footer>
-		<table>
-			<tr align="left">
-				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-				<td> 상호명 : LLTA </td>
-				<td> 365고객센터 </td>
-			</tr>
-			<tr align="left">
-				<td> 대표이사 : 주인장 </td>
-				<td> 080-888-1234(무료) </td>
-			</tr>
-			<tr align="left">
-				<td> 본사 : 경기도 파주시 야당동 </td>
-				<td> email : Tmaster@air.co.kr </td>
-			</tr>
-			<tr align="left">
-				<td> 사업자 등록번호 : 444-44-44444 </td>
-				<td> 전화번호 : 010-1234-5678 </td>
-			</tr>
-			<tr align="left">
-				<td> 통신판매업 신고 제 18-2838 </td>
-				<td></td>
-			</tr>
-		</table>
-	</footer>
+
+</header>
+
+    <div class="main_content">
+	<div class="air_service"> 
+	<div class="air_align">
+	
+	<div class="air_contentbox"> 
+	<div id="air_alert"></div>
+	<div class="air_widget">
+	
+	<ul class="booking_widget_list">
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 항공권예매 </span> 
+		</button>
+	</li>
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 예약조회 </span>
+		</button>
+	</li>
+	
+	<li id="booking_menu">
+		<button type="button">
+	 	<span> 체크인 </span>
+	 	</button>
+	</li>
+	
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 출도착/스케쥴 </span>
+		</button>
+	</li>
+	</ul>
+	<div class="booking_contents">
+		<div id="trip methods">
+		 <input type="radio" name="t_methods" value="0">
+		 <label>왕복</label> 
+		 <input type="radio" name="t_methods" value="1">
+		 <label>편도</label>
+		</div>
+		<div id="quick_booking">
+		<button type="button">
+			<span>From</span>
+			<span>$nbsp;출발지</span></button>
+		</div>
+	 </div>
+	</div>
+	</div>
+	</div>
+</div>
+</div>
+  <sitemesh:write property="body"/>
+  
+<!-- 푸터 -->
+    <footer>
+        <table>
+            <tr>
+                <td rowspan="5" width="200"></td>
+                <td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
+                <td> 상호명 : LLTA </td>
+                <td> 365고객센터 </td>
+            </tr>
+            <tr>
+                <td> 대표이사 : 주인장 </td>
+                <td> 080-888-1234(무료) </td>
+            </tr>
+            <tr>
+                <td> 본사 : 경기도 파주시 야당동 </td>
+                <td> email : Tmaster@air.co.kr </td>
+            </tr>
+            <tr>
+                <td> 사업자 등록번호 : 444-44-44444 </td>
+                <td> 전화번호 : 010-1234-5678 </td>
+            </tr>
+            <tr>
+                <td> 통신판매업신고 : 2023-경기비행-1234 </td>
+                <td></td>
+            </tr>
+        </table>
+    </footer>
+
 </body>
 </html>

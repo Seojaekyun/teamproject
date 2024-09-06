@@ -35,6 +35,15 @@ public class LoginController {
 		return service.loginAd(request,model);
 	}
 	
+	@RequestMapping("/login/loginOk")
+	public String loginOk(MemberDto mdto,
+			HttpSession session,
+			HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		return service.loginOk(mdto,session,request,response);
+	}
+	
 	@RequestMapping("/login/loginAdmin")
 	public String loginAdmin(MemberDto mdto,
 			HttpSession session,

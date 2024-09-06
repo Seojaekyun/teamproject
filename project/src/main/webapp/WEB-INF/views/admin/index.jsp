@@ -54,7 +54,7 @@
 				회원 관리
 			</div>
 			<div id="four">
-				1
+				<a href="../main/index"> 홈페이지 </a>
 			</div>
 			<div id="five">
 				2
