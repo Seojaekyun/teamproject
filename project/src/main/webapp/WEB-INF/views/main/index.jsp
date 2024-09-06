@@ -40,11 +40,6 @@ section
 	margin:auto;
 }
 
-.sec4
-{
-	bacrground:#FFF9E7;
-	margin:auto;
-}
 
 </style>
 
@@ -67,9 +62,6 @@ section
 	3
 	</section>
 	
-	<section id=container class=sec4>
-	4
-	</section>
 
 </body>
 </html>

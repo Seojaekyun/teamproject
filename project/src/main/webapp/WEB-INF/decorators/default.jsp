@@ -251,6 +251,148 @@ footer table {
     }
 }
 
+
+/*중앙 컨텐츠*/
+
+@media (max-width: 768px) {
+	header, #outer #first, nav ul {
+		flex-direction: column;
+		text-align: center;
+	}
+	nav ul li {
+		display: block;
+		margin: 10px 0;
+	}
+	footer table, footer td {
+		font-size: 11px;
+	}
+}
+
+.air_service{
+	position: relative;
+	background-image: url('../static/resources/background.jpg'); 
+	background-size: cover; 
+	width: 100%;  
+	height: 503px;
+	background-repeat: no-repeat;
+	z-index:0;
+
+}
+
+.air_align{
+margin-left: 73px;
+margin-right: 73px;
+display: flex; /* Flexbox 컨테이너로 설정 */
+flex-direction: column; /* 수직 방향으로 정렬 */
+align-items: center; /* 중앙 정렬 */
+
+
+}
+
+
+.air_contentbox{
+	position: relative;
+	 
+    top: 5.3rm; /* 원하는 위치로 조정 */
+    left: 0; /* 원하는 위치로 조정 */
+   /* width: 1150px; 
+    height: 284px; */
+    width: 90%;
+    heigth: 70%; 
+    display: flex;
+    flex-direction: column; /*수직 방향으로 콘텐츠 정렬 */
+    justify-content: center; 
+    align-items: center; 
+    z-index:2;
+}
+
+
+
+
+.air_widget{
+position: absolute;
+    top: 7.4rem;
+    display: block;
+    width: 100%;
+    height: 54px;
+    content: "";
+    z-index: 1;
+    margin: auto;
+
+}
+
+.booking_widget_list{
+list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100ox;
+    position: relative;
+}
+
+
+.booking_widget_list:before{
+position: absolute;
+    top: 0;
+    left: 1.3rem;
+    display: block;
+    width: calc(100% - 2.6rem);
+    height: 100%;
+    content: none;
+    background-color: #65728a;
+}
+
+.booking_widget_list li {
+	flex: 1;
+    text-align: center;
+    border: 1px solid #65728a;
+    padding-block: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin: 0.5px;
+    background-color: #65728a;
+    z-index:2;
+}
+
+#booking_menu{
+display: inline-block;
+}
+
+.booking_widget_list button {
+    width: 100%; /* 버튼이 li 요소의 너비를 꽉 채우도록 설정 */
+    height: 100%; /* 버튼이 li 요소의 높이를 꽉 채우도록 설정 */
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* 버튼 내의 텍스트 중앙 정렬을 위해 Flexbox 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.booking_widget_list button span {
+    font-size: 16px;
+        color: white;
+    position: relative; /* 텍스트의 위치 조정을 위해 relative 설정 */
+    top: -5px; /* 텍스트를 위로 이동시킬 값을 조정 */
+    
+}
+
+.booking_contents {
+	position: relative;
+    width: 100%;
+    height: 220px;
+    z-index: 3;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    margin-top: -10px;
+}
+
+
 </style>
 
 <script>
@@ -415,6 +557,56 @@ function hideMy() {
 
 </header>
 
+    <div class="main_content">
+	<div class="air_service"> 
+	<div class="air_align">
+	
+	<div class="air_contentbox"> 
+	<div id="air_alert"></div>
+	<div class="air_widget">
+	
+	<ul class="booking_widget_list">
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 항공권예매 </span> 
+		</button>
+	</li>
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 예약조회 </span>
+		</button>
+	</li>
+	
+	<li id="booking_menu">
+		<button type="button">
+	 	<span> 체크인 </span>
+	 	</button>
+	</li>
+	
+	<li id="booking_menu"> 
+		<button type="button">
+		<span> 출도착/스케쥴 </span>
+		</button>
+	</li>
+	</ul>
+	<div class="booking_contents">
+		<div id="trip methods">
+		 <input type="radio" name="t_methods" value="0">
+		 <label>왕복</label> 
+		 <input type="radio" name="t_methods" value="1">
+		 <label>편도</label>
+		</div>
+		<div id="quick_booking">
+		<button type="button">
+			<span>From</span>
+			<span>$nbsp;출발지</span></button>
+		</div>
+	 </div>
+	</div>
+	</div>
+	</div>
+</div>
+</div>
   <sitemesh:write property="body"/>
   
 <!-- 푸터 -->
