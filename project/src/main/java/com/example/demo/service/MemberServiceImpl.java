@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.MemberDto;
 import com.example.demo.mapper.MemberMapper;
 
 @Service
@@ -17,6 +18,19 @@ public class MemberServiceImpl implements MemberService {
 	public String member() 
 	{		 
 		return "/member/member";
+	}
+	
+	@Override
+	public String useridCheck(String userid)
+	{
+		return mapper.useridCheck(userid); 
+	}
+
+	@Override
+	public String memberOk(MemberDto mdto) 
+	{
+		mapper.memberOk(mdto);
+		return "/login/login";
 	}
 
 }

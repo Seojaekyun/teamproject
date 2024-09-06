@@ -1,165 +1,136 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <style>
-
-*
-{
-	margin:0px;
-}
-
-body
-{
-	margin:0;
-}
-
-
-
-
-/*1층과 2층 header 메인메뉴 */
-header{
-
-	width:100%;
-	margin:auto;
-	
-	
-	/*border: 1px solid black;*/
-	
-
-}
-
-	
-	/*header 내 1층 첫번째 메뉴 (로고와 회원메뉴 )*/
-	#section1	
-	{
-		width:100%;
-		/*border: 1px solid black;*/
-		height:80px;
-		margin:auto;
-		margin-button:0px;
-		
-		
-		justify-content: space-between; /* 먼가 가운데 블럭을 준다  */
-		
-        align-items: center; /* 위아래에서 똑같은 가운데에서 구현*/
-		
-		display:flex; /* 디바이스를 가로 정렬할때 좋다*/
-		
-		/*background:#F3E5F5;*/
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
-	
-			/* 로고 디자인 */
-			#section1 #logo
-			{
-				width:200px;
-				height:75px;
-				margin-left:50px;
-				 /*border:1px solid black;*/
-				
-				
-			}
-			
-			
-			/* 로그인 메뉴 디자인 */	
-			#section1 #loginMenu
-			{
-				width:375px;
-				/* border:1px solid black; */
-		
-			}
-		
-				/*로그인 메뉴 a태그 디자인*/
-				#section1 #loginMenu a
-				{
-					text-decoration:none;
-					color:black;
-			
-				}
-			
-			
-				/*로그인 메뉴 a태그에 마우스가 올라갔을 때 디자인*/
-				#section1 #loginMenu a:hover {
-				
-					text-decoration: underline;
-    				color: green;
-			
-				}
-				
-				
-				#section1 #loginMenu #memberMenu {  /* ul */
-						
-						
-    					position: absolute;
-    					left:1670px;
-    					top:52px;
-    					padding-left: 0;
-    					width: 110px;
-    					background: white;
-    					display: none;
-    					z-index: 10; /* 다른 요소들 위에 표시되도록 설정 */
-    					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    					
-    					
-    					
-    					
-					}
-					
-					
-				#section1 #loginMenu #memberMenu >li {
-						list-style-type: none;
-   	 					width: 110px;
-    					height: 30px;
-    					line-height: 30px;
-    					text-align: center;
-    					cursor: pointer;
-    					border-bottom: 1px solid #ddd;
-				}
-				
-				#section1 #loginMenu #memberMenu >li:hover {
-					
-						text-decoration: underline;
-						color:green;
-				}
-		
-	
-	header > nav
-	{
-		
-		width:100%;
-		/*border:1px solid black;*/
-		
-		/*background:#FFE0B2;*/
-		
+	body {
+		margin: auto;
+		font-family: 'Hahmlet';
+	}
+	header {
+		width: 100%;
+		margin: auto;
+	}
+	#section1 {
+		width: 100%;
+		height: 80px;
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	#section1 #logo {
+		width: 200px;
+		height: 75px;
+		margin-left: 50px;
+	}
+	#section1 #loginMenu {
+		display: flex;
+		align-items: center;
+		font-size: 20px;
+		font-weight: 600;
+		margin-right: 60px;
+	}
+	#section1 #loginMenu a {
+		text-decoration: none;
+		color: black;
+	}
+	#section1 #loginMenu a:hover {
+		text-decoration: none;
+		color: green;
+		font-weight: 900;
+	}
+	#section1 #loginMenu ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		align-items: center;
+	}
+	#section1 #loginMenu ul li {
+		position: relative;
+		margin-right: 10px;
+	}
+	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
+		padding-left: 0;
+		position: absolute;
+		left: -10px;
+		top: 30px;
+		background: white;
+		display: none;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
+		list-style-type: none;
+		width: 130px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom: 1px solid #ddd;
+	}
+	#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
+		text-decoration: underline;
+		color: green;
+	}
+	#section1 #loginMenu #supMenu {
+		position: relative;
+	}
+	#section1 #loginMenu #myInfo {
+		position: relative;
+	}
+	#section1 #loginMenu #supMenu .menu {
+		padding-left: 0;
+		position: absolute;
+		left: -10px;
+		top: 30px;
+		background: white;
+		display: none;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	#section1 #loginMenu #supMenu .menu > li {
+		list-style-type: none;
+		width: 130px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom: 1px solid #ddd;
+	}
+	#section1 #loginMenu #supMenu .menu > li:hover {
+		text-decoration: underline;
+		color: green;
+	}
+	header > nav {
+		width: 1200px;
 		height: 70px;
-		margin:auto;
-		line-height:50px;
-		
+		margin: auto;
+		line-height: 50px;
+		font-family: 'Gugi';
 	}
-
-
 	header > nav a {
-	
-		text-decoration:none;	/* a태그 일때 밑줄 없애기 */
-      	color:black;			/* a태그 일때 색을 바꾸기 */
-	
+		text-decoration: none;
+		color: black;
 	}
-	
 	header > nav a:hover {
-		
-		text-decoration:underline;		/* a태그 일때 마우스 커서 밑줄 생기기 */
-		color:green;					/* a태그 일때 마우스 커서 색 바꾸기 */
-	
-	
+		text-decoration: underline;
+		color: green;
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
 	}
-	
 	header > nav #main {
+
       padding-left:0px;
       margin-left:100px;
    }
@@ -393,126 +364,48 @@ display: inline-block;
 }
 
 
+
 </style>
-
 <script>
-
-
-/*메뉴바 마우스 커서 이동시 하위메뉴 등장 */
-function viewMenu(n)
-{
-	   document.getElementsByClassName("menu")[n].style.visibility="visible";
-}
-function hideMenu(n)
-{
-	   document.getElementsByClassName("menu")[n].style.visibility="hidden";
-}
-
-
-
-/*고객센터 마우스 커서 이동시 하위메뉴 등장*/
-function viewMy() {
-    document.getElementById("memberMenu").style.display="block"; // display를 block으로 설정하여 보여줌
-}
-
-function hideMy() {
-    document.getElementById("memberMenu").style.display="none"; // display를 none으로 설정하여 숨김
-}
-
+	function viewCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "block";
+	}
+	function hideCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "none";
+	}
+	function viewMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "block";
+	}
+	function hideMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "none";
+	}
+	function viewMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "visible";
+	}
+	function hideMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
+	}
 </script>
-
-
- <sitemesh:write property="head"/>
-
+<sitemesh:write property="head"/>
 </head>
 <body>
+	<header>
+		<div id="section1">
+			<div id="logo">
+				<a href="../main/index">
+					<img src="../static/resources/eltlogo.png" width="200px" height="75px">
+				</a>
+			</div>
+			<div id="loginMenu">
+				<c:if test="${userid==null}">
+				
+					<!-- 관리조 홈 예시 -->
+					<a href="#" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+					
+					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
+					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
+					
 
-<header>
-
-	<div id="section1">
-	
-		<!-- 로고 -->
-		<div id="logo">
-			
-			<!-- 로그 클릭시 홈페이지로 돌아오기 -->
-			<a href ="../main/index">
-			
-				<!-- 로고 디자인 -->
-			<img src="../static/resources/123.png" width="200px" height="75px">
-		
-			
-			</a>
-			
-		</div>
-		
-		<!-- 회원가입 | 로그인 | 고객문의  -->
-		<div id="loginMenu">
-		
-		
-			<!-- 비회원 있을시 로그인 메뉴  -->
-			<c:if test="${userid==null}">
-			
-			<!-- 회원가입 -->
-			<a href="../member/member"> 회원가입 </a> |
-			
-			<!-- 로그인 -->
-			<a href="../login/login"> 로그인 </a> |
-			
-			<!-- 고객문의 -->
-			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
-                <ul id="memberMenu">
-                    <li> 회원정보 </li>
-                    <li> 예약정보 </li>
-                    <li> 자유게시판 </li>
-                </ul>
-            </span>
-			</c:if>
-			
-			
-			<!-- 로그인 시 로그인 메뉴 -->
-			<c:if test="${userid!=null}">
-			
-			<!-- 회원가입 -->
-			<a href="../member/content"> XXX님 </a> |
-			
-			<!-- 로그인 -->
-			<a href="../login/logout"> 로그아웃 </a> |
-			
-			<!-- 고객문의 -->
-			<span id="myInfo" onmouseover="viewMy()" onmouseout="hideMy()"> 고객서비스
-                <ul id="memberMenu">
-                    <li> 회원정보 </li>
-                    <li> 예약정보 </li>
-                    <li> 자유게시판 </li>
-                </ul>
-            </span>
-			</c:if>
-			
-			
-			
-			
-		</div>
-		
-		
-		</div>
-	
-	<nav>
-	
-		<ul id="main">
-			<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
-				<ul class="menu">
-					<li> 
-						<a href="../menu/index1">여행 준비</a> 
-					</li>
-					
-					<li>
-						<a href="../menu/index2">여행</a>
-					</li>
-					
-					<li>
-						<a href="../menu/index3">예약 취소</a>
-					</li>
-					
 				</ul>
 			</li>
 			
@@ -636,6 +529,7 @@ function hideMy() {
             </tr>
         </table>
     </footer>
+
 
 </body>
 </html>

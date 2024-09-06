@@ -10,7 +10,7 @@
 <title>Insert title here</title>
   <style>
 .accountbox {
-    width: 400px;
+    width: 500px;
     height: 400px;
     margin: auto;
     text-align: center;
@@ -56,6 +56,7 @@
    }
    
    h2 {
+   padding-top:20px;
    padding-bottom: 30px;
    }
    
@@ -80,7 +81,7 @@
     border: 1px solid black;
     font-size: 16px;
     border-radius: .4rem;
-    margin-top: -6px;
+    margin-top: 20px;
     margin-left: -1px;
    }
   </style>
@@ -193,17 +194,14 @@
      </div>
      <div> 
        <div class="inner">비밀번호</div>
-       <input type="password" name="pwd" value="1234" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
+       <input type="password" name="pwd" value="123" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
      </div>
      <p align="center"> <input type="submit" value="로그인" id="sub"> </p>
      <p> 아이디찾기 | 비밀번호 찾기 </p>
     
+    
+     </form> 
     </div>
-    
-    <div></div>
-    
-    
-    </form>  
     
 </body>
 </html>
