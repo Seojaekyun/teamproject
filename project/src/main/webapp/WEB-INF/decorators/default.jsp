@@ -87,6 +87,9 @@
 	#section1 #loginMenu #supMenu {
 		position: relative;
 	}
+	#section1 #loginMenu #myInfo {
+		position: relative;
+	}
 	#section1 #loginMenu #supMenu .menu {
 		padding-left: 0;
 		position: absolute;
@@ -231,14 +234,14 @@
 				</c:if>
 										
 				<c:if test="${userid!=null}">
-					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">  ${name}님 |
+					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">  ${name}님 &nbsp;|&nbsp;
 						<ul class="mmenu">
 							<li> 회원정보 </li>
 							<li> 예약정보 </li>
 							<li> 나의문의 </li>
 						</ul>
 					</span>
-					<a href="../login/logout"> 로그아웃 </a> |
+					<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
 					<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
 						<ul class="cmenu">
@@ -293,25 +296,25 @@
 <sitemesh:write property="body"/>
 	<footer>
 		<table>
-			<tr>
+			<tr align="left">
 				<td rowspan="5" width="200"></td>
 				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
 				<td> 상호명 : LLTA </td>
 				<td> 365고객센터 </td>
 			</tr>
-			<tr>
+			<tr align="left">
 				<td> 대표이사 : 주인장 </td>
 				<td> 080-888-1234(무료) </td>
 			</tr>
-			<tr>
+			<tr align="left">
 				<td> 본사 : 경기도 파주시 야당동 </td>
 				<td> email : Tmaster@air.co.kr </td>
 			</tr>
-			<tr>
+			<tr align="left">
 				<td> 사업자 등록번호 : 444-44-44444 </td>
 				<td> 전화번호 : 010-1234-5678 </td>
 			</tr>
-			<tr>
+			<tr align="left">
 				<td> 통신판매업 신고 제 18-2838 </td>
 				<td></td>
 			</tr>
