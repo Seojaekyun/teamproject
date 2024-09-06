@@ -194,7 +194,7 @@
      </div>
      <div> 
        <div class="inner">비밀번호</div>
-       <input type="password" name="pwd" value="1234" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
+       <input type="password" name="pwd" value="123" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
      </div>
      <p align="center"> <input type="submit" value="로그인" id="sub"> </p>
      <p> 아이디찾기 | 비밀번호 찾기 </p>

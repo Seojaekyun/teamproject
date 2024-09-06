@@ -221,6 +221,10 @@
 			</div>
 			<div id="loginMenu">
 				<c:if test="${userid==null}">
+				
+					<!-- 관리조 홈 예시 -->
+					<a href="#" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+					
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 					<ul>
