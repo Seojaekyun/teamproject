@@ -14,9 +14,13 @@
 		height: 50px;
 		background: yellow;
 		margin: auto;
+		align: center;
 	}
 	#first > div {
+		align: center;
 		display: inline-block;
+		width: 100px;
+		font-size: 17px;
 	}
 	#second {
 		margin: auto;
@@ -50,13 +54,13 @@
 				회원 관리
 			</div>
 			<div id="four">
-				
+				1
 			</div>
 			<div id="five">
-			
+				2
 			</div>
 			<div id="six">
-			
+				3
 			</div>
 		</div>
 		<div id="second">	
@@ -80,18 +84,6 @@
 			</div>
 		</div>
 	
-	</section>
-	
-	<section id=container class=sec2>
-	2
-	</section>
-	
-	<section id=container class=sec3>
-	3
-	</section>
-	
-	<section id=container class=sec4>
-	4
 	</section>
 
 </body>
