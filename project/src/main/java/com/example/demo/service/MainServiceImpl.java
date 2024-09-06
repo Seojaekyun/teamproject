@@ -19,6 +19,12 @@ public class MainServiceImpl implements MainService {
 	{
 		return "/main/index";
 	}
+
+	@Override
+	public String adminI() {
+		
+		return null;
+	}
 	
 	
 

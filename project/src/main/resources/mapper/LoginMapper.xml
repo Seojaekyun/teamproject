@@ -5,5 +5,8 @@
     select name from member
     where userid=#{userid} and pwd=#{pwd}
   </select>
+  <select id="loginAdmin" resultType="String">
+    select * from admin where userid=#{userid} and pwd=#{pwd}
+  </select>
   
  </mapper>

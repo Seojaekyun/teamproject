@@ -26,4 +26,9 @@ public class MainController {
 		return service.index();
 	}
 	
+	@RequestMapping("/admin/index")
+	public String adminI() {
+		return service.adminI();
+	}
+	
 }

@@ -28,13 +28,20 @@ public class LoginController {
 		return service.login(request,model);
 	}
 	
-	@RequestMapping("/login/loginOk")
-	public String loginOk(MemberDto mdto,
+	@RequestMapping("/login/loginAd")
+	public String loginAd(HttpServletRequest request,
+			Model model)
+	{
+		return service.loginAd(request,model);
+	}
+	
+	@RequestMapping("/login/loginAdmin")
+	public String loginAdmin(MemberDto mdto,
 			HttpSession session,
 			HttpServletRequest request,
 			HttpServletResponse response)
 	{
-		return service.loginOk(mdto,session,request,response);
+		return service.loginAdmin(mdto,session,request,response);
 	}
 
 	@RequestMapping("/login/logout")
