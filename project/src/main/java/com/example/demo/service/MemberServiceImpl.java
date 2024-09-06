@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
 	public String memberOk(MemberDto mdto) 
 	{
 		mapper.memberOk(mdto);
-		return "../login/login";
+		return "/login/login";
 	}
 
 }

@@ -341,7 +341,9 @@
        </select>
        </div>
      </li>
-     
+    
+    
+    <!--  
      <li class="flex-row">
       <div class="age">
       <h6> 연령* </h6>
@@ -374,6 +376,8 @@
       </li>
       </ul>
        </li>
+       
+       -->
 
      <div> <input type="submit" value="회원 가입" id="submit"> </div>     
      </ul>
