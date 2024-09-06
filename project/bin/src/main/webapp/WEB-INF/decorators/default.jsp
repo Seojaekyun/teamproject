@@ -259,7 +259,7 @@
                         </ul>
                     </span>
                     <a href="../login/logout"> 로그아웃 </a> |
-                    <span id="supMenu" onmouseover="viewCmenu(1)" onmouseout="hideCmenu(1)"> 고객센터
+                    <span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
                         <ul class="cmenu">
                             <li><a href="../gongji/list"> 공지사항 </a></li>
                             <li><a href="../reserv/inquiryList"> 예약문의 </a></li>

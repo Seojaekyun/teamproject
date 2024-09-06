@@ -227,16 +227,9 @@
 					
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
-					<ul>
-						<li id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
-							<ul class="cmenu">
-								<li><a href="../gongji/list"> 공지사항 </a></li>
-								<li><a href="../inquiry/list"> Q & A </a></li>
-								<li> 이벤트 </li>
-							</ul>
-						</li>
-					</ul>
+					
 				</c:if>
+										
 				<c:if test="${userid!=null}">
 					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">  ${name}님 |
 						<ul class="mmenu">
@@ -246,14 +239,15 @@
 						</ul>
 					</span>
 					<a href="../login/logout"> 로그아웃 </a> |
-					<span id="supMenu" onmouseover="viewCmenu(1)" onmouseout="hideCmenu(1)"> 고객센터
+				</c:if>
+					<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
 						<ul class="cmenu">
 							<li><a href="../gongji/list"> 공지사항 </a></li>
 							<li><a href="../inquiry/list"> Q & A </a></li>
 							<li> 이벤트 </li>
 						</ul>
 					</span>
-				</c:if>
+				
 			</div>
 		</div>
 		<nav>
