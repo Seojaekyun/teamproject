@@ -352,7 +352,7 @@
 					<a href="../member/member" onclick="hideMainContent()"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
-				<c:if test="${userid!=null}">
+				<c:if test="${userid!=null&&userid!='admin'}">
 					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 						<ul class="mmenu">
 							<li> 회원정보 </li>
@@ -360,6 +360,8 @@
 							<li> 나의문의 </li>
 						</ul>
 					</span>
+				</c:if>
+				<c:if test="${userid!=null}">
 					<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
 				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
