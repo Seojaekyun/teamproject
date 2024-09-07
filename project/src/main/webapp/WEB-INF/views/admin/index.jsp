@@ -61,7 +61,7 @@
 
 </head>
 <body>
-<<<<<<< HEAD
+
 	<header>
 	<div id="first">
 		<div id="one">	
@@ -72,38 +72,14 @@
 			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
 			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
 			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
-=======
-
-	<section>
-		<div id="first">	
-			<div id="one">
-				예약 관리
-			</div>
-			<div id="two">
-				문의 관리
-			</div>
-			<div id="three">
-				회원 관리
-			</div>
-			<div id="four">
-				<a href="../main/index"> 홈페이지 </a>
-			</div>
-			<div id="five">
-				2
-			</div>
-			<div id="six">
-				3
-			</div>
->>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
 		</div>
 		<div id="two">
 			<a href="../main/index">★</a>	
-			###님&nbsp;&nbsp;|&nbsp;&nbsp;
+			${name }님&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="../login/logout">로그아웃</a>
 		</div>
 	</div>
 	</header>
 	
-
 </body>
 </html>

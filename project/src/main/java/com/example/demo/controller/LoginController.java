@@ -31,16 +31,7 @@ public class LoginController {
 		return service.loginAd(request,model);
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping("/login/loginOk")
-	public String loginOk(MemberDto mdto,
-			HttpSession session,
-			HttpServletRequest request,
-			HttpServletResponse response)
-	{
-=======
 	@RequestMapping("/login/loginOk") public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
->>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
 		return service.loginOk(mdto,session,request,response);
 	}
 	
