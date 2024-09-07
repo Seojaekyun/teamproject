@@ -7,32 +7,52 @@
 <style>
 	body {
 		margin: auto;
-		align: center;	
+		font-family: 'Hahmlet';
+	}
+	header {
+		width: 100%;
+		margin: auto;
 	}
 	#first {
 		width: 100%;
 		height: 50px;
-		background: yellow;
 		margin: auto;
-		align: center;
+		display: flex;
+		background: lightgray;
+		align-items: center;
+		justify-content: space-between;
 	}
-	#first > div {
-		align: center;
-		display: inline-block;
-		width: 100px;
-		font-size: 17px;
-	}
-	#second {
-		margin: auto;
-		width: 1000px;
-		height: 250px;
+	#first #one {
+		width: 800px;
+		display: flex;
+		align-items: center;
+		font-size: 20px;
+		font-weight: 400;
+		margin-right: 60px;
 		background: skyblue;
+		justify-content: flex-end;
 	}
-	#third {
-		width: 1000px;
-		height: 250px;
-		background: green;
+	#first #two {
+		width: 400px;
+		display: flex;
+		text-align: right;
+		font-size: 20px;
+		font-weight: 400;
+		margin-right: 60px;
+		background: lightgreen;
+		justify-content: flex-end;
 	}
+	#first > div a {
+		text-decoration: none;
+		cursor: pointer;	
+	}
+	#first > div a:hover {
+		text-decoration: none;
+		font-weight: 900;
+		cursor: pointer;
+		
+	}
+	
 </style>
 
 <script>
@@ -41,50 +61,25 @@
 
 </head>
 <body>
-
-	<section>
-		<div id="first">	
-			<div id="one">
-				예약 관리
-			</div>
-			<div id="two">
-				문의 관리
-			</div>
-			<div id="three">
-				회원 관리
-			</div>
-			<div id="four">
-				1
-			</div>
-			<div id="five">
-				2
-			</div>
-			<div id="six">
-				3
-			</div>
+	<header>
+	<div id="first">
+		<div id="one">	
+			<a href="">&nbsp;&nbsp;예약 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;문의 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;회원 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
+			<a href="">&nbsp;&nbsp;??? 관리&nbsp;&nbsp;</a>
 		</div>
-		<div id="second">	
-			<div id="one">
-			
-			</div>
-			<div id="two">
-			
-			</div>
-			<div id="three">
-			
-			</div>
-			<div id="four">
-			
-			</div>
-			<div id="five">
-			
-			</div>
-			<div id="six">
-			
-			</div>
+		<div id="two">
+			<a href="../main/index">★</a>	
+			###님&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="../login/logout">로그아웃</a>
 		</div>
+	</div>
+	</header>
 	
-	</section>
 
 </body>
 </html>
