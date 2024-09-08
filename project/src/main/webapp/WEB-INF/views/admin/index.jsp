@@ -126,10 +126,16 @@
 <script>
 	$(function() {
 		$("#datepicker").datepicker({
-			inline: true // 달력이 항상 표시되도록 설정
+			inline: true, // 달력이 항상 표시되도록 설정
+			onSelect: function(dateText) { // 날짜 선택 시 호출되는 이벤트
+				// 선택한 날짜 값을 처리
+				alert("선택한 날짜: " + dateText); // 날짜를 경고창으로 표시
+				$("#selectedDate").text("선택한 날짜: " + dateText); // 선택한 날짜를 화면에 표시
+			}
 		});
 	});
 </script>
+
 </head>
 <body>
 
@@ -163,10 +169,13 @@
 		<div id="one">
 			비행편성
 		</div>
+		<!-- 선택한 날짜 표시 -->
+		<div id="selectedDate" style="margin-top: 20px; font-size: 18px; font-weight: bold;">
+			선택한 날짜: 없음
+		</div>
 		<div id="cal">
 			<!-- 달력 -->
 			<div id="datepicker"></div>
-
 			<!-- 테이블 -->
 			<div id="sced">
 				<table>
