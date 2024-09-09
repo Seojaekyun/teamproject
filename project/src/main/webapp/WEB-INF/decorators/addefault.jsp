@@ -126,25 +126,38 @@
 <script>
 
 </script>
-
+<sitemesh:write property="head"/>
 </head>
 <body>
 
-<section>
+<header>
 	<div id="first">
 		<div id="one">
-			비행편성
+			<a href="../main/index">홈페이지</a>&nbsp;&nbsp;|&nbsp;&nbsp;    
+			${name}&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="../login/logout">로그아웃</a>
 		</div>
 	</div>
 	<div id="second">
-		<div id="one">
-			
+		<div id="logo">
+			<a href="../admin/index">
+				<img src="../static/resources/eltlogo.png" height="60px" alt="로고">
+			</a>
 		</div>
-		<div id="two">
-			
+		<div id="two">    
+			<button><a href="adReserve">예약관리</a></button>
+			<button><a href="">문의관리</a></button>
+			<button><a href="">회원관리</a></button>
+			<button><a href="">비행일정</a></button>
+			<button><a href="">호텔예약</a></button>
+			<button><a href="">예약통계</a></button>
+			<button><a href="">게시판관리</a></button>
 		</div>
 	</div>
+</header>
+<section>
+	
 </section>
-
+<sitemesh:write property="body"/>
 </body>
 </html>

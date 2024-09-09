@@ -124,7 +124,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-
+	$(function() {
+		$("#datepicker").datepicker({
+			inline: true, // 달력이 항상 표시되도록 설정
+			onSelect: function(dateText) { // 날짜 선택 시 호출되는 이벤트
+				// 선택한 날짜 값을 처리
+				// alert("선택한 날짜: " + dateText);
+				$("#selectedDate").text("선택한 날짜: " + dateText); // 선택한 날짜를 화면에 표시
+			}
+		});
+	});
 </script>
 
 </head>
@@ -134,6 +143,43 @@
 	<div id="first">
 		<div id="one">
 			비행편성
+		</div>
+		<!-- 선택한 날짜 표시 -->
+		<div id="selectedDate" style="margin-top: 20px; font-size: 18px; font-weight: bold;">
+			선택한 날짜: 없음
+		</div>
+		<div id="cal">
+			<!-- 달력 -->
+			<div id="datepicker"></div>
+			<!-- 테이블 -->
+			<div id="sced">
+				<table>
+					<tr>
+						<th>항공편</th>
+						<th>기종</th>
+						<th>출발시간</th>
+						<th>잔여석</th>
+					</tr>
+					<tr>
+						<td>korean</td>
+						<td>KOR710</td>
+						<td>09:20</td>
+						<td>150</td>
+					</tr>
+					<tr>
+						<td>asiana</td>
+						<td>ASN404</td>
+						<td>12:30</td>
+						<td>120</td>
+					</tr>
+					<tr>
+						<td>je-ju</td>
+						<td>JEU164</td>
+						<td>15:00</td>
+						<td>50</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div id="second">
