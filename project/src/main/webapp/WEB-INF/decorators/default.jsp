@@ -472,9 +472,7 @@ border: 1px solid black;
     cursor: pointer;
 }
 
-
-    
-    #quick_booking {
+#quick_booking {
     display: flex;
     justify-content: space-between; /* 버튼들 사이에 균등한 간격을 배분 */
     align-items: center; /* 버튼들을 세로 방향으로 가운데 정렬 */
@@ -510,6 +508,7 @@ border: 1px solid black;
 .quick_booking_button:first-child { /* 첫 번째 칸 */
     flex-grow: 2; /* 첫 번째 칸 크기 비율을 2로 설정 */
 }
+
 .quick_booking_button:last-child { /* 세 번째 칸 */
     flex-grow: 2; /* 세 번째 칸 크기 비율을 2로 설정 */
 }
@@ -521,6 +520,7 @@ border: 1px solid black;
     display: block; /* 각 스팬을 블록으로 설정하여 세로로 쌓이게 함 */
     margin: 0; /* 기본 마진 제거 */
 }
+
 /* From, To 글씨 키우기 */
 #from-text, #to-text {
     font-size: 40px; /* 글씨 크기를 조정 (원하는 크기 선택) */
@@ -533,11 +533,7 @@ border: 1px solid black;
     color: #666; /* 필요에 따라 색상 변경 */
 }
     
-    
-    
-    
-    
-    /* 팝업창 기본 스타일 */
+/* 팝업창 기본 스타일 */
 .popup {
     display: none; /* 기본적으로 숨김 */
     position: fixed;
@@ -569,7 +565,7 @@ border: 1px solid black;
     cursor: pointer;
 }
 
- .quick_booking_aligner {
+.quick_booking_aligner {
             display: flex;
             justify-content: space-between; /* 각 요소 사이에 동일한 간격 배분 */
             align-items: center; /* 요소들을 수직으로 가운데 정렬 */
@@ -626,13 +622,8 @@ color: #333;
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     outline: none; /* 클릭 시 기본 아웃라인 제거 */
 }
-
-
-
-
-
-
 </style>
+
 <script>
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
@@ -1138,7 +1129,7 @@ color: #333;
                 <td> 전화번호 : 010-1234-5678 </td>
             </tr>
             <tr>
-                <td> 통신판매업신고 : 2023-경기비행-1234 </td>
+                <td> 통신판매업신고 : 2023-경기비행-1233 </td>
                 <td></td>
             </tr>
         </table>
