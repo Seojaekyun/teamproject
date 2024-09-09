@@ -6,68 +6,7 @@
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
 <style>
-	body {
-		margin: 0;
-		font-family: 'Noto Sans KR', sans-serif;
-		box-sizing: border-box;
-	}
 
-	header {
-		width: 100%;
-	}
-	header #first {
-		display: flex;
-		height: 30px;
-		align-items: right;
-		justify-content: flex-end;
-		background-color: lightblue;
-		padding: 10px 20px;
-		box-sizing: border-box;
-	}
-	header #second {
-		display: flex;
-		height: 50px;
-		align-items: center;
-		justify-content: space-between;
-		background-color: lightblue;
-		padding: 10px 20px;
-		box-sizing: border-box;
-	}
-	header #one {
-		flex-shrink: 0;
-		font-size: 17px;
-	}
-	header #one a {
-		text-decoration: none;
-		color: black;
-	}
-	header #one a:hover {
-		font-weight: bold;
-	}
-	header #logo {
-		flex-shrink: 0;
-		valign: top;
-	}
-	header #two {
-		display: flex;
-		flex-grow: 1;
-		justify-content: flex-start;
-	}
-
-	header #two button {
-		background: none;
-		border: none;
-		margin: 0 10px;
-		font-size: 17px;
-		cursor: pointer;
-	}
-	header #two button a {
-		text-decoration: none;
-		color: black;
-	}
-	header #two button:hover a {
-		font-weight: bold;
-	}
 	section {
 		margin: auto;
 	}

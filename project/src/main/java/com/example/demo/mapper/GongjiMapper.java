@@ -14,5 +14,5 @@ public interface GongjiMapper {
 	GongjiDto content(String id);
 	void updateOk(GongjiDto gdto);
 	void delete(String id);
-	
+	GongjiDto gongjiContent(String id);
 }

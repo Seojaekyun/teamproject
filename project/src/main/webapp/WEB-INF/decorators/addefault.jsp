@@ -102,12 +102,12 @@
 		</div>
 		<div id="two">    
 			<button><a href="adReserve">예약관리</a></button>
-			<button><a href="">문의관리</a></button>
+			<button><a href="gongjiList">공지사항</a></button>
 			<button><a href="">회원관리</a></button>
 			<button><a href="">비행일정</a></button>
 			<button><a href="">호텔예약</a></button>
 			<button><a href="">예약통계</a></button>
-			<button><a href="">게시판관리</a></button>
+			<button><a href="">고객문의</a></button>
 		</div>
 	</div>
 </header>

@@ -22,5 +22,5 @@ public class AdminController {
 		return service.adReserve();
 	}
 	
-
+	
 }

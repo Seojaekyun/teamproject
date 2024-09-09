@@ -24,7 +24,7 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String list(HttpServletRequest request, Model model) {
 		ArrayList<GongjiDto> glist=mapper.list();
-		//System.out.println(glist);
+		System.out.println(glist);
 		
 		model.addAttribute("glist", glist);
 		
@@ -32,15 +32,15 @@ public class GongjiServiceImpl implements GongjiService {
 	}
 	
 	@Override
-	public String write() {
-		return "/gongji/write";
+	public String gongjiWrite() {
+		return "/admin/gongjiWrite";
 	}
 	
 	@Override
 	public String writeOk(GongjiDto gdto, HttpSession session) {
 		mapper.writeOk(gdto);
 		
-		return "redirect:/gongji/list";
+		return "/admin/gongjiList";
 	}
 
 	@Override
@@ -86,6 +86,28 @@ public class GongjiServiceImpl implements GongjiService {
 		mapper.delete(id);
 		
 		return "redirect:/gongji/list";
+	}
+
+	@Override
+	public String gongjiList(HttpServletRequest request, Model model) {
+		ArrayList<GongjiDto> glist=mapper.list();
+		System.out.println(glist);
+		
+		model.addAttribute("glist", glist);
+		
+		return "/admin/gongjiList";
+	}
+
+	@Override
+	public String gongjiContent(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		GongjiDto gdto=mapper.gongjiContent(id);
+		System.out.println(id);
+		gdto.setContent(gdto.getContent().replace("\r\n", "<br>"));
+		
+		model.addAttribute("gdto", gdto);		
+		
+		return "/admin/gongjiContent";
 	}
 	
 
