@@ -853,6 +853,18 @@ color: #333;
 </script>
 <sitemesh:write property="head"/>
 </head>
+<script>
+	window.onload = function() {
+		// 현재 URL을 가져옴
+		var currentURL = window.location.pathname;
+
+		// 만약 현재 페이지가 member 페이지라면
+		if(currentURL.includes("/member/member")||currentURL.includes("/login/login")) {
+			// main_content 요소를 숨김
+			document.querySelector('.main_content').style.display = 'none';
+		}
+	};
+</script>
 <body>
 	<header>
 		<div id="section1">
