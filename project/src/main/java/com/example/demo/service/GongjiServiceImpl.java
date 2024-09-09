@@ -91,7 +91,6 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String gongjiList(HttpServletRequest request, Model model) {
 		ArrayList<GongjiDto> glist=mapper.list();
-		System.out.println(glist);
 		
 		model.addAttribute("glist", glist);
 		
@@ -102,7 +101,7 @@ public class GongjiServiceImpl implements GongjiService {
 	public String gongjiContent(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
 		GongjiDto gdto=mapper.gongjiContent(id);
-		System.out.println(id);
+		
 		gdto.setContent(gdto.getContent().replace("\r\n", "<br>"));
 		
 		model.addAttribute("gdto", gdto);		
