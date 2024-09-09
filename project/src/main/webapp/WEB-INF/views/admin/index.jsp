@@ -129,7 +129,7 @@
 			inline: true, // 달력이 항상 표시되도록 설정
 			onSelect: function(dateText) { // 날짜 선택 시 호출되는 이벤트
 				// 선택한 날짜 값을 처리
-				alert("선택한 날짜: " + dateText); // 날짜를 경고창으로 표시
+				// alert("선택한 날짜: " + dateText);
 				$("#selectedDate").text("선택한 날짜: " + dateText); // 선택한 날짜를 화면에 표시
 			}
 		});
