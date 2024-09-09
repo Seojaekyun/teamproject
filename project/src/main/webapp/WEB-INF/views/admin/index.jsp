@@ -6,118 +6,21 @@
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
 <style>
-	body {
-		margin: 0;
-		font-family: 'Noto Sans KR', sans-serif;
-		box-sizing: border-box;
-	}
-
-	header {
+	section #first {
 		width: 100%;
+		height: 200px;
+		background: blue;
 	}
-	header #first {
-		display: flex;
-		height: 30px;
-		align-items: right;
-		justify-content: flex-end;
-		background-color: lightblue;
-		padding: 10px 20px;
-		box-sizing: border-box;
-	}
-	header #second {
-		display: flex;
-		height: 50px;
-		align-items: center;
-		justify-content: space-between;
-		background-color: lightblue;
-		padding: 10px 20px;
-		box-sizing: border-box;
-	}
-	header #one {
-		flex-shrink: 0;
-		font-size: 17px;
-	}
-	header #one a {
-		text-decoration: none;
-		color: black;
-	}
-	header #one a:hover {
-		font-weight: bold;
-	}
-	header #logo {
-		flex-shrink: 0;
-		valign: top;
-	}
-	header #two {
-		display: flex;
-		flex-grow: 1;
-		justify-content: flex-start;
-	}
-
-	header #two button {
-		background: none;
-		border: none;
-		margin: 0 10px;
-		font-size: 17px;
-		cursor: pointer;
-	}
-	header #two button a {
-		text-decoration: none;
-		color: black;
-	}
-	header #two button:hover a {
-		font-weight: bold;
-	}
-	section {
-		margin: auto;
-	}
-	section #cal {
-		margin: auto;
-		display: flex; /* Flexbox로 내부 아이템들을 가로로 배치 */
-		width: 1000px;
-		box-sizing: border-box;
-		gap: 20px; /* 달력과 테이블 사이에 간격 추가 */
-	}
-	section #sced {
-		width: 400px;
-		box-sizing: border-box;
-	}
-	.ui-datepicker {
-		width: 600px !important; /* 달력의 전체 너비를 600px로 설정 */
-	}
-	.ui-datepicker table {
-		width: 100% !important; /* 달력 테이블 너비를 100%로 설정 */
-	}
-	.ui-datepicker td {
-		width: 14.28% !important; /* 달력을 7개의 열로 나눔 (100% / 7열) */
-		height: 60px !important; /* 셀의 높이 */
-		text-align: center !important; /* 텍스트 중앙 정렬 */
-	}
-	.ui-datepicker .ui-datepicker-header {
-		padding: 10px !important;
-	}
-	.ui-datepicker th {
-		padding: 10px 0 !important;
-	}
-	.ui-datepicker td span,
-	.ui-datepicker td a {
-		display: block !important;
-		padding: 10px !important;
-		line-height: 30px !important; /* 날짜 텍스트의 세로 정렬 */
-	}
-	table {
-		border-collapse: collapse;
+	section #second {
 		width: 100%;
+		height: 200px;
+		background: pink;
 	}
-	td, th {
-		border: 1px solid black;
-		padding: 8px;
-		text-align: center;
+	section #third {
+		width: 100%;
+		height: 200px;
+		background: olive;
 	}
-	th {
-		background-color: #f2f2f2;
-	}
-
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -138,10 +41,12 @@
 	</div>
 	<div id="second">
 		<div id="one">
-			
+			예약현황
 		</div>
-		<div id="two">
-			
+	</div>
+	<div id="third">
+		<div id="one">
+			주요문의
 		</div>
 	</div>
 </section>
