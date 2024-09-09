@@ -863,11 +863,8 @@ color: #333;
 		if(currentURL.includes("/member/member")||currentURL.includes("/login/login")) {
 			// main_content 요소를 숨김
 			document.querySelector('.main_content').style.display = 'none';
-			
 		}
-		
 	};
-	
 </script>
 
 <body>
