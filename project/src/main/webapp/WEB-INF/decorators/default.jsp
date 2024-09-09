@@ -142,7 +142,7 @@
    header > nav #main > li { /* 주메뉴 */
       display:inline-block;
       list-style-type:none;
-      width:340px;
+      width:200px;
       height:50px;
       line-height:30px;
       text-align:center;
@@ -171,7 +171,7 @@
    
    header > nav #main > li > .menu > li { /* 하위메뉴내의 메뉴 */
       list-style-type:none;
-      width:340px;
+      width:200px;
       height:35px;
       line-height:35px;
       border-bottom:1px solid #ddd;
@@ -853,6 +853,23 @@ color: #333;
 </script>
 <sitemesh:write property="head"/>
 </head>
+
+<script>
+	window.onload = function() {
+		// 현재 URL을 가져옴
+		var currentURL = window.location.pathname;
+
+		// 만약 현재 페이지가 member 페이지라면
+		if(currentURL.includes("/member/member")||currentURL.includes("/login/login")) {
+			// main_content 요소를 숨김
+			document.querySelector('.main_content').style.display = 'none';
+			
+		}
+		
+	};
+	
+</script>
+
 <body>
 	<header>
 		<div id="section1">
