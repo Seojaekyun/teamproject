@@ -45,9 +45,68 @@
 		box-sizing: border-box; /* 패딩을 너비 계산에 포함 */
 		border-radius: 5px; /* 버튼의 둥근 모서리 */
 	}
-	
-</style>
 
+	/* 채팅 상담 UI 추가 스타일 */
+	#chat-console {
+		width: 300px;
+		height: 400px;
+		border: 2px solid #2DD1C5;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #fff;
+		display: none; /* 처음엔 숨겨놓기 */
+		flex-direction: column;
+	}
+
+	#chat-header {
+		background-color: #2DD1C5;
+		color: white;
+		padding: 10px;
+		text-align: center;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	#chat-body {
+		flex: 1;
+		padding: 10px;
+		overflow-y: auto;
+	}
+
+	#chat-body div {
+		margin-bottom: 10px;
+	}
+
+	#chat-input {
+		display: flex;
+		padding: 10px;
+	}
+
+	#chat-input input[type="text"] {
+		flex: 1;
+		padding: 5px;
+	}
+
+	#chat-input button {
+		padding: 5px 10px;
+		background-color: #23297A;
+		color: white;
+		border: none;
+		cursor: pointer;
+	}
+
+	#chat-toggle {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #2DD1C5;
+		color: white;
+		padding: 10px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+</style>
 </head>
 <body>
 
@@ -92,8 +151,73 @@
 			</td>
 		</tr>
 	</table>
-	
 </section>
+
+<!-- 채팅 상담 UI -->
+<div id="chat-console">
+	<div id="chat-header">채팅 상담</div>
+	<div id="chat-body"></div>
+	<div id="chat-input">
+		<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
+		<button onclick="sendMessage()">보내기</button>
+	</div>
+</div>
+
+<!-- 채팅 상담 버튼 -->
+<div id="chat-toggle" onclick="toggleChat()">채팅 상담 열기</div>
+
+<script>
+	// 채팅 창 토글
+	function toggleChat() {
+		var chatConsole = document.getElementById('chat-console');
+		var chatToggle = document.getElementById('chat-toggle');
+		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
+			chatConsole.style.display = 'flex';
+			chatToggle.style.display = 'none';
+		} else {
+			chatConsole.style.display = 'none';
+			chatToggle.style.display = 'block';
+		}
+	}
+
+	// WebSocket 연결 설정 (서버에서 WebSocket이 설정되어 있어야 함)
+	var socket = new WebSocket("ws://localhost:8080/chat");
+
+	// 서버에서 메시지가 도착하면 채팅 창에 표시
+	socket.onmessage = function(event) {
+		var chatBody = document.getElementById('chat-body');
+		var message = document.createElement('div');
+		message.textContent = "상담원: " + event.data;
+		chatBody.appendChild(message);
+	};
+
+	// 메시지 전송 함수
+	function sendMessage() {
+		var messageInput = document.getElementById('chat-message');
+		var chatBody = document.getElementById('chat-body');
+		var message = messageInput.value;
+
+		// 서버로 메시지 전송
+		socket.send(message);
+
+		// 사용자가 보낸 메시지 채팅 창에 표시
+		var userMessage = document.createElement('div');
+		userMessage.textContent = "사용자: " + message;
+		chatBody.appendChild(userMessage);
+
+		// 메시지 입력란 초기화
+		messageInput.value = '';
+	}
+
+	// 채팅 창이 처음 열리면 WebSocket 연결이 작동하는지 확인
+	socket.onopen = function() {
+		console.log("WebSocket 연결 성공");
+	};
+
+	socket.onclose = function() {
+		console.log("WebSocket 연결 종료");
+	};
+</script>
 
 </body>
 </html>
