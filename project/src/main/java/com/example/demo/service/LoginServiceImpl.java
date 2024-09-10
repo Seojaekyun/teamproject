@@ -18,65 +18,63 @@ import jakarta.servlet.http.HttpSession;
 @Qualifier("ls")
 public class LoginServiceImpl implements LoginService{
 	
-	 @Autowired
-	    private LoginMapper mapper;
-
-		@Override
-		public String login(HttpServletRequest request,Model model) 
-		{
-			String err=request.getParameter("err");
-			model.addAttribute("err",err);
-			return "/login/login";
-		}
+	@Autowired
+	private LoginMapper mapper;
 		
-		@Override
-		public String loginAd(HttpServletRequest request, Model model) {
-			String err=request.getParameter("err");
-			model.addAttribute("err",err);
-			return "/login/loginAd";
-		}
+	@Override
+	public String login(HttpServletRequest request,Model model) {
+		String err=request.getParameter("err");
+		model.addAttribute("err",err);
+		return "/login/login";
+	}
 
-		@Override
-		public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-			String name = mapper.loginOk(mdto);
-		    
-		    if (name != null) {
-		        // 로그인 성공 시 세션에 사용자 정보 저장
-		        session.setAttribute("userid", mdto.getUserid());
-		        session.setAttribute("name", name);
+	@Override
+	public String loginAd(HttpServletRequest request, Model model) {
+		String err=request.getParameter("err");
+		model.addAttribute("err",err);
+		return "/login/loginAd";
+	}
 
-		        // 메인 페이지로 리다이렉트
-		        return "redirect:/main/index";
-		    } else {
-		        // 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
-		        return "redirect:/login/login?err=1";
-		    }
-		}
+	@Override
+	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String name = mapper.loginOk(mdto);
 		
-		@Override
-		public String loginAdmin(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-			String name = mapper.loginAdmin(mdto);
+		if (name != null) {
+			// 로그인 성공 시 세션에 사용자 정보 저장
+			session.setAttribute("userid", mdto.getUserid());
+			session.setAttribute("name", name);
 			
-			if (name != null) {
-				// 로그인 성공 시 세션에 사용자 정보 저장
-				session.setAttribute("userid", mdto.getUserid());
-				session.setAttribute("name", name);
-				
-				// 메인 페이지로 리다이렉트
-				return "redirect:/admin/index";
-				}
-			else {
-				// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
-				return "redirect:/login/loginAd?err=1";
-			}
-		}
-		
-		@Override
-		public String logout(HttpSession session)
-		{
-			session.invalidate();
+			// 메인 페이지로 리다이렉트
 			return "redirect:/main/index";
+		} else {
+			// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
+			return "redirect:/login/login?err=1";
 		}
+	}
+	
+	@Override
+	public String loginAdmin(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String name = mapper.loginAdmin(mdto);
+		
+		if (name != null) {
+			// 로그인 성공 시 세션에 사용자 정보 저장
+			session.setAttribute("userid", mdto.getUserid());
+			session.setAttribute("name", name);
+			
+			// 메인 페이지로 리다이렉트
+			return "redirect:/admin/index";
+		}
+		else {
+			// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
+			return "redirect:/login/loginAd?err=1";
+		}
+	}
+	
+	@Override
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main/index";
+	}
 
 	
 }

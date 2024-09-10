@@ -15,8 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
-	
-	
+		
 	@Autowired
 	@Qualifier("ls")
 	private LoginService service;
