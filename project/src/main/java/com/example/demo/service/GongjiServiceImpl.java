@@ -24,7 +24,7 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String list(HttpServletRequest request, Model model) {
 		ArrayList<GongjiDto> glist=mapper.list();
-		System.out.println(glist);
+		//System.out.println(glist);
 		
 		model.addAttribute("glist", glist);
 		

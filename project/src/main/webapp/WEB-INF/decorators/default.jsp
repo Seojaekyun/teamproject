@@ -853,19 +853,21 @@ color: #333;
 </script>
 <sitemesh:write property="head"/>
 </head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	window.onload = function() {
-		// 현재 URL을 가져옴
-		var currentURL = window.location.pathname;
+    $(function() {
+        // 현재 URL을 가져옴
+        var currentURL = window.location.pathname;
 
-		// 만약 현재 페이지가 member 페이지라면
-		if(currentURL.includes("/member/member")||currentURL.includes("/login/login")) {
-			// main_content 요소를 숨김
-			document.querySelector('.main_content').style.display = 'none';
-		}
-	};
+        // 만약 현재 페이지가 member 페이지이거나 login 페이지라면
+        if (currentURL.includes("/member/member") || currentURL.includes("/login/login")) {
+            // main_content 요소를 슬라이드로 숨김
+            $('.main_content').slideUp(500); // 1초 동안 슬라이드 업
+        }
+    });
 </script>
+
+
 
 <body>
 	<header>
