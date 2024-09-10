@@ -19,8 +19,4 @@ public interface InquiryService {
     String delete(HttpServletRequest request);
     String inquiryList(HttpServletRequest request, Model model);
 
-    // New methods for messaging
-    void saveMessage(String message, boolean isAdmin);
-    List<String> getMessages();
-    void clearChatMessages();
 }
