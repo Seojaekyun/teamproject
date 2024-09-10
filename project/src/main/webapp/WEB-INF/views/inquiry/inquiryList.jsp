@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Q & A 및 채팅 기능</title>
+    <title>관리자 채팅 및 응답</title>
     <style type="text/css">
         section {
             width: 1000px;
@@ -106,9 +106,9 @@
 <body>
 
 <section>
-    <!-- 게시판 섹션 -->
+    <!-- 관리자 게시판 섹션 -->
     <table>
-        <caption><h3> Q & A </h3></caption>
+        <caption><h3>관리자 Q & A</h3></caption>
         <tr align="center">
             <td> 문의사항 </td>
             <td> 작성자 </td>
@@ -141,20 +141,15 @@
             <td> ${idto.writeday} </td>
         </tr>
         </c:forEach>
-        <tr align="right">
-            <td colspan="4">
-                <a href="write"><input id="write" type="button" value="문의하기"></a>
-            </td>
-        </tr>
     </table>
 </section>
 
-<!-- 채팅 상담 UI -->
+<!-- 관리자 채팅 상담 UI -->
 <div id="chat-console">
     <div id="chat-header">채팅 상담</div>
     <div id="chat-body"></div>
     <div id="chat-input">
-        <input type="text" id="chat-message" placeholder="메시지를 입력하세요">
+        <input type="text" id="chat-message" placeholder="답변을 입력하세요">
         <button onclick="sendMessage()">보내기</button>
     </div>
 </div>
@@ -176,7 +171,7 @@ function toggleChat() {
     }
 }
 
-// 메시지 전송 함수 (사용자 페이지)
+// 메시지 전송 함수 (관리자 페이지)
 function sendMessage() {
     var messageInput = document.getElementById('chat-message').value;
     var chatBody = document.getElementById('chat-body');
@@ -187,18 +182,18 @@ function sendMessage() {
 
     // AJAX 요청을 통해 서버에 메시지 전송
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/inquiry/sendMessage", true);  // Controller 경로로 요청
+    xhr.open("POST", "sendMessage", true);  // Controller 경로로 요청
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var newMessage = document.createElement('div');
-            newMessage.textContent = "사용자: " + messageInput; // 사용자로 구분
+            newMessage.textContent = "관리자: " + messageInput; // 관리자로 구분
             chatBody.appendChild(newMessage);
             document.getElementById('chat-message').value = "";  // 입력창 비우기
         }
     };
-    xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false"); // 사용자로 전송
+    xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=true"); // 관리자 메시지로 전송
 }
 
 // Enter 키로 메시지 전송 (keydown 이벤트 추가)
@@ -212,7 +207,7 @@ document.getElementById('chat-message').addEventListener('keydown', function(eve
 // Long Polling으로 새로운 메시지가 있을 때만 갱신
 function pollMessages() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/inquiry/getMessages", true);  // Controller 경로로 요청
+    xhr.open("GET", "getMessages", true);  // Controller 경로로 요청
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var chatBody = document.getElementById('chat-body');

@@ -107,7 +107,7 @@
 			<button><a href="">비행일정</a></button>
 			<button><a href="">호텔예약</a></button>
 			<button><a href="">예약통계</a></button>
-			<button><a href="">고객문의</a></button>
+			<button><a href="../inquiry/inquiryList">고객문의</a></button>
 		</div>
 	</div>
 </header>
