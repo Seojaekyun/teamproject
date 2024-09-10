@@ -3,628 +3,628 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>title</title>
-	<!-- Flatpickr(달력 라이브러리) CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-	<!-- Flatpickr JS -->
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
-		@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-		body {
-			margin: auto;
-			font-family: 'Hahmlet';
-		}
-		header {
-			width: 100%;
-			margin: auto;
-		}
-		#section1 {
-			width: 100%;
-			height: 80px;
-			margin: auto;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		#section1 #logo {
-			width: 200px;
-			height: 75px;
-			margin-left: 50px;
-		}
-		#section1 #loginMenu {
-			display: flex;
-			align-items: center;
-			font-size: 20px;
-			font-weight: 600;
-			margin-right: 60px;
-		}
-		#section1 #loginMenu a {
-			text-decoration: none;
-			color: black;
-		}
-		#section1 #loginMenu a:hover {
-			text-decoration: none;
-			color: green;
-			font-weight: 900;
-		}
-		#section1 #loginMenu ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			align-items: center;
-		}
-		#section1 #loginMenu ul li {
-			position: relative;
-			margin-right: 10px;
-		}
-		#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
-			padding-left: 0;
-			position: absolute;
-			left: -10px;
-			top: 30px;
-			background: white;
-			display: none;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			z-index: 10;
-		}
-		#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
-			list-style-type: none;
-			width: 130px;
-			height: 35px;
-			line-height: 35px;
-			text-align: center;
-			cursor: pointer;
-			border-bottom: 1px solid #ddd;
-		}
-		#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
-			text-decoration: underline;
-			color: green;
-		}
-		#section1 #loginMenu #supMenu {
-			position: relative;
-		}
-		#section1 #loginMenu #myInfo {
-			position: relative;
-		}
-		#section1 #loginMenu #supMenu .menu {
-			padding-left: 0;
-			position: absolute;
-			left: -10px;
-			top: 30px;
-			background: white;
-			display: none;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			z-index: 10;
-		}
-		#section1 #loginMenu #supMenu .menu > li {
-			list-style-type: none;
-			width: 130px;
-			height: 35px;
-			line-height: 35px;
-			text-align: center;
-			cursor: pointer;
-			border-bottom: 1px solid #ddd;
-		}
-		#section1 #loginMenu #supMenu .menu > li:hover {
-			text-decoration: underline;
-			color: green;
-		}
-		header > nav {
-			width: 1200px;
-			height: 70px;
-			margin: auto;
-			line-height: 50px;
-			font-family: 'Gugi';
-		}
-		header > nav a {
-			text-decoration: none;
-			color: black;
-		}
-		header > nav a:hover {
-			text-decoration: underline;
-			color: green;
-			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-		}
-		header > nav #main {
-			padding-left: 0px;
-			margin-left: 100px;
-		}
-		header > nav #main > li {
-			display: inline-block;
-			list-style-type: none;
-			width: 200px;
-			height: 50px;
-			line-height: 30px;
-			text-align: center;
-			font-weight: 900;
-			position: relative;
-			z-index: 5;
-		}
-		header > nav #main > li > .menu {
-			padding-left: 0px;
-			position: absolute;
-			left: 0px;
-			top: 48px;
-			background: white;
-			visibility: hidden;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		}
-		header > nav #main > li > .menu > li {
-			list-style-type: none;
-			width: 200px;
-			height: 35px;
-			line-height: 35px;
-			border-bottom: 1px solid #ddd;
-		}
-		footer {
-			padding-top: 10px;
-			padding-bottom: 5px;
-			width: 100%;
-			height: auto;
-			margin: auto;
-			font-family: 'Hahmlet';
-			margin-top: 30px;
-			font-size: 13px;
-			background: #9AB973;
-			color: white;
-			text-align: center;
-		}
-		footer table {
-			width: 100%;
-			max-width: 1000px;
-			margin: auto;
-		}
-		@media (max-width: 768px) {
-			header, #outer #first, nav ul {
-				flex-direction: column;
-				text-align: center;
-			}
-			nav ul li {
-				display: block;
-				margin: 10px 0;
-			}
-			footer table, footer td {
-				font-size: 11px;
-			}
-		}
-		.air_service {
-			position: relative;
-			background-image: url('../static/resources/background.jpg');
-			background-size: cover;
-			width: 100%;
-			height: 450px;
-			background-repeat: no-repeat;
-			z-index: 0;
-		}
-		.air_align {
-			margin-left: 73px;
-			margin-right: 73px;
-			display: flex;
+<meta charset="UTF-8">
+<title>title</title>
+<!-- Flatpickr(달력 라이브러리) CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	body {
+		margin: auto;
+		font-family: 'Hahmlet';
+	}
+	header {
+		width: 100%;
+		margin: auto;
+	}
+	#section1 {
+		width: 100%;
+		height: 80px;
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	#section1 #logo {
+		width: 200px;
+		height: 75px;
+		margin-left: 50px;
+	}
+	#section1 #loginMenu {
+		display: flex;
+		align-items: center;
+		font-size: 20px;
+		font-weight: 600;
+		margin-right: 60px;
+	}
+	#section1 #loginMenu a {
+		text-decoration: none;
+		color: black;
+	}
+	#section1 #loginMenu a:hover {
+		text-decoration: none;
+		color: green;
+		font-weight: 900;
+	}
+	#section1 #loginMenu ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		align-items: center;
+	}
+	#section1 #loginMenu ul li {
+		position: relative;
+		margin-right: 10px;
+	}
+	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
+		padding-left: 0;
+		position: absolute;
+		left: -10px;
+		top: 30px;
+		background: white;
+		display: none;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
+		list-style-type: none;
+		width: 130px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom: 1px solid #ddd;
+	}
+	#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
+		text-decoration: underline;
+		color: green;
+	}
+	#section1 #loginMenu #supMenu {
+		position: relative;
+	}
+	#section1 #loginMenu #myInfo {
+		position: relative;
+	}
+	#section1 #loginMenu #supMenu .menu {
+		padding-left: 0;
+		position: absolute;
+		left: -10px;
+		top: 30px;
+		background: white;
+		display: none;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	#section1 #loginMenu #supMenu .menu > li {
+		list-style-type: none;
+		width: 130px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		cursor: pointer;
+		border-bottom: 1px solid #ddd;
+	}
+	#section1 #loginMenu #supMenu .menu > li:hover {
+		text-decoration: underline;
+		color: green;
+	}
+	header > nav {
+		width: 1200px;
+		height: 70px;
+		margin: auto;
+		line-height: 50px;
+		font-family: 'Gugi';
+	}
+	header > nav a {
+		text-decoration: none;
+		color: black;
+	}
+	header > nav a:hover {
+		text-decoration: underline;
+		color: green;
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+	}
+	header > nav #main {
+		padding-left: 0px;
+		margin-left: 100px;
+	}
+	header > nav #main > li {
+		display: inline-block;
+		list-style-type: none;
+		width: 200px;
+		height: 50px;
+		line-height: 30px;
+		text-align: center;
+		font-weight: 900;
+		position: relative;
+		z-index: 5;
+	}
+	header > nav #main > li > .menu {
+		padding-left: 0px;
+		position: absolute;
+		left: 0px;
+		top: 48px;
+		background: white;
+		visibility: hidden;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	header > nav #main > li > .menu > li {
+		list-style-type: none;
+		width: 200px;
+		height: 35px;
+		line-height: 35px;
+		border-bottom: 1px solid #ddd;
+	}
+	footer {
+		padding-top: 10px;
+		padding-bottom: 5px;
+		width: 100%;
+		height: auto;
+		margin: auto;
+		font-family: 'Hahmlet';
+		margin-top: 30px;
+		font-size: 13px;
+		background: #9AB973;
+		color: white;
+		text-align: center;
+	}
+	footer table {
+		width: 100%;
+		max-width: 1000px;
+		margin: auto;
+	}
+	@media (max-width: 768px) {
+		header, #outer #first, nav ul {
 			flex-direction: column;
-			align-items: center;
-		}
-		.air_contentbox {
-			position: relative;
-			top: 5.3rm;
-			left: 0;
-			width: 90%;
-			height: 70%;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			z-index: 2;
-		}
-		.air_widget {
-			position: absolute;
-			top: 7.4rem;
-			display: block;
-			width: 100%;
-			height: 54px;
-			content: "";
-			z-index: 1;
-			margin: auto;
-		}
-		.booking_widget_list {
-			list-style-type: none;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			width: 100%;
-			height: 55px;
-			position: relative;
-		}
-		.booking_widget_list li {
-			flex: 1;
 			text-align: center;
-			border: 1px solid #65728a;
-			padding-block: 15px;
-			border-top-left-radius: 15px;
-			border-top-right-radius: 15px;
-			margin: 0.5px;
-			background-color: #65728a;
-			z-index: 2;
 		}
-		.booking_widget_list li.active {
-			background-color: white;
-			border: 3px solid white;
-		}
-		.booking_widget_list li.active span {
-			color: #65728a;
-			font-weight: 900;
-		}
-		#booking_menu {
-			display: inline-block;
-		}
-		.booking_widget_list button {
-			width: 100%;
-			height: 100%;
-			background: none;
-			border: none;
-			font-size: 16px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		.booking_widget_list button span {
-			font-size: 16px;
-			color: white;
-			position: relative;
-			top: -5px;
-		}
-		.booking_contents {
-			position: relative;
-			width: 100%;
-			height: 220px;
-			z-index: 3;
-			background-color: white;
-			border: 2px solid white;
-			border-radius: 15px;
-			margin-top: -10px;
+		nav ul li {
 			display: block;
-			padding-left: 40px;
-			padding-top: 30px;
-			padding-right: 40px;
-			padding-bottom: 10px;
+			margin: 10px 0;
 		}
-		.select_contents, .check-in_contents, .schedule_contents {
-			position: relative;
-			width: 100%;
-			height: 220px;
-			z-index: 3;
-			background-color: white;
-			border: 2px solid white;
-			border-radius: 15px;
-			margin-top: -10px;
-			padding-left: 40px;
-			padding-top: 30px;
-			padding-right: 40px;
-			padding-bottom: 10px;
-			display: none;
+		footer table, footer td {
+			font-size: 11px;
 		}
-		.b_methodbox {
-			float: left;
-			width: auto;
-			margin-top: 0;
-			margin-right: 3.5rem;
-			margin-bottom: 1rem;
-			text-align: left;
-		}
-		.booking_types {
-			border: 1px solid black;
-			border-radius: 25px;
-		}
-		.booking_types li {
-			display: inline-block;
-			list-style-list: none;
-		}
-		.booking_types li button {
-			font-size: 17px;
-			padding-left: 20px;
-			padding-right: 20px;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			border: none;
-			border-radius: 23px;
-			color: white;
-			background-color: #65728a;
-			cursor: pointer;
-		}
-		#quick_booking {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			align-self: flex-start;
-			width: 270px;
-			height: 80px;
-		}
-		.quick_booking_button {
-			flex: 1;
-			text-align: center;
-			margin: 0 5px;
-			padding: 10px;
-			border: none;
-			background-color: white;
-			cursor: pointer;
-			font-size: 16px;
-			color: #333;
-			border-radius: 15px;
-		}
-		.circle_button {
-			flex-grow: 1;
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			padding: 0px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-		.quick_booking_button:first-child {
-			flex-grow: 2;
-		}
-		.quick_booking_button:last-child {
-			flex-grow: 2;
-		}
-		.quick_booking_button:hover {
-			background-color: #ddd;
-		}
-		#from-text, #departure-text {
-			display: block;
-			margin: 0;
-		}
-		#from-text, #to-text {
-			font-size: 40px;
-			font-weight: bold;
-		}
-		#departure-text, #arrival-text {
-			font-size: 14px;
-			color: #666;
-		}
-		.popup {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			z-index: 1000;
-		}
-		.popup-content {
-			position: relative;
-			margin: 15% auto;
-			padding: 20px;
-			width: 80%;
-			max-width: 600px;
-			background-color: #fff;
-			border-radius: 5px;
-		}
-		.close-btn {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			font-size: 24px;
-			cursor: pointer;
-		}
-		.quick_booking_aligner {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 10px;
-			width: 1000px;
-			margin-left: -10px;
-			margin-top: 45px;
-		}
-		p {
-			font-size: 13px;
-			color: #333;
-		}
-		#date_selection button, #passenger_selection button, #seats_selection button {
-			width: 130px;
-			padding-top: 20px;
-			padding-bottom: 5px;
-			background-color: transparent;
-			border: none;
-			border-bottom: 1px solid #333;
-			font-size: 14px;
-			color: #333;
-			cursor: pointer;
-			text-align: left;
-			outline: none;
-		}
-		#date_selection button {
-			width: 300px;
-		}
-	</style>	
-	<script>
-		function viewCmenu(n) {
-			document.getElementsByClassName("cmenu")[n].style.display = "block";
-		}
-		function hideCmenu(n) {
-			document.getElementsByClassName("cmenu")[n].style.display = "none";
-		}
-		function viewMmenu(n) {
-			document.getElementsByClassName("mmenu")[n].style.display = "block";
-		}
-		function hideMmenu(n) {
-			document.getElementsByClassName("mmenu")[n].style.display = "none";
-		}
-		function viewMenu(n) {
-			document.getElementsByClassName("menu")[n].style.visibility = "visible";
-		}
-		function hideMenu(n) {
-			document.getElementsByClassName("menu")[n].style.visibility = "hidden";
-		}
-		function showContent(type) {
-			document.querySelectorAll('.booking_contents, .select_contents, .check-in_contents, .schedule_contents').forEach(function(el) {
-				el.style.display = 'none';
-			});
-			if (type === 'booking') {
-				document.querySelector('.booking_contents').style.display = 'block';
-			} else if (type === 'select') {
-				document.querySelector('.select_contents').style.display = 'block';
-			} else if (type === 'check-in') {
-				document.querySelector('.check-in_contents').style.display = 'block';
-			} else if (type === 'schedule') {
-				document.querySelector('.schedule_contents').style.display = 'block';
-			}
-		}
-		window.onload = function() {
-			document.getElementById('from-text').textContent = 'ICN';
-			document.getElementById('departure-text').textContent = '인천';
-			showContent('booking');
-		};
-		document.addEventListener('DOMContentLoaded', function() {
-			function activateMenu(event) {
-				document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
-					el.classList.remove('active');
-				});
-				event.currentTarget.parentNode.classList.add('active');
-			}
-			document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
-				button.addEventListener('click', activateMenu);
-			});
+	}
+	.air_service {
+		position: relative;
+		background-image: url('../static/resources/background.jpg');
+		background-size: cover;
+		width: 100%;
+		height: 450px;
+		background-repeat: no-repeat;
+		z-index: 0;
+	}
+	.air_align {
+		margin-left: 73px;
+		margin-right: 73px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.air_contentbox {
+		position: relative;
+		top: 5.3rm;
+		left: 0;
+		width: 90%;
+		height: 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
+	.air_widget {
+		position: absolute;
+		top: 7.4rem;
+		display: block;
+		width: 100%;
+		height: 54px;
+		content: "";
+		z-index: 1;
+		margin: auto;
+	}
+	.booking_widget_list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 55px;
+		position: relative;
+	}
+	.booking_widget_list li {
+		flex: 1;
+		text-align: center;
+		border: 1px solid #65728a;
+		padding-block: 15px;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+		margin: 0.5px;
+		background-color: #65728a;
+		z-index: 2;
+	}
+	.booking_widget_list li.active {
+		background-color: white;
+		border: 3px solid white;
+	}
+	.booking_widget_list li.active span {
+		color: #65728a;
+		font-weight: 900;
+	}
+	#booking_menu {
+		display: inline-block;
+	}
+	.booking_widget_list button {
+		width: 100%;
+		height: 100%;
+		background: none;
+		border: none;
+		font-size: 16px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.booking_widget_list button span {
+		font-size: 16px;
+		color: white;
+		position: relative;
+		top: -5px;
+	}
+	.booking_contents {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		z-index: 3;
+		background-color: white;
+		border: 2px solid white;
+		border-radius: 15px;
+		margin-top: -10px;
+		display: block;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+	}
+	.select_contents, .check-in_contents, .schedule_contents {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		z-index: 3;
+		background-color: white;
+		border: 2px solid white;
+		border-radius: 15px;
+		margin-top: -10px;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+		display: none;
+	}
+	.b_methodbox {
+		float: left;
+		width: auto;
+		margin-top: 0;
+		margin-right: 3.5rem;
+		margin-bottom: 1rem;
+		text-align: left;
+	}
+	.booking_types {
+		border: 1px solid black;
+		border-radius: 25px;
+	}
+	.booking_types li {
+		display: inline-block;
+		list-style-list: none;
+	}
+	.booking_types li button {
+		font-size: 17px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border: none;
+		border-radius: 23px;
+		color: white;
+		background-color: #65728a;
+		cursor: pointer;
+	}
+	#quick_booking {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		align-self: flex-start;
+		width: 270px;
+		height: 80px;
+	}
+	.quick_booking_button {
+		flex: 1;
+		text-align: center;
+		margin: 0 5px;
+		padding: 10px;
+		border: none;
+		background-color: white;
+		cursor: pointer;
+		font-size: 16px;
+		color: #333;
+		border-radius: 15px;
+	}
+	.circle_button {
+		flex-grow: 1;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		padding: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.quick_booking_button:first-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:last-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:hover {
+		background-color: #ddd;
+	}
+	#from-text, #departure-text {
+		display: block;
+		margin: 0;
+	}
+	#from-text, #to-text {
+		font-size: 40px;
+		font-weight: bold;
+	}
+	#departure-text, #arrival-text {
+		font-size: 14px;
+		color: #666;
+	}
+	.popup {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1000;
+	}
+	.popup-content {
+		position: relative;
+		margin: 15% auto;
+		padding: 20px;
+		width: 80%;
+		max-width: 600px;
+		background-color: #fff;
+		border-radius: 5px;
+	}
+	.close-btn {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 24px;
+		cursor: pointer;
+	}
+	.quick_booking_aligner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+		width: 1000px;
+		margin-left: -10px;
+		margin-top: 45px;
+	}
+	p {
+		font-size: 13px;
+		color: #333;
+	}
+	#date_selection button, #passenger_selection button, #seats_selection button {
+		width: 130px;
+		padding-top: 20px;
+		padding-bottom: 5px;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid #333;
+		font-size: 14px;
+		color: #333;
+		cursor: pointer;
+		text-align: left;
+		outline: none;
+	}
+	#date_selection button {
+		width: 300px;
+	}
+</style>	
+<script>
+	function viewCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "block";
+	}
+	function hideCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "none";
+	}
+	function viewMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "block";
+	}
+	function hideMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "none";
+	}
+	function viewMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "visible";
+	}
+	function hideMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
+	}
+	function showContent(type) {
+		document.querySelectorAll('.booking_contents, .select_contents, .check-in_contents, .schedule_contents').forEach(function(el) {
+			el.style.display = 'none';
 		});
-		function openPopup(type) {
-			if (type === 'departure') {
-				document.getElementById('popup').style.display = 'block';
-			} else if (type === 'arrival') {
-				document.getElementById('arrival-popup').style.display = 'block';
-			}
+		if (type === 'booking') {
+			document.querySelector('.booking_contents').style.display = 'block';
+		} else if (type === 'select') {
+			document.querySelector('.select_contents').style.display = 'block';
+		} else if (type === 'check-in') {
+			document.querySelector('.check-in_contents').style.display = 'block';
+		} else if (type === 'schedule') {
+			document.querySelector('.schedule_contents').style.display = 'block';
 		}
-		function closePopup(type) {
-			if (type === 'departure') {
-				document.getElementById('popup').style.display = 'none';
-			} else if (type === 'arrival') {
-				document.getElementById('arrival-popup').style.display = 'none';
-			}
-		}
-		function autocomplete(type) {
-			var input, list, airports;
-			if (type === 'departure') {
-				input = document.getElementById('departure-input').value;
-				list = document.getElementById('departure-list');
-				airports = [
-					{ city: "오사카", code: "KIX" },
-					{ city: "인천", code: "ICN" },
-					{ city: "도쿄", code: "NRT" },
-					{ city: "부산", code: "PUS" }
-				];
-			} else if (type === 'arrival') {
-				input = document.getElementById('arrival-input').value;
-				list = document.getElementById('arrival-list');
-				airports = [
-					{ city: "도쿄", code: "NRT" },
-					{ city: "부산", code: "PUS" },
-					{ city: "인천", code: "ICN" },
-					{ city: "오사카", code: "KIX" }
-				];
-			}
-			if (input.trim() === '') {
-				list.style.display = 'none';
-				return;
-			}
-			list.innerHTML = '';
-			var matches = airports.filter(function(airport) {
-				return airport.city.toLowerCase().includes(input.toLowerCase()) || airport.code.toLowerCase().includes(input.toLowerCase());
+	}
+	window.onload = function() {
+		document.getElementById('from-text').textContent = 'ICN';
+		document.getElementById('departure-text').textContent = '인천';
+		showContent('booking');
+	};
+	document.addEventListener('DOMContentLoaded', function() {
+		function activateMenu(event) {
+			document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
+				el.classList.remove('active');
 			});
-			if (matches.length > 0) {
-				matches.forEach(function(match) {
-					var listItem = document.createElement('li');
-					listItem.textContent = match.city + ' ' + match.code;
-					listItem.onclick = function() {
-						if (type === 'departure') {
-							document.getElementById('from-text').textContent = match.code;
-							document.getElementById('departure-text').textContent = match.city;
-						} else if (type === 'arrival') {
-							document.getElementById('to-text').textContent = match.code;
-							document.getElementById('arrival-text').textContent = match.city;
-						}
-						list.style.display = 'none';
-						closePopup(type);
-					};
-					list.appendChild(listItem);
-				});
-				list.style.display = 'block';
-			} else {
-				list.style.display = 'none';
-			}
+				event.currentTarget.parentNode.classList.add('active');
 		}
-		function setLocation(type) {
-			var input, matchedAirport, textElement, codeElement, airports;
-			if (type === 'departure') {
-				input = document.getElementById('departure-input').value;
-				textElement = document.getElementById('departure-text');
-				codeElement = document.getElementById('from-text');
-				airports = [
-					{ city: "오사카", code: "KIX" },
-					{ city: "인천", code: "ICN" },
-					{ city: "도쿄", code: "NRT" },
-					{ city: "부산", code: "PUS" }
-				];
-			} else if (type === 'arrival') {
-				input = document.getElementById('arrival-input').value;
-				textElement = document.getElementById('arrival-text');
-				codeElement = document.getElementById('to-text');
-				airports = [
-					{ city: "도쿄", code: "NRT" },
-					{ city: "부산", code: "PUS" },
-					{ city: "인천", code: "ICN" },
-					{ city: "오사카", code: "KIX" }
-				];
-			}
-			matchedAirport = airports.find(function(airport) {
-				return airport.city.toLowerCase() === input.toLowerCase() || airport.code.toLowerCase() === input.toLowerCase();
-			});
-			if (matchedAirport) {
-				codeElement.textContent = matchedAirport.code;
-				textElement.textContent = matchedAirport.city;
-			} else {
-				alert("유효한 " + (type === 'departure' ? '출발지' : '도착지') + "를 선택해주세요.");
-			}
-			closePopup(type);
+		document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
+			button.addEventListener('click', activateMenu);
+		});
+	});
+	function openPopup(type) {
+		if (type === 'departure') {
+			document.getElementById('popup').style.display = 'block';
+		} else if (type === 'arrival') {
+			document.getElementById('arrival-popup').style.display = 'block';
 		}
-		document.addEventListener('DOMContentLoaded', function() {
-			var tripMethod = "round";
-			var calendar = flatpickr("#date-btn", {
-				mode: "range",
-				dateFormat: "Y-m-d",
-				showMonths: 2,
-				onChange: function(selectedDates) {
-					if (tripMethod === "round" && selectedDates.length === 2) {
-						document.getElementById('date-btn').innerHTML = "가는 날: " + selectedDates[0].toLocaleDateString() + " - 오는 날: " + selectedDates[1].toLocaleDateString();
-					} else if (tripMethod === "one-way" && selectedDates.length === 1) {
-						document.getElementById('date-btn').innerHTML = "가는 날: " + selectedDates[0].toLocaleDateString();
+	}
+	function closePopup(type) {
+		if (type === 'departure') {
+			document.getElementById('popup').style.display = 'none';
+		} else if (type === 'arrival') {
+			document.getElementById('arrival-popup').style.display = 'none';
+		}
+	}
+	function autocomplete(type) {
+		var input, list, airports;
+		if (type === 'departure') {
+			input = document.getElementById('departure-input').value;
+			list = document.getElementById('departure-list');
+			airports = [
+				{ city: "오사카", code: "KIX" },
+				{ city: "인천", code: "ICN" },
+				{ city: "도쿄", code: "NRT" },
+				{ city: "부산", code: "PUS" }
+			];
+		} else if (type === 'arrival') {
+			input = document.getElementById('arrival-input').value;
+			list = document.getElementById('arrival-list');
+			airports = [
+				{ city: "도쿄", code: "NRT" },
+				{ city: "부산", code: "PUS" },
+				{ city: "인천", code: "ICN" },
+				{ city: "오사카", code: "KIX" }
+			];
+		}
+		if (input.trim() === '') {
+			list.style.display = 'none';
+			return;
+		}
+		list.innerHTML = '';
+		var matches = airports.filter(function(airport) {
+			return airport.city.toLowerCase().includes(input.toLowerCase()) || airport.code.toLowerCase().includes(input.toLowerCase());
+		});
+		if (matches.length > 0) {
+			matches.forEach(function(match) {
+				var listItem = document.createElement('li');
+				listItem.textContent = match.city + ' ' + match.code;
+				listItem.onclick = function() {
+					if (type === 'departure') {
+						document.getElementById('from-text').textContent = match.code;
+						document.getElementById('departure-text').textContent = match.city;
+					} else if (type === 'arrival') {
+						document.getElementById('to-text').textContent = match.code;
+						document.getElementById('arrival-text').textContent = match.city;
 					}
+					list.style.display = 'none';
+					closePopup(type);
+				};
+				list.appendChild(listItem);
+			});
+			list.style.display = 'block';
+		} else {
+			list.style.display = 'none';
+		}
+	}
+	function setLocation(type) {
+		var input, matchedAirport, textElement, codeElement, airports;
+		if (type === 'departure') {
+			input = document.getElementById('departure-input').value;
+			textElement = document.getElementById('departure-text');
+			codeElement = document.getElementById('from-text');
+			airports = [
+				{ city: "오사카", code: "KIX" },
+				{ city: "인천", code: "ICN" },
+				{ city: "도쿄", code: "NRT" },
+				{ city: "부산", code: "PUS" }
+			];
+		} else if (type === 'arrival') {
+			input = document.getElementById('arrival-input').value;
+			textElement = document.getElementById('arrival-text');
+			codeElement = document.getElementById('to-text');
+			airports = [
+				{ city: "도쿄", code: "NRT" },
+				{ city: "부산", code: "PUS" },
+				{ city: "인천", code: "ICN" },
+				{ city: "오사카", code: "KIX" }
+			];
+		}
+		matchedAirport = airports.find(function(airport) {
+			return airport.city.toLowerCase() === input.toLowerCase() || airport.code.toLowerCase() === input.toLowerCase();
+		});
+		if (matchedAirport) {
+			codeElement.textContent = matchedAirport.code;
+			textElement.textContent = matchedAirport.city;
+		} else {
+			alert("유효한 " + (type === 'departure' ? '출발지' : '도착지') + "를 선택해주세요.");
+		}
+		closePopup(type);
+	}
+	document.addEventListener('DOMContentLoaded', function() {
+		var tripMethod = "round";
+		var calendar = flatpickr("#date-btn", {
+			mode: "range",
+			dateFormat: "Y-m-d",
+			showMonths: 2,
+			onChange: function(selectedDates) {
+				if (tripMethod === "round" && selectedDates.length === 2) {
+					document.getElementById('date-btn').innerHTML = "가는 날: " + selectedDates[0].toLocaleDateString() + " - 오는 날: " + selectedDates[1].toLocaleDateString();
+				} else if (tripMethod === "one-way" && selectedDates.length === 1) {
+					document.getElementById('date-btn').innerHTML = "가는 날: " + selectedDates[0].toLocaleDateString();
+				}
+			}
+		});
+		var tripMethods = document.querySelectorAll('input[name="t_methods"]');
+		tripMethods.forEach(function(radio) {
+			radio.addEventListener('change', function() {
+				if (this.value === "round") {
+					tripMethod = "round";
+					calendar.set("mode", "range");
+				} else if (this.value === "one-way") {
+					tripMethod = "one-way";
+					calendar.set("mode", "single");
 				}
 			});
-			var tripMethods = document.querySelectorAll('input[name="t_methods"]');
-			tripMethods.forEach(function(radio) {
-				radio.addEventListener('change', function() {
-					if (this.value === "round") {
-						tripMethod = "round";
-						calendar.set("mode", "range");
-					} else if (this.value === "one-way") {
-						tripMethod = "one-way";
-						calendar.set("mode", "single");
-					}
-				});
-			});
 		});
-	</script>
-	<sitemesh:write property="head" />
+	});
+</script>
+<sitemesh:write property="head" />
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -853,167 +853,168 @@
 			</div>
 		</div>
 	</div>
-	<style>
+<style>
 	#chat-console {
-			width: 300px;
-			height: 400px;
-			border: 2px solid #2DD1C5;
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			background-color: #fff;
-			display: none;
-			flex-direction: column;
-		}
-		#chat-header {
-			background-color: #2DD1C5;
-			color: white;
-			padding: 10px;
-			text-align: center;
-			font-weight: bold;
-			cursor: pointer;
-			position: relative;
-		}
-		#chat-header button {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			background-color: red;
-			color: white;
-			border: none;
-			padding: 5px;
-			cursor: pointer;
-			font-size: 12px;
-			border-radius: 5px;
-		}
-		#chat-body {
-			flex: 1;
-			padding: 10px;
-			overflow-y: auto;
-		}
-		#chat-body .message {
-			margin-bottom: 10px;
-		}
-		#chat-body .user-message {
-			color: black;
-			text-align: left;
-		}
-		#chat-body .admin-message {
-			color: blue;
-			text-align: right;
-		}
-		#chat-input {
-			display: flex;
-			padding: 10px;
-		}
-		#chat-input input[type="text"] {
-			flex: 1;
-			padding: 5px;
-		}
-		#chat-input button {
-			padding: 5px 10px;
-			background-color: #23297A;
-			color: white;
-			border: none;
-			cursor: pointer;
-		}
-		#chat-toggle {
-			position: fixed;
-			bottom: 20px;
-			right: 30px;
-			background-color: #2DD1C5;
-			color: white;
-			padding: 10px 20px;
-			cursor: pointer;
-			border-radius: 5px;
-		}
-	</style>
-	<script>
-		// 채팅 종료 및 기록 리셋
-		function endChat() {
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "../main/endChat", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var chatBody = document.getElementById('chat-body');
-					chatBody.innerHTML = '';
-					toggleChat();
-				}
-			};
-			xhr.send();
-		}
-		// 채팅 창 토글
-		function toggleChat() {
-			var chatConsole = document.getElementById('chat-console');
-			var chatToggle = document.getElementById('chat-toggle');
-			if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
-				chatConsole.style.display = 'flex';
-				chatToggle.style.display = 'none';
-			} else {
-				chatConsole.style.display = 'none';
-				chatToggle.style.display = 'block';
+		width: 300px;
+		height: 400px;
+		border: 2px solid #2DD1C5;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #fff;
+		display: none;
+		flex-direction: column;
+	}
+	#chat-header {
+		background-color: #2DD1C5;
+		color: white;
+		padding: 10px;
+		text-align: center;
+		font-weight: bold;
+		cursor: pointer;
+		position: relative;
+	}
+	#chat-header button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		background-color: red;
+		color: white;
+		border: none;
+		padding: 5px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+	}
+	#chat-body {
+		flex: 1;
+		padding: 10px;
+		overflow-y: auto;
+	}
+	#chat-body .message {
+		margin-bottom: 10px;
+	}
+	#chat-body .user-message {
+		color: black;
+		text-align: left;
+	}
+	#chat-body .admin-message {
+		color: blue;
+		text-align: right;
+	}
+	#chat-input {
+		display: flex;
+		padding: 10px;
+	}
+	#chat-input input[type="text"] {
+		flex: 1;
+		padding: 5px;
+	}
+	#chat-input button {
+		padding: 5px 10px;
+		background-color: #23297A;
+		color: white;
+		border: none;
+		cursor: pointer;
+	}
+	#chat-toggle {
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		background-color: #2DD1C5;
+		color: white;
+		padding: 10px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+</style>
+<script>
+	// 채팅 종료 및 기록 리셋
+	function endChat() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/endChat", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				chatBody.innerHTML = '';
+				toggleChat();
 			}
+		};
+		xhr.send();
+	}
+	// 채팅 창 토글
+	function toggleChat() {
+		var chatConsole = document.getElementById('chat-console');
+		var chatToggle = document.getElementById('chat-toggle');
+		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
+			chatConsole.style.display = 'flex';
+			chatToggle.style.display = 'none';
+		} else {
+			chatConsole.style.display = 'none';
+			chatToggle.style.display = 'block';
 		}
-		// 메시지 전송 함수
-		function sendMessage() {
-			var messageInput = document.getElementById('chat-message').value;
-			var chatBody = document.getElementById('chat-body');
-			if (messageInput.trim() === "") {
-				return;
+	}
+	// 메시지 전송 함수
+	function sendMessage() {
+		var messageInput = document.getElementById('chat-message').value;
+		var chatBody = document.getElementById('chat-body');
+		if (messageInput.trim() === "") {
+			return;
+		}
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/sendMessage", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var newMessage = document.createElement('div');
+				newMessage.className = "user-message";
+				newMessage.textContent = "사용자: " + messageInput;
+				chatBody.appendChild(newMessage);
+				document.getElementById('chat-message').value = "";
 			}
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "../main/sendMessage", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
+		};
+		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
+	}
+	// Enter 키로 메시지 전송
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('chat-message').addEventListener('keydown', function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();  // 기본 엔터키 동작(줄바꿈) 방지
+				sendMessage();  // 메시지 전송 함수 호출
+			}
+		});
+	});
+	
+	// Long Polling으로 메시지 갱신
+	function pollMessages() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "/main/getMessages", true);  // 메시지를 서버에서 가져옴
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				var messages = JSON.parse(xhr.responseText);
+				
+				chatBody.innerHTML = '';  // 기존 메시지 초기화
+				
+				// 새로운 메시지를 화면에 추가
+				messages.forEach(function(msg) {
 					var newMessage = document.createElement('div');
-					newMessage.className = "user-message";
-					newMessage.textContent = "사용자: " + messageInput;
+					newMessage.className = msg.startsWith('관리자:') ? 'admin-message' : 'user-message';
+					newMessage.textContent = msg;
 					chatBody.appendChild(newMessage);
-					document.getElementById('chat-message').value = "";
-				}
-			};
-			xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
-		}
-		// Enter 키로 메시지 전송
-		document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('chat-message').addEventListener('keydown', function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();  // 기본 엔터키 동작(줄바꿈) 방지
-            sendMessage();  // 메시지 전송 함수 호출
-        }
-    });
-});
-
-		// Long Polling으로 메시지 갱신
-		function pollMessages() {
-		    var xhr = new XMLHttpRequest();
-		    xhr.open("GET", "/main/getMessages", true);  // 메시지를 서버에서 가져옴
-		    xhr.onreadystatechange = function() {
-		        if (xhr.readyState === 4 && xhr.status === 200) {
-		            var chatBody = document.getElementById('chat-body');
-		            var messages = JSON.parse(xhr.responseText);
+				});
+				
+				pollMessages();  // 계속해서 새로운 메시지를 가져옴
+			}
+		};
 		
-		            chatBody.innerHTML = '';  // 기존 메시지 초기화
-		
-		            // 새로운 메시지를 화면에 추가
-		            messages.forEach(function(msg) {
-		                var newMessage = document.createElement('div');
-		                newMessage.className = msg.startsWith('관리자:') ? 'admin-message' : 'user-message';
-		                newMessage.textContent = msg;
-		                chatBody.appendChild(newMessage);
-		            });
-		
-		            pollMessages();  // 계속해서 새로운 메시지를 가져옴
-		        }
-		    };
-		    xhr.send();
-		}
-
-		// 페이지 로드 후 메시지 요청 시작
-		pollMessages();
-	</script>
+		xhr.send();
+	}
+	
+	// 페이지 로드 후 메시지 요청 시작
+	pollMessages();
+</script>
 	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
 	<div id="chat-console">
 		<div id="chat-header">
