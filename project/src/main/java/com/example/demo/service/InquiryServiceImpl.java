@@ -80,7 +80,7 @@ public class InquiryServiceImpl implements InquiryService {
     public String inquiryList(HttpServletRequest request, Model model) {
         ArrayList<InquiryDto> ilist = mapper.list();
         model.addAttribute("ilist", ilist);
-        return "/inquiry/inquiryList";
+        return "/admin/inquiryList";
     }
 
     // 메시지 저장 메서드
@@ -95,5 +95,10 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public List<String> getMessages() {
         return new ArrayList<>(chatMessages);  // 리스트 복사하여 반환
+    }
+    
+    @Override
+    public void clearChatMessages() {
+        chatMessages.clear();  // 채팅 기록을 비움
     }
 }

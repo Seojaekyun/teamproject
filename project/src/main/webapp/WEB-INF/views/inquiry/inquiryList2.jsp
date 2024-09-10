@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,12 +66,40 @@
             text-align: center;
             font-weight: bold;
             cursor: pointer;
+            position: relative;
+        }
+
+        #chat-header button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 5px;
         }
 
         #chat-body {
             flex: 1;
             padding: 10px;
             overflow-y: auto;
+        }
+
+        #chat-body .message {
+            margin-bottom: 10px;
+        }
+
+        #chat-body .user-message {
+            color: black;
+            text-align: left;
+        }
+
+        #chat-body .admin-message {
+            color: blue;
+            text-align: right;
         }
 
         #chat-input {
@@ -146,7 +175,10 @@
 
 <!-- 관리자 채팅 상담 UI -->
 <div id="chat-console">
-    <div id="chat-header">채팅 상담</div>
+    <div id="chat-header">
+        채팅 상담
+        <button onclick="endChat()">끝내기</button>
+    </div>
     <div id="chat-body"></div>
     <div id="chat-input">
         <input type="text" id="chat-message" placeholder="답변을 입력하세요">
@@ -158,6 +190,23 @@
 <div id="chat-toggle" onclick="toggleChat()">채팅 상담 열기</div>
 
 <script>
+// 채팅 종료 및 기록 리셋
+function endChat() {
+    // 서버에 채팅 기록 초기화 요청
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/inquiry/endChat", true); // Controller 경로로 요청
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 채팅 기록 초기화
+            var chatBody = document.getElementById('chat-body');
+            chatBody.innerHTML = '';  // 채팅 기록 비우기
+            toggleChat();  // 채팅창 닫기
+        }
+    };
+    xhr.send();
+}
+
 //채팅 창 토글
 function toggleChat() {
     var chatConsole = document.getElementById('chat-console');
@@ -188,7 +237,8 @@ function sendMessage() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var newMessage = document.createElement('div');
-            newMessage.textContent = "관리자: " + messageInput; // 관리자로 구분
+            newMessage.className = "admin-message"; // 관리자로 구분
+            newMessage.textContent = "관리자: " + messageInput; 
             chatBody.appendChild(newMessage);
             document.getElementById('chat-message').value = "";  // 입력창 비우기
         }
@@ -207,19 +257,25 @@ document.getElementById('chat-message').addEventListener('keydown', function(eve
 // Long Polling으로 새로운 메시지가 있을 때만 갱신
 function pollMessages() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getMessages", true);  // Controller 경로로 요청
+    xhr.open("GET", "getMessages", true);  // 서버로부터 메시지 요청
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var chatBody = document.getElementById('chat-body');
-            chatBody.innerHTML = xhr.responseText;  // 서버에서 받은 메시지를 출력
+            var messages = JSON.parse(xhr.responseText); // JSON 배열 파싱
 
-            // 새로운 메시지를 받으면 바로 다시 메시지 요청 (Long Polling)
+            chatBody.innerHTML = '';  // 기존 메시지 초기화
+
+            // 각 메시지를 화면에 추가
+            messages.forEach(function(msg) {
+                var newMessage = document.createElement('div');
+                newMessage.className = msg.startsWith('관리자:') ? 'admin-message' : 'user-message';
+                newMessage.textContent = msg;
+                chatBody.appendChild(newMessage);
+            });
+
+            // 메시지 폴링 반복 호출
             pollMessages();
         }
-    };
-    xhr.onerror = function() {
-        // 에러가 발생하면 일정 시간 후 다시 요청 (네트워크 오류 대비)
-        setTimeout(pollMessages, 3000);  // 3초 후 다시 시도
     };
     xhr.send();
 }

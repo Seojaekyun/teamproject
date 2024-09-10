@@ -22,4 +22,5 @@ public interface InquiryService {
     // New methods for messaging
     void saveMessage(String message, boolean isAdmin);
     List<String> getMessages();
+    void clearChatMessages();
 }

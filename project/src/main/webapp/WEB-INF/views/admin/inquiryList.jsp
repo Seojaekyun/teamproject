@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Q & A 및 채팅 기능</title>
+    <title>관리자 채팅 및 응답</title>
     <style type="text/css">
         section {
             width: 1000px;
             margin: auto;
             font-family: 'hahmlet', sans-serif;
-            position: relative; /* 자식 요소의 위치를 조정하기 위해 부모를 relative로 설정 */
         }
         section table {
             width: 800px;
@@ -51,12 +51,12 @@
             width: 300px;
             height: 400px;
             border: 2px solid #2DD1C5;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             background-color: #fff;
-            display: none;
+            display: flex; /* 기본적으로 채팅 창을 표시 */
             flex-direction: column;
-            position: absolute; /* 테이블 우측 상단에 위치 */
-            top: 10px;
-            right: -30px; /* 테이블에서 조금 떨어진 위치 */
         }
 
         #chat-header {
@@ -120,24 +120,14 @@
             cursor: pointer;
         }
 
-        #chat-toggle {
-            position: absolute; /* 테이블 우측 상단에 위치 */
-            top: 10px;
-            right: -30px; /* 테이블에서 조금 떨어진 위치 */
-            background-color: #2DD1C5;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
 
 <section>
-    <!-- 게시판 섹션 -->
+    <!-- 관리자 게시판 섹션 -->
     <table>
-        <caption><h3> Q & A </h3></caption>
+        <caption><h3>관리자 Q & A</h3></caption>
         <tr align="center">
             <td> 문의사항 </td>
             <td> 작성자 </td>
@@ -170,28 +160,21 @@
             <td> ${idto.writeday} </td>
         </tr>
         </c:forEach>
-        <tr align="right">
-            <td colspan="4">
-                <a href="write"><input id="write" type="button" value="문의하기"></a>
-            </td>
-        </tr>
     </table>
-
-    <!-- 채팅 상담 버튼 -->
-    <div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
-    <!-- 채팅 상담 UI -->
-    <div id="chat-console">
-        <div id="chat-header">
-            채팅 상담
-            <button onclick="endChat()">끝내기</button>
-        </div>
-        <div id="chat-body"></div>
-        <div id="chat-input">
-            <input type="text" id="chat-message" placeholder="메시지를 입력하세요">
-            <button onclick="sendMessage()">보내기</button>
-        </div>
-    </div>
 </section>
+
+<!-- 관리자 채팅 상담 UI -->
+<div id="chat-console">
+    <div id="chat-header">
+        채팅 상담
+        <button onclick="endChat()">끝내기</button>
+    </div>
+    <div id="chat-body"></div>
+    <div id="chat-input">
+        <input type="text" id="chat-message" placeholder="답변을 입력하세요">
+        <button onclick="sendMessage()">보내기</button>
+    </div>
+</div>
 
 <script>
 // 채팅 종료 및 기록 리셋
@@ -205,26 +188,12 @@ function endChat() {
             // 채팅 기록 초기화
             var chatBody = document.getElementById('chat-body');
             chatBody.innerHTML = '';  // 채팅 기록 비우기
-            toggleChat();  // 채팅창 닫기
         }
     };
     xhr.send();
 }
 
-//채팅 창 토글
-function toggleChat() {
-    var chatConsole = document.getElementById('chat-console');
-    var chatToggle = document.getElementById('chat-toggle');
-    if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
-        chatConsole.style.display = 'flex';
-        chatToggle.style.display = 'none';
-    } else {
-        chatConsole.style.display = 'none';
-        chatToggle.style.display = 'block';
-    }
-}
-
-// 메시지 전송 함수 (사용자 페이지)
+// 메시지 전송 함수 (관리자 페이지)
 function sendMessage() {
     var messageInput = document.getElementById('chat-message').value;
     var chatBody = document.getElementById('chat-body');
@@ -235,19 +204,19 @@ function sendMessage() {
 
     // AJAX 요청을 통해 서버에 메시지 전송
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/inquiry/sendMessage", true);  // Controller 경로로 요청
+    xhr.open("POST", "../inquiry/sendMessage", true);  // Controller 경로로 요청
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var newMessage = document.createElement('div');
-            newMessage.className = "user-message"; // 사용자로 구분
-            newMessage.textContent = "사용자: " + messageInput;
+            newMessage.className = "admin-message"; // 관리자로 구분
+            newMessage.textContent = "관리자: " + messageInput; 
             chatBody.appendChild(newMessage);
             document.getElementById('chat-message').value = "";  // 입력창 비우기
         }
     };
-    xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false"); // 사용자로 전송
+    xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=true"); // 관리자 메시지로 전송
 }
 
 // Enter 키로 메시지 전송 (keydown 이벤트 추가)
@@ -261,15 +230,15 @@ document.getElementById('chat-message').addEventListener('keydown', function(eve
 // Long Polling으로 새로운 메시지가 있을 때만 갱신
 function pollMessages() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/inquiry/getMessages", true);  // Controller 경로로 요청
+    xhr.open("GET", "../inquiry/getMessages", true);  // 서버로부터 메시지 요청
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var chatBody = document.getElementById('chat-body');
-            var messages = JSON.parse(xhr.responseText); // 서버에서 받은 JSON 배열 파싱
+            var messages = JSON.parse(xhr.responseText); // JSON 배열 파싱
 
             chatBody.innerHTML = '';  // 기존 메시지 초기화
 
-            // 각 메시지를 한 줄씩 화면에 추가
+            // 각 메시지를 화면에 추가
             messages.forEach(function(msg) {
                 var newMessage = document.createElement('div');
                 newMessage.className = msg.startsWith('관리자:') ? 'admin-message' : 'user-message';
@@ -280,10 +249,6 @@ function pollMessages() {
             // 메시지 폴링 반복 호출
             pollMessages();
         }
-    };
-    xhr.onerror = function() {
-        // 에러가 발생하면 일정 시간 후 다시 요청 (네트워크 오류 대비)
-        setTimeout(pollMessages, 3000);  // 3초 후 다시 시도
     };
     xhr.send();
 }
