@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q & A</title>
+<title>관리자 채팅 및 응답</title>
 <style type="text/css">
 	section {
 		width: 1000px;
 		margin: auto;
 		font-family: 'hahmlet', sans-serif;
-		position: relative; /* 자식 요소의 위치를 조정하기 위해 부모를 relative로 설정 */
 	}
 	section table {
 		width: 800px;
@@ -45,14 +45,15 @@
 		box-sizing: border-box;
 		border-radius: 5px;
 	}
+
 </style>
 </head>
 <body>
 
 <section>
-	<!-- 게시판 섹션 -->
+	<!-- 관리자 게시판 섹션 -->
 	<table>
-		<caption><h3> Q & A </h3></caption>
+		<caption><h3>Q & A 관리</h3></caption>
 		<tr align="center">
 			<td> 문의사항 </td>
 			<td> 작성자 </td>
@@ -85,13 +86,7 @@
 			<td> ${idto.writeday} </td>
 		</tr>
 		</c:forEach>
-		<tr align="right">
-			<td colspan="4">
-				<a href="write"><input id="write" type="button" value="문의하기"></a>
-			</td>
-		</tr>
 	</table>
-
 </section>
 
 </body>

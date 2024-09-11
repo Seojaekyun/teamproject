@@ -49,12 +49,6 @@
 	<div id="content"> ${gdto.content } </div>
 	<div id="btn">
 		<a href="list"> 목록 </a>
-		<a href="update?id=${gdto.id }"> 수정 </a><!-- 로그인 작업 후 삭제 -->
-		<a href="delete?id=${gdto.id }"> 삭제 </a><!-- 로그인 작업 후 삭제 -->
-		<c:if test="${userid=='admin' }">
-		<a href="update?id=${gdto.id }"> 수정 </a>
-		<a href="delete?id=${gdto.id }"> 삭제 </a>
-		</c:if>
 	</div>
 </section>
 

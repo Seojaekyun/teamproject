@@ -8,15 +8,13 @@
 <style>
 	section {
 		width: 1000px;
-		height: 600px;
 		margin: auto;
 		font-family: 'hahmlet', sans-serif; /* 대체 폰트 추가 */
 	}
 	section table {
 		width: 800px; /* 테이블 너비 */
-		margin: 0 auto; /* 테이블을 섹션 가운데 정렬 */
+		margin: auto; /* 테이블을 섹션 가운데 정렬 */
 		border-spacing: 0; /* 테이블 셀 간격 제거 */
-		margin-bottom: 200px; /* 테이블 아래 여백 */
 	}
 	section table td {
 		border-bottom: 1px solid #2DD1C5; /* 셀 하단 경계선 */
@@ -81,13 +79,18 @@
 				<c:if test="${gdto.state==1 }">
 				<span id="badge2">공지</span> <!-- '공지' 배지 -->
 				</c:if>
-				<a href="readnum?id=${gdto.id}"> ${gdto.title } </a> <!-- 제목 링크 -->
+				<a href="gongjiContent?id=${gdto.id}"> ${gdto.title } </a> <!-- 제목 링크 -->
 			</td>
 			<td> ${gdto.writer } </td>
 			<td> ${gdto.readnum } </td>
 			<td> ${gdto.writeday } </td>
 		</tr>
 		</c:forEach>
+		<tr align="right">
+			<td colspan="4"> <!-- 글쓰기 버튼 -->
+				<a href="gongjiWrite"><input id="write" type="button" value="작성하기"></a>
+			</td>
+		</tr>
 	</table>
 </section>
 </body>

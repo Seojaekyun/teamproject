@@ -23,9 +23,9 @@ public class GongjiController {
 		return service.list(request, model);
 	}
 	
-	@RequestMapping("/gongji/write")
+	@RequestMapping("/admin/gongjiWrite")
 	public String write() {
-		return service.write();
+		return service.gongjiWrite();
 	}
 	
 	@RequestMapping("/gongji/writeOk")
@@ -56,6 +56,16 @@ public class GongjiController {
 	@RequestMapping("/gongji/delete")
 	public String delete(HttpServletRequest request) {
 		return service.delete(request);
+	}
+	
+	@RequestMapping("/admin/gongjiList")
+	public String gongjiList(HttpServletRequest request, Model model) {
+		return service.gongjiList(request, model);
+	}
+	
+	@RequestMapping("/admin/gongjiContent")
+	public String gongjiContent(HttpServletRequest request, Model model) {
+		return service.gongjiContent(request, model);
 	}
 
 }
