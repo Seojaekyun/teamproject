@@ -4,32 +4,40 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>administrator</title>
 <style>
-	section #first {
+	section {
 		width: 100%;
 		height: 100%;
-		margin: auto;
 	}
-	section #first div{
+	h4 {
+		height: 0px;
+	}
+	caption {
+		height: 45px;
+	}
+	section div{
+		width: 1200px;
 		background: white;
 		display: flex;
 		margin: auto;
 	}
-	section #first div table {
-		border: 1px solid lightgray;
+	section div table {
+		border-spacing:0px;
 		width: 350px;
+		border-spacing:0px;
+		
 	}
-	section #first div table td{
+	section div table tr:first-child {
+		background: lightblue;
+	}
+	section div table td{
 		border: 1px solid lightgray;
 		width: 100px;
 		height: 40px;
 		text-align: center;
-	}
-	section #second {
-		width: 100%;
-		height: 200px;
-		background: pink;
+		border-spacing:0px;
+		border-radius: 5px;
 	}
 	section #third {
 		width: 100%;
@@ -49,8 +57,9 @@
 <body>
 
 <section>
+	<h4>&nbsp;&nbsp;&nbsp; | 당일 예약 현황</h4>
 	<div id="first">
-		<h4> | 당일 예약 현황</h4>
+		
 		<div id="one">
 			<div id="ap1">
 				<table>
@@ -100,11 +109,57 @@
 		</div>
 	</div>
 	<hr>
+	<h4>&nbsp;&nbsp;&nbsp; | 당일 항공 현황</h4>
 	<div id="second">
 		<div id="one">
-			당일 비행 편성
+			<div id="ac1">
+				<table>
+					<caption><h5 align="left"> 대한항공 </h5></caption>
+					<tr>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>예정</td>
+					</tr>
+					<tr>
+						<td>kal708</td>
+						<td>09:20</td>
+						<td>출항</td>
+					</tr>
+				</table>
+			</div>
+			<div id="ac2">
+				<table>
+					<caption><h5 align="left"> 아시아나 </h5></caption>
+					<tr>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>예정</td>
+					</tr>
+					<tr>
+						<td>asn458</td>
+						<td>10:00</td>
+						<td>우천 결항</td>
+					</tr>
+				</table>
+			</div>
+			<div id="ac3">
+				<table>
+					<tr>
+						<caption><h5 align="left"> 제주항공 </h5></caption>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>예정</td>
+					</tr>
+					<tr>
+						<td>jja172</td>
+						<td>11:20</td>
+						<td>결항</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
+	<hr>
 	<div id="third">
 		<div id="one">
 			주요 문의
