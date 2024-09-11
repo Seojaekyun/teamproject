@@ -31,7 +31,7 @@ public class MainServiceImpl implements MainService {
     @Override
     public void saveMessage(String message, boolean isAdmin) {
         // 관리자인지 여부에 따라 메시지 앞에 "관리자: " 또는 "사용자: "를 붙임
-        String sender = isAdmin ? "관리자: " : "사용자: ";
+        String sender = isAdmin ? "팅커벨: " : "손님: ";
         chatMessages.add(sender + message);
     }
 
