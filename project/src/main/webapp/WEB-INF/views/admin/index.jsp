@@ -8,8 +8,23 @@
 <style>
 	section #first {
 		width: 100%;
-		height: 200px;
-		background: blue;
+		height: 100%;
+		margin: auto;
+	}
+	section #first div{
+		background: white;
+		display: flex;
+		margin: auto;
+	}
+	section #first div table {
+		border: 1px solid lightgray;
+		width: 350px;
+	}
+	section #first div table td{
+		border: 1px solid lightgray;
+		width: 100px;
+		height: 40px;
+		text-align: center;
 	}
 	section #second {
 		width: 100%;
@@ -35,18 +50,64 @@
 
 <section>
 	<div id="first">
+		<h4> | 당일 예약 현황</h4>
 		<div id="one">
-			비행편성
+			<div id="ap1">
+				<table>
+					<caption><h5 align="left"> 대한항공 </h5></caption>
+					<tr>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>잔여석</td>
+					</tr>
+					<tr>
+						<td>kal708</td>
+						<td>09:20</td>
+						<td>28ea</td>
+					</tr>
+				</table>
+			</div>
+			<div id="ap2">
+				<table>
+					<caption><h5 align="left"> 아시아나 </h5></caption>
+					<tr>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>잔여석</td>
+					</tr>
+					<tr>
+						<td>asn458</td>
+						<td>10:00</td>
+						<td>3ea</td>
+					</tr>
+				</table>
+			</div>
+			<div id="ap3">
+				<table>
+					<tr>
+						<caption><h5 align="left"> 제주항공 </h5></caption>
+						<td>항공편명</td>
+						<td>출항시간</td>
+						<td>잔여석</td>
+					</tr>
+					<tr>
+						<td>jja172</td>
+						<td>11:20</td>
+						<td>54ea</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
+	<hr>
 	<div id="second">
 		<div id="one">
-			예약현황
+			당일 비행 편성
 		</div>
 	</div>
 	<div id="third">
 		<div id="one">
-			주요문의
+			주요 문의
 		</div>
 	</div>
 </section>

@@ -220,7 +220,7 @@
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var newMessage = document.createElement('div');
 				newMessage.className = "admin-message"; // 관리자로 구분
-				newMessage.textContent = "관리자: " + messageInput; 
+				newMessage.textContent = "팅커벨: " + messageInput; 
 				chatBody.appendChild(newMessage);
 				document.getElementById('chat-message').value = "";  // 입력창 비우기
 			}
@@ -248,7 +248,7 @@
 				// 각 메시지를 화면에 추가
 				messages.forEach(function(msg) {
 					var newMessage = document.createElement('div');
-					newMessage.className = msg.startsWith('관리자:') ? 'admin-message' : 'user-message';
+					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
 					newMessage.textContent = msg;
 					chatBody.appendChild(newMessage);
 				});
