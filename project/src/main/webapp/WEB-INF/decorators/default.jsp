@@ -625,24 +625,42 @@
 			});
 		});
 	});
+	
 	$(function() {
 		var currentURL = window.location.pathname;  // 현재 페이지 URL
 		var referrerURL = document.referrer;        // 이전 페이지 URL
 		
-		// 인덱스 페이지에서 다른 페이지로 이동할 때는 슬라이드 업
-		if (referrerURL.includes("/index") && !currentURL.includes("/index")) {
-			$('.main_content').slideUp(500); // 0.5초 동안 슬라이드 업
+		// 인덱스 페이지에서 항상 디스플레이 none에서 슬라이드 다운
+		if (currentURL.includes("/index") && (!referrerURL
+				|| referrerURL.includes("/member/member")
+				|| referrerURL.includes("/login/login")
+				|| !referrerURL)) {
+			$('.main_content').hide().slideDown(1000); // 1초 동안 슬라이드다운
 		}
-		// 다른 페이지에서 인덱스로 이동할 때는 슬라이드 다운
-		else if (currentURL.includes("/index") && !referrerURL.includes("/index")) {
-			$('.main_content').hide().slideDown(1000); // 1초 동안 슬라이드 다운
+		// 로그인 ↔ 멤버 간 이동에서는 display: none 유지, 슬라이드 업 동작하지 않음
+		else if ((currentURL.includes("/member/member") && referrerURL.includes("/login/login"))
+				|| (currentURL.includes("/login/login")	&& referrerURL.includes("/member/member"))) {
+			$('.main_content').hide(); // display: none 유지
 		}
-		// 나머지 페이지 간의 이동에서는 슬라이드 동작 없이 디스플레이 none 유지
-		else {
-			$('.main_content').hide(); // 슬라이드 없이 감춤
+		// 로그인 또는 멤버 페이지에서 다른 페이지로 이동할 때
+		else if ((!currentURL.includes("/member/member")&& referrerURL.includes("/member/member"))
+				|| (!currentURL.includes("/login/login") && referrerURL.includes("/login/login"))) {
+			$('.main_content').hide().slideDown(1000); // 다시 슬라이드 다운 실행
+		}
+		// 다른 페이지에서 로그인 또는 멤버로 이동할 때는 슬라이드 업 동작
+		else if ((currentURL.includes("/member/member") && !referrerURL.includes("/login/login"))
+				|| (currentURL.includes("/login/login") && !referrerURL.includes("/member/member"))) {
+			$('.main_content').slideUp(500); // 슬라이드 업 동작
+		}
+		// 다른 페이지에서 인덱스로 이동할 때는 슬라이드 다운 동작하지 않음
+		else if (currentURL.includes("/index")
+				&& !referrerURL.includes("/member/member")
+				&& !referrerURL.includes("/login/login")) {
+			// 인덱스 페이지로 이동할 때, 슬라이드 다운 동작하지 않음
+			$('.main_content').show(); // 슬라이드 없이 그냥 보이게 함
 		}
 	});
-
+	
 </script>
 
 <sitemesh:write property="head" />
@@ -878,7 +896,6 @@
 		background-color: #fff;
 		display: none;
 		flex-direction: column;
-		z-index: 9999;
 	}
 	#chat-header {
 		background-color: #2DD1C5;
@@ -900,7 +917,6 @@
 		cursor: pointer;
 		font-size: 12px;
 		border-radius: 5px;
-		
 	}
 	#chat-body {
 		flex: 1;
@@ -944,21 +960,67 @@
 		border-radius: 5px;
 	}
 </style>
+
 <script>
-	// 채팅 종료 및 기록 리셋
+	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
 	function endChat() {
+		sendMessage("상담이 종료되었습니다.");
+		var endButton = document.getElementById('endChatButton');
+		endButton.innerText = '닫기';
+		endButton.onclick = closeAndResetChat;
+	}
+	
+	// 닫기 버튼을 눌렀을 때 채팅 기록 리셋 및 창 닫기
+	function closeAndResetChat() {
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/endChat", true);
+		xhr.open("POST", "../main/resetChatHistory", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var chatBody = document.getElementById('chat-body');
 				chatBody.innerHTML = '';
-				toggleChat();
+				var chatConsole = document.getElementById('chat-console');
+				chatConsole.style.display = 'none';
+				var chatToggle = document.getElementById('chat-toggle');
+				chatToggle.style.display = 'block';
+				var endButton = document.getElementById('endChatButton');
+				endButton.innerText = '끝내기';
+				endButton.onclick = endChat;
 			}
 		};
 		xhr.send();
 	}
+	
+	// 메시지 전송 함수
+	function sendMessage(message) {
+		var messageInput = message || document.getElementById('chat-message').value;
+		var chatBody = document.getElementById('chat-body');
+		if (messageInput.trim() === "") return;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/sendMessage", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var newMessage = document.createElement('div');
+				newMessage.className = "user-message";
+				newMessage.textContent = messageInput;
+				chatBody.appendChild(newMessage);
+				document.getElementById('chat-message').value = "";
+			}
+		};
+		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
+	}
+	
+	// Enter 키로 메시지 전송
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('chat-message').addEventListener('keydown', function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				sendMessage();
+			}
+		});
+	});
+	
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -971,71 +1033,37 @@
 			chatToggle.style.display = 'block';
 		}
 	}
-	// 메시지 전송 함수
-	function sendMessage() {
-		var messageInput = document.getElementById('chat-message').value;
-		var chatBody = document.getElementById('chat-body');
-		if (messageInput.trim() === "") {
-			return;
-		}
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/sendMessage", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var newMessage = document.createElement('div');
-				newMessage.className = "user-message";
-				newMessage.textContent = "손님: " + messageInput;
-				chatBody.appendChild(newMessage);
-				document.getElementById('chat-message').value = "";
-			}
-		};
-		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
-	}
-	// Enter 키로 메시지 전송
-	document.addEventListener('DOMContentLoaded', function() {
-		document.getElementById('chat-message').addEventListener('keydown', function(event) {
-			if (event.key === "Enter") {
-				event.preventDefault();  // 기본 엔터키 동작(줄바꿈) 방지
-				sendMessage();  // 메시지 전송 함수 호출
-			}
-		});
-	});
 	
 	// Long Polling으로 메시지 갱신
 	function pollMessages() {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "/main/getMessages", true);  // 메시지를 서버에서 가져옴
+		xhr.open("GET", "/main/getMessages", true);
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var chatBody = document.getElementById('chat-body');
 				var messages = JSON.parse(xhr.responseText);
-				
-				chatBody.innerHTML = '';  // 기존 메시지 초기화
-				
-				// 새로운 메시지를 화면에 추가
+				chatBody.innerHTML = '';
 				messages.forEach(function(msg) {
 					var newMessage = document.createElement('div');
 					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
 					newMessage.textContent = msg;
 					chatBody.appendChild(newMessage);
 				});
-				
-				pollMessages();  // 계속해서 새로운 메시지를 가져옴
+				pollMessages();
 			}
 		};
-		
 		xhr.send();
 	}
 	
-	// 페이지 로드 후 메시지 요청 시작
+	// 페이지 로드 후 처음 메시지 요청 시작
 	pollMessages();
 </script>
+	<!-- 채팅창 -->
 	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
 	<div id="chat-console">
 		<div id="chat-header">
 			채팅 상담
-			<button onclick="endChat()">끝내기</button>
+			<button id="endChatButton" onclick="endChat()">끝내기</button>
 		</div>
 		<div id="chat-body"></div>
 		<div id="chat-input">
@@ -1043,7 +1071,9 @@
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
+
 	<sitemesh:write property="body" />
+
 	<footer>
 		<table>
 			<tr>

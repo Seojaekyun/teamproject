@@ -21,14 +21,12 @@ public class MainController {
 	private MainService service;
 	
 	@RequestMapping("/")
-	public String home()
-	{
+	public String home() {
 		return "redirect:/main/index";
 	}
 	
-	@RequestMapping("/main/index")
-	public String index()
-	{
+	@RequestMapping("/main/index") 
+	public String index() {
 		return service.index();
 	}
 	
@@ -38,27 +36,24 @@ public class MainController {
 	}
 	
 	// 메시지 전송 처리
-    @PostMapping("/main/sendMessage")
-    @ResponseBody
-    public String sendMessage(@RequestParam String message, @RequestParam boolean isAdmin) {
-        // 메시지 저장 시, 관리자 여부를 함께 넘겨주어 저장
-        service.saveMessage(message, isAdmin);
-        return "Message successfully saved";
-    }
-
-    // 메시지 가져오기
-    @GetMapping("/main/getMessages")
-    @ResponseBody
-    public List<String> getMessages() {
-        return service.getMessages();
-    }
-    
-    @PostMapping("/main/endChat")
-    @ResponseBody
-    public String endChat() {
-        // 서비스에서 채팅 기록 삭제 처리
-        service.clearChatMessages();
-        return "채팅이 종료되었습니다.";
-    }
-  
+	@PostMapping("/main/sendMessage")
+	@ResponseBody
+	public String sendMessage(@RequestParam String message, @RequestParam boolean isAdmin) {
+	    return service.saveMessage(message, isAdmin);  // 로직을 서비스로 넘김
+	}
+	
+	// 메시지 가져오기
+	@GetMapping("/main/getMessages")
+	@ResponseBody
+	public List<String> getMessages() {
+		return service.getMessages();
+	}
+	
+	@PostMapping("/main/resetChatHistory")
+	@ResponseBody
+	public String resetChatHistory() {
+		// 채팅 기록을 리셋하는 서비스 로직 호출
+		return service.clearChatMessages();
+	}
+	
 }

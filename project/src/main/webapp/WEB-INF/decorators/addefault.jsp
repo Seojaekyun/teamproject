@@ -179,7 +179,7 @@
 	<div id="chat-console">
 		<div id="chat-header">
 			채팅 상담
-			<button onclick="endChat()">끝내기</button>
+			<button onclick="adendChat()">끝내기</button>
 		</div>
 		<div id="chat-body"></div>
 		<div id="chat-input">
@@ -188,80 +188,74 @@
 		</div>
 	</div>
 
-	<script>
-	// 채팅 종료 및 기록 리셋
-	function endChat() {
-		// 서버에 채팅 기록 초기화 요청
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/endChat", true); // Controller 경로로 요청
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				// 채팅 기록 초기화
-				var chatBody = document.getElementById('chat-body');
-				chatBody.innerHTML = '';  // 채팅 기록 비우기
-			}
-		};
-		xhr.send();
-	}
-	// 메시지 전송 함수 (관리자 페이지)
-	function sendMessage() {
-		var messageInput = document.getElementById('chat-message').value;
-		var chatBody = document.getElementById('chat-body');
-	
-		if (messageInput.trim() === "") {
-			return; // 빈 메시지는 전송하지 않음
-		}
-		// AJAX 요청을 통해 서버에 메시지 전송
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/sendMessage", true);  // Controller 경로로 요청
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var newMessage = document.createElement('div');
-				newMessage.className = "admin-message"; // 관리자로 구분
-				newMessage.textContent = "팅커벨: " + messageInput; 
-				chatBody.appendChild(newMessage);
-				document.getElementById('chat-message').value = "";  // 입력창 비우기
-			}
-		};
-		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=true"); // 관리자 메시지로 전송
-	}
-	// Enter 키로 메시지 전송 (keydown 이벤트 추가)
-	document.getElementById('chat-message').addEventListener('keydown', function(event) {
-		if (event.key === "Enter") {
-			event.preventDefault();  // 기본 엔터키 동작(줄바꿈) 방지
-			sendMessage();  // 메시지 전송 함수 호출
-		}
-	});
-	// Long Polling으로 새로운 메시지가 있을 때만 갱신
-	function pollMessages() {
-		console.log("Polling for messages...");
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "../main/getMessages", true);  // 서버로부터 메시지 요청
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				console.log("Response received: ", xhr.responseText);
-				var chatBody = document.getElementById('chat-body');
-				var messages = JSON.parse(xhr.responseText); // JSON 배열 파싱
-				chatBody.innerHTML = '';  // 기존 메시지 초기화
-				// 각 메시지를 화면에 추가
-				messages.forEach(function(msg) {
-					var newMessage = document.createElement('div');
-					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
-					newMessage.textContent = msg;
-					chatBody.appendChild(newMessage);
-				});
-				pollMessages(); // 재귀 호출
-			} else if (xhr.readyState === 4) {
-				console.error("Failed to fetch messages: ", xhr.status, xhr.statusText);
-			}
-		};
-		xhr.send();
-	}
+<script>
+    // 채팅 종료 시 "상담이 종료되었습니다." 메시지 전송
+    function adendChat() {
+        sendMessage("상담이 종료되었습니다.");
+    }
 
-	// 페이지 로드 후 처음 메시지 요청 시작
-	pollMessages();
+    // 메시지 전송 함수 (관리자 페이지)
+    function sendMessage(message, callback) {
+        var messageInput = message || document.getElementById('chat-message').value;
+        var chatBody = document.getElementById('chat-body');
+    
+        if (messageInput.trim() === "") {
+            return; // 빈 메시지는 전송하지 않음
+        }
+
+        // AJAX 요청을 통해 서버에 메시지 전송
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../main/sendMessage", true);  // Controller 경로로 요청
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var newMessage = document.createElement('div');
+                newMessage.className = "admin-message"; // 관리자로 구분
+                newMessage.textContent = "팅커벨: " + messageInput; 
+                chatBody.appendChild(newMessage);
+
+                // 입력 창 비우기 (상담 종료 메시지가 아니면)
+                if (!message) {
+                    document.getElementById('chat-message').value = "";
+                }
+            }
+        };
+        xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=true");
+    }
+
+    // Enter 키로 메시지 전송 (keydown 이벤트 추가)
+    document.getElementById('chat-message').addEventListener('keydown', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();  // 기본 엔터키 동작(줄바꿈) 방지
+            sendMessage();  // 메시지 전송 함수 호출
+        }
+    });
+
+    // Long Polling으로 새로운 메시지가 있을 때만 갱신
+    function pollMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "../main/getMessages", true);  // 서버로부터 메시지 요청
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var chatBody = document.getElementById('chat-body');
+                var messages = JSON.parse(xhr.responseText); // JSON 배열 파싱
+                chatBody.innerHTML = '';  // 기존 메시지 초기화
+                // 각 메시지를 화면에 추가
+                messages.forEach(function(msg) {
+                    var newMessage = document.createElement('div');
+                    newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
+                    newMessage.textContent = msg;
+                    chatBody.appendChild(newMessage);
+                });
+                pollMessages(); // 재귀 호출로 새로운 메시지 확인
+            }
+        };
+        xhr.send();
+    }
+
+    // 페이지 로드 후 처음 메시지 요청 시작
+    pollMessages();
+
 </script>
 
 <sitemesh:write property="body"/>

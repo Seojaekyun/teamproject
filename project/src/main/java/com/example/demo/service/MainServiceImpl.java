@@ -29,10 +29,10 @@ public class MainServiceImpl implements MainService {
 	
 	// 메시지 저장 메서드
     @Override
-    public void saveMessage(String message, boolean isAdmin) {
-        // 관리자인지 여부에 따라 메시지 앞에 "관리자: " 또는 "사용자: "를 붙임
+    public String saveMessage(String message, boolean isAdmin) {
         String sender = isAdmin ? "팅커벨: " : "손님: ";
         chatMessages.add(sender + message);
+		return sender;
     }
 
     // 저장된 메시지 목록 반환 메서드
@@ -42,8 +42,9 @@ public class MainServiceImpl implements MainService {
     }
     
     @Override
-    public void clearChatMessages() {
+    public String clearChatMessages() {
         chatMessages.clear();  // 채팅 기록을 비움
+		return null;
     }
 	
 
