@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.FlightMapper">
+  
+    <select id="searchFlights" resultType="com.example.demo.dto.FlightsDto">
+        SELECT * FROM flights
+        WHERE departure_airport = #{departure}
+        AND arrival_airport = #{arrival}
+        AND departure_time like concat(#{departureDate} ,'%')
+        AND arrival_time like concat(#{arrivalDate},'%')
+    </select>
+
+</mapper>

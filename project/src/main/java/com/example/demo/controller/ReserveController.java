@@ -6,13 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class RreservController {
+public class ReserveController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	@RequestMapping("/reserv/list")
+	@RequestMapping("/reserve/list")
 	public String list() {
-		return "/reserv/list";
+		return "/reserve/list";
 	}
 
 }
