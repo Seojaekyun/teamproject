@@ -7,5 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface AdminService {
 
 	String adReserve();
+	String memberList(HttpServletRequest request, Model model);
 
 }

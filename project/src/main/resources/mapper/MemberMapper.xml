@@ -11,5 +11,9 @@
     values(#{userid},#{pwd},#{name},#{email},#{phone},now())
   </insert>
   
-  
+	<select id="list" resultType="com.example.demo.dto.MemberDto">
+		select * from member
+	</select>
+	
+	
  </mapper>

@@ -39,10 +39,36 @@
 		border-spacing:0px;
 		border-radius: 5px;
 	}
-	section #third {
-		width: 100%;
-		height: 200px;
-		background: olive;
+	section #third table {
+		border-spacing:0px;
+		width: 500px;
+		border-spacing:0px;
+		margin-right: 30px;
+	}
+	section #third #topinq {
+		border-spacing:0px;
+		width: 300px;
+		border-spacing:0px;
+	}
+	section #third #inq td{
+		border: 1px solid lightgray;
+		width: 130px;
+		height: 40px;
+		text-align: center;
+		border-spacing:0px;
+		border-radius: 5px;
+	}
+	section #third #topinq #num {
+		width: 50px;
+	}
+	section #third #topinq #title {
+		width: 250px;
+	}
+	section #third #inq #num {
+		width: 50px;
+	}
+	section #third #inq #title {
+		width: 250px;
 	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -160,9 +186,73 @@
 		</div>
 	</div>
 	<hr>
+	<h4>&nbsp;&nbsp;&nbsp; | 주요문의 현황 </h4>
 	<div id="third">
 		<div id="one">
-			주요 문의
+			<div id="topinq">
+				<table>
+					<caption><h5 align="left"> 주요문의 </h5></caption>
+					<tr>
+						<td id="num"> 순위 </td>
+						<td id="title"> 문의 사항 </td>
+						<td> 문의량 </td>
+					</tr>
+					<tr>
+						<td> 1 </td>
+						<td> 예약관련 문의 </td>
+						<td> 1754 </td>
+					</tr>
+					<tr>
+						<td> 2 </td>
+						<td> 일정관련 문의 </td>
+						<td> 512 </td>
+					</tr>
+					<tr>
+						<td> 3 </td>
+						<td> 기타 </td>
+						<td> 76 </td>
+					</tr>
+				</table>
+			</div>
+			<div id="inq">
+				<table>
+					<caption><h5 align="left"> 최근문의 </h5></caption>
+					<tr>
+						<td>  </td>
+						<td> 문의사항 </td>
+						<td> 문의고객 </td>
+						<td> 작성일 </td>
+						<td> 조회수 </td>
+					</tr>
+					<c:forEach items="${ilist}" var="idto">
+					<tr>
+						<td id="num"> ${idto.id } </td>
+						<td id="title" align="center">
+							<a href="readnum?id=${idto.id}">
+								<c:if test="${idto.title==0}">
+								<span id="s1">예약접수 관련 문의</span>
+								</c:if>
+								<c:if test="${idto.title==1}">
+								<span id="s2">탑승수속 관련 문의</span>
+								</c:if>
+								<c:if test="${idto.title==2}">
+								<span id="s1">예약취소 관련 문의</span>
+								</c:if>
+								<c:if test="${idto.title==3}">
+								<span id="s2">웹사이트 관련 문의</span>
+								</c:if>
+								<c:if test="${idto.title==4}">
+								<span id="s1">기타 문의</span>
+								</c:if>
+							</a>
+						</td>
+						<td> ${idto.userid } </td>
+						<td> ${idto.writeday } </td>
+						<td> ${idto.readnum } </td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 	</div>
 </section>

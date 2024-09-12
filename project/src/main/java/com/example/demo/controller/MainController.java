@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MainService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
@@ -31,10 +34,10 @@ public class MainController {
 	}
 	
 	@RequestMapping("/admin/index")
-	public String adminI() {
-		return service.adminI();
+	public String adminI(HttpServletRequest request, Model model) {
+		return service.adminI(request, model);
 	}
-	
+		
 	// 메시지 전송 처리
 	@PostMapping("/main/sendMessage")
 	@ResponseBody

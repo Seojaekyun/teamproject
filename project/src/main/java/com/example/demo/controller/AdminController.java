@@ -22,5 +22,10 @@ public class AdminController {
 		return service.adReserve();
 	}
 	
+	@RequestMapping("/admin/memberList")
+	public String memberList(HttpServletRequest request, Model model) {
+		return service.memberList(request, model);
+	}
+	
 	
 }
