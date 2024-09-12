@@ -626,7 +626,7 @@
 		});
 	});
 	
-	$(function() {
+	/* $(function() {	//회원가입, 로그인 페이지에서 메인컨텐츠 숨김
 		var currentURL = window.location.pathname;  // 현재 페이지 URL
 		var referrerURL = document.referrer;        // 이전 페이지 URL
 		
@@ -657,6 +657,28 @@
 				&& !referrerURL.includes("/member/member")
 				&& !referrerURL.includes("/login/login")) {
 			// 인덱스 페이지로 이동할 때, 슬라이드 다운 동작하지 않음
+			$('.main_content').show(); // 슬라이드 없이 그냥 보이게 함
+		}
+	}); */
+	
+	$(function() {	//인덱스 외에 페이지에서는 메인컨텐츠 숨김
+		var currentURL = window.location.pathname;  // 현재 페이지 URL
+		var referrerURL = document.referrer;        // 이전 페이지 URL
+		
+		// 인덱스에서 다른 페이지로 이동할 때는 슬라이드 업
+		if (referrerURL.includes("/index") && !currentURL.includes("/index")) {
+			$('.main_content').slideUp(500); // 슬라이드 업 동작
+		}
+		// 다른 페이지에서 인덱스로 이동하거나 인덱스가 처음 열릴 때는 슬라이드 다운
+		else if (currentURL.includes("/index") && (!referrerURL || !referrerURL.includes("/index"))) {
+			$('.main_content').hide().slideDown(1000); // 슬라이드 다운 동작
+		}
+		// 인덱스 이외의 페이지 간 이동 시 디스플레이 none 유지, 슬라이드 동작 없음
+		else if (!currentURL.includes("/index") && !referrerURL.includes("/index")) {
+			$('.main_content').hide(); // 디스플레이 none 유지
+		}
+		// 그 외 경우는 기본 동작 유지
+		else {
 			$('.main_content').show(); // 슬라이드 없이 그냥 보이게 함
 		}
 	});
@@ -887,67 +909,109 @@
 	</div>
 <style>
 	#chat-console {
-		width: 300px;
-		height: 400px;
+		width: 320px;
+		height: 450px;
 		border: 2px solid #2DD1C5;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
 		position: fixed;
 		bottom: 20px;
 		right: 20px;
 		background-color: #fff;
 		display: none;
 		flex-direction: column;
+		overflow: hidden;
+		font-family: Arial, sans-serif;
 	}
 	#chat-header {
 		background-color: #2DD1C5;
 		color: white;
-		padding: 10px;
+		padding: 15px;
 		text-align: center;
 		font-weight: bold;
 		cursor: pointer;
 		position: relative;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
 	}
 	#chat-header button {
 		position: absolute;
-		top: 10px;
-		right: 10px;
-		background-color: red;
+		top: 50%;
+		right: 15px;
+		transform: translateY(-50%);
+		background-color: #E74C3C;
 		color: white;
 		border: none;
-		padding: 5px;
+		padding: 5px 10px;
 		cursor: pointer;
 		font-size: 12px;
 		border-radius: 5px;
+		transition: background-color 0.3s;
+	}
+	#chat-header button:hover {
+		background-color: #C0392B;
 	}
 	#chat-body {
 		flex: 1;
-		padding: 10px;
+		padding: 15px;
 		overflow-y: auto;
+		background-color: #F8F9FA;
+		display: flex;
+		flex-direction: column; /* 메시지가 세로로 쌓이도록 설정 */
 	}
 	#chat-body .message {
-		margin-bottom: 10px;
+		margin-bottom: 12px;
+		display: flex; /* 메시지를 독립된 블록으로 처리 */
+		width: 100%; /* 메시지가 부모의 전체 너비를 차지하게 함 */
 	}
 	#chat-body .user-message {
 		color: black;
 		text-align: left;
+		background-color: #E3F2FD;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
+		align-self: flex-start; /* 왼쪽 정렬 */
+		clear: both;
 	}
 	#chat-body .admin-message {
-		color: blue;
+		color: white;
 		text-align: right;
+		background-color: #2DD1C5;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
+		align-self: flex-end; /* 오른쪽 정렬 */
+		clear: both;
 	}
 	#chat-input {
 		display: flex;
 		padding: 10px;
+		background-color: #F1F1F1;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
 	}
 	#chat-input input[type="text"] {
 		flex: 1;
-		padding: 5px;
+		padding: 10px;
+		border: 1px solid #CCC;
+		border-radius: 20px;
+		outline: none;
+		margin-right: 10px;
 	}
 	#chat-input button {
-		padding: 5px 10px;
-		background-color: #23297A;
+		padding: 8px 15px;
+		background-color: #2DD1C5;
 		color: white;
 		border: none;
 		cursor: pointer;
+		border-radius: 20px;
+		transition: background-color 0.3s;
+	}
+	#chat-input button:hover {
+		background-color: #1A9987;
 	}
 	#chat-toggle {
 		position: fixed;
@@ -955,11 +1019,25 @@
 		right: 30px;
 		background-color: #2DD1C5;
 		color: white;
-		padding: 10px 20px;
+		padding: 12px 25px;
 		cursor: pointer;
-		border-radius: 5px;
+		border-radius: 30px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transition: background-color 0.3s;
+		font-family: Arial, sans-serif;
+	}
+	#chat-toggle:hover {
+		background-color: #1A9987;
+	}
+	#chat-body .end-message {
+		color: red;
+		text-align: center;
+		font-weight: bold;
+		margin: 20px 0; /* 위아래에 여유 공간 추가 */
+		display: block;
 	}
 </style>
+
 
 <script>
 	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
