@@ -27,5 +27,4 @@ public class AdminController {
 		return service.memberList(request, model);
 	}
 	
-	
 }
