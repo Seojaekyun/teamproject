@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.service.AdminService;
-import com.example.demo.service.GongjiService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
