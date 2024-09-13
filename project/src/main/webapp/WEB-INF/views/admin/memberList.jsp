@@ -4,24 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원관리</title>
 <style>
 	section {
 		width: 1000px;
-		height: 600px;
 		margin: auto;
 		font-family: 'hahmlet', sans-serif; /* 대체 폰트 추가 */
 	}
 	section table {
 		width: 800px; /* 테이블 너비 */
-		margin: 0 auto; /* 테이블을 섹션 가운데 정렬 */
+		margin: auto; /* 테이블을 섹션 가운데 정렬 */
 		border-spacing: 0; /* 테이블 셀 간격 제거 */
-		margin-bottom: 200px; /* 테이블 아래 여백 */
 	}
 	section table td {
 		border-bottom: 1px solid #2DD1C5; /* 셀 하단 경계선 */
 		padding: 5px; /* 셀 패딩 */
-		height: 40px; /* 셀 높이 */
+		height: 30px; /* 셀 높이 */
 	}
 	section table tr:first-child td {
 		border-top: 2px solid #2DD1C5; /* 첫 번째 행 상단 경계선 */
@@ -65,27 +63,23 @@
 <body>
 <section>
 	<table>
-		<caption><h3> 공 지 사 항 </h3></caption> <!-- 테이블 제목 -->
+		<caption><h3> 회원 관리 </h3></caption> <!-- 테이블 제목 -->
 		<tr align="center">
-			<td> 제 목 </td>
-			<td> 작성자 </td>
-			<td> 조회수 </td>
-			<td> 작성일 </td>
+			<td>  </td>
+			<td> 고객명 </td>
+			<td> ID </td>
+			<td> 회원등급 </td>
+			<td> 최근예약현황 </td>
+			<td> 요청사항 </td>
 		</tr>
-		<c:forEach items="${glist }" var="gdto">
+		<c:forEach items="${mlist}" var="mdto">
 		<tr align="center">
-			<td align="center">
-				<c:if test="${gdto.state==2 }">
-				<span id="badge1">필독</span> <!-- '필독' 배지 -->
-				</c:if>
-				<c:if test="${gdto.state==1 }">
-				<span id="badge2">공지</span> <!-- '공지' 배지 -->
-				</c:if>
-				<a href="readnum?id=${gdto.id}"> ${gdto.title } </a> <!-- 제목 링크 -->
-			</td>
-			<td> ${gdto.writer } </td>
-			<td> ${gdto.readnum } </td>
-			<td> ${gdto.writeday } </td>
+			<td align="center"> ${mdto.id } </td>
+			<td align="center"> ${mdto.name } </td>
+			<td align="center"> ${mdto.userid } </td>
+			<td align="center"> VIP </td>
+			<td align="center"> 예약중 </td>
+			<td align="center"> - </td>
 		</tr>
 		</c:forEach>
 	</table>

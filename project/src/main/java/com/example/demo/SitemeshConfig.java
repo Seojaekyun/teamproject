@@ -14,8 +14,9 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 		//builder.addDecoratorPath("/admin/*", "/views/common/admin.jsp");
 		
 		// 제외할 폴더와 문서
-		//builder.addExcludedPath("/test/*");
-        builder.addExcludedPath("/admin/*");
+        builder.addExcludedPath("/login/loginAd");
+        builder.addDecoratorPath("/admin/*", "/addefault.jsp");
+        
 		
 		
         super.applyCustomConfiguration(builder);

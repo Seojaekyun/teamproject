@@ -1,7 +1,16 @@
 package com.example.demo.service;
 
-public interface MainService {
+import java.util.List;
 
+import org.springframework.ui.Model;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+public interface MainService {
 	public String index();
-	public String adminI();
+	public String adminI(HttpServletRequest request, Model model);
+	public String saveMessage(String message, boolean isAdmin);
+	public List<String> getMessages();
+	public String clearChatMessages();
+	
 }

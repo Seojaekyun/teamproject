@@ -56,6 +56,7 @@
 		</div>
 	</c:if>
 	<form method="post" action="writeOk">
+	<input type="hidden" name="userid" value="${userid }">
 		<h3 align="center">관리자에게 문의하기</h3>
 		<div>
 			<select name="title">

@@ -4,6 +4,9 @@
 	<select id="list" resultType="com.example.demo.dto.GongjiDto">
 		select * from gongji order by state desc, id desc
 	</select>
+	<select id="gongjiList" resultType="com.example.demo.dto.GongjiDto">
+		select * from gongji order by state desc, id desc
+	</select>
 	<insert id="writeOk" parameterType="com.example.demo.dto.GongjiDto">
 		insert into gongji(title,content,state,writeday,writer)
 		values(#{title},#{content},#{state},now(),#{writer})
@@ -12,6 +15,9 @@
 		update gongji set readnum=readnum+1 where id=#{param}
 	</update>
 	<select id="content" resultType="com.example.demo.dto.GongjiDto">
+		select * from gongji where id=#{param}
+	</select>
+	<select id="gongjiContent" resultType="com.example.demo.dto.GongjiDto">
 		select * from gongji where id=#{param}
 	</select>
 	<update id="updateOk" parameterType="com.example.demo.dto.GongjiDto">

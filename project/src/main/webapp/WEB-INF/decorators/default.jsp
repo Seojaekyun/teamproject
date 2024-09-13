@@ -6,13 +6,12 @@
 <meta charset="UTF-8">
 <title>title</title>
 <!-- Flatpickr(달력 라이브러리) CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- Flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
 		margin: 0;
 		padding: 0;
@@ -135,479 +134,320 @@
 		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
 	}
 	header > nav #main {
-      padding-left:0px;
-      margin-left:100px;
-   }
-   
-   header > nav #main > li { /* 주메뉴 */
-      display:inline-block;
-      list-style-type:none;
-      width:340px;
-      height:50px;
-      line-height:30px;
-      text-align:center;
-      font-weight:900;
-      position:relative;
-      
-      
-      
-      z-index: 5;
-      
-      
-      /*border:1px solid black;*/
-   }
-
-
-	header > nav #main > li > .menu { /* 하위메뉴 ul태그 */
-      padding-left:0px;
-      position:absolute;
-      left:0px;
-      top:48px;
-      background:white;
-      visibility:hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-   }
-   
-   header > nav #main > li > .menu > li { /* 하위메뉴내의 메뉴 */
-      list-style-type:none;
-      width:340px;
-      height:35px;
-      line-height:35px;
-      border-bottom:1px solid #ddd;
-      
-      
-    					
-    					
-   }
-   
-   
-   /*
-   header > nav #main > li > .menu > li:last-child {
-      border-bottom:1px solid green;
-    }
-    */
-
-
-/* 푸터 스타일 */
-footer {
-    padding-top: 10px;
-    padding-bottom: 5px;
-    width: 100%;
-    height: auto;
-    margin: auto;
-    font-family: 'Hahmlet';
-    margin-top: 30px;
-    font-size: 13px;
-    background: #9AB973;
-    color: white;
-    text-align: center;
-}
-
-footer table {
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-}
-
-@media (max-width: 768px) {
-    header, #outer #first, nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    footer table, footer td {
-        font-size: 11px;
-    }
-}
-
-
-/*중앙 컨텐츠*/
-
-@media (max-width: 768px) {
-	header, #outer #first, nav ul {
-		flex-direction: column;
+		padding-left: 0px;
+		margin-left: 100px;
+	}
+	header > nav #main > li {
+		display: inline-block;
+		list-style-type: none;
+		width: 200px;
+		height: 50px;
+		line-height: 30px;
+		text-align: center;
+		font-weight: 900;
+		position: relative;
+		z-index: 5;
+	}
+	header > nav #main > li > .menu {
+		padding-left: 0px;
+		position: absolute;
+		left: 0px;
+		top: 48px;
+		background: white;
+		visibility: hidden;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	header > nav #main > li > .menu > li {
+		list-style-type: none;
+		width: 200px;
+		height: 35px;
+		line-height: 35px;
+		border-bottom: 1px solid #ddd;
+	}
+	footer {
+		padding-top: 10px;
+		padding-bottom: 5px;
+		width: 100%;
+		height: auto;
+		margin: auto;
+		font-family: 'Hahmlet';
+		margin-top: 30px;
+		font-size: 13px;
+		background: #9AB973;
+		color: white;
 		text-align: center;
 	}
-	nav ul li {
+	footer table {
+		width: 100%;
+		max-width: 1000px;
+		margin: auto;
+	}
+	@media (max-width: 768px) {
+		header, #outer #first, nav ul {
+			flex-direction: column;
+			text-align: center;
+		}
+		nav ul li {
+			display: block;
+			margin: 10px 0;
+		}
+		footer table, footer td {
+			font-size: 11px;
+		}
+	}
+	.air_service {
+		position: relative;
+		background-image: url('../static/resources/background.jpg');
+		background-size: cover;
+		width: 100%;
+		height: 450px;
+		background-repeat: no-repeat;
+		z-index: 0;
+	}
+	.air_align {
+		margin-left: 73px;
+		margin-right: 73px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.air_contentbox {
+		position: relative;
+		top: 5.3rm;
+		left: 0;
+		width: 90%;
+		height: 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
+	.air_widget {
+		position: absolute;
+		top: 7.4rem;
 		display: block;
-		margin: 10px 0;
+		width: 100%;
+		height: 54px;
+		content: "";
+		z-index: 1;
+		margin: auto;
 	}
-	footer table, footer td {
-		font-size: 11px;
+	.booking_widget_list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 55px;
+		position: relative;
 	}
-}
-
-.air_service{
-	position: relative;
-	background-image: url('../static/resources/background.jpg'); 
-	background-size: cover; 
-	width: 100%;  
-	height: 450px;
-	background-repeat: no-repeat;
-	z-index:0;
-
-}
-
-.air_align{
-margin-left: 73px;
-margin-right: 73px;
-display: flex; /* Flexbox 컨테이너로 설정 */
-flex-direction: column; /* 수직 방향으로 정렬 */
-align-items: center; /* 중앙 정렬 */
-
-
-}
-
-
-.air_contentbox{
-	position: relative;
-	 
-    top: 5.3rm; /* 원하는 위치로 조정 */
-    left: 0; /* 원하는 위치로 조정 */
-   /* width: 1150px; 
-    height: 284px; */
-    width: 90%;
-    height: 70%; 
-    display: flex;
-    flex-direction: column; /*수직 방향으로 콘텐츠 정렬 */
-    justify-content: center; 
-    align-items: center; 
-    z-index:2;
-}
-
-
-
-
-.air_widget{
-position: absolute;
-    top: 7.4rem;
-    display: block;
-    width: 100%;
-    height: 54px;
-    content: "";
-    z-index: 1;
-    margin: auto;
-
-}
-
-.booking_widget_list{
-list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 55px;
-    position: relative;
-}
-
-
-/* .booking_widget_list:before{
-position: absolute;
-    top: 0;
-    left: 1.3rem;
-    display: block;
-    width: calc(100% - 2.6rem);
-    height: 100%;
-    content: none;
-    background-color: #65728a;
-}
-*/
-.booking_widget_list li {
-	flex: 1;
-    text-align: center;
-    border: 1px solid #65728a;
-    padding-block: 15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    margin: 0.5px;
-    background-color: #65728a;
-    z-index:2;
-}
-
-.booking_widget_list li.active {
-    background-color: white;
-    border: 3px solid white;
-
-}
-
-
-.booking_widget_list li.active span {
-    color: #65728a; /* 활성화된 상태에서 span 태그의 글씨 색상 */
-    font-weight: 900; /* 글씨를 두껍게 만듭니다 */
-}
-
-#booking_menu{
-display: inline-block;
-}
-
-.booking_widget_list button {
-    width: 100%; /* 버튼이 li 요소의 너비를 꽉 채우도록 설정 */
-    height: 100%; /* 버튼이 li 요소의 높이를 꽉 채우도록 설정 */
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex; /* 버튼 내의 텍스트 중앙 정렬을 위해 Flexbox 사용 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-}
-
-.booking_widget_list button span {
-    font-size: 16px;
-        color: white;
-        
-    position: relative; /* 텍스트의 위치 조정을 위해 relative 설정 */
-    top: -5px; /* 텍스트를 위로 이동시킬 값을 조정 */
-    
-}
-
-
-
-
-.booking_contents {
-	position: relative;
-    width: 100%;
-    height: 220px;
-    z-index: 3;
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    margin-top: -10px;
-    
-    display: block; /* 기본적으로 표시 */
-    padding-left: 40px;
-    padding-top:30px;
-    padding-right: 40px;
-    padding-bottom:10px;
-}
-
-.select_contents {
-	position: relative;
-    width: 100%;
-    height: 220px;
-    z-index: 3;
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    margin-top: -10px;
-    padding-left: 40px;
-    padding-top:30px;
-    padding-right: 40px;
-    padding-bottom:10px;
-}
-
-.check-in_contents {
-	position: relative;
-    width: 100%;
-    height: 220px;
-    z-index: 3;
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    margin-top: -10px;
-    padding-left: 40px;
-    padding-top:30px;
-    padding-right: 40px;
-    padding-bottom:10px;
-}
-
-.schedule_contents {
-	position: relative;
-    width: 100%;
-    height: 220px;
-    z-index: 3;
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    margin-top: -10px;
-    padding-left: 40px;
-    padding-top:30px;
-    padding-right: 40px;
-    padding-bottom:10px;
-}
-
-.booking_contents, .select_contents, .check-in_contents, .schedule_contents {
-    display: none;
-}
-
-
-
-.b_methodbox {
+	.booking_widget_list li {
+		flex: 1;
+		text-align: center;
+		border: 1px solid #65728a;
+		padding-block: 15px;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+		margin: 0.5px;
+		background-color: #65728a;
+		z-index: 2;
+	}
+	.booking_widget_list li.active {
+		background-color: white;
+		border: 3px solid white;
+	}
+	.booking_widget_list li.active span {
+		color: #65728a;
+		font-weight: 900;
+	}
+	#booking_menu {
+		display: inline-block;
+	}
+	.booking_widget_list button {
+		width: 100%;
+		height: 100%;
+		background: none;
+		border: none;
+		font-size: 16px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.booking_widget_list button span {
+		font-size: 16px;
+		color: white;
+		position: relative;
+		top: -5px;
+	}
+	.booking_contents {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		z-index: 3;
+		background-color: white;
+		border: 2px solid white;
+		border-radius: 15px;
+		margin-top: -10px;
+		display: block;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+	}
+	.select_contents, .check-in_contents, .schedule_contents {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		z-index: 3;
+		background-color: white;
+		border: 2px solid white;
+		border-radius: 15px;
+		margin-top: -10px;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+		display: none;
+	}
+	.b_methodbox {
 		float: left;
 		width: auto;
-        margin-top: 0;
-        margin-right: 3.5rem;
-        margin-bottom: 1rem;
-        text-align: left;
-}
+		margin-top: 0;
+		margin-right: 3.5rem;
+		margin-bottom: 1rem;
+		text-align: left;
+	}
+	.booking_types {
+		border: 1px solid black;
+		border-radius: 25px;
+	}
+	.booking_types li {
+		display: inline-block;
+		list-style-list: none;
+	}
+	.booking_types li button {
+		font-size: 17px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border: none;
+		border-radius: 23px;
+		color: white;
+		background-color: #65728a;
+		cursor: pointer;
+	}
+	#quick_booking {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		align-self: flex-start;
+		width: 270px;
+		height: 80px;
+	}
+	.quick_booking_button {
+		flex: 1;
+		text-align: center;
+		margin: 0 5px;
+		padding: 10px;
+		border: none;
+		background-color: white;
+		cursor: pointer;
+		font-size: 16px;
+		color: #333;
+		border-radius: 15px;
+	}
+	.circle_button {
+		flex-grow: 1;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		padding: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.quick_booking_button:first-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:last-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:hover {
+		background-color: #ddd;
+	}
+	#from-text, #departure-text {
+		display: block;
+		margin: 0;
+	}
+	#from-text, #to-text {
+		font-size: 40px;
+		font-weight: bold;
+	}
+	#departure-text, #arrival-text {
+		font-size: 14px;
+		color: #666;
+	}
+	.popup {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1000;
+	}
+	.popup-content {
+		position: relative;
+		margin: 15% auto;
+		padding: 20px;
+		width: 80%;
+		max-width: 600px;
+		background-color: #fff;
+		border-radius: 5px;
+	}
+	.close-btn {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 24px;
+		cursor: pointer;
+	}
+	.quick_booking_aligner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+		width: 1000px;
+		margin-left: -10px;
+		margin-top: 45px;
+	}
+	p {
+		font-size: 13px;
+		color: #333;
+	}
+	#date_selection button, #passenger_selection button, #seats_selection button {
+		width: 130px;
+		padding-top: 20px;
+		padding-bottom: 5px;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid #333;
+		font-size: 14px;
+		color: #333;
+		cursor: pointer;
+		text-align: left;
+		outline: none;
+	}
+	#date_selection button {
+		width: 300px;
+	}
 
-.booking_types{
-border: 1px solid black;
-    border-radius: 25px;
-}
-
-.booking_types li{
-	display: inline-block;
-	list-style-list: none;
-}
-
-.booking_types li button{
-    font-size: 17px;
-    padding-left: 20px;
-    padding-right:20px;
-    padding-top:10px;
-    padding-bottom:10px;
-    border: none;
-    border-radius: 23px;
-    color: white;
-    background-color: #65728a;
-    cursor: pointer;
-}
-
-#quick_booking {
-    display: flex;
-    justify-content: space-between; /* 버튼들 사이에 균등한 간격을 배분 */
-    align-items: center; /* 버튼들을 세로 방향으로 가운데 정렬 */
-    align-self: flex-start; /* 버튼을 왼쪽으로 정렬 */
-    width: 270px;
-    height: 80px;
-}
-
-.quick_booking_button {
-    flex: 1; /* 버튼들이 동일한 너비를 가지도록 설정 */
-    text-align: center; /* 버튼 텍스트 중앙 정렬 */
-    margin: 0 5px; /* 버튼들 사이에 좌우 마진 추가 */
-    padding: 10px; /* 버튼 안쪽 여백 */
-    border: none; /* 기본 테두리 제거 */
-    background-color: white; /* 버튼 배경색 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    font-size: 16px; /* 텍스트 크기 설정 */
-    color: #333; /* 텍스트 색상 */
-    border-radius: 15px;
-}
-
-.circle_button {
-	flex-grow: 1;
-	width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.quick_booking_button:first-child { /* 첫 번째 칸 */
-    flex-grow: 2; /* 첫 번째 칸 크기 비율을 2로 설정 */
-}
-
-.quick_booking_button:last-child { /* 세 번째 칸 */
-    flex-grow: 2; /* 세 번째 칸 크기 비율을 2로 설정 */
-}
-.quick_booking_button:hover {
-    background-color: #ddd; /* 버튼 호버 시 배경색 변경 */
-}
-
-#from-text, #departure-text {
-    display: block; /* 각 스팬을 블록으로 설정하여 세로로 쌓이게 함 */
-    margin: 0; /* 기본 마진 제거 */
-}
-
-/* From, To 글씨 키우기 */
-#from-text, #to-text {
-    font-size: 40px; /* 글씨 크기를 조정 (원하는 크기 선택) */
-    font-weight: bold; /* 필요에 따라 굵게 만들기 */
-}
-
-/* 출발지, 도착지 글씨 작게 만들기 */
-#departure-text, #arrival-text {
-    font-size: 14px; /* 글씨 크기 작게 조정 */
-    color: #666; /* 필요에 따라 색상 변경 */
-}
-    
-/* 팝업창 기본 스타일 */
-.popup {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-    z-index: 1000; /* 다른 요소 위에 표시 */
-}
-
-/* 팝업창 내용 스타일 */
-.popup-content {
-    position: relative;
-    margin: 15% auto; /* 수직 중앙 정렬 */
-    padding: 20px;
-    width: 80%;
-    max-width: 600px;
-    background-color: #fff;
-    border-radius: 5px;
-}
-
-/* 닫기 버튼 스타일 */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.quick_booking_aligner {
-            display: flex;
-            justify-content: space-between; /* 각 요소 사이에 동일한 간격 배분 */
-            align-items: center; /* 요소들을 수직으로 가운데 정렬 */
-            gap: 10px; /* 요소들 간 간격 추가 */
-            width: 1000px;
-            margin-left: -10px; /* 왼쪽으로 이동 (값을 조정해서 원하는 위치로 이동) */
-            margin-top:45px;
-        }
-        
-p {
-font-size: 13px;
-color: #333;
-}
-
-        
-#date_selection button {
-   width: 300px;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    border: none; /* 기본 테두리를 제거 */
-    border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
-    font-size: 14px; /* 글자 크기 조정 */
-    color: #333; /* 텍스트 색상 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-    outline: none; /* 클릭 시 기본 아웃라인 제거 */
-}
-
-#passenger_selection button {
-   width: 130px;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    border: none; /* 기본 테두리를 제거 */
-    border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
-    font-size: 14px; /* 글자 크기 조정 */
-    color: #333; /* 텍스트 색상 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-    outline: none; /* 클릭 시 기본 아웃라인 제거 */
-}
 
 #seats_selection button {
    width: 130px;
@@ -625,9 +465,11 @@ color: #333;
 
 
 
-</style>
 
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
     // 기본 출발지를 ICN 인천으로 설정
     document.getElementById('from-text').textContent = 'ICN'; // From에 공항 코드 설정
@@ -860,9 +702,13 @@ function confirmPassengers() {
 
 
 
+
 </script>
-<sitemesh:write property="head"/>
+
+<sitemesh:write property="head" />
+
 </head>
+
 <body>
 	<header>
 		<div id="section1">
@@ -873,17 +719,14 @@ function confirmPassengers() {
 			</div>
 			<div id="loginMenu">
 				<c:if test="${userid!=null&&userid=='admin'}">
-					<!-- 관리 홈 예시 -->
 					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid==null}">
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
-			
 				</c:if>
-										
 				<c:if test="${userid!=null}">
-					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">  ${name}님 &nbsp;|&nbsp;
+					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 						<ul class="mmenu">
 							<li> 회원정보 </li>
 							<li> 예약정보 </li>
@@ -892,14 +735,13 @@ function confirmPassengers() {
 					</span>
 					<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-					<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
-						<ul class="cmenu">
-							<li><a href="../gongji/list"> 공지사항 </a></li>
-							<li><a href="../inquiry/list"> Q & A </a></li>
-							<li> 이벤트 </li>
-						</ul>
-					</span>
-				
+				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
+					<ul class="cmenu">
+						<li><a href="../gongji/list"> 공지사항 </a></li>
+						<li><a href="../inquiry/list"> Q & A </a></li>
+						<li> 이벤트 </li>
+					</ul>
+				</span>
 			</div>
 		</div>
 		<nav>
@@ -941,35 +783,343 @@ function confirmPassengers() {
 				</li>
 			</ul>
 		</nav>
+	</header>
+	<div class="main_content">
+		<div class="air_service">
+			<div class="air_align">
+				<div class="air_contentbox">
+					<div id="air_alert"></div>
+					<div class="air_widget">
+						<ul class="booking_widget_list">
+							<li class="booking_menu">
+								<button type="button" onclick="showContent('booking')">
+									<span> 항공권예매 </span>
+								</button>
+							</li>
+							<li class="booking_menu">
+								<button type="button" onclick="showContent('select')">
+									<span> 예약조회 </span>
+								</button>
+							</li>
+							<li class="booking_menu">
+								<button type="button" onclick="showContent('check-in')">
+									<span> 체크인 </span>
+								</button>
+							</li>
+							<li class="booking_menu">
+								<button type="button" onclick="showContent('schedule')">
+									<span> 출도착/스케쥴 </span>
+								</button>
+							</li>
+						</ul>
+						<div class="booking_contents">
+							<div class="booking_methods">
+								<div class="b_methodbox">
+									<ul class="booking_types">
+										<li>
+											<button type="button">예매</button>
+										</li>
+										<li>
+											<button type="button">마일리지 예매</button>
+										</li>
+									</ul>
+								</div>
+								<div id="trip-methods">
+									<input type="radio" name="t_methods" value="round" id="round-trip" checked>
+									<label for="round-trip">왕복</label>
+									<input type="radio" name="t_methods" value="one-way" id="one-way">
+									<label for="one-way">편도</label>
+								</div>
+								<div class="quick_booking_aligner">
+									<div id="quick_booking">
+										<button type="button" class="quick_booking_button" onclick="openPopup('departure')">
+											<span id="from-text">From</span>
+											<span id="departure-text">&nbsp;출발지</span>
+										</button>
+										<button type="button" class="quick_booking_button circle_button">
+											<img src="../static/resources/booking_reverse.png" width="40px" height="40px">
+										</button>
+										<button type="button" class="quick_booking_button" onclick="openPopup('arrival')">
+											<span id="to-text">To</span>
+											<span id="arrival-text">&nbsp;도착지</span>
+										</button>
+									</div>
+									<div id="popup" class="popup">
+										<div class="popup-content">
+											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
+											<h2>출발지 검색</h2>
+											<input type="text" id="departure-input" placeholder="출발지 입력" onkeyup="autocomplete('departure')">
+											<ul id="departure-list"></ul>
+											<button onclick="setLocation('departure')">선택</button>
+										</div>
+									</div>
+									<div id="arrival-popup" class="popup">
+										<div class="popup-content">
+											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
+											<h2>도착지 검색</h2>
+											<input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
+											<ul id="arrival-list"></ul>
+											<button onclick="setLocation('arrival')">선택</button>
+										</div>
+									</div>
+									<div id="date_selection">
+										<p>출발일&nbsp;</p>
+										<button type="button" id="date-btn"><span>가는날 ~ 오는날</span></button>
+									</div>
+									<div id="passenger_selection">
+										<p>탑승객&nbsp;</p>
+										<button type="button" id="passenger-btn"><span>인원수</span></button>
+									</div>
+									<div id="seats_selection">
+										<p>좌석등급&nbsp;</p>
+										<button type="button" id="seats-btn"><span>선택하세요</span></button>
+									</div>
+									<div id="search_airline">
+										<button type="button" id="search-btn"><span>항공편 검색</span></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="select_contents">
+							<div id="select methods">
+								<input type="radio" name="t_methods" value="0">
+								<label>왕복</label>
+								<input type="radio" name="t_methods" value="1">
+								<label>편도</label>
+							</div>
+							<div id="quick_booking">
+								<button type="button">
+									<span>rom</span>
+									<span>$nbsp;출발지</span>
+								</button>
+							</div>
+						</div>
+						<div class="check-in_contents">
+							<div id="check-in methods">
+								<input type="radio" name="t_methods" value="0">
+								<label>왕복</label>
+								<input type="radio" name="t_methods" value="1">
+								<label>편도</label>
+							</div>
+							<div id="quick_booking">
+								<button type="button">
+									<span>om</span>
+									<span>$nbsp;출발지</span>
+								</button>
+							</div>
+						</div>
+						<div class="schedule_contents">
+							<div id="schedule methods">
+								<input type="radio" name="t_methods" value="0">
+								<label>왕복</label>
+								<input type="radio" name="t_methods" value="1">
+								<label>편도</label>
+							</div>
+							<div id="quick_booking">
+								<button type="button">
+									<span>From</span>
+									<span>$nbsp;출발지</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<style>
+	#chat-console {
+		width: 320px;
+		height: 450px;
+		border: 2px solid #2DD1C5;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #fff;
+		display: none;
+		flex-direction: column;
+		overflow: hidden;
+		font-family: Arial, sans-serif;
+	}
+	#chat-header {
+		background-color: #2DD1C5;
+		color: white;
+		padding: 15px;
+		text-align: center;
+		font-weight: bold;
+		cursor: pointer;
+		position: relative;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	#chat-header button {
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		transform: translateY(-50%);
+		background-color: #E74C3C;
+		color: white;
+		border: none;
+		padding: 5px 10px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+		transition: background-color 0.3s;
+	}
+	#chat-header button:hover {
+		background-color: #C0392B;
+	}
+	#chat-body {
+		flex: 1;
+		padding: 15px;
+		overflow-y: auto;
+		background-color: #F8F9FA;
+		display: flex;
+		flex-direction: column; /* 메시지가 세로로 쌓이도록 설정 */
+	}
+	#chat-body .message {
+		margin-bottom: 12px;
+		display: flex; /* 메시지를 독립된 블록으로 처리 */
+		width: 100%; /* 메시지가 부모의 전체 너비를 차지하게 함 */
+	}
+	#chat-body .user-message {
+		color: black;
+		text-align: left;
+		background-color: #E3F2FD;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
+		align-self: flex-start; /* 왼쪽 정렬 */
+		clear: both;
+	}
+	#chat-body .admin-message {
+		color: white;
+		text-align: right;
+		background-color: #2DD1C5;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
+		align-self: flex-end; /* 오른쪽 정렬 */
+		clear: both;
+	}
+	#chat-input {
+		display: flex;
+		padding: 10px;
+		background-color: #F1F1F1;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	#chat-input input[type="text"] {
+		flex: 1;
+		padding: 10px;
+		border: 1px solid #CCC;
+		border-radius: 20px;
+		outline: none;
+		margin-right: 10px;
+	}
+	#chat-input button {
+		padding: 8px 15px;
+		background-color: #2DD1C5;
+		color: white;
+		border: none;
+		cursor: pointer;
+		border-radius: 20px;
+		transition: background-color 0.3s;
+	}
+	#chat-input button:hover {
+		background-color: #1A9987;
+	}
+	#chat-toggle {
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		background-color: #2DD1C5;
+		color: white;
+		padding: 12px 25px;
+		cursor: pointer;
+		border-radius: 30px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transition: background-color 0.3s;
+		font-family: Arial, sans-serif;
+	}
+	#chat-toggle:hover {
+		background-color: #1A9987;
+	}
+	#chat-body .end-message {
+		color: red;
+		text-align: center;
+		font-weight: bold;
+		margin: 20px 0; /* 위아래에 여유 공간 추가 */
+		display: block;
+	}
+</style>
 
-</header>
 
-    <div class="main_content">
-	<div class="air_service"> 
-	<div class="air_align">
+<script>
+	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
+	function endChat() {
+		sendMessage("상담이 종료되었습니다.");
+		var endButton = document.getElementById('endChatButton');
+		endButton.innerText = '닫기';
+		endButton.onclick = closeAndResetChat;
+	}
 	
-	<div class="air_contentbox"> 
-	<div id="air_alert"></div>
-	<div class="air_widget">
+	// 닫기 버튼을 눌렀을 때 채팅 기록 리셋 및 창 닫기
+	function closeAndResetChat() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/resetChatHistory", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				chatBody.innerHTML = '';
+				var chatConsole = document.getElementById('chat-console');
+				chatConsole.style.display = 'none';
+				var chatToggle = document.getElementById('chat-toggle');
+				chatToggle.style.display = 'block';
+				var endButton = document.getElementById('endChatButton');
+				endButton.innerText = '끝내기';
+				endButton.onclick = endChat;
+			}
+		};
+		xhr.send();
+	}
 	
-	<ul class="booking_widget_list">
-	<li class="booking_menu"> 
-		<button type="button" onclick="showContent('booking')">
-		<span> 항공권예매 </span> 
-		</button>
-	</li>
-	<li class="booking_menu"> 
-		<button type="button" onclick="showContent('select')">
-		<span> 예약조회 </span>
-		</button>
-	</li>
+	// 메시지 전송 함수
+	function sendMessage(message) {
+		var messageInput = message || document.getElementById('chat-message').value;
+		var chatBody = document.getElementById('chat-body');
+		if (messageInput.trim() === "") return;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/sendMessage", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var newMessage = document.createElement('div');
+				newMessage.className = "user-message";
+				newMessage.textContent = messageInput;
+				chatBody.appendChild(newMessage);
+				document.getElementById('chat-message').value = "";
+			}
+		};
+		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
+	}
 	
-	<li class="booking_menu">
-		<button type="button" onclick="showContent('check-in')">
-	 	<span> 체크인 </span>
-	 	</button>
-	</li>
+	// Enter 키로 메시지 전송
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('chat-message').addEventListener('keydown', function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				sendMessage();
+			}
+		});
+	});
 	
+
 	<li class="booking_menu"> 
 		<button type="button" onclick="showContent('schedule')">
 		<span> 출도착/스케쥴 </span>
@@ -1132,49 +1282,86 @@ function confirmPassengers() {
 		 <label>왕복</label> 
 		 <input type="radio" name="t_methods" value="1">
 		 <label>편도</label>
-		</div>
-		<div id="quick_booking">
-		<button type="button">
-			<span>From</span>
-			<span>$nbsp;출발지</span></button>
-		</div>
-	 </div>
-	 
 
+	// 채팅 창 토글
+	function toggleChat() {
+		var chatConsole = document.getElementById('chat-console');
+		var chatToggle = document.getElementById('chat-toggle');
+		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
+			chatConsole.style.display = 'flex';
+			chatToggle.style.display = 'none';
+		} else {
+			chatConsole.style.display = 'none';
+			chatToggle.style.display = 'block';
+		}
+	}
+	
+	// Long Polling으로 메시지 갱신
+	function pollMessages() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "/main/getMessages", true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				var messages = JSON.parse(xhr.responseText);
+				chatBody.innerHTML = '';
+				messages.forEach(function(msg) {
+					var newMessage = document.createElement('div');
+					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
+					newMessage.textContent = msg;
+					chatBody.appendChild(newMessage);
+				});
+				pollMessages();
+			}
+		};
+		xhr.send();
+	}
+	
+	// 페이지 로드 후 처음 메시지 요청 시작
+	pollMessages();
+</script>
+	<!-- 채팅창 -->
+	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
+	<div id="chat-console">
+		<div id="chat-header">
+			채팅 상담
+			<button id="endChatButton" onclick="endChat()">끝내기</button>
+
+		</div>
+		<div id="chat-body"></div>
+		<div id="chat-input">
+			<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
+			<button onclick="sendMessage()">보내기</button>
+		</div>
 	</div>
-	</div> 
-</div>
-</div>
-</div>
-  <sitemesh:write property="body"/>
-  
-<!-- 푸터 -->
-    <footer>
-        <table>
-            <tr>
-                <td rowspan="5" width="200"></td>
-                <td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-                <td> 상호명 : LLTA </td>
-                <td> 365고객센터 </td>
-            </tr>
-            <tr>
-                <td> 대표이사 : 주인장 </td>
-                <td> 080-888-1234(무료) </td>
-            </tr>
-            <tr>
-                <td> 본사 : 경기도 파주시 야당동 </td>
-                <td> email : Tmaster@air.co.kr </td>
-            </tr>
-            <tr>
-                <td> 사업자 등록번호 : 444-44-44444 </td>
-                <td> 전화번호 : 010-1234-5678 </td>
-            </tr>
-            <tr>
-                <td> 통신판매업신고 : 2023-경기비행-1233 </td>
-                <td></td>
-            </tr>
-        </table>
-    </footer>
 
+	<sitemesh:write property="body" />
+
+	<footer>
+		<table>
+			<tr>
+				<td rowspan="5" width="200"></td>
+				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
+				<td> 상호명 : LLTA </td>
+				<td> 365고객센터 </td>
+			</tr>
+			<tr>
+				<td> 대표이사 : 주인장 </td>
+				<td> 080-888-1234(무료) </td>
+			</tr>
+			<tr>
+				<td> 본사 : 경기도 파주시 야당동 </td>
+				<td> email : Tmaster@air.co.kr </td>
+			</tr>
+			<tr>
+				<td> 사업자 등록번호 : 444-44-44444 </td>
+				<td> 전화번호 : 010-1234-5678 </td>
+			</tr>
+			<tr>
+				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
+				<td></td>
+			</tr>
+		</table>
+	</footer>
 </body>
 </html>
