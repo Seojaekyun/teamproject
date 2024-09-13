@@ -175,7 +175,7 @@
 		font-size: 13px;
 		background: #9AB973;
 		color: white;
-		text-align: center;
+		text-align: left;
 	}
 	footer table {
 		width: 100%;
@@ -922,6 +922,7 @@
 		flex-direction: column;
 		overflow: hidden;
 		font-family: Arial, sans-serif;
+		z-index:9999;
 	}
 	#chat-header {
 		background-color: #2DD1C5;
@@ -1153,11 +1154,11 @@
 	<sitemesh:write property="body" />
 
 	<footer>
-		<table>
+		<table id="foot">
 			<tr>
 				<td rowspan="5" width="200"></td>
 				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-				<td> 상호명 : LLTA </td>
+				<td> 상호명 : ELTA </td>
 				<td> 365고객센터 </td>
 			</tr>
 			<tr>
