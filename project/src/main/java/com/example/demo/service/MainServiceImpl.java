@@ -70,6 +70,12 @@ public class MainServiceImpl implements MainService {
 		return null;
 	}
 
+	@Override
+	public String baggageGuide() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	

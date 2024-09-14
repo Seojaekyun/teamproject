@@ -139,37 +139,66 @@
 		border-bottom: 1px solid #ddd;
 	}
 	footer {
-		padding-top: 10px;
-		padding-bottom: 5px;
-		width: 100%;
-		height: auto;
-		margin: auto;
-		font-family: 'Hahmlet';
-		margin-top: 30px;
-		font-size: 13px;
-		background: gray;
-		color: white;
-		text-align: center;
-	}
-	footer table {
-		width: 100%;
-		max-width: 1000px;
-		margin: auto;
-		text-align: left;
-	}
-	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
-			flex-direction: column;
+			padding-top: 10px;
+			padding-bottom: 5px;
+			width: 100%;
+			height: auto;
+			margin: auto;
+			font-family: 'Hahmlet';
+			margin-top: 30px;
+			font-size: 13px;
+			background: gray;
+			color: white;
 			text-align: center;
 		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
+		.footer-container {
+			width: 100%;
+			max-width: 1000px;
+			margin: auto;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: flex-start;
 		}
-		footer table, footer td {
-			font-size: 11px;
+		.footer-logo {
+			flex: 0 0 200px;
+			margin-bottom: 10px;
 		}
-	}
+		.footer-content {
+			flex: 1;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		.footer-row {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 5px;
+		}
+		.footer-column {
+			flex: 1;
+			text-align: left;
+			padding: 0 10px;
+		}
+		@media (max-width: 768px) {
+			header, #outer #first, nav ul {
+				flex-direction: column;
+				text-align: center;
+			}
+			nav ul li {
+				display: block;
+				margin: 10px 0;
+			}
+			footer .footer-container, .footer-content, .footer-row {
+				flex-direction: column;
+				align-items: center;
+			}
+			.footer-column {
+				text-align: center;
+				padding: 5px 0;
+			}
+		}
 	.main_content {
 		display: none;
 	}
@@ -649,7 +678,7 @@
 	    var referrerURL = document.referrer ? (new URL(document.referrer)).pathname : '';
 
 	    function isIndex(url) {
-	        return url === '/' || url.endsWith('/index') || url.endsWith('/index.html');
+	        return url === '/' || url.endsWith('/index') ;
 	    }
 
 	    if (isIndex(currentURL) && (!referrerURL || !isIndex(referrerURL))) {
@@ -657,7 +686,7 @@
 	        $('.main_content').slideDown(1000);
 	    } else if (!isIndex(currentURL) && isIndex(referrerURL)) {
 	        // 인덱스에서 다른 페이지로 이동할 때: 슬라이드 업 실행
-	        $('.main_content').slideUp(500);
+	        $('.main_content').show().slideUp(500);
 	    } else if (!isIndex(currentURL) && (!referrerURL || !isIndex(referrerURL))) {
 	        // 인덱스가 아닌 다른 페이지들 간 이동: 메인 컨텐츠 상태 변경 없음
 	        // 아무 작업도 하지 않음
@@ -719,11 +748,12 @@
 						<li><a href="../menu/index3">운항정보</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 여행준비
+				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
+					<a href="../guide/checkinGuide">여행준비</a>
 					<ul class="menu">
-						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
-						<li><a href="../guide/seatGuide">좌석 배정</a></li>
-						<li>수하물</li>
+						<li><a href="../guide/checkinGuide">체크인</a></li>
+						<li><a href="../guide/seatGuide">좌석배정</a></li>
+						<li><a href="../guide/baggageGuide">수하물</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
@@ -1147,30 +1177,33 @@
 <sitemesh:write property="body" />
 
 	<footer>
-		<table>
-			<tr>
-				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-				<td> eLTA(주) </td>
-				<td> 365고객센터 </td>
-			</tr>
-			<tr>
-				<td> 대표이사 주인장 </td>
-				<td> 080-888-1234(무료) </td>
-			</tr>
-			<tr>
-				<td> 경기도 파주시 야당동 </td>
-				<td> email : Tmaster@air.co.kr </td>
-			</tr>
-			<tr>
-				<td> 사업자 등록번호 444-44-44444 </td>
-				<td> 전화번호 010-1234-5678 </td>
-			</tr>
-			<tr>
-				<td> 통신판매업 신고 제 24-1233 </td>
-				<td></td>
-			</tr>
-		</table>
+		<div class="footer-container">
+			<div class="footer-logo">
+				<img alt="logo" src="../static/resources/123.png" width="80" align="middle">
+			</div>
+			<div class="footer-content">
+				<div class="footer-row">
+					<div class="footer-column">eLTA(주)</div>
+					<div class="footer-column">365고객센터</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">대표이사 주인장</div>
+					<div class="footer-column">080-888-1234(무료)</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">경기도 파주시 야당동</div>
+					<div class="footer-column">email : Tmaster@air.co.kr</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">사업자 등록번호 444-44-44444</div>
+					<div class="footer-column">전화번호 010-1234-5678</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">통신판매업 신고 제 24-1233</div>
+					<div class="footer-column"></div>
+				</div>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>

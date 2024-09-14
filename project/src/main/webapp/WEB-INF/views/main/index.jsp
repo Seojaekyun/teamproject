@@ -17,7 +17,7 @@ section
 {
 	
 	width: 1000px;
-	height: 400px;
+	
 	border: 1px solid black;
 	
 	
@@ -26,7 +26,7 @@ section
 .home-banner
 {
 	width:100%;
-	background:#E0F7FA;
+	
 	margin:auto;
 	padding-bottom:100px;
 	padding-top:100px;

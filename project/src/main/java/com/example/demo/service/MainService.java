@@ -14,5 +14,6 @@ public interface MainService {
 	public String clearChatMessages();
 	public String checkinGuide();
 	public String seatGuide();
+	public String baggageGuide();
 	
 }
