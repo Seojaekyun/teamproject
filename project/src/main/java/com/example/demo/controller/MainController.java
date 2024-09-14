@@ -38,9 +38,14 @@ public class MainController {
 		return service.adminI(request, model);
 	}
 	
-	@RequestMapping("/guide/guide") 
-	public String guide() {
-		return service.guide();
+	@RequestMapping("/guide/checkinGuide") 
+	public String checkinGuide() {
+		return service.checkinGuide();
+	}
+	
+	@RequestMapping("/guide/seatGuide") 
+	public String seatGuide() {
+		return service.seatGuide();
 	}
 		
 	// 메시지 전송 처리

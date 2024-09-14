@@ -59,10 +59,18 @@ public class MainServiceImpl implements MainService {
     }
 
 	@Override
-	public String guide() {
+	public String checkinGuide() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String seatGuide() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 

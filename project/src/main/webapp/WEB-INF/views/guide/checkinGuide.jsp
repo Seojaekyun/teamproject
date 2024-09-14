@@ -83,12 +83,10 @@
 	</header>
 
 	<nav>
-		<a href="#">홈</a>
-		<a href="#">서비스 안내</a>
-		<a href="#">온라인 체크인</a>
-		<a href="#">예약 관리</a>
-		<a href="#">고객 지원</a>
-	</nav>
+        <a href="chedkinGuide">체크인 안내</a>
+        <a href="seatGuide">좌석배정 안내</a>
+        <a href="#">수하물</a>
+    </nav>
 	
 	<div class="container">
 		<div class="content">

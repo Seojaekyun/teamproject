@@ -147,7 +147,7 @@
 		font-family: 'Hahmlet';
 		margin-top: 30px;
 		font-size: 13px;
-		background: #00467F;
+		background: gray;
 		color: white;
 		text-align: center;
 	}
@@ -721,8 +721,8 @@
 				</li>
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 여행준비
 					<ul class="menu">
-						<li><a href="../guide/guide">체크인 안내</a></li>
-						<li><a href="../menu/index2">좌석 배정</a></li>
+						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
+						<li><a href="../guide/seatGuide">좌석 배정</a></li>
 						<li>수하물</li>
 					</ul>
 				</li>
@@ -1008,6 +1008,8 @@
 	}
 	#chat-toggle {
 		position: fixed;
+		width: 60px;
+		height: 60px;
 		bottom: 20px;
 		right: 30px;
 		background-color: #00467F;
@@ -1019,6 +1021,10 @@
 		transition: background-color 0.3s;
 		font-family: Arial, sans-serif;
 		font-size: 30px;
+	}
+	#chatbot {
+		width: 95%;
+		height: 95%;
 	}
 	#chat-toggle:hover {
 		background-color: #1A9987;
@@ -1123,7 +1129,7 @@
 </script>
 
 	<!-- 채팅 상담 버튼 -->
-	<div id="chat-toggle" onclick="toggleChat()">🎧</div>
+	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>
 	
 	<!-- 채팅 창 -->
 	<div id="chat-console">
