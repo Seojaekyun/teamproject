@@ -19,7 +19,7 @@
 	}
 	body {
 		margin: auto;
-		font-family: 'Hahmlet';
+		font-family: Arial, sans-serif;
 	}
 	header {
 		width: 100%;
@@ -51,13 +51,12 @@
 	}
 	#section1 #loginMenu a:hover {
 		text-decoration: none;
-		color: green;
-		font-weight: 900;
+		color: #00467F;
 	}
 	#section1 #loginMenu ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 0;
+		padding: 10px;;
 		display: flex;
 		align-items: center;
 	}
@@ -65,19 +64,17 @@
 		position: relative;
 		margin-right: 10px;
 	}
-	#section1 #loginMenu .cmenu,
-	#section1 #loginMenu .mmenu {
+	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 30px;
+		top: 28px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
 	}
-	#section1 #loginMenu .cmenu > li,
-	#section1 #loginMenu .mmenu > li {
+	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
 		list-style-type: none;
 		width: 130px;
 		height: 35px;
@@ -86,13 +83,11 @@
 		cursor: pointer;
 		border-bottom: 1px solid #ddd;
 	}
-	#section1 #loginMenu .cmenu > li:hover,
-	#section1 #loginMenu .mmenu > li:hover {
-		text-decoration: underline;
-		color: green;
+	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
+		text-decoration: none;
+		color: #00467F;
 	}
-	#section1 #loginMenu #supMenu,
-	#section1 #loginMenu #myInfo {
+	#section1 #loginMenu #supMenu, #section1 #loginMenu #myInfo {
 		position: relative;
 	}
 	header > nav {
@@ -100,16 +95,17 @@
 		height: 70px;
 		margin: auto;
 		line-height: 50px;
-		font-family: 'Gugi';
+		font-family: Arial, sans-serif;
+		font-size: 18px;
 	}
 	header > nav a {
 		text-decoration: none;
 		color: black;
 	}
 	header > nav a:hover {
-		text-decoration: underline;
-		color: green;
-		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		text-decoration: none;
+		color: #00467F;
+		
 	}
 	header > nav #main {
 		padding-left: 0px;
@@ -130,7 +126,7 @@
 		padding-left: 0px;
 		position: absolute;
 		left: 0px;
-		top: 48px;
+		top: 33px;
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -151,7 +147,7 @@
 		font-family: 'Hahmlet';
 		margin-top: 30px;
 		font-size: 13px;
-		background: #0EB2F0;
+		background: #00467F;
 		color: white;
 		text-align: center;
 	}
@@ -174,6 +170,9 @@
 			font-size: 11px;
 		}
 	}
+	.main_content {
+		display: none;
+	}
 	.air_service {
 		position: relative;
 		background-image: url('../static/resources/background.jpg');
@@ -181,7 +180,6 @@
 		width: 100%;
 		height: 450px;
 		background-repeat: no-repeat;
-		z-index: 2000;
 	}
 	.air_align {
 		margin-left: 73px;
@@ -258,10 +256,7 @@
 		position: relative;
 		top: -5px;
 	}
-	.booking_contents,
-	.select_contents,
-	.check-in_contents,
-	.schedule_contents {
+	.booking_contents, .select_contents, .check-in_contents, .schedule_contents {
 		position: relative;
 		width: 100%;
 		height: 220px;
@@ -648,19 +643,31 @@
 		document.getElementById('passenger-btn').innerHTML = totalPassengers;
 		closePassengerPopup();
 	}
+	
 	$(function() {
-		var currentURL = window.location.pathname;
-		var referrerURL = document.referrer;
-		if (referrerURL.includes("/index") && !currentURL.includes("/index")) {
-			$('.main_content').slideUp(500);
-		} else if (currentURL.includes("/index") && (!referrerURL || !referrerURL.includes("/index"))) {
-			$('.main_content').hide().slideDown(1000);
-		} else if (!currentURL.includes("/index") && !referrerURL.includes("/index")) {
-			$('.main_content').hide();
-		} else {
-			$('.main_content').show();
-		}
+	    var currentURL = window.location.pathname;
+	    var referrerURL = document.referrer ? (new URL(document.referrer)).pathname : '';
+
+	    function isIndex(url) {
+	        return url === '/' || url.endsWith('/index') || url.endsWith('/index.html');
+	    }
+
+	    if (isIndex(currentURL) && (!referrerURL || !isIndex(referrerURL))) {
+	        // 처음 인덱스가 열릴 때: 슬라이드 다운 실행
+	        $('.main_content').slideDown(1000);
+	    } else if (!isIndex(currentURL) && isIndex(referrerURL)) {
+	        // 인덱스에서 다른 페이지로 이동할 때: 슬라이드 업 실행
+	        $('.main_content').slideUp(500);
+	    } else if (!isIndex(currentURL) && (!referrerURL || !isIndex(referrerURL))) {
+	        // 인덱스가 아닌 다른 페이지들 간 이동: 메인 컨텐츠 상태 변경 없음
+	        // 아무 작업도 하지 않음
+	    } else {
+	        // 그 외의 경우: 메인 컨텐츠 표시
+	        $('.main_content').show();
+	    }
 	});
+
+
 </script>
 
 <sitemesh:write property="head" />
@@ -706,16 +713,17 @@
 			<ul id="main">
 				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
 					<ul class="menu">
-						<li><a href="../menu/index1">여행 준비</a></li>
-						<li><a href="../menu/index2">여행</a></li>
-						<li><a href="../menu/index3">예약 취소</a></li>
+						<li><a href="../reserve/reserve">항공권 예약</a></li>
+						<li><a href="../menu/index2">예약 조회</a></li>
+						<li><a href="../menu/index3">체크인</a></li>
+						<li><a href="../menu/index3">운항정보</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 항공권
+				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 여행준비
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="../guide/guide">체크인 안내</a></li>
+						<li><a href="../menu/index2">좌석 배정</a></li>
+						<li>수하물</li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
@@ -732,7 +740,10 @@
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔
+				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)">
+					<a href="https://kr.hotels.com/en/?locale=en_US&siteid=300000041&semcid=HCOM-KR.B.GOOGLE.BT-c-EN.GT&semdtl=a118251106649.b1141783171757.g1kwd-324456688060.e1c.m1CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE.r1006f90a2301371776d11c8cc22069d38bd13a4cf95a9f802dfa68907dc4069d6.c18NrPiYS3BbMcb8bv0o2xPA.j11030718.k1.d1624808917252.h1e.i1.l1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&gad_source=1&gclid=CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE" target="_blank">
+					 호텔
+					</a>
 					<ul class="menu">
 						<li>1</li>
 						<li>2</li>
@@ -885,233 +896,234 @@
 		</div>
 	</div>
 
-	<!-- 채팅 스타일 -->
-	<style>
-		#chat-console {
-			width: 320px;
-			height: 450px;
-			border: 2px solid #2DD1C5;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			border-radius: 10px;
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			background-color: #fff;
-			display: none;
-			flex-direction: column;
-			overflow: hidden;
-			font-family: Arial, sans-serif;
-		}
-		#chat-header {
-			background-color: #2DD1C5;
-			color: white;
-			padding: 15px;
-			text-align: center;
-			font-weight: bold;
-			cursor: pointer;
-			position: relative;
-			border-top-left-radius: 10px;
-			border-top-right-radius: 10px;
-		}
-		#chat-header button {
-			position: absolute;
-			top: 50%;
-			right: 15px;
-			transform: translateY(-50%);
-			background-color: #E74C3C;
-			color: white;
-			border: none;
-			padding: 5px 10px;
-			cursor: pointer;
-			font-size: 12px;
-			border-radius: 5px;
-			transition: background-color 0.3s;
-		}
-		#chat-header button:hover {
-			background-color: #C0392B;
-		}
-		#chat-body {
-			flex: 1;
-			padding: 15px;
-			overflow-y: auto;
-			background-color: #F8F9FA;
-			display: flex;
-			flex-direction: column;
-		}
-		#chat-body .message {
-			margin-bottom: 12px;
-			display: flex;
-			width: 100%;
-		}
-		#chat-body .user-message {
-    color: white;
-    text-align: right;
-    background-color: #2DD1C5;
-    padding: 10px;
-    border-radius: 15px;
-    max-width: 80%;
-    display: block;
-    align-self: flex-end; /* 오른쪽 정렬 */
-    clear: both;
-}
-
-#chat-body .admin-message {
-    color: black;
-    text-align: left;
-    background-color: #E3F2FD;
-    padding: 10px;
-    border-radius: 15px;
-    max-width: 80%;
-    display: block;
-    align-self: flex-start; /* 왼쪽 정렬 */
-    clear: both;
-}
-
-		#chat-input {
-			display: flex;
-			padding: 10px;
-			background-color: #F1F1F1;
-			border-bottom-left-radius: 10px;
-			border-bottom-right-radius: 10px;
-		}
-		#chat-input input[type="text"] {
-			flex: 1;
-			padding: 10px;
-			border: 1px solid #CCC;
-			border-radius: 20px;
-			outline: none;
-			margin-right: 10px;
-		}
-		#chat-input button {
-			padding: 8px 15px;
-			background-color: #2DD1C5;
-			color: white;
-			border: none;
-			cursor: pointer;
-			border-radius: 20px;
-			transition: background-color 0.3s;
-		}
-		#chat-input button:hover {
-			background-color: #1A9987;
-		}
-		#chat-toggle {
-			position: fixed;
-			bottom: 20px;
-			right: 30px;
-			background-color: #2DD1C5;
-			color: white;
-			padding: 12px 25px;
-			cursor: pointer;
-			border-radius: 30px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-			transition: background-color 0.3s;
-			font-family: Arial, sans-serif;
-		}
-		#chat-toggle:hover {
-			background-color: #1A9987;
-		}
-	</style>
-
-	<script>
-		// 상담 종료 시
-		function endChat() {
-			sendMessage("상담이 종료되었습니다.");
-			var endButton = document.getElementById('endChatButton');
-			endButton.innerText = '닫기';
-			endButton.onclick = closeAndResetChat;
-		}
-		// 닫기 버튼
-		function closeAndResetChat() {
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "../main/resetChatHistory", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var chatBody = document.getElementById('chat-body');
-					chatBody.innerHTML = '';
-					var chatConsole = document.getElementById('chat-console');
-					chatConsole.style.display = 'none';
-					var chatToggle = document.getElementById('chat-toggle');
-					chatToggle.style.display = 'block';
-					var endButton = document.getElementById('endChatButton');
-					endButton.innerText = '끝내기';
-					endButton.onclick = endChat;
-				}
-			};
-			xhr.send();
-		}
-		// 메시지 전송 함수
-		function sendMessage(message) {
-			var messageInput = message || document.getElementById('chat-message').value;
-			var chatBody = document.getElementById('chat-body');
-			if (messageInput.trim() === "") return;
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "../main/sendMessage", true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var newMessage = document.createElement('div');
-					newMessage.className = "user-message";
-					newMessage.textContent = messageInput;
-					chatBody.appendChild(newMessage);
-					document.getElementById('chat-message').value = "";
-				}
-			};
-			xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
-		}
-		// Enter 키로 메시지 전송
-		document.addEventListener('DOMContentLoaded', function() {
-			document.getElementById('chat-message').addEventListener('keydown', function(event) {
-				if (event.key === "Enter") {
-					event.preventDefault();
-					sendMessage();
-				}
-			});
-		});
-		// 채팅 창 토글
-		function toggleChat() {
-			var chatConsole = document.getElementById('chat-console');
-			var chatToggle = document.getElementById('chat-toggle');
-			if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
-				chatConsole.style.display = 'flex';
-				chatToggle.style.display = 'none';
-			} else {
+<!-- 채팅 스타일 -->
+<style>
+	#chat-console {
+		width: 320px;
+		height: 450px;
+		border: 2px solid #2DD1C5;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #fff;
+		display: none;
+		flex-direction: column;
+		overflow: hidden;
+		font-family: Arial, sans-serif;
+		z-index: 9999;
+	}
+	#chat-header {
+		background-color: #2DD1C5;
+		color: white;
+		padding: 15px;
+		text-align: center;
+		font-weight: bold;
+		cursor: pointer;
+		position: relative;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		z-index: 9999;
+	}
+	#chat-header button {
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		transform: translateY(-50%);
+		background-color: #E74C3C;
+		color: white;
+		border: none;
+		padding: 5px 10px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+		transition: background-color 0.3s;
+		z-index: 9999;
+	}
+	#chat-header button:hover {
+		background-color: #C0392B;
+	}
+	#chat-body {
+		flex: 1;
+		padding: 15px;
+		overflow-y: auto;
+		background-color: #F8F9FA;
+		display: flex;
+		flex-direction: column;
+	}
+	#chat-body .message {
+		margin-bottom: 12px;
+		display: flex;
+		width: 100%;
+	}
+	#chat-body .user-message {
+		color: white;
+		text-align: right;
+		background-color: #2DD1C5;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block;
+		align-self: flex-end; /* 오른쪽 정렬 */
+		clear: both;
+	}	
+	#chat-body .admin-message {
+		color: black;
+		text-align: left;
+		background-color: #E3F2FD;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block;
+		align-self: flex-start; /* 왼쪽 정렬 */
+		clear: both;
+	}
+	#chat-input {
+		display: flex;
+		padding: 10px;
+		background-color: #F1F1F1;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	#chat-input input[type="text"] {
+		flex: 1;
+		padding: 10px;
+		border: 1px solid #CCC;
+		border-radius: 20px;
+		outline: none;
+		margin-right: 10px;
+	}
+	#chat-input button {
+		padding: 8px 15px;
+		background-color: #2DD1C5;
+		color: white;
+		border: none;
+		cursor: pointer;
+		border-radius: 20px;
+		transition: background-color 0.3s;
+	}
+	#chat-input button:hover {
+		background-color: #1A9987;
+	}
+	#chat-toggle {
+		position: fixed;
+		bottom: 20px;
+		right: 30px;
+		background-color: #00467F;
+		color: yellow;
+		padding: 5px;
+		cursor: pointer;
+		border-radius: 30px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transition: background-color 0.3s;
+		font-family: Arial, sans-serif;
+		font-size: 30px;
+	}
+	#chat-toggle:hover {
+		background-color: #1A9987;
+	}
+</style>
+<script>
+	// 상담 종료 시
+	function endChat() {
+		sendMessage("상담이 종료되었습니다.");
+		var endButton = document.getElementById('endChatButton');
+		endButton.innerText = '닫기';
+		endButton.onclick = closeAndResetChat;
+	}
+	// 닫기 버튼
+	function closeAndResetChat() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/resetChatHistory", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				chatBody.innerHTML = '';
+				var chatConsole = document.getElementById('chat-console');
 				chatConsole.style.display = 'none';
+				var chatToggle = document.getElementById('chat-toggle');
 				chatToggle.style.display = 'block';
+				var endButton = document.getElementById('endChatButton');
+				endButton.innerText = '끝내기';
+				endButton.onclick = endChat;
 			}
+		};
+		xhr.send();
+	}
+	// 메시지 전송 함수
+	function sendMessage(message) {
+		var messageInput = message || document.getElementById('chat-message').value;
+		var chatBody = document.getElementById('chat-body');
+		if (messageInput.trim() === "") return;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "../main/sendMessage", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var newMessage = document.createElement('div');
+				newMessage.className = "user-message";
+				newMessage.textContent = messageInput;
+				chatBody.appendChild(newMessage);
+				document.getElementById('chat-message').value = "";
+			}
+		};
+		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
+	}
+	// Enter 키로 메시지 전송
+	document.addEventListener('DOMContentLoaded', function() {
+		document.getElementById('chat-message').addEventListener('keydown', function(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				sendMessage();
+			}
+		});
+	});
+	// 채팅 창 토글
+	function toggleChat() {
+		var chatConsole = document.getElementById('chat-console');
+		var chatToggle = document.getElementById('chat-toggle');
+		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
+			chatConsole.style.display = 'flex';
+			chatToggle.style.display = 'none';
+		} else {
+			chatConsole.style.display = 'none';
+			chatToggle.style.display = 'block';
 		}
-		// 메시지 갱신
-		function pollMessages() {
-		    var xhr = new XMLHttpRequest();
-		    xhr.open("GET", "/main/getMessages", true);
-		    xhr.onreadystatechange = function() {
-		        if (xhr.readyState === 4 && xhr.status === 200) {
-		            var chatBody = document.getElementById('chat-body');
-		            var messages = JSON.parse(xhr.responseText);
-		            chatBody.innerHTML = '';
-		            messages.forEach(function(msg) {
-		                var newMessage = document.createElement('div');
-		                if (msg.startsWith('팅커벨:')) {
-		                    newMessage.className = 'admin-message';
-		                    newMessage.textContent = '🛩'+ msg.replace(/^팅커벨:\s*/, '');
-		                } else {
-		                    newMessage.className = 'user-message';
-		                    // "손님: " 접두사를 제거하고 메시지만 출력
-		                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
-		                }
-		                chatBody.appendChild(newMessage);
-		            });
-		            pollMessages();
-		        }
-		    };
-		    xhr.send();
-		}
-		// 페이지 로드 후 메시지 요청 시작
-		pollMessages();
-	</script>
+	}
+	// 메시지 갱신
+	function pollMessages() {
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("GET", "/main/getMessages", true);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            var chatBody = document.getElementById('chat-body');
+	            var messages = JSON.parse(xhr.responseText);
+	            chatBody.innerHTML = '';
+	            messages.forEach(function(msg) {
+	                var newMessage = document.createElement('div');
+	                if (msg.startsWith('팅커벨:')) {
+	                    newMessage.className = 'admin-message';
+	                    newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
+	                } else {
+	                    newMessage.className = 'user-message';
+	                    // "손님: " 접두사를 제거하고 메시지만 출력
+	                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
+	                }
+	                chatBody.appendChild(newMessage);
+	            });
+	            pollMessages();
+	        }
+	    };
+	    xhr.send();
+	}
+	// 페이지 로드 후 메시지 요청 시작
+	pollMessages();
+</script>
 
 	<!-- 채팅 상담 버튼 -->
-	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
+	<div id="chat-toggle" onclick="toggleChat()">🎧</div>
 	
 	<!-- 채팅 창 -->
 	<div id="chat-console">
@@ -1125,32 +1137,31 @@
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
-
-
-	<sitemesh:write property="body" />
+	
+<sitemesh:write property="body" />
 
 	<footer>
 		<table>
 			<tr>
 				<td rowspan="5" width="200"></td>
 				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-				<td> 상호명 : LLTA </td>
+				<td> eLTA(주) </td>
 				<td> 365고객센터 </td>
 			</tr>
 			<tr>
-				<td> 대표이사 : 주인장 </td>
+				<td> 대표이사 주인장 </td>
 				<td> 080-888-1234(무료) </td>
 			</tr>
 			<tr>
-				<td> 본사 : 경기도 파주시 야당동 </td>
+				<td> 경기도 파주시 야당동 </td>
 				<td> email : Tmaster@air.co.kr </td>
 			</tr>
 			<tr>
-				<td> 사업자 등록번호 : 444-44-44444 </td>
-				<td> 전화번호 : 010-1234-5678 </td>
+				<td> 사업자 등록번호 444-44-44444 </td>
+				<td> 전화번호 010-1234-5678 </td>
 			</tr>
 			<tr>
-				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
+				<td> 통신판매업 신고 제 24-1233 </td>
 				<td></td>
 			</tr>
 		</table>
