@@ -269,7 +269,7 @@
 			<ul id="main">
 				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
 					<ul class="menu">
-						<li><a href="../reserve/reserve">항공권 예약</a></li>
+						<li><a href="../reserve/reservation">항공권 예약</a></li>
 						<li><a href="../menu/index2">예약 조회</a></li>
 						<li><a href="../menu/index3">체크인</a></li>
 						<li><a href="../menu/index3">운항정보</a></li>
