@@ -65,7 +65,8 @@
 		position: relative;
 		margin-right: 10px;
 	}
-	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
+	#section1 #loginMenu .cmenu,
+	#section1 #loginMenu .mmenu {
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
@@ -75,7 +76,8 @@
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
 	}
-	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
+	#section1 #loginMenu .cmenu > li,
+	#section1 #loginMenu .mmenu > li {
 		list-style-type: none;
 		width: 130px;
 		height: 35px;
@@ -84,38 +86,14 @@
 		cursor: pointer;
 		border-bottom: 1px solid #ddd;
 	}
-	#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
+	#section1 #loginMenu .cmenu > li:hover,
+	#section1 #loginMenu .mmenu > li:hover {
 		text-decoration: underline;
 		color: green;
 	}
-	#section1 #loginMenu #supMenu {
-		position: relative;
-	}
+	#section1 #loginMenu #supMenu,
 	#section1 #loginMenu #myInfo {
 		position: relative;
-	}
-	#section1 #loginMenu #supMenu .menu {
-		padding-left: 0;
-		position: absolute;
-		left: -10px;
-		top: 30px;
-		background: white;
-		display: none;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		z-index: 10;
-	}
-	#section1 #loginMenu #supMenu .menu > li {
-		list-style-type: none;
-		width: 130px;
-		height: 35px;
-		line-height: 35px;
-		text-align: center;
-		cursor: pointer;
-		border-bottom: 1px solid #ddd;
-	}
-	#section1 #loginMenu #supMenu .menu > li:hover {
-		text-decoration: underline;
-		color: green;
 	}
 	header > nav {
 		width: 1200px;
@@ -131,7 +109,7 @@
 	header > nav a:hover {
 		text-decoration: underline;
 		color: green;
-		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	}
 	header > nav #main {
 		padding-left: 0px;
@@ -173,7 +151,7 @@
 		font-family: 'Hahmlet';
 		margin-top: 30px;
 		font-size: 13px;
-		background: #9AB973;
+		background: #0EB2F0;
 		color: white;
 		text-align: center;
 	}
@@ -181,6 +159,7 @@
 		width: 100%;
 		max-width: 1000px;
 		margin: auto;
+		text-align: left;
 	}
 	@media (max-width: 768px) {
 		header, #outer #first, nav ul {
@@ -202,7 +181,7 @@
 		width: 100%;
 		height: 450px;
 		background-repeat: no-repeat;
-		z-index: 0;
+		z-index: 2000;
 	}
 	.air_align {
 		margin-left: 73px;
@@ -213,7 +192,6 @@
 	}
 	.air_contentbox {
 		position: relative;
-		top: 5.3rm;
 		left: 0;
 		width: 90%;
 		height: 70%;
@@ -263,9 +241,6 @@
 		color: #65728a;
 		font-weight: 900;
 	}
-	#booking_menu {
-		display: inline-block;
-	}
 	.booking_widget_list button {
 		width: 100%;
 		height: 100%;
@@ -283,7 +258,10 @@
 		position: relative;
 		top: -5px;
 	}
-	.booking_contents {
+	.booking_contents,
+	.select_contents,
+	.check-in_contents,
+	.schedule_contents {
 		position: relative;
 		width: 100%;
 		height: 220px;
@@ -292,26 +270,11 @@
 		border: 2px solid white;
 		border-radius: 15px;
 		margin-top: -10px;
-		display: block;
-		padding-left: 40px;
-		padding-top: 30px;
-		padding-right: 40px;
-		padding-bottom: 10px;
-	}
-	.select_contents, .check-in_contents, .schedule_contents {
-		position: relative;
-		width: 100%;
-		height: 220px;
-		z-index: 3;
-		background-color: white;
-		border: 2px solid white;
-		border-radius: 15px;
-		margin-top: -10px;
-		padding-left: 40px;
-		padding-top: 30px;
-		padding-right: 40px;
-		padding-bottom: 10px;
+		padding: 30px 40px 10px 40px;
 		display: none;
+	}
+	.booking_contents {
+		display: block;
 	}
 	.b_methodbox {
 		float: left;
@@ -327,14 +290,11 @@
 	}
 	.booking_types li {
 		display: inline-block;
-		list-style-list: none;
+		list-style-type: none;
 	}
 	.booking_types li button {
 		font-size: 17px;
-		padding-left: 20px;
-		padding-right: 20px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding: 10px 20px;
 		border: none;
 		border-radius: 23px;
 		color: white;
@@ -371,24 +331,27 @@
 		justify-content: center;
 		align-items: center;
 	}
-	.quick_booking_button:first-child {
-		flex-grow: 2;
-	}
+	.quick_booking_button:first-child,
 	.quick_booking_button:last-child {
 		flex-grow: 2;
 	}
 	.quick_booking_button:hover {
 		background-color: #ddd;
 	}
-	#from-text, #departure-text {
+	#from-text,
+	#departure-text,
+	#to-text,
+	#arrival-text {
 		display: block;
 		margin: 0;
 	}
-	#from-text, #to-text {
+	#from-text,
+	#to-text {
 		font-size: 40px;
 		font-weight: bold;
 	}
-	#departure-text, #arrival-text {
+	#departure-text,
+	#arrival-text {
 		font-size: 14px;
 		color: #666;
 	}
@@ -431,10 +394,11 @@
 		font-size: 13px;
 		color: #333;
 	}
-	#date_selection button, #passenger_selection button, #seats_selection button {
+	#date_selection button,
+	#passenger_selection button,
+	#seats_selection button {
 		width: 130px;
-		padding-top: 20px;
-		padding-bottom: 5px;
+		padding: 20px 0 5px;
 		background-color: transparent;
 		border: none;
 		border-bottom: 1px solid #333;
@@ -447,7 +411,33 @@
 	#date_selection button {
 		width: 300px;
 	}
-
+	/* 인원 선택 팝업 스타일 */
+	#passenger-selection-popup .passenger-counter {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.passenger-type {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+	.passenger-type p {
+		margin: 0;
+		width: 50px;
+	}
+	.passenger-type button {
+		width: 30px;
+		height: 30px;
+		font-size: 20px;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	.passenger-type span {
+		width: 20px;
+		text-align: center;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -493,7 +483,7 @@
 			document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
 				el.classList.remove('active');
 			});
-				event.currentTarget.parentNode.classList.add('active');
+			event.currentTarget.parentNode.classList.add('active');
 		}
 		document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
 			button.addEventListener('click', activateMenu);
@@ -618,71 +608,59 @@
 				if (this.value === "round") {
 					tripMethod = "round";
 					calendar.set("mode", "range");
+					document.getElementById('date-btn').innerHTML = "가는날 ~ 오는날";
 				} else if (this.value === "one-way") {
 					tripMethod = "one-way";
 					calendar.set("mode", "single");
+					document.getElementById('date-btn').innerHTML = "가는날";
 				}
 			});
 		});
 	});
-	
-	/* $(function() {	//회원가입, 로그인 페이지에서 메인컨텐츠 숨김
-		var currentURL = window.location.pathname;  // 현재 페이지 URL
-		var referrerURL = document.referrer;        // 이전 페이지 URL
-		
-		// 인덱스 페이지에서 항상 디스플레이 none에서 슬라이드 다운
-		if (currentURL.includes("/index") && (!referrerURL
-				|| referrerURL.includes("/member/member")
-				|| referrerURL.includes("/login/login")
-				|| !referrerURL)) {
-			$('.main_content').hide().slideDown(1000); // 1초 동안 슬라이드다운
+	// 인원 선택 팝업 열기
+	function openPassengerPopup() {
+		document.getElementById('passenger-selection-popup').style.display = 'block';
+	}
+	// 인원 선택 팝업 닫기
+	function closePassengerPopup() {
+		document.getElementById('passenger-selection-popup').style.display = 'none';
+	}
+	// 인원 수 증가 함수
+	function increase(type) {
+		var countElement = document.getElementById(type + '-count');
+		var count = parseInt(countElement.textContent);
+		countElement.textContent = count + 1;
+	}
+	// 인원 수 감소 함수
+	function decrease(type) {
+		var countElement = document.getElementById(type + '-count');
+		var count = parseInt(countElement.textContent);
+		if (count > 0) {
+			countElement.textContent = count - 1;
 		}
-		// 로그인 ↔ 멤버 간 이동에서는 display: none 유지, 슬라이드 업 동작하지 않음
-		else if ((currentURL.includes("/member/member") && referrerURL.includes("/login/login"))
-				|| (currentURL.includes("/login/login")	&& referrerURL.includes("/member/member"))) {
-			$('.main_content').hide(); // display: none 유지
-		}
-		// 로그인 또는 멤버 페이지에서 다른 페이지로 이동할 때
-		else if ((!currentURL.includes("/member/member")&& referrerURL.includes("/member/member"))
-				|| (!currentURL.includes("/login/login") && referrerURL.includes("/login/login"))) {
-			$('.main_content').hide().slideDown(1000); // 다시 슬라이드 다운 실행
-		}
-		// 다른 페이지에서 로그인 또는 멤버로 이동할 때는 슬라이드 업 동작
-		else if ((currentURL.includes("/member/member") && !referrerURL.includes("/login/login"))
-				|| (currentURL.includes("/login/login") && !referrerURL.includes("/member/member"))) {
-			$('.main_content').slideUp(500); // 슬라이드 업 동작
-		}
-		// 다른 페이지에서 인덱스로 이동할 때는 슬라이드 다운 동작하지 않음
-		else if (currentURL.includes("/index")
-				&& !referrerURL.includes("/member/member")
-				&& !referrerURL.includes("/login/login")) {
-			// 인덱스 페이지로 이동할 때, 슬라이드 다운 동작하지 않음
-			$('.main_content').show(); // 슬라이드 없이 그냥 보이게 함
-		}
-	}); */
-	
-	$(function() {	//인덱스 외에 페이지에서는 메인컨텐츠 숨김
-		var currentURL = window.location.pathname;  // 현재 페이지 URL
-		var referrerURL = document.referrer;        // 이전 페이지 URL
-		
-		// 인덱스에서 다른 페이지로 이동할 때는 슬라이드 업
+	}
+	// 인원 선택 완료 함수
+	function confirmPassengers() {
+		var adultCount = document.getElementById('adult-count').textContent;
+		var childCount = document.getElementById('child-count').textContent;
+		var infantCount = document.getElementById('infant-count').textContent;
+		var totalPassengers = "성인 " + adultCount + "명, 소아 " + childCount + "명, 유아 " + infantCount + "명";
+		document.getElementById('passenger-btn').innerHTML = totalPassengers;
+		closePassengerPopup();
+	}
+	$(function() {
+		var currentURL = window.location.pathname;
+		var referrerURL = document.referrer;
 		if (referrerURL.includes("/index") && !currentURL.includes("/index")) {
-			$('.main_content').slideUp(500); // 슬라이드 업 동작
-		}
-		// 다른 페이지에서 인덱스로 이동하거나 인덱스가 처음 열릴 때는 슬라이드 다운
-		else if (currentURL.includes("/index") && (!referrerURL || !referrerURL.includes("/index"))) {
-			$('.main_content').hide().slideDown(1000); // 슬라이드 다운 동작
-		}
-		// 인덱스 이외의 페이지 간 이동 시 디스플레이 none 유지, 슬라이드 동작 없음
-		else if (!currentURL.includes("/index") && !referrerURL.includes("/index")) {
-			$('.main_content').hide(); // 디스플레이 none 유지
-		}
-		// 그 외 경우는 기본 동작 유지
-		else {
-			$('.main_content').show(); // 슬라이드 없이 그냥 보이게 함
+			$('.main_content').slideUp(500);
+		} else if (currentURL.includes("/index") && (!referrerURL || !referrerURL.includes("/index"))) {
+			$('.main_content').hide().slideDown(1000);
+		} else if (!currentURL.includes("/index") && !referrerURL.includes("/index")) {
+			$('.main_content').hide();
+		} else {
+			$('.main_content').show();
 		}
 	});
-	
 </script>
 
 <sitemesh:write property="head" />
@@ -824,36 +802,68 @@
 											<span id="arrival-text">&nbsp;도착지</span>
 										</button>
 									</div>
+									<!-- 출발지 팝업 -->
 									<div id="popup" class="popup">
 										<div class="popup-content">
 											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
 											<h2>출발지 검색</h2>
 											<input type="text" id="departure-input" placeholder="출발지 입력" onkeyup="autocomplete('departure')">
 											<ul id="departure-list"></ul>
-											<button onclick="setLocation('departure')">선택</button>
 										</div>
 									</div>
+									<!-- 도착지 팝업 -->
 									<div id="arrival-popup" class="popup">
 										<div class="popup-content">
 											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
 											<h2>도착지 검색</h2>
 											<input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
 											<ul id="arrival-list"></ul>
-											<button onclick="setLocation('arrival')">선택</button>
 										</div>
 									</div>
+									<!-- 날짜 선택 버튼 -->
 									<div id="date_selection">
 										<p>출발일&nbsp;</p>
 										<button type="button" id="date-btn"><span>가는날 ~ 오는날</span></button>
 									</div>
+									<!-- 탑승객 선택 버튼 -->
 									<div id="passenger_selection">
 										<p>탑승객&nbsp;</p>
-										<button type="button" id="passenger-btn"><span>인원수</span></button>
+										<button type="button" id="passenger-btn" onclick="openPassengerPopup()"><span>인원수</span></button>
 									</div>
+									<!-- 승객 선택 팝업 -->
+									<div id="passenger-selection-popup" class="popup">
+										<div class="popup-content">
+											<span class="close-btn" onclick="closePassengerPopup()">&times;</span>
+											<h2>승객 선택</h2>
+											<div class="passenger-counter">
+												<div class="passenger-type">
+													<p>성인</p>
+													<button class="decrease-btn" onclick="decrease('adult')">-</button>
+													<span id="adult-count">1</span>
+													<button class="increase-btn" onclick="increase('adult')">+</button>
+												</div>
+												<div class="passenger-type">
+													<p>소아</p>
+													<button class="decrease-btn" onclick="decrease('child')">-</button>
+													<span id="child-count">0</span>
+													<button class="increase-btn" onclick="increase('child')">+</button>
+												</div>
+												<div class="passenger-type">
+													<p>유아</p>
+													<button class="decrease-btn" onclick="decrease('infant')">-</button>
+													<span id="infant-count">0</span>
+													<button class="increase-btn" onclick="increase('infant')">+</button>
+												</div>
+											</div>
+											<button type="button" onclick="confirmPassengers()">선택 완료</button>
+										</div>
+									</div>
+									<!-- 좌석등급 선택 버튼 -->
 									<div id="seats_selection">
 										<p>좌석등급&nbsp;</p>
 										<button type="button" id="seats-btn"><span>선택하세요</span></button>
 									</div>
+									<!-- 항공편 검색 버튼 -->
 									<div id="search_airline">
 										<button type="button" id="search-btn"><span>항공편 검색</span></button>
 									</div>
@@ -861,287 +871,253 @@
 							</div>
 						</div>
 						<div class="select_contents">
-							<div id="select methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>rom</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
+							<!-- 예약조회 콘텐츠 -->
 						</div>
 						<div class="check-in_contents">
-							<div id="check-in methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>om</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
+							<!-- 체크인 콘텐츠 -->
 						</div>
 						<div class="schedule_contents">
-							<div id="schedule methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>From</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
+							<!-- 출도착/스케줄 콘텐츠 -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<style>
-	#chat-console {
-		width: 320px;
-		height: 450px;
-		border: 2px solid #2DD1C5;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		border-radius: 10px;
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		background-color: #fff;
-		display: none;
-		flex-direction: column;
-		overflow: hidden;
-		font-family: Arial, sans-serif;
-	}
-	#chat-header {
-		background-color: #2DD1C5;
-		color: white;
-		padding: 15px;
-		text-align: center;
-		font-weight: bold;
-		cursor: pointer;
-		position: relative;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-	}
-	#chat-header button {
-		position: absolute;
-		top: 50%;
-		right: 15px;
-		transform: translateY(-50%);
-		background-color: #E74C3C;
-		color: white;
-		border: none;
-		padding: 5px 10px;
-		cursor: pointer;
-		font-size: 12px;
-		border-radius: 5px;
-		transition: background-color 0.3s;
-	}
-	#chat-header button:hover {
-		background-color: #C0392B;
-	}
-	#chat-body {
-		flex: 1;
-		padding: 15px;
-		overflow-y: auto;
-		background-color: #F8F9FA;
-		display: flex;
-		flex-direction: column; /* 메시지가 세로로 쌓이도록 설정 */
-	}
-	#chat-body .message {
-		margin-bottom: 12px;
-		display: flex; /* 메시지를 독립된 블록으로 처리 */
-		width: 100%; /* 메시지가 부모의 전체 너비를 차지하게 함 */
-	}
-	#chat-body .user-message {
-		color: black;
-		text-align: left;
-		background-color: #E3F2FD;
-		padding: 10px;
-		border-radius: 15px;
-		max-width: 80%;
-		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
-		align-self: flex-start; /* 왼쪽 정렬 */
-		clear: both;
-	}
-	#chat-body .admin-message {
-		color: white;
-		text-align: right;
-		background-color: #2DD1C5;
-		padding: 10px;
-		border-radius: 15px;
-		max-width: 80%;
-		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
-		align-self: flex-end; /* 오른쪽 정렬 */
-		clear: both;
-	}
-	#chat-input {
-		display: flex;
-		padding: 10px;
-		background-color: #F1F1F1;
-		border-bottom-left-radius: 10px;
-		border-bottom-right-radius: 10px;
-	}
-	#chat-input input[type="text"] {
-		flex: 1;
-		padding: 10px;
-		border: 1px solid #CCC;
-		border-radius: 20px;
-		outline: none;
-		margin-right: 10px;
-	}
-	#chat-input button {
-		padding: 8px 15px;
-		background-color: #2DD1C5;
-		color: white;
-		border: none;
-		cursor: pointer;
-		border-radius: 20px;
-		transition: background-color 0.3s;
-	}
-	#chat-input button:hover {
-		background-color: #1A9987;
-	}
-	#chat-toggle {
-		position: fixed;
-		bottom: 20px;
-		right: 30px;
-		background-color: #2DD1C5;
-		color: white;
-		padding: 12px 25px;
-		cursor: pointer;
-		border-radius: 30px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-		transition: background-color 0.3s;
-		font-family: Arial, sans-serif;
-	}
-	#chat-toggle:hover {
-		background-color: #1A9987;
-	}
-	#chat-body .end-message {
-		color: red;
-		text-align: center;
-		font-weight: bold;
-		margin: 20px 0; /* 위아래에 여유 공간 추가 */
-		display: block;
-	}
-</style>
 
-
-<script>
-	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
-	function endChat() {
-		sendMessage("상담이 종료되었습니다.");
-		var endButton = document.getElementById('endChatButton');
-		endButton.innerText = '닫기';
-		endButton.onclick = closeAndResetChat;
-	}
-	
-	// 닫기 버튼을 눌렀을 때 채팅 기록 리셋 및 창 닫기
-	function closeAndResetChat() {
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/resetChatHistory", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var chatBody = document.getElementById('chat-body');
-				chatBody.innerHTML = '';
-				var chatConsole = document.getElementById('chat-console');
-				chatConsole.style.display = 'none';
-				var chatToggle = document.getElementById('chat-toggle');
-				chatToggle.style.display = 'block';
-				var endButton = document.getElementById('endChatButton');
-				endButton.innerText = '끝내기';
-				endButton.onclick = endChat;
-			}
-		};
-		xhr.send();
-	}
-	
-	// 메시지 전송 함수
-	function sendMessage(message) {
-		var messageInput = message || document.getElementById('chat-message').value;
-		var chatBody = document.getElementById('chat-body');
-		if (messageInput.trim() === "") return;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "../main/sendMessage", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var newMessage = document.createElement('div');
-				newMessage.className = "user-message";
-				newMessage.textContent = messageInput;
-				chatBody.appendChild(newMessage);
-				document.getElementById('chat-message').value = "";
-			}
-		};
-		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
-	}
-	
-	// Enter 키로 메시지 전송
-	document.addEventListener('DOMContentLoaded', function() {
-		document.getElementById('chat-message').addEventListener('keydown', function(event) {
-			if (event.key === "Enter") {
-				event.preventDefault();
-				sendMessage();
-			}
-		});
-	});
-	
-	// 채팅 창 토글
-	function toggleChat() {
-		var chatConsole = document.getElementById('chat-console');
-		var chatToggle = document.getElementById('chat-toggle');
-		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
-			chatConsole.style.display = 'flex';
-			chatToggle.style.display = 'none';
-		} else {
-			chatConsole.style.display = 'none';
-			chatToggle.style.display = 'block';
+	<!-- 채팅 스타일 -->
+	<style>
+		#chat-console {
+			width: 320px;
+			height: 450px;
+			border: 2px solid #2DD1C5;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background-color: #fff;
+			display: none;
+			flex-direction: column;
+			overflow: hidden;
+			font-family: Arial, sans-serif;
 		}
-	}
-	
-	// Long Polling으로 메시지 갱신
-	function pollMessages() {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "/main/getMessages", true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var chatBody = document.getElementById('chat-body');
-				var messages = JSON.parse(xhr.responseText);
-				chatBody.innerHTML = '';
-				messages.forEach(function(msg) {
+		#chat-header {
+			background-color: #2DD1C5;
+			color: white;
+			padding: 15px;
+			text-align: center;
+			font-weight: bold;
+			cursor: pointer;
+			position: relative;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+		#chat-header button {
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			transform: translateY(-50%);
+			background-color: #E74C3C;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			cursor: pointer;
+			font-size: 12px;
+			border-radius: 5px;
+			transition: background-color 0.3s;
+		}
+		#chat-header button:hover {
+			background-color: #C0392B;
+		}
+		#chat-body {
+			flex: 1;
+			padding: 15px;
+			overflow-y: auto;
+			background-color: #F8F9FA;
+			display: flex;
+			flex-direction: column;
+		}
+		#chat-body .message {
+			margin-bottom: 12px;
+			display: flex;
+			width: 100%;
+		}
+		#chat-body .user-message {
+    color: white;
+    text-align: right;
+    background-color: #2DD1C5;
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+    display: block;
+    align-self: flex-end; /* 오른쪽 정렬 */
+    clear: both;
+}
+
+#chat-body .admin-message {
+    color: black;
+    text-align: left;
+    background-color: #E3F2FD;
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+    display: block;
+    align-self: flex-start; /* 왼쪽 정렬 */
+    clear: both;
+}
+
+		#chat-input {
+			display: flex;
+			padding: 10px;
+			background-color: #F1F1F1;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		#chat-input input[type="text"] {
+			flex: 1;
+			padding: 10px;
+			border: 1px solid #CCC;
+			border-radius: 20px;
+			outline: none;
+			margin-right: 10px;
+		}
+		#chat-input button {
+			padding: 8px 15px;
+			background-color: #2DD1C5;
+			color: white;
+			border: none;
+			cursor: pointer;
+			border-radius: 20px;
+			transition: background-color 0.3s;
+		}
+		#chat-input button:hover {
+			background-color: #1A9987;
+		}
+		#chat-toggle {
+			position: fixed;
+			bottom: 20px;
+			right: 30px;
+			background-color: #2DD1C5;
+			color: white;
+			padding: 12px 25px;
+			cursor: pointer;
+			border-radius: 30px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			transition: background-color 0.3s;
+			font-family: Arial, sans-serif;
+		}
+		#chat-toggle:hover {
+			background-color: #1A9987;
+		}
+	</style>
+
+	<script>
+		// 상담 종료 시
+		function endChat() {
+			sendMessage("상담이 종료되었습니다.");
+			var endButton = document.getElementById('endChatButton');
+			endButton.innerText = '닫기';
+			endButton.onclick = closeAndResetChat;
+		}
+		// 닫기 버튼
+		function closeAndResetChat() {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "../main/resetChatHistory", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var chatBody = document.getElementById('chat-body');
+					chatBody.innerHTML = '';
+					var chatConsole = document.getElementById('chat-console');
+					chatConsole.style.display = 'none';
+					var chatToggle = document.getElementById('chat-toggle');
+					chatToggle.style.display = 'block';
+					var endButton = document.getElementById('endChatButton');
+					endButton.innerText = '끝내기';
+					endButton.onclick = endChat;
+				}
+			};
+			xhr.send();
+		}
+		// 메시지 전송 함수
+		function sendMessage(message) {
+			var messageInput = message || document.getElementById('chat-message').value;
+			var chatBody = document.getElementById('chat-body');
+			if (messageInput.trim() === "") return;
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "../main/sendMessage", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
 					var newMessage = document.createElement('div');
-					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
-					newMessage.textContent = msg;
+					newMessage.className = "user-message";
+					newMessage.textContent = messageInput;
 					chatBody.appendChild(newMessage);
-				});
-				pollMessages();
+					document.getElementById('chat-message').value = "";
+				}
+			};
+			xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
+		}
+		// Enter 키로 메시지 전송
+		document.addEventListener('DOMContentLoaded', function() {
+			document.getElementById('chat-message').addEventListener('keydown', function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					sendMessage();
+				}
+			});
+		});
+		// 채팅 창 토글
+		function toggleChat() {
+			var chatConsole = document.getElementById('chat-console');
+			var chatToggle = document.getElementById('chat-toggle');
+			if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
+				chatConsole.style.display = 'flex';
+				chatToggle.style.display = 'none';
+			} else {
+				chatConsole.style.display = 'none';
+				chatToggle.style.display = 'block';
 			}
-		};
-		xhr.send();
-	}
-	
-	// 페이지 로드 후 처음 메시지 요청 시작
-	pollMessages();
-</script>
-	<!-- 채팅창 -->
+		}
+		// 메시지 갱신
+		function pollMessages() {
+		    var xhr = new XMLHttpRequest();
+		    xhr.open("GET", "/main/getMessages", true);
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            var chatBody = document.getElementById('chat-body');
+		            var messages = JSON.parse(xhr.responseText);
+		            chatBody.innerHTML = '';
+		            messages.forEach(function(msg) {
+		                var newMessage = document.createElement('div');
+		                if (msg.startsWith('팅커벨:')) {
+		                    newMessage.className = 'admin-message';
+		                    newMessage.textContent = '🛩'+ msg.replace(/^팅커벨:\s*/, '');
+		                } else {
+		                    newMessage.className = 'user-message';
+		                    // "손님: " 접두사를 제거하고 메시지만 출력
+		                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
+		                }
+		                chatBody.appendChild(newMessage);
+		            });
+		            pollMessages();
+		        }
+		    };
+		    xhr.send();
+		}
+		// 페이지 로드 후 메시지 요청 시작
+		pollMessages();
+	</script>
+
+	<!-- 채팅 상담 버튼 -->
 	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
+	
+	<!-- 채팅 창 -->
 	<div id="chat-console">
 		<div id="chat-header">
-			채팅 상담
-			<button id="endChatButton" onclick="endChat()">끝내기</button>
+		채팅 상담
+		<button id="endChatButton" onclick="endChat()">끝내기</button>
 		</div>
 		<div id="chat-body"></div>
 		<div id="chat-input">
@@ -1149,6 +1125,7 @@
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
+
 
 	<sitemesh:write property="body" />
 

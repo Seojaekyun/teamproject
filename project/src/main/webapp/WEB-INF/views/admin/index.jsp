@@ -42,8 +42,11 @@
 	section #third table {
 		border-spacing:0px;
 		width: 500px;
+		height: 224px;
 		border-spacing:0px;
 		margin-right: 30px;
+		overflow: hidden;
+		display: inline-block;
 	}
 	section #third #topinq {
 		border-spacing:0px;
