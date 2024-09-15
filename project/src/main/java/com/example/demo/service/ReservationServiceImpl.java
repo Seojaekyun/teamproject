@@ -45,9 +45,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public List<SeatDto> getAvailableSeats(int flightId) {
-		System.out.println("SeatMapper 호출됨, flightId: " + flightId);  // 디버깅 로그 추가
+		//System.out.println("SeatMapper 호출됨, flightId: " + flightId);  // 디버깅 로그 추가
 		List<SeatDto> availableSeats = sMapper.getAvailableSeats(flightId);
-		System.out.println("좌석 정보: " + availableSeats);  // 좌석 정보를 콘솔에 출력
+		//System.out.println("좌석 정보: " + availableSeats);  // 좌석 정보를 콘솔에 출력
 		return availableSeats;
 	}
 	

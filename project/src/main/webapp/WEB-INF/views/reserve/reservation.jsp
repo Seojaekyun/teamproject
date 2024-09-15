@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -119,7 +118,7 @@
 			}
 		});
 	});
-
+	
 	// 선택한 날짜에 맞는 항공편 불러오기
 	function fetchFlightsByDate(selectedDate) {
 		if (selectedDate) {
@@ -133,14 +132,14 @@
 					option.value = flight.flightId;
 					
 					let departureTime = new Date(flight.departureTime).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-					option.text = `${flight.departureAirport} to ${flight.arrivalAirport} (Departure: ${departureTime})`;
+					option.text = flight.departureAirport +' to '+flight.arrivalAirport+' (Departure: '+departureTime+')';
 					flightSelect.add(option);
 				});
 			})
 			.catch(error => console.error('Error fetching flights:', error));
 		}
 	}
-
+	
 	// 선택한 항공편에 맞는 좌석 불러오기
 	function fetchSeats(flightId) {
 		if (flightId) {
@@ -165,72 +164,74 @@
 
 </head>
 <body>
+
 <section>
-<header>
-	<h1>항공권 예약</h1>
-</header>
-
-<nav>
-	<a href="reservation">항공권 예약</a>
-	<a href="">예약 조회</a>
-	<a href="">체크인</a>
-	<a href="">운항 정보</a>
-</nav>
-
-<div class="container">
-	<h2>예약 정보 입력</h2>
+	<header>
+		<h1>항공권 예약</h1>
+	</header>
 	
-	<!-- 날짜 선택 -->
-	<div id="cal">
-		<input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
+	<nav>
+		<a href="reservation">항공권 예약</a>
+		<a href="">예약 조회</a>
+		<a href="">체크인</a>
+		<a href="">운항 정보</a>
+	</nav>
+	
+	<div class="container">
+		<h2>예약 정보 입력</h2>
+		
+		<!-- 날짜 선택 -->
+		<div id="cal">
+			<input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
+		</div>
+	
+		<!-- 항공편 선택 -->
+		<form id="reservationForm" action="/reserve" method="post">
+			<div class="form-group">
+				<label for="flight_id">항공편 선택</label>
+				<select name="flightId" id="flight_id" required onchange="fetchSeats(this.value)">
+					<option value="">-- 항공편 선택 --</option>
+				</select>
+			</div>
+	
+			<!-- 좌석 선택 -->
+			<div class="form-group">
+				<label for="seat_number">좌석 선택</label>
+				<select name="seat_number" id="seat_number" required>
+					<option value="">-- 좌석 선택 --</option>
+				</select>
+			</div>
+	
+			<!-- 좌석 클래스 선택 -->
+			<div class="form-group">
+				<label for="seat_class">좌석 클래스</label>
+				<select name="seat_class" id="seat_class" required>
+					<option value="Economy">이코노미</option>
+					<option value="Business">비즈니스</option>
+					<option value="First">퍼스트 클래스</option>
+				</select>
+			</div>
+	
+			<!-- 고객 정보 입력 -->
+			<div class="form-group">
+				<label for="customer_id">예약자 ID</label>
+				<input type="text" id="customer_id" name="customer_id" value="${userid }" required>
+			</div>
+	
+			<div class="form-group">
+				<label for="customer_name">고객 이름</label>
+				<input type="text" id="customer_name" name="customer_name" required placeholder="이름 입력">
+			</div>
+	
+			<div class="form-group">
+				<label for="customer_email">고객 이메일</label>
+				<input type="email" id="customer_email" name="customer_email" required placeholder="이메일 입력">
+			</div>
+	
+			<input type="submit" value="예약하기">
+		</form>
 	</div>
-
-	<!-- 항공편 선택 -->
-	<form id="reservationForm" action="/reserve" method="post">
-		<div class="form-group">
-			<label for="flight_id">항공편 선택</label>
-			<select name="flightId" id="flight_id" required onchange="fetchSeats(this.value)">
-				<option value="">-- 항공편 선택 --</option>
-			</select>
-		</div>
-
-		<!-- 좌석 선택 -->
-		<div class="form-group">
-			<label for="seat_number">좌석 선택</label>
-			<select name="seat_number" id="seat_number" required>
-				<option value="">-- 좌석 선택 --</option>
-			</select>
-		</div>
-
-		<!-- 좌석 클래스 선택 -->
-		<div class="form-group">
-			<label for="seat_class">좌석 클래스</label>
-			<select name="seat_class" id="seat_class" required>
-				<option value="Economy">이코노미</option>
-				<option value="Business">비즈니스</option>
-				<option value="First">퍼스트 클래스</option>
-			</select>
-		</div>
-
-		<!-- 고객 정보 입력 -->
-		<div class="form-group">
-			<label for="customer_id">예약자 ID</label>
-			<input type="text" id="customer_id" name="customer_id" value="${userid }" required>
-		</div>
-
-		<div class="form-group">
-			<label for="customer_name">고객 이름</label>
-			<input type="text" id="customer_name" name="customer_name" required placeholder="이름 입력">
-		</div>
-
-		<div class="form-group">
-			<label for="customer_email">고객 이메일</label>
-			<input type="email" id="customer_email" name="customer_email" required placeholder="이메일 입력">
-		</div>
-
-		<input type="submit" value="예약하기">
-	</form>
-</div>
 </section>
+
 </body>
 </html>
