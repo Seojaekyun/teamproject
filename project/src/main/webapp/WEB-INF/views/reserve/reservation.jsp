@@ -5,105 +5,127 @@
 <head>
     <title>Flight Reservation</title>
     <style>
-
-       section .container {
-            background-color: #fff;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
             padding: 20px;
+            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
         }
-       section h1 {
+        h1 {
             text-align: center;
             color: #333;
         }
-       section label {
-            display: block;
-            margin-bottom: 8px;
+        label {
             font-weight: bold;
+            margin-top: 15px;
+            display: block;
             color: #555;
         }
-       section select, input[type="text"], input[type="email"], input[type="submit"] {
+        select, input[type="text"], input[type="email"], input[type="submit"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-top: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 16px;
+            box-sizing: border-box;
         }
-       section input[type="submit"] {
+        input[type="submit"] {
             background-color: #28a745;
             color: white;
             border: none;
             cursor: pointer;
+            margin-top: 20px;
         }
-       section input[type="submit"]:hover {
+        input[type="submit"]:hover {
             background-color: #218838;
         }
-       section .form-group {
-            margin-bottom: 15px;
+        .form-group {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-<section>
-    <h1>항공권 예약</h1>
+    <div class="container">
+        <h1>항공권 예약</h1>
 
-    <form action="/reserve" method="post">
-       <!-- 항공편 선택 -->
-    <label for="flight_id">Select Flight:</label>
-    <select name="flight_id" id="flight_id" required>
-        <option value="">-- Select a Flight --</option>  <!-- 기본적으로 비어 있는 항목이 없도록 함 -->
-        <c:forEach var="flight" items="${flights}">
-            <option value="${flight.flightId}">${flight.departureAirport} to ${flight.arrivalAirport} (Departure: ${flight.departureTime})</option>
-        </c:forEach>
-    </select>
-    <br><br>
+        <form id="reservationForm" action="/reserve" method="post">
+            <!-- 항공편 선택 -->
+            <div class="form-group">
+                <label for="flight_id">항공편 선택</label>
+                <select name="flightId" id="flight_id" required onchange="fetchSeats(this.value)">
+                    <option value="">-- Select a Flight --</option>
+                    <c:forEach var="flight" items="${flights}">
+                        <option value="${flight.flightId}">${flight.departureAirport} to ${flight.arrivalAirport} (Departure: ${flight.departureTime})</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-        <!-- 좌석 선택 -->
-<label for="seat_number">Select Seat:</label>
-<select name="seat_number" id="seat_number" required>
-    <option value="">-- Select a Seat --</option>
-    <c:forEach var="seat" items="${availableSeats}">
-        <option value="${seat.seatNumber}">${seat.seatNumber}</option>
-    </c:forEach>
-</select>
+            <!-- 좌석 선택 -->
+            <div class="form-group">
+                <label for="seat_number">좌석 선택</label>
+                <select name="seat_number" id="seat_number" required>
+                    <option value="">-- Select a Seat --</option>
+                </select>
+            </div>
 
-<!-- 데이터가 없는 경우 확인용 메시지 -->
-<c:if test="${empty availableSeats}">
-    <p>No seats .</p>
-</c:if>
+            <!-- 고객 정보 입력 -->
+            <div class="form-group">
+                <label for="customer_id">Customer ID:</label>
+                <input type="text" id="customer_id" name="customer_id" required placeholder="Enter your customer ID">
+            </div>
 
+            <div class="form-group">
+                <label for="customer_name">Customer Name:</label>
+                <input type="text" id="customer_name" name="customer_name" required placeholder="Enter your name">
+            </div>
 
+            <div class="form-group">
+                <label for="customer_email">Customer Email:</label>
+                <input type="email" id="customer_email" name="customer_email" required placeholder="Enter your email">
+            </div>
 
+            <!-- 좌석 클래스 선택 -->
+            <div class="form-group">
+                <label for="seat_class"> Class </label>
+                <select name="seat_class" id="seat_class" required>
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business</option>
+                    <option value="First">First Class</option>
+                </select>
+            </div>
 
-
-        <!-- 나머지 예약 관련 필드 (좌석 클래스, 고객 정보) -->
-        <label for="seat_class">Select Seat Class:</label>
-        <select name="seat_class" id="seat_class" required>
-            <option value="Economy">Economy</option>
-            <option value="Business">Business</option>
-            <option value="First">First Class</option>
-        </select>
-        <br><br>
-
-        <!-- 고객 정보 입력 -->
-        <label for="customer_id">Customer ID:</label>
-        <input type="text" id="customer_id" name="customer_id" required placeholder="Enter your customer ID">
-        <br><br>
-
-        <label for="customer_name">Customer Name:</label>
-        <input type="text" id="customer_name" name="customer_name" required placeholder="Enter your full name">
-        <br><br>
-
-        <label for="customer_email">Customer Email:</label>
-        <input type="email" id="customer_email" name="customer_email" required placeholder="Enter your email">
-        <br><br>
-
-        <!-- 예약 제출 -->
-        <input type="submit" value="Reserve">
-    </form>
+            <input type="submit" value="Reserve">
+        </form>
     </div>
-</section>
+
+    <script>
+        function fetchSeats(flightId) {
+            if (flightId) {
+                fetch(`/reserve/seats?flightId=` + flightId)
+                    .then(response => response.json())
+                    .then(data => {
+                        let seatSelect = document.getElementById('seat_number');
+                        seatSelect.innerHTML = '<option value="">-- Select a Seat --</option>';  // 초기화
+                        data.forEach(seat => {
+                            let option = document.createElement('option');
+                            option.value = seat.seatNumber;
+                            option.text = seat.seatNumber + ' (' + seat.seatClass + ')';
+                            seatSelect.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching seats:', error));
+            } else {
+                document.getElementById('seat_number').innerHTML = '<option value="">-- Select a Seat --</option>';
+            }
+        }
+    </script>
 </body>
 </html>

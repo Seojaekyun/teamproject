@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.ReservationMapper">
+	<insert id="insertReservation" parameterType="com.example.demo.dto.ReservationDto">
+		INSERT INTO Reservations (customer_id, flight_id, seat_number, seat_class, reservation_date, customer_name, customer_email) VALUES (#{customerId}, #{flightId}, #{seatNumber}, #{seatClass}, NOW(), #{customerName}, #{customerEmail})
+	</insert>
+	<update id="updateSeatAvailability" parameterType="com.example.demo.dto.ReservationDto">
+		UPDATE Seats SET is_available = #{isAvailable} WHERE flight_id = #{flightId} AND seat_number = #{seatNumber}
+	</update>
 	
 </mapper>

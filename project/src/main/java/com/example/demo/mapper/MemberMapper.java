@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,5 +13,8 @@ public interface MemberMapper {
 	public String useridCheck(String userid);
 	public void memberOk(MemberDto mdto);
 	ArrayList<MemberDto> list();
+	public static List<MemberDto> selectAllMembers() {
+		return null;
+	}
 
 }

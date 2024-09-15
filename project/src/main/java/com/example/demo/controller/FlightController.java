@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dto.FlightsDto;
+import com.example.demo.dto.FlightDto;
 import com.example.demo.service.FlightService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ public class FlightController {
 	        String arrivalDate = request.getParameter("arrival-date");
 
 	        // 검색된 항공편 리스트 가져오기
-	        List<FlightsDto> flights = service.findFlights(departure, arrival, departureDate, arrivalDate);
+	        List<FlightDto> flights = service.findFlights(departure, arrival, departureDate, arrivalDate);
 
 	        // 모델에 검색 결과 추가
 	        model.addAttribute("flights", flights);

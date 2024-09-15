@@ -20,15 +20,9 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private FlightMapper flightMapper;
     @Autowired
-    private SeatMapper seatMapper;
+    private SeatMapper sMapper;
     @Autowired
     private ReservationMapper reservationMapper;
-
-    @Override
-    public List<FlightDto> getAllFlights() {
-        // 항공편 목록 조회
-        return flightMapper.getAllFlights();
-    }
 
     @Override
     public String reserveFlight(int customerId, int flightId, String seatNumber, String seatClass, String customerName, String customerEmail) {
@@ -50,11 +44,19 @@ public class ReservationServiceImpl implements ReservationService {
     }
     
     @Override
-    public ArrayList<SeatDto> getAvailableSeats(int flightId) {
-        ArrayList<SeatDto> availableSeats = seatMapper.getAvailableSeats(flightId);
-        System.out.println("Available seats from SeatMapper for flightId " + flightId + ": " + availableSeats);
+    public List<SeatDto> getAvailableSeats(int flightId) {
+    	
+    	System.out.println("SeatMapper 호출됨, flightId: " + flightId);  // 디버깅 로그 추가
+        List<SeatDto> availableSeats = sMapper.getAvailableSeats(flightId);
+        System.out.println("좌석 정보: " + availableSeats);  // 좌석 정보를 콘솔에 출력
         return availableSeats;
     }
+
+	@Override
+	public boolean reserveFlight(String userId, int flightId, String seatNumber, String seatClass) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -33,4 +35,11 @@ public class MemberServiceImpl implements MemberService {
 		return "/login/login";
 	}
 
+	@Override
+	public List<MemberDto> getAllMembers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
