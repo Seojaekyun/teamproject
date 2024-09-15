@@ -8,5 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface SeatMapper {
-    List<SeatDto> getAvailableSeats(@Param("flightId") int flightId);
+	List<SeatDto> getAvailableSeats(@Param("flightId") int flightId);
+	
+	
 }

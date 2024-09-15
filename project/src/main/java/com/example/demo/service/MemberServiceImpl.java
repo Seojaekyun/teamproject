@@ -17,24 +17,21 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper mapper;
 	
 	@Override
-	public String member() 
-	{		 
+	public String member() {
 		return "/member/member";
 	}
 	
 	@Override
-	public String useridCheck(String userid)
-	{
-		return mapper.useridCheck(userid); 
+	public String useridCheck(String userid) {
+		return mapper.useridCheck(userid);
 	}
-
+	
 	@Override
-	public String memberOk(MemberDto mdto) 
-	{
+	public String memberOk(MemberDto mdto) {
 		mapper.memberOk(mdto);
 		return "/login/login";
 	}
-
+	
 	@Override
 	public List<MemberDto> getAllMembers() {
 		// TODO Auto-generated method stub

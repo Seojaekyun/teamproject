@@ -14,13 +14,17 @@ public class FlightServiceImpl implements FlightService {
     private FlightMapper flightMapper;
 
     @Override
-    public List<FlightDto> getAvailableFlights() {
-        return flightMapper.getAvailableFlights();
+    public List<FlightDto> getAvailableFlightsByDate(String date) {
+        return flightMapper.getAvailableFlightsByDate(date);
     }
 
 	@Override
 	public List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate) {
-		// TODO Auto-generated method stub
-		return null;
+		return flightMapper.findFlights(departure, arrival, departureDate, arrivalDate);
+	}
+
+	@Override
+	public List<FlightDto> getAvailableFlights() {
+		return flightMapper.getAllFlights();
 	}
 }

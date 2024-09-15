@@ -8,6 +8,7 @@ import com.example.demo.dto.MemberDto;
 public interface LoginMapper {
 	public String loginOk(MemberDto mdto);
 	public String loginAdmin(MemberDto mdto);
-
-
+	
+	
+	
 }

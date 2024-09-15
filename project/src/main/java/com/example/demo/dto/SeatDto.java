@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class SeatDto {
-    private int seatId, flight_id;
-    private String seatNumber;
-    private int isAvailable;
-
-    // Getters and setters
+	private int seatId, flight_id;
+	private String seatNumber;
+	private int isAvailable;
+	
+	
 }

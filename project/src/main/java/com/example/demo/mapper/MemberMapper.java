@@ -9,12 +9,12 @@ import com.example.demo.dto.MemberDto;
 
 @Mapper
 public interface MemberMapper {
-	
 	public String useridCheck(String userid);
 	public void memberOk(MemberDto mdto);
 	ArrayList<MemberDto> list();
 	public static List<MemberDto> selectAllMembers() {
 		return null;
 	}
-
+	
+	
 }

@@ -7,5 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface FlightMapper {
-    List<FlightDto> getAvailableFlights();
+	List<FlightDto> getAvailableFlights();
+	List<FlightDto> getFlightsByDate(String date);
+	List<FlightDto> getAvailableFlightsByDate(String date);
+	List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
+	List<FlightDto> getAllFlights();
+	
 }

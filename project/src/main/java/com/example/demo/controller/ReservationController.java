@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,7 +20,6 @@ import java.util.List;
 public class ReservationController {
 
     @Autowired
-    @Qualifier("fs")
     private FlightService flightService;
 
     @Autowired
@@ -29,45 +27,33 @@ public class ReservationController {
     
     @GetMapping("/reserve/reservation")
     public String showReservation(Model model) {
-        List<FlightDto> flights = flightService.getAvailableFlights();
+    	List<FlightDto> flights = flightService.getAvailableFlights();
         model.addAttribute("flights", flights);
-        
         return "/reserve/reservation";
     }
-    
+
+    @GetMapping("/reserve/flights")
+    @ResponseBody
+    public List<FlightDto> getFlightsByDate(@RequestParam("date") String date) {
+        return flightService.getAvailableFlightsByDate(date);
+    }
+
     @GetMapping("/reserve/seats")
     @ResponseBody
     public List<SeatDto> getSeatsForFlight(@RequestParam("flightId") int flightId) {
-        // 특정 항공편에 해당하는 좌석 목록을 가져옴
-        List<SeatDto> availableSeats = seatService.getAvailableSeats(flightId);
-        return availableSeats;
-    }
-
-    @GetMapping("/reserve")
-    public String showReservationForm(Model model) {
-        // 항공편 목록을 가져와서 JSP로 전달
-        List<FlightDto> flights = flightService.getAvailableFlights();
-        System.out.println("Fetched flights: " + flights);  // 항공편 데이터를 로그에 출력
-
-        model.addAttribute("flights", flights);
-
-        // 기본적으로 비어 있는 좌석 리스트를 전달
-        model.addAttribute("availableSeats", new ArrayList<SeatDto>());
-        return "/reserve/reservation";
+        return seatService.getAvailableSeats(flightId);
     }
 
     @PostMapping("/reserve")
-    public String processReservation(@RequestParam("flight_id") int flightId, 
-                                     @RequestParam("seat_number") String seatNumber,
-                                     Model model) {
-        // 선택된 항공편의 좌석 리스트를 가져와서 JSP로 전달
-        List<SeatDto> availableSeats = seatService.getAvailableSeats(flightId);
-        model.addAttribute("availableSeats", availableSeats);
-
-        // 선택한 항공편 정보를 다시 JSP에 전달
-        List<FlightDto> flights = flightService.getAvailableFlights();
-        model.addAttribute("flights", flights);
-
-        return "/reserve/reservation";
+    public String processReservation(
+        @RequestParam("flight_id") int flightId,
+        @RequestParam("seat_number") String seatNumber,
+        @RequestParam("customer_id") String customerId,
+        @RequestParam("customer_name") String customerName,
+        @RequestParam("customer_email") String customerEmail,
+        Model model
+    ) {
+        // 예약 처리 로직 추가
+        return "/reserve/success";
     }
 }
