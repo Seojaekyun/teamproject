@@ -283,21 +283,30 @@
 		position: relative;
 		top: -5px;
 	}
-	.booking_contents {
-		position: relative;
-		width: 100%;
-		height: 220px;
-		z-index: 3;
-		background-color: white;
-		border: 2px solid white;
-		border-radius: 15px;
-		margin-top: -10px;
-		display: block;
-		padding-left: 40px;
-		padding-top: 30px;
-		padding-right: 40px;
-		padding-bottom: 10px;
-	}
+/* booking_contents의 기본 스타일 */
+.booking_contents {
+    display: flex;
+    flex-direction: column; /* 자식 요소들을 세로로 배치 */
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    width: 100%;
+    height: 220px;
+	padding-left: 40px;
+	padding-top: 30px;
+	padding-right: 40px;
+	padding-bottom: 10px;
+}
+
+/* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
+.booking_methods {
+    display: absolute;
+    align-items: center;
+    width: 100%;
+    height: 170px;
+
+}
 	.select_contents, .check-in_contents, .schedule_contents {
 		position: relative;
 		width: 100%;
@@ -321,26 +330,54 @@
 		margin-bottom: 1rem;
 		text-align: left;
 	}
-	.booking_types {
-		border: 1px solid black;
+
+	/* 예매와 마일리지 예매 버튼 스타일 */
+.booking_types {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    		border: 1px solid #ccc;
 		border-radius: 25px;
-	}
+}
+	
 	.booking_types li {
 		display: inline-block;
 		list-style-list: none;
+}
 	}
 	.booking_types li button {
-		font-size: 17px;
-		padding-left: 20px;
-		padding-right: 20px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		border: none;
-		border-radius: 23px;
-		color: white;
-		background-color: #65728a;
-		cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    background-color: #65728a; /* 기본 배경색 */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+
 	}
+	
+	.booking_types li button.active {
+	font-size: 16px;
+	font-weight: bold; 
+	border-radius: 25px;
+    background-color: #1f0c59;
+    color: white;
+    width: 80px;
+    height: 40px;
+    
+}
+
+.booking_types li button.inactive {
+font-size: 16px;
+background-color: white;
+    color: #65728a;
+    border: 1px solid #65728a;
+    width: 140px;
+    border-radius: 25px;
+    height: 40px;
+    border: none;
+}
+	
 	#quick_booking {
 		display: flex;
 		justify-content: space-between;
@@ -423,34 +460,40 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 10px;
-		width: 1000px;
+		width: 100%; 
+   		max-width: 1150px; 
 		margin-left: -10px;
-		margin-top: 45px;
+		margin-top: 55px;
 	}
+	
+	
+	
 	p {
-		font-size: 13px;
+		font-size: 14px;
 		color: #333;
 	}
 	#date_selection button, #passenger_selection button, #seats_selection button {
-		width: 130px;
 		padding-top: 20px;
 		padding-bottom: 5px;
 		background-color: transparent;
 		border: none;
 		border-bottom: 1px solid #333;
-		font-size: 14px;
+		font-size: 16px;
 		color: #333;
 		cursor: pointer;
 		text-align: left;
 		outline: none;
 	}
 	#date_selection button {
-		width: 300px;
+		width: 310px;
 	}
+#passenger_selection button {
+	width: 150px;
+}
 
 
 #seats_selection button {
-   width: 130px;
+   width: 150px;
     padding-top: 20px;
     padding-bottom: 5px;
     background-color: transparent; /* 배경색을 투명하게 설정 */
@@ -463,6 +506,40 @@
     outline: none; /* 클릭 시 기본 아웃라인 제거 */
 }
 
+/* 좌석 선택 팝업 스타일 */
+.seat-popup {
+    position: absolute;
+    top: 100px;
+    left: 50px; /* 원하는 위치로 변경 가능 */
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.seat-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.seat-options button {
+    flex: 1;
+    margin: 5px;
+    padding: 15px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.seat-options button:hover {
+    background-color: #f0f0f0;
+}
+
 
 
 
@@ -470,11 +547,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    // 기본 출발지를 ICN 인천으로 설정
-    document.getElementById('from-text').textContent = 'ICN'; // From에 공항 코드 설정
-    document.getElementById('departure-text').textContent = '인천'; // 출발지 도시 설정
+function searchAirports() {
+    const query = document.getElementById('search-input').value;
 
+    if (query.length > 0) {
+        $.ajax({
+            url: '/searchAirports', // 검색 API 엔드포인트
+            type: 'GET',
+            data: { query: query },
+            success: function (response) {
+                const list = document.getElementById('airport-list');
+                list.innerHTML = ''; // 이전 검색 결과 초기화
+
+                if (response.length === 0) {
+                    const noResult = document.createElement('li');
+                    noResult.textContent = '검색 결과가 없습니다.';
+                    list.appendChild(noResult);
+                } else {
+                    // 검색된 공항 리스트를 보여줌
+                    response.forEach(function (airport) {
+                        const li = document.createElement('li');
+                        li.textContent = airport.code + ' ' + airport.city + ', ' + airport.country;
+                        li.onclick = function () {
+                            // 공항 선택 시 해당 내용을 반영
+                            document.getElementById('departure-text').textContent = airport.code + ' ' + airport.city;
+                            closePopup('departure'); // 팝업 닫기
+                        };
+                        list.appendChild(li);
+                    });
+                }
+            },
+            error: function () {
+                alert('공항 검색에 실패했습니다.');
+            }
+        });
+    } else {
+        document.getElementById('airport-list').innerHTML = ''; // 입력 없을 때 결과 숨기기
+    }
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+	
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
 
@@ -494,14 +609,33 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', activateMenu);
     });
 
-    // 출발지와 도착지 자동완성 이벤트 설정
-    document.getElementById('departure-input').addEventListener('keyup', function() {
-        autocomplete('departure');
-    });
 
-    document.getElementById('arrival-input').addEventListener('keyup', function() {
-        autocomplete('arrival');
-    });
+    // 예매 버튼 기본 선택 설정
+    const reserveButton = document.querySelector('.booking_types li:first-child button');
+    const mileageButton = document.querySelector('.booking_types li:nth-child(2) button');
+    
+    // 초기 상태 설정 (예매 버튼은 기본 선택, 마일리지 버튼은 비활성화)
+    reserveButton.classList.add('active');
+    mileageButton.classList.add('inactive');
+
+    // 버튼 클릭 시 상태 변경 함수
+    function toggleBookingType(event) {
+        if (event.target === reserveButton) {
+            reserveButton.classList.add('active');
+            reserveButton.classList.remove('inactive');
+            mileageButton.classList.add('inactive');
+            mileageButton.classList.remove('active');
+        } else if (event.target === mileageButton) {
+            mileageButton.classList.add('active');
+            mileageButton.classList.remove('inactive');
+            reserveButton.classList.add('inactive');
+            reserveButton.classList.remove('active');
+        }
+    }
+
+    // 각 버튼에 클릭 이벤트 추가
+    reserveButton.addEventListener('click', toggleBookingType);
+    mileageButton.addEventListener('click', toggleBookingType);
 
     // Flatpickr 설정
     var tripMethod = "round"; // 기본값: 왕복
@@ -539,6 +673,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 
 function autocomplete(type) {
     const input = document.getElementById(type + '-input').value;
@@ -592,6 +727,9 @@ function openPopup(type) {
     } else if (type === 'arrival') {
         document.getElementById('arrival-popup').style.display = 'block';  // 도착지 팝업
     }
+    else if (type === 'passenger') {
+        document.getElementById('passenger-selection-popup').style.display = 'block';  // 탑승객 팝업
+    }
 }
 
 function closePopup(type) {
@@ -599,6 +737,8 @@ function closePopup(type) {
         document.getElementById('popup').style.display = 'none';  // 출발지 팝업 닫기
     } else if (type === 'arrival') {
         document.getElementById('arrival-popup').style.display = 'none';  // 도착지 팝업 닫기
+    } else if (type === 'passenger') {
+        document.getElementById('passenger-selection-popup').style.display = 'none';  // 탑승객 팝업 닫기
     }
 }
 
@@ -612,13 +752,7 @@ function setLocation(type) {
     closePopup(type); // 선택 후 팝업 닫기
 }
 
-function openPopup() {
-    document.getElementById('passenger-selection-popup').style.display = 'block';
-}
 
-function closePopup() {
-    document.getElementById('passenger-selection-popup').style.display = 'none';
-}
 
 function increase(type) {
     var adultCount = parseInt(document.getElementById('adult-count').textContent);
@@ -699,6 +833,29 @@ function confirmPassengers() {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const seatSelectBtn = document.getElementById('seats-btn');
+    const seatPopup = document.getElementById('seat-popup');
+
+    // 좌석 등급 버튼을 클릭하면 팝업 표시/숨김
+    seatSelectBtn.addEventListener('click', function(event) {
+        event.stopPropagation(); // 이벤트 버블링 방지 (외부 클릭 이벤트에 영향 받지 않도록)
+        seatPopup.style.display = seatPopup.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // 좌석 선택 시 팝업을 닫음
+    window.selectSeat = function(seatType) {
+        document.querySelector('#seats-btn span').innerText = seatType;
+        seatPopup.style.display = 'none';  // 좌석 선택 시 팝업 닫기
+    }
+
+    // 팝업 외부를 클릭하면 팝업 닫기
+    document.addEventListener('click', function(event) {
+        if (seatPopup.style.display === 'block' && !seatPopup.contains(event.target) && event.target !== seatSelectBtn) {
+            seatPopup.style.display = 'none'; // 팝업 외부 클릭 시 팝업 닫기
+        }
+    });
+});
 
 
 
@@ -784,149 +941,222 @@ function confirmPassengers() {
 			</ul>
 		</nav>
 	</header>
-	<div class="main_content">
-		<div class="air_service">
-			<div class="air_align">
-				<div class="air_contentbox">
-					<div id="air_alert"></div>
-					<div class="air_widget">
-						<ul class="booking_widget_list">
-							<li class="booking_menu">
-								<button type="button" onclick="showContent('booking')">
-									<span> 항공권예매 </span>
-								</button>
-							</li>
-							<li class="booking_menu">
-								<button type="button" onclick="showContent('select')">
-									<span> 예약조회 </span>
-								</button>
-							</li>
-							<li class="booking_menu">
-								<button type="button" onclick="showContent('check-in')">
-									<span> 체크인 </span>
-								</button>
-							</li>
-							<li class="booking_menu">
-								<button type="button" onclick="showContent('schedule')">
-									<span> 출도착/스케쥴 </span>
-								</button>
-							</li>
-						</ul>
-						<div class="booking_contents">
-							<div class="booking_methods">
-								<div class="b_methodbox">
-									<ul class="booking_types">
-										<li>
-											<button type="button">예매</button>
-										</li>
-										<li>
-											<button type="button">마일리지 예매</button>
-										</li>
-									</ul>
-								</div>
-								<div id="trip-methods">
-									<input type="radio" name="t_methods" value="round" id="round-trip" checked>
-									<label for="round-trip">왕복</label>
-									<input type="radio" name="t_methods" value="one-way" id="one-way">
-									<label for="one-way">편도</label>
-								</div>
-								<div class="quick_booking_aligner">
-									<div id="quick_booking">
-										<button type="button" class="quick_booking_button" onclick="openPopup('departure')">
-											<span id="from-text">From</span>
-											<span id="departure-text">&nbsp;출발지</span>
-										</button>
-										<button type="button" class="quick_booking_button circle_button">
-											<img src="../static/resources/booking_reverse.png" width="40px" height="40px">
-										</button>
-										<button type="button" class="quick_booking_button" onclick="openPopup('arrival')">
-											<span id="to-text">To</span>
-											<span id="arrival-text">&nbsp;도착지</span>
-										</button>
-									</div>
-									<div id="popup" class="popup">
-										<div class="popup-content">
-											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
-											<h2>출발지 검색</h2>
-											<input type="text" id="departure-input" placeholder="출발지 입력" onkeyup="autocomplete('departure')">
-											<ul id="departure-list"></ul>
-											<button onclick="setLocation('departure')">선택</button>
-										</div>
-									</div>
-									<div id="arrival-popup" class="popup">
-										<div class="popup-content">
-											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
-											<h2>도착지 검색</h2>
-											<input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
-											<ul id="arrival-list"></ul>
-											<button onclick="setLocation('arrival')">선택</button>
-										</div>
-									</div>
-									<div id="date_selection">
-										<p>출발일&nbsp;</p>
-										<button type="button" id="date-btn"><span>가는날 ~ 오는날</span></button>
-									</div>
-									<div id="passenger_selection">
-										<p>탑승객&nbsp;</p>
-										<button type="button" id="passenger-btn"><span>인원수</span></button>
-									</div>
-									<div id="seats_selection">
-										<p>좌석등급&nbsp;</p>
-										<button type="button" id="seats-btn"><span>선택하세요</span></button>
-									</div>
-									<div id="search_airline">
-										<button type="button" id="search-btn"><span>항공편 검색</span></button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="select_contents">
-							<div id="select methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>rom</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
-						</div>
-						<div class="check-in_contents">
-							<div id="check-in methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>om</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
-						</div>
-						<div class="schedule_contents">
-							<div id="schedule methods">
-								<input type="radio" name="t_methods" value="0">
-								<label>왕복</label>
-								<input type="radio" name="t_methods" value="1">
-								<label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>From</span>
-									<span>$nbsp;출발지</span>
-								</button>
-							</div>
-						</div>
-					</div>
+
+    <div class="main_content">
+	<div class="air_service"> 
+	<div class="air_align">
+	
+	<div class="air_contentbox"> 
+	<div id="air_alert"></div>
+	<div class="air_widget">
+	
+	<ul class="booking_widget_list">
+	<li class="booking_menu"> 
+		<button type="button" onclick="showContent('booking')">
+		<span> 항공권예매 </span> 
+		</button>
+	</li>
+	<li class="booking_menu"> 
+		<button type="button" onclick="showContent('select')">
+		<span> 예약조회 </span>
+		</button>
+	</li>
+	
+	<li class="booking_menu">
+		<button type="button" onclick="showContent('check-in')">
+	 	<span> 체크인 </span>
+	 	</button>
+	</li>
+	
+	<li class="booking_menu"> 
+		<button type="button" onclick="showContent('schedule')">
+		<span> 출도착/스케쥴 </span>
+		</button>
+	</li>
+	</ul>
+	<div class="booking_contents">
+		<div class="booking_methods">
+			<div class="b_methodbox"> 
+				<ul class="booking_types"> 
+				 	<li>
+				 	<button type="button">예매</button>
+					</li>
+					<li>
+					<button type="button">마일리지 예매</button>
+				</ul>
 				</div>
-			</div>
+		
+<!-- 왕복/편도 선택 버튼 -->
+<div id="trip-methods">
+    <input type="radio" name="t_methods" value="round" id="round-trip" checked> 
+    <label for="round-trip">왕복</label>
+    <input type="radio" name="t_methods" value="one-way" id="one-way"> 
+    <label for="one-way">편도</label>
+</div>
+
+<div class="quick_booking_aligner">		
+<div id="quick_booking">
+<!-- 출발지 버튼 -->
+<button type="button" class="quick_booking_button" onclick="openPopup('departure')">
+    <span id="from-text">From</span>
+    <span id="departure-text">&nbsp;출발지</span>
+</button>
+    
+    <button type="button" class="quick_booking_button circle_button">
+        <img src="../static/resources/booking_reverse.png" width="40px" height="40px">
+    </button>
+    
+ <!-- 도착지 버튼 -->
+<button type="button" class="quick_booking_button" onclick="openPopup('arrival')">
+    <span id="to-text">To</span>
+    <span id="arrival-text">&nbsp;도착지</span>
+</button>
+</div>
+
+	 
+
+
+
+<!-- 출발지 div 팝업 -->
+<div id="popup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <h2>출발지 검색</h2>
+        <input type="text" id="search-input" placeholder="출발지 입력" onkeyup="searchAirports()">
+        <ul id="airport-list"></ul>
+    </div>
+</div>
+    
+    
+
+    <!-- 도착지 팝업 -->
+    <div id="arrival-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup('arrival')">&times;</span>
+            <h2>도착지 검색</h2>
+            <input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
+            <ul id="arrival-list"></ul>
+            <button onclick="setLocation('arrival')">선택</button> <!-- 선택 버튼 -->
+        </div>
+    </div>
+
+<!-- 날짜 선택 버튼 -->
+<div id="date_selection">
+	<p>출발일&nbsp;</p>
+    <button type="button" id="date-btn"><span>가는날 ~ 오는날</span></button>
+</div>
+
+<!-- 탑승객 선택 버튼 -->
+<div id="passenger_selection">
+	<p>탑승객&nbsp;</p>
+    <button type="button" id="passenger-btn" onclick="openPopup('passenger')"><span>인원수</span></button>
+</div>
+
+<!-- 승객 선택 팝업 -->
+<div id="passenger-selection-popup" class="popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup('passenger')">&times;</span>
+        <h2>승객 선택</h2>
+        <div class="passenger-counter">
+            <div class="passenger-type">
+                <p>성인</p>
+                <button class="decrease-btn" onclick="decrease('adult')">-</button>
+                <span id="adult-count">1</span>
+                <button class="increase-btn" onclick="increase('adult')">+</button>
+            </div>
+            <div class="passenger-type">
+                <p>소아</p>
+                <button class="decrease-btn" onclick="decrease('child')">-</button>
+                <span id="child-count">0</span>
+                <button class="increase-btn" onclick="increase('child')">+</button>
+            </div>
+            <div class="passenger-type">
+                <p>유아</p>
+                <button class="decrease-btn" onclick="decrease('infant')">-</button>
+                <span id="infant-count">0</span>
+                <button class="increase-btn" onclick="increase('infant')">+</button>
+            </div>
+        </div>
+        <button type="button" onclick="confirmPassengers()">선택 완료</button>
+    </div>
+</div>
+
+
+
+<!-- 좌석등급 선택 버튼 -->
+<div id="seats_selection">
+    <p>좌석등급&nbsp;</p>
+    <button type="button" id="seats-btn"><span>선택하세요</span></button>
+</div>
+
+<!-- 좌석 등급 DIV -->
+<div id="seat-popup" class="seat-popup" style="display: none;">
+    <h2>좌석 등급 선택</h2>
+    <div class="seat-options">
+        <button onclick="selectSeat('일반석')">일반석</button>
+        <button onclick="selectSeat('프레스티지석')">프레스티지석</button>
+        <button onclick="selectSeat('일등석')">일등석</button>
+    </div>
+</div>
+
+
+
+
+<!-- 항공편 선택 버튼 -->
+<div id="search_airline">
+    <button type="button" id="search-btn"><span>항공편 검색</span></button>
+</div>
+
+ </div>
+</div>	 
+	</div>	 
+	 	<div class="select_contents">
+		<div id="select methods">
+		 <input type="radio" name="t_methods" value="0">
+		 <label>왕복</label> 
+		 <input type="radio" name="t_methods" value="1">
+		 <label>편도</label>
 		</div>
+		<div id="quick_booking">
+		<button type="button">
+			<span>rom</span>
+			<span>$nbsp;출발지</span></button>
+		</div>
+	 </div>
+	 
+	 	<div class="check-in_contents">
+		<div id="check-in methods">
+		 <input type="radio" name="t_methods" value="0">
+		 <label>왕복</label> 
+		 <input type="radio" name="t_methods" value="1">
+		 <label>편도</label>
+		</div>
+		<div id="quick_booking">
+		<button type="button">
+			<span>om</span>
+			<span>$nbsp;출발지</span></button>
+		</div>
+	 </div>
+	 
+	 	<div class="schedule_contents">
+		<div id="schedule methods">
+		 <input type="radio" name="t_methods" value="0">
+		 <label>왕복</label> 
+		 <input type="radio" name="t_methods" value="1">
+		 <label>편도</label>
+		</div>
+		<div id="quick_booking">
+		<button type="button">
+			<span>From</span>
+			<span>$nbsp;출발지</span></button>
+		</div>
+	 </div>
+	 
+
 	</div>
+	</div> 
+</div>
+</div>
+</div>
 <style>
 	#chat-console {
 		width: 320px;
@@ -1056,6 +1286,9 @@ function confirmPassengers() {
 		margin: 20px 0; /* 위아래에 여유 공간 추가 */
 		display: block;
 	}
+	
+	
+	
 </style>
 
 
@@ -1119,170 +1352,9 @@ function confirmPassengers() {
 		});
 	});
 	
+</script>
 
-	<li class="booking_menu"> 
-		<button type="button" onclick="showContent('schedule')">
-		<span> 출도착/스케쥴 </span>
-		</button>
-	</li>
-	</ul>
-	<div class="booking_contents">
-		<div class="booking_methods">
-			<div class="b_methodbox"> 
-				<ul class="booking_types"> 
-				 	<li>
-				 	<button type="button">예매</button>
-					</li>
-					<li>
-					<button type="button">마일리지 예매</button>
-				</ul>
-				</div>
-		
-<!-- 왕복/편도 선택 버튼 -->
-<div id="trip-methods">
-    <input type="radio" name="t_methods" value="round" id="round-trip" checked> 
-    <label for="round-trip">왕복</label>
-    <input type="radio" name="t_methods" value="one-way" id="one-way"> 
-    <label for="one-way">편도</label>
-</div>
-
-<div class="quick_booking_aligner">		
-<div id="quick_booking">
-<!-- 출발지 버튼 -->
-<button type="button" class="quick_booking_button" onclick="openPopup('departure')">
-    <span id="from-text">From</span>
-    <span id="departure-text">&nbsp;출발지</span>
-</button>
-    
-    <button type="button" class="quick_booking_button circle_button">
-        <img src="../static/resources/booking_reverse.png" width="40px" height="40px">
-    </button>
-    
- <!-- 도착지 버튼 -->
-<button type="button" class="quick_booking_button" onclick="openPopup('arrival')">
-    <span id="to-text">To</span>
-    <span id="arrival-text">&nbsp;도착지</span>
-</button>
-</div>
-
-	 
-
-
-<!-- 출발지 팝업 -->
-    <div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>출발지 검색</h2>
-        <input type="text" id="departure-input" placeholder="출발지 입력" onkeyup="autocomplete('departure')">
-        <ul id="departure-list"></ul> <!-- 검색 결과가 표시될 곳 -->
-    </div>
-</div>
-    
-    
-
-    <!-- 도착지 팝업 -->
-    <div id="arrival-popup" class="popup">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closePopup('arrival')">&times;</span>
-            <h2>도착지 검색</h2>
-            <input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
-            <ul id="arrival-list"></ul>
-            <button onclick="setLocation('arrival')">선택</button> <!-- 선택 버튼 -->
-        </div>
-    </div>
-
-<!-- 날짜 선택 버튼 -->
-<div id="date_selection">
-	<p>출발일&nbsp;</p>
-    <button type="button" id="date-btn"><span>가는날 ~ 오는날</span></button>
-</div>
-
-<!-- 탑승객 선택 버튼 -->
-<div id="passenger_selection">
-	<p>탑승객&nbsp;</p>
-    <button type="button" id="passenger-btn" onclick="openPopup()"><span>인원수</span></button>
-</div>
-
-<!-- 승객 선택 팝업 -->
-<div id="passenger-selection-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>승객 선택</h2>
-        <div class="passenger-counter">
-            <div class="passenger-type">
-                <p>성인</p>
-                <button class="decrease-btn" onclick="decrease('adult')">-</button>
-                <span id="adult-count">1</span>
-                <button class="increase-btn" onclick="increase('adult')">+</button>
-            </div>
-            <div class="passenger-type">
-                <p>소아</p>
-                <button class="decrease-btn" onclick="decrease('child')">-</button>
-                <span id="child-count">0</span>
-                <button class="increase-btn" onclick="increase('child')">+</button>
-            </div>
-            <div class="passenger-type">
-                <p>유아</p>
-                <button class="decrease-btn" onclick="decrease('infant')">-</button>
-                <span id="infant-count">0</span>
-                <button class="increase-btn" onclick="increase('infant')">+</button>
-            </div>
-        </div>
-        <button type="button" onclick="confirmPassengers()">선택 완료</button>
-    </div>
-</div>
-
-
-
-<!-- 좌석등급 선택 버튼 -->
-<div id="seats_selection">
-	<p>좌석등급&nbsp;</p>
-    <button type="button" id="seats-btn"><span>선택하세요</span></button>
-</div>
-
-<!-- 항공편 선택 버튼 -->
-<div id="search_airline">
-    <button type="button" id="search-btn"><span>항공편 검색</span></button>
-</div>
-
- </div>
-</div>	 
-	</div>	 
-	 	<div class="select_contents">
-		<div id="select methods">
-		 <input type="radio" name="t_methods" value="0">
-		 <label>왕복</label> 
-		 <input type="radio" name="t_methods" value="1">
-		 <label>편도</label>
-		</div>
-		<div id="quick_booking">
-		<button type="button">
-			<span>rom</span>
-			<span>$nbsp;출발지</span></button>
-		</div>
-	 </div>
-	 
-	 	<div class="check-in_contents">
-		<div id="check-in methods">
-		 <input type="radio" name="t_methods" value="0">
-		 <label>왕복</label> 
-		 <input type="radio" name="t_methods" value="1">
-		 <label>편도</label>
-		</div>
-		<div id="quick_booking">
-		<button type="button">
-			<span>om</span>
-			<span>$nbsp;출발지</span></button>
-		</div>
-	 </div>
-	 
-	 	<div class="schedule_contents">
-		<div id="schedule methods">
-		 <input type="radio" name="t_methods" value="0">
-		 <label>왕복</label> 
-		 <input type="radio" name="t_methods" value="1">
-		 <label>편도</label>
-
+<script>
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -1319,7 +1391,9 @@ function confirmPassengers() {
 	
 	// 페이지 로드 후 처음 메시지 요청 시작
 	pollMessages();
-</script>
+	</script>
+	
+	
 	<!-- 채팅창 -->
 	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
 	<div id="chat-console">

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FlightDto {
-    private Integer flight_id;
+    private int flight_id;
     private String flight_number;
     private String departure_airport;
     private String arrival_airport;

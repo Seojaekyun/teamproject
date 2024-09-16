@@ -32,6 +32,7 @@ section
 	padding-top:100px;
 	
 	position: relative;
+	z-index:-1;
 	
 }
 
