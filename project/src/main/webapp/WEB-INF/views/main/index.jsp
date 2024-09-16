@@ -83,11 +83,10 @@
         transform: translateY(-2px);
     }
     
-    
     .main_content {
         display: none;
     }
-.air_service {
+	.air_service {
 		position: relative;
 		background-image: url('../static/resources/background.jpg');
 		background-size: cover;
@@ -105,7 +104,7 @@
 	}
 	.air_contentbox {
 		position: relative;
-		top: 5.3rm;
+		top: -5.3rem;
 		left: 0;
 		width: 90%;
 		height: 70%;
@@ -175,30 +174,30 @@
 		position: relative;
 		top: -5px;
 	}
-/* booking_contents의 기본 스타일 */
-.booking_contents {
-    display: flex;
-    flex-direction: column; /* 자식 요소들을 세로로 배치 */
-    align-items: center;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    width: 100%;
-    height: 220px;
-	padding-left: 40px;
-	padding-top: 30px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-}
-
-/* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
-.booking_methods {
-    display: absolute;
-    align-items: center;
-    width: 100%;
-    height: 170px;
-
-}
+	/* booking_contents의 기본 스타일 */
+	.booking_contents {
+	    display: flex;
+	    flex-direction: column; /* 자식 요소들을 세로로 배치 */
+	    align-items: center;
+	    background-color: white;
+	    border: 1px solid #ccc;
+	    border-radius: 15px;
+	    width: 100%;
+	    height: 220px;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+	}
+	
+	/* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
+	.booking_methods {
+	    display: absolute;
+	    align-items: center;
+	    width: 100%;
+	    height: 170px;
+	
+	}
 	.select_contents, .check-in_contents, .schedule_contents {
 		position: relative;
 		width: 100%;
@@ -224,19 +223,19 @@
 	}
 
 	/* 예매와 마일리지 예매 버튼 스타일 */
-.booking_types {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    		border: 1px solid #ccc;
-		border-radius: 25px;
-}
-	
-	.booking_types li {
-		display: inline-block;
-		list-style-list: none;
-}
+	.booking_types {
+	    display: flex;
+	    list-style-type: none;
+	    padding: 0;
+	    		border: 1px solid #ccc;
+			border-radius: 25px;
 	}
+		
+		.booking_types li {
+			display: inline-block;
+			list-style-list: none;
+	}
+	
 	.booking_types li button {
     padding: 10px 20px;
     border: none;
@@ -256,19 +255,18 @@
     color: white;
     width: 80px;
     height: 40px;
-    
-}
-
-.booking_types li button.inactive {
-font-size: 16px;
-background-color: white;
-    color: #65728a;
-    border: 1px solid #65728a;
-    width: 140px;
-    border-radius: 25px;
-    height: 40px;
-    border: none;
-}
+    }
+	
+	.booking_types li button.inactive {
+	font-size: 16px;
+	background-color: white;
+	    color: #65728a;
+	    border: 1px solid #65728a;
+	    width: 140px;
+	    border-radius: 25px;
+	    height: 40px;
+	    border: none;
+	}
 	
 	#quick_booking {
 		display: flex;
@@ -356,10 +354,7 @@ background-color: white;
    		max-width: 1150px; 
 		margin-left: -10px;
 		margin-top: 55px;
-	}
-	
-	
-	
+	}	
 	p {
 		font-size: 14px;
 		color: #333;
@@ -379,427 +374,373 @@ background-color: white;
 	#date_selection button {
 		width: 310px;
 	}
-#passenger_selection button {
-	width: 150px;
-}
-
-
-#seats_selection button {
-   width: 150px;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    border: none; /* 기본 테두리를 제거 */
-    border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
-    font-size: 14px; /* 글자 크기 조정 */
-    color: #333; /* 텍스트 색상 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-    outline: none; /* 클릭 시 기본 아웃라인 제거 */
-}
-
-/* 좌석 선택 팝업 스타일 */
-.seat-popup {
-    position: absolute;
-    top: 100px;
-    left: 50px; /* 원하는 위치로 변경 가능 */
-    width: 400px;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.seat-options {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-.seat-options button {
-    flex: 1;
-    margin: 5px;
-    padding: 15px;
-    cursor: pointer;
-    background-color: white;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.seat-options button:hover {
-    background-color: #f0f0f0;
-}
-
-
-
+	#passenger_selection button {
+		width: 150px;
+	}
+	#seats_selection button {
+		width: 150px;
+		padding-top: 20px;
+		padding-bottom: 5px;
+		background-color: transparent; /* 배경색을 투명하게 설정 */
+		border: none; /* 기본 테두리를 제거 */
+		border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
+		font-size: 14px; /* 글자 크기 조정 */
+		color: #333; /* 텍스트 색상 */
+		cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
+		text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+		outline: none; /* 클릭 시 기본 아웃라인 제거 */
+	}
+	/* 좌석 선택 팝업 스타일 */
+	.seat-popup {
+	    position: absolute;
+	    top: 100px;
+	    left: 50px; /* 원하는 위치로 변경 가능 */
+	    width: 400px;
+	    padding: 20px;
+	    background-color: white;
+	    border: 1px solid #ccc;
+	    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	    z-index: 1000;
+	}
+	
+	.seat-options {
+	    display: flex;
+	    justify-content: space-around;
+	    margin-top: 20px;
+	}
+	
+	.seat-options button {
+	    flex: 1;
+	    margin: 5px;
+	    padding: 15px;
+	    cursor: pointer;
+	    background-color: white;
+	    border: 1px solid #ccc;
+	    font-size: 16px;
+	    transition: background-color 0.3s ease;
+	}
+	
+	.seat-options button:hover {
+	    background-color: #f0f0f0;
+	}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-// 페이지가 로드되면 실행될 함수
-document.addEventListener('DOMContentLoaded', function () {
-    // 공항 목록을 불러오는 함수 호출
-    loadAirports();
-});
-
-function loadAirports() {
-    // 서버에 요청을 보내는 함수
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
-
-    xhr.onload = function() {
-        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
-        var airportList = document.getElementById('airport-list');
-        airportList.innerHTML = ''; // 기존 목록 비우기
-
-        // 공항 목록을 HTML에 추가하기
-        data.forEach(function(airport) {
-            var li = document.createElement('li');
-            if(airport.detailed_city=='null')
-            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
-            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
-            li.onclick = function() {
-            	
-            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
-                document.getElementById('from-text').textContent = airport.airport_code;
-            	
-            	if(airport.detailed_city=='null')
-                {document.getElementById('departure-text').textContent = airport.city}
-            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
-                // 팝업 닫기
-                closePopup('departure');
-            };
-
-            airportList.appendChild(li); // 리스트에 항목 추가
-        });
-    };
-
-    xhr.send(); // 요청 전송
-}
-
-function loadAirports() {
-    // 서버에 요청을 보내는 함수
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
-
-    xhr.onload = function() {
-        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
-        var airportList = document.getElementById('airport-list');
-        airportList.innerHTML = ''; // 기존 목록 비우기
-
-        // 공항 목록을 HTML에 추가하기
-        data.forEach(function(airport) {
-            var li = document.createElement('li');
-            if(airport.detailed_city=='null')
-            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
-            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
-            li.onclick = function() {
-            	
-            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
-                document.getElementById('from-text').textContent = airport.airport_code;
-            	
-            	if(airport.detailed_city=='null')
-                {document.getElementById('departure-text').textContent = airport.city}
-            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
-                // 팝업 닫기
-                closePopup('departure');
-            };
-
-            airportList.appendChild(li); // 리스트에 항목 추가
-        });
-    };
-
-    xhr.send(); // 요청 전송
-}
-
-document.addEventListener('DOMContentLoaded', function () {
+	// 페이지가 로드되면 실행될 함수
+	document.addEventListener('DOMContentLoaded', function () {
+	    // 공항 목록을 불러오는 함수 호출
+	    loadAirports();
+	});
 	
-    // 기본 콘텐츠를 '항공권예매'로 설정
-    showContent('booking');
+	function loadAirports() {
+	    // 서버에 요청을 보내는 함수
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
+	
+	    xhr.onload = function() {
+	        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
+	        var airportList = document.getElementById('airport-list');
+	        airportList.innerHTML = ''; // 기존 목록 비우기
+	
+	        // 공항 목록을 HTML에 추가하기
+	        data.forEach(function(airport) {
+	            var li = document.createElement('li');
+	            if(airport.detailed_city=='null')
+	            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
+	            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+	            li.onclick = function() {
+	            	
+	            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
+	                document.getElementById('from-text').textContent = airport.airport_code;
+	            	
+	            	if(airport.detailed_city=='null')
+	                {document.getElementById('departure-text').textContent = airport.city}
+	            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
+	                // 팝업 닫기
+	                closePopup('departure');
+	            };
+	
+	            airportList.appendChild(li); // 리스트에 항목 추가
+	        });
+	    };
+	
+	    xhr.send(); // 요청 전송
+	}
+	
+	function loadAirports() {
+	    // 서버에 요청을 보내는 함수
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
+	
+	    xhr.onload = function() {
+	        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
+	        var airportList = document.getElementById('airport-list');
+	        airportList.innerHTML = ''; // 기존 목록 비우기
+	
+	        // 공항 목록을 HTML에 추가하기
+	        data.forEach(function(airport) {
+	            var li = document.createElement('li');
+	            if(airport.detailed_city=='null')
+	            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
+	            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+	            li.onclick = function() {
+	            	
+	            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
+	                document.getElementById('from-text').textContent = airport.airport_code;
+	            	
+	            	if(airport.detailed_city=='null')
+	                {document.getElementById('departure-text').textContent = airport.city}
+	            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
+	                // 팝업 닫기
+	                closePopup('departure');
+	            };
+	
+	            airportList.appendChild(li); // 리스트에 항목 추가
+	        });
+	    };
+	
+	    xhr.send(); // 요청 전송
+	}
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	
+	    // 기본 콘텐츠를 '항공권예매'로 설정
+	    showContent('booking');
+	
+	    // activateMenu 함수 정의
+	    function activateMenu(event) {
+	        // 모든 li 요소에서 active 클래스 제거
+	        document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
+	            el.classList.remove('active');
+	        });
+	
+	        // 클릭된 li 요소에 active 클래스 추가
+	        event.currentTarget.parentNode.classList.add('active');
+	    }
+	
+	    // 버튼 클릭 시 activateMenu 함수 호출
+	    document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
+        	button.addEventListener('click', activateMenu);
+	    });
+	    
+	    // 예매 버튼 기본 선택 설정
+	    const reserveButton = document.querySelector('.booking_types li:first-child button');
+	    const mileageButton = document.querySelector('.booking_types li:nth-child(2) button');
+	    
+	    // 초기 상태 설정 (예매 버튼은 기본 선택, 마일리지 버튼은 비활성화)
+	    reserveButton.classList.add('active');
+	    mileageButton.classList.add('inactive');
+	
+	    // 버튼 클릭 시 상태 변경 함수
+	    function toggleBookingType(event) {
+	        if (event.target === reserveButton) {
+	            reserveButton.classList.add('active');
+	            reserveButton.classList.remove('inactive');
+	            mileageButton.classList.add('inactive');
+	            mileageButton.classList.remove('active');
+	        } else if (event.target === mileageButton) {
+	            mileageButton.classList.add('active');
+	            mileageButton.classList.remove('inactive');
+	            reserveButton.classList.add('inactive');
+	            reserveButton.classList.remove('active');
+	        }
+	    }
 
-    // activateMenu 함수 정의
-    function activateMenu(event) {
-        // 모든 li 요소에서 active 클래스 제거
-        document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
-            el.classList.remove('active');
-        });
-
-        // 클릭된 li 요소에 active 클래스 추가
-        event.currentTarget.parentNode.classList.add('active');
-    }
-
-    // 버튼 클릭 시 activateMenu 함수 호출
-    document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
-        button.addEventListener('click', activateMenu);
-    });
-
-
-    // 예매 버튼 기본 선택 설정
-    const reserveButton = document.querySelector('.booking_types li:first-child button');
-    const mileageButton = document.querySelector('.booking_types li:nth-child(2) button');
-    
-    // 초기 상태 설정 (예매 버튼은 기본 선택, 마일리지 버튼은 비활성화)
-    reserveButton.classList.add('active');
-    mileageButton.classList.add('inactive');
-
-    // 버튼 클릭 시 상태 변경 함수
-    function toggleBookingType(event) {
-        if (event.target === reserveButton) {
-            reserveButton.classList.add('active');
-            reserveButton.classList.remove('inactive');
-            mileageButton.classList.add('inactive');
-            mileageButton.classList.remove('active');
-        } else if (event.target === mileageButton) {
-            mileageButton.classList.add('active');
-            mileageButton.classList.remove('inactive');
-            reserveButton.classList.add('inactive');
-            reserveButton.classList.remove('active');
-        }
-    }
-
-    // 각 버튼에 클릭 이벤트 추가
-    reserveButton.addEventListener('click', toggleBookingType);
-    mileageButton.addEventListener('click', toggleBookingType);
-
-    // Flatpickr 설정
-    var tripMethod = "round"; // 기본값: 왕복
-    var calendar = flatpickr("#date-btn", {
-        mode: "range", // 두 날짜 선택을 위한 range 모드 (왕복일 때)
-        dateFormat: "Y-m-d", // 날짜 형식
-        showMonths: 2, // 두 달치 달력 표시
-        onChange: function(selectedDates, dateStr, instance) {
-            if (tripMethod === "round" && selectedDates.length === 2) {
-                // 왕복일 경우: 두 날짜가 선택되면 버튼에 표시
-                document.getElementById('date-btn').innerHTML = 
-                    "가는 날: " + selectedDates[0].toLocaleDateString() + 
-                    " - 오는 날: " + selectedDates[1].toLocaleDateString();
-            } else if (tripMethod === "one-way" && selectedDates.length === 1) {
-                // 편도일 경우: 하루만 선택되면 버튼에 표시
-                document.getElementById('date-btn').innerHTML = 
-                    "가는 날: " + selectedDates[0].toLocaleDateString();
-            }
-        }
-    });
-
-    // 왕복 또는 편도 선택 시 달력 모드 변경
-    var tripMethods = document.querySelectorAll('input[name="t_methods"]');
-    tripMethods.forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            if (this.value === "round") {
-                tripMethod = "round";
-                calendar.set("mode", "range"); // 왕복일 때는 두 날짜 선택
-                document.getElementById('date-btn').innerHTML = "가는날 ~ 오는날"; // 텍스트 변경
-            } else if (this.value === "one-way") {
-                tripMethod = "one-way";
-                calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
-                document.getElementById('date-btn').innerHTML = "가는날"; // 텍스트 변경
-            }
-        });
-    });
-});
-
-
-
-
-function showContent(type) {
-    // 모든 콘텐츠 숨기기
-    document.querySelectorAll('.booking_contents, .select_contents, .check-in_contents, .schedule_contents').forEach(function(el) {
-        el.style.display = 'none';
-    });
-
-    // 선택된 콘텐츠만 표시하기
-    if (type === 'booking') {
-        document.querySelector('.booking_contents').style.display = 'block';
-    } else if (type === 'select') {
-        document.querySelector('.select_contents').style.display = 'block';
-    } else if (type === 'check-in') {
-        document.querySelector('.check-in_contents').style.display = 'block';
-    } else if (type === 'schedule') {
-        document.querySelector('.schedule_contents').style.display = 'block';
-    }
-}
-
-function openPopup(type) {
-    if (type === 'departure') {
-        document.getElementById('popup').style.display = 'block';  // 출발지 팝업
-    } else if (type === 'arrival') {
-        document.getElementById('arrival-popup').style.display = 'block';  // 도착지 팝업
-    }
-    else if (type === 'passenger') {
-        document.getElementById('passenger-selection-popup').style.display = 'block';  // 탑승객 팝업
-    }
-}
-
-function closePopup(type) {
-    if (type === 'departure') {
-        document.getElementById('popup').style.display = 'none';  // 출발지 팝업 닫기
-    } else if (type === 'arrival') {
-        document.getElementById('arrival-popup').style.display = 'none';  // 도착지 팝업 닫기
-    } else if (type === 'passenger') {
-        document.getElementById('passenger-selection-popup').style.display = 'none';  // 탑승객 팝업 닫기
-    }
-}
-
-function setLocation(type) {
-    const value = document.getElementById(type + '-input').value;
-    if (type === 'departure') {
-        document.getElementById('departure-text').textContent = value;
-    } else if (type === 'arrival') {
-        document.getElementById('arrival-text').textContent = value;
-    }
-    closePopup(type); // 선택 후 팝업 닫기
-}
-
-
-
-function increase(type) {
-    var adultCount = parseInt(document.getElementById('adult-count').textContent);
-    var childCount = parseInt(document.getElementById('child-count').textContent);
-    var infantCount = parseInt(document.getElementById('infant-count').textContent);
-
-    var totalPassengers = adultCount + childCount; // 성인과 소아 합산
-
-    if (type === 'adult' && totalPassengers < 10) {
-        document.getElementById('adult-count').textContent = adultCount + 1;
-    } else if (type === 'child' && totalPassengers < 10) {
-        document.getElementById('child-count').textContent = childCount + 1;
-    } else if (type === 'infant') {
-        // 유아는 성인 숫자만큼만 선택 가능
-        if (infantCount < adultCount) {
-            document.getElementById('infant-count').textContent = infantCount + 1;
-        }
-    }
-}
-
-function decrease(type) {
-    var adultCount = parseInt(document.getElementById('adult-count').textContent);
-    var childCount = parseInt(document.getElementById('child-count').textContent);
-    var infantCount = parseInt(document.getElementById('infant-count').textContent);
-
-    if (type === 'adult' && adultCount > 0) {
-        document.getElementById('adult-count').textContent = adultCount - 1;
-        if (infantCount > adultCount - 1) {
-            document.getElementById('infant-count').textContent = adultCount - 1; // 성인이 줄면 유아도 함께 줄어야 함
-        }
-    } else if (type === 'child' && childCount > 0) {
-        document.getElementById('child-count').textContent = childCount - 1;
-    } else if (type === 'infant' && infantCount > 0) {
-        // 성인 숫자가 0명일 때 유아는 0명으로 고정
-        if (adultCount > 0) {
-            document.getElementById('infant-count').textContent = infantCount - 1;
-        }
-    }
-}
-
-function confirmPassengers() {
-    var adultCount = document.getElementById('adult-count').textContent;
-    var childCount = document.getElementById('child-count').textContent;
-    var infantCount = document.getElementById('infant-count').textContent;
-
-    var passengerText = '';
-
-    // 성인 정보 추가
-    if (adultCount > 0) {
-        passengerText = '성인 ' + adultCount + '명';
-    }
-
-    // 추가 승객 분류 (소아 및 유아)를 배열에 저장
-    var additionalPassengers = [];
-
-    if (childCount > 0) {
-        additionalPassengers.push('소아');
-    }
-    if (infantCount > 0) {
-        additionalPassengers.push('유아');
-    }
-
-    // 추가 승객이 있는 경우 처리
-    if (additionalPassengers.length > 0) {
-        if (additionalPassengers.length === 1) {
-            // 추가 승객이 한 종류일 경우에도 말줄임표 붙이기
-            passengerText += ', ' + additionalPassengers[0] + '···';
-        } else {
-            // 추가 승객이 두 종류일 경우, 첫 번째 분류만 이름만 표시하고 말줄임표 붙이기
-            passengerText += ', ' + additionalPassengers[0] + '···';
-        }
-    }
-
-    document.getElementById('passenger-btn').innerHTML = passengerText;
-
-    closePopup(); // 팝업 닫기
-}
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const seatSelectBtn = document.getElementById('seats-btn');
-    const seatPopup = document.getElementById('seat-popup');
-
-    // 좌석 등급 버튼을 클릭하면 팝업 표시/숨김
-    seatSelectBtn.addEventListener('click', function(event) {
-        event.stopPropagation(); // 이벤트 버블링 방지 (외부 클릭 이벤트에 영향 받지 않도록)
-        seatPopup.style.display = seatPopup.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // 좌석 선택 시 팝업을 닫음
-    window.selectSeat = function(seatType) {
-        document.querySelector('#seats-btn span').innerText = seatType;
-        seatPopup.style.display = 'none';  // 좌석 선택 시 팝업 닫기
-    }
-
-    // 팝업 외부를 클릭하면 팝업 닫기
-    document.addEventListener('click', function(event) {
-        if (seatPopup.style.display === 'block' && !seatPopup.contains(event.target) && event.target !== seatSelectBtn) {
-            seatPopup.style.display = 'none'; // 팝업 외부 클릭 시 팝업 닫기
-        }
-    });
-});
-  <!-- jk -->
-        /* // Swiper 초기화
-        var testimonialsSwiper = new Swiper('.testimonials-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.testimonials-swiper .swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.testimonials-swiper .swiper-button-next',
-                prevEl: '.testimonials-swiper .swiper-button-prev',
-            },
-        });
-        var promotionsSwiper = new Swiper('.promotions-swiper', {
-            loop: true,
-            autoplay: {
-                delay: 7000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.promotions-swiper .swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.promotions-swiper .swiper-button-next',
-                prevEl: '.promotions-swiper .swiper-button-prev',
-            },
-            slidesPerView: 1,
-            spaceBetween: 20,
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
-            },
-        }); */
-<!-- jk -->
-
+	    // 각 버튼에 클릭 이벤트 추가
+	    reserveButton.addEventListener('click', toggleBookingType);
+	    mileageButton.addEventListener('click', toggleBookingType);
+	
+	    // Flatpickr 설정
+	    var tripMethod = "round"; // 기본값: 왕복
+	    var calendar = flatpickr("#date-btn", {
+	        mode: "range", // 두 날짜 선택을 위한 range 모드 (왕복일 때)
+	        dateFormat: "Y-m-d", // 날짜 형식
+	        showMonths: 2, // 두 달치 달력 표시
+	        onChange: function(selectedDates, dateStr, instance) {
+	            if (tripMethod === "round" && selectedDates.length === 2) {
+	                // 왕복일 경우: 두 날짜가 선택되면 버튼에 표시
+	                document.getElementById('date-btn').innerHTML = 
+	                    "가는 날: " + selectedDates[0].toLocaleDateString() + 
+	                    " - 오는 날: " + selectedDates[1].toLocaleDateString();
+	            } else if (tripMethod === "one-way" && selectedDates.length === 1) {
+	                // 편도일 경우: 하루만 선택되면 버튼에 표시
+	                document.getElementById('date-btn').innerHTML = 
+	                    "가는 날: " + selectedDates[0].toLocaleDateString();
+	            }
+	        }
+	    });
+	    
+	    // 왕복 또는 편도 선택 시 달력 모드 변경
+	    var tripMethods = document.querySelectorAll('input[name="t_methods"]');
+	    tripMethods.forEach(function (radio) {
+	        radio.addEventListener('change', function () {
+	            if (this.value === "round") {
+	                tripMethod = "round";
+	                calendar.set("mode", "range"); // 왕복일 때는 두 날짜 선택
+	                document.getElementById('date-btn').innerHTML = "가는날 ~ 오는날"; // 텍스트 변경
+	            } else if (this.value === "one-way") {
+	                tripMethod = "one-way";
+	                calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
+	                document.getElementById('date-btn').innerHTML = "가는날"; // 텍스트 변경
+	            }
+	        });
+	    });
+	});
+	
+	function showContent(type) {
+	    // 모든 콘텐츠 숨기기
+	    document.querySelectorAll('.booking_contents, .select_contents, .check-in_contents, .schedule_contents').forEach(function(el) {
+	        el.style.display = 'none';
+	    });
+	
+	    // 선택된 콘텐츠만 표시하기
+	    if (type === 'booking') {
+	        document.querySelector('.booking_contents').style.display = 'block';
+	    } else if (type === 'select') {
+	        document.querySelector('.select_contents').style.display = 'block';
+	    } else if (type === 'check-in') {
+	        document.querySelector('.check-in_contents').style.display = 'block';
+	    } else if (type === 'schedule') {
+	        document.querySelector('.schedule_contents').style.display = 'block';
+	    }
+	}
+	
+	function openPopup(type) {
+	    if (type === 'departure') {
+	        document.getElementById('popup').style.display = 'block';  // 출발지 팝업
+	    } else if (type === 'arrival') {
+	        document.getElementById('arrival-popup').style.display = 'block';  // 도착지 팝업
+	    }
+	    else if (type === 'passenger') {
+	        document.getElementById('passenger-selection-popup').style.display = 'block';  // 탑승객 팝업
+	    }
+	}
+	
+	function closePopup(type) {
+	    if (type === 'departure') {
+	        document.getElementById('popup').style.display = 'none';  // 출발지 팝업 닫기
+	    } else if (type === 'arrival') {
+	        document.getElementById('arrival-popup').style.display = 'none';  // 도착지 팝업 닫기
+	    } else if (type === 'passenger') {
+	        document.getElementById('passenger-selection-popup').style.display = 'none';  // 탑승객 팝업 닫기
+	    }
+	}
+	
+	function setLocation(type) {
+	    const value = document.getElementById(type + '-input').value;
+	    if (type === 'departure') {
+	        document.getElementById('departure-text').textContent = value;
+	    } else if (type === 'arrival') {
+	        document.getElementById('arrival-text').textContent = value;
+	    }
+	    closePopup(type); // 선택 후 팝업 닫기
+	}
+	
+	
+	
+	function increase(type) {
+	    var adultCount = parseInt(document.getElementById('adult-count').textContent);
+	    var childCount = parseInt(document.getElementById('child-count').textContent);
+	    var infantCount = parseInt(document.getElementById('infant-count').textContent);
+	
+	    var totalPassengers = adultCount + childCount; // 성인과 소아 합산
+	
+	    if (type === 'adult' && totalPassengers < 10) {
+	        document.getElementById('adult-count').textContent = adultCount + 1;
+	    } else if (type === 'child' && totalPassengers < 10) {
+	        document.getElementById('child-count').textContent = childCount + 1;
+	    } else if (type === 'infant') {
+	        // 유아는 성인 숫자만큼만 선택 가능
+	        if (infantCount < adultCount) {
+	            document.getElementById('infant-count').textContent = infantCount + 1;
+	        }
+	    }
+	}
+	
+	function decrease(type) {
+	    var adultCount = parseInt(document.getElementById('adult-count').textContent);
+	    var childCount = parseInt(document.getElementById('child-count').textContent);
+	    var infantCount = parseInt(document.getElementById('infant-count').textContent);
+	
+	    if (type === 'adult' && adultCount > 0) {
+	        document.getElementById('adult-count').textContent = adultCount - 1;
+	        if (infantCount > adultCount - 1) {
+	            document.getElementById('infant-count').textContent = adultCount - 1; // 성인이 줄면 유아도 함께 줄어야 함
+	        }
+	    } else if (type === 'child' && childCount > 0) {
+	        document.getElementById('child-count').textContent = childCount - 1;
+	    } else if (type === 'infant' && infantCount > 0) {
+	        // 성인 숫자가 0명일 때 유아는 0명으로 고정
+	        if (adultCount > 0) {
+	            document.getElementById('infant-count').textContent = infantCount - 1;
+	        }
+	    }
+	}
+	
+	function confirmPassengers() {
+	    var adultCount = document.getElementById('adult-count').textContent;
+	    var childCount = document.getElementById('child-count').textContent;
+	    var infantCount = document.getElementById('infant-count').textContent;
+	
+	    var passengerText = '';
+	
+	    // 성인 정보 추가
+	    if (adultCount > 0) {
+	        passengerText = '성인 ' + adultCount + '명';
+	    }
+	
+	    // 추가 승객 분류 (소아 및 유아)를 배열에 저장
+	    var additionalPassengers = [];
+	
+	    if (childCount > 0) {
+	        additionalPassengers.push('소아');
+	    }
+	    if (infantCount > 0) {
+	        additionalPassengers.push('유아');
+	    }
+	
+	    // 추가 승객이 있는 경우 처리
+	    if (additionalPassengers.length > 0) {
+	        if (additionalPassengers.length === 1) {
+	            // 추가 승객이 한 종류일 경우에도 말줄임표 붙이기
+	            passengerText += ', ' + additionalPassengers[0] + '···';
+	        } else {
+	            // 추가 승객이 두 종류일 경우, 첫 번째 분류만 이름만 표시하고 말줄임표 붙이기
+	            passengerText += ', ' + additionalPassengers[0] + '···';
+	        }
+	    }
+	
+	    document.getElementById('passenger-btn').innerHTML = passengerText;
+	
+	    closePopup(); // 팝업 닫기
+	}
+	
+	
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    const seatSelectBtn = document.getElementById('seats-btn');
+	    const seatPopup = document.getElementById('seat-popup');
+	
+	    // 좌석 등급 버튼을 클릭하면 팝업 표시/숨김
+	    seatSelectBtn.addEventListener('click', function(event) {
+	        event.stopPropagation(); // 이벤트 버블링 방지 (외부 클릭 이벤트에 영향 받지 않도록)
+	        seatPopup.style.display = seatPopup.style.display === 'block' ? 'none' : 'block';
+	    });
+	
+	    // 좌석 선택 시 팝업을 닫음
+	    window.selectSeat = function(seatType) {
+	        document.querySelector('#seats-btn span').innerText = seatType;
+	        seatPopup.style.display = 'none';  // 좌석 선택 시 팝업 닫기
+	    }
+	
+	    // 팝업 외부를 클릭하면 팝업 닫기
+	    document.addEventListener('click', function(event) {
+	        if (seatPopup.style.display === 'block' && !seatPopup.contains(event.target) && event.target !== seatSelectBtn) {
+	            seatPopup.style.display = 'none'; // 팝업 외부 클릭 시 팝업 닫기
+	        }
+	    });
+	});
         
     // jQuery 코드 유지
     $(function() {
