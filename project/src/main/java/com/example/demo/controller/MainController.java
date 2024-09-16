@@ -37,6 +37,21 @@ public class MainController {
 	public String adminI(HttpServletRequest request, Model model) {
 		return service.adminI(request, model);
 	}
+	
+	@RequestMapping("/guide/checkinGuide") 
+	public String checkinGuide() {
+		return service.checkinGuide();
+	}
+	
+	@RequestMapping("/guide/seatGuide") 
+	public String seatGuide() {
+		return service.seatGuide();
+	}
+	
+	@RequestMapping("/guide/baggageGuide") 
+	public String baggageGuide() {
+		return service.baggageGuide();
+	}
 		
 	// 메시지 전송 처리
 	@PostMapping("/main/sendMessage")

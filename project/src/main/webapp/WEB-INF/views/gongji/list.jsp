@@ -1,94 +1,159 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공지사항</title>
 <style>
-	section {
-		width: 1000px;
-		height: 600px;
-		margin: auto;
-		font-family: 'hahmlet', sans-serif; /* 대체 폰트 추가 */
-	}
-	section table {
-		width: 800px; /* 테이블 너비 */
-		margin: 0 auto; /* 테이블을 섹션 가운데 정렬 */
-		border-spacing: 0; /* 테이블 셀 간격 제거 */
-		margin-bottom: 200px; /* 테이블 아래 여백 */
-	}
-	section table td {
-		border-bottom: 1px solid #2DD1C5; /* 셀 하단 경계선 */
-		padding: 5px; /* 셀 패딩 */
-		height: 40px; /* 셀 높이 */
-	}
-	section table tr:first-child td {
-		border-top: 2px solid #2DD1C5; /* 첫 번째 행 상단 경계선 */
-		border-bottom: 2px solid #2DD1C5; /* 첫 번째 행 하단 경계선 */
-	}
-	section table tr:last-child td {
-		border-bottom: 2px solid #2DD1C5; /* 마지막 행 하단 경계선 */
-	}
-	section table a {
-		text-decoration: none; /* 링크 밑줄 제거 */
-		color: black; /* 링크 색상 */
-	}
-	section #write {
-		display: inline-block; /* 블록 수준 링크 */
-		width: 100px; /* 버튼 너비 */
-		background: #23297A; /* 버튼 배경색 */
-		color: white; /* 버튼 글자색 */
-		text-align: center; /* 버튼 내 글자 중앙 정렬 */
-		text-decoration: none; /* 버튼 텍스트 밑줄 제거 */
-		padding: 5px 0; /* 버튼 패딩 */
-		box-sizing: border-box; /* 패딩을 너비 계산에 포함 */
-		border-radius: 5px; /* 버튼의 둥근 모서리 */
-	}
-	section #badge1 {
-		background: #DF251F; /* 배지 배경색 */
-		padding: 3px; /* 배지 패딩 */
-		font-size: 11px; /* 배지 글자 크기 */
-		font-weight: 900;
-		margin-right: 5px; /* 배지 사이 간격 */
-		border-radius: 3px; /* 배지의 둥근 모서리 */
-	}
-	section #badge2 {
-		background: #65FF5E; /* 배지 배경색 */
-		padding: 3px; /* 배지 패딩 */
-		font-size: 11px; /* 배지 글자 크기 */
-		margin-right: 5px; /* 배지 사이 간격 */
-		border-radius: 3px; /* 배지의 둥근 모서리 */
-	}
+    /* 공통 스타일 정의 */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    section header {
+        background-color: #00467F;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+    section header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+    section nav {
+        background-color: #0059A3;
+        padding: 10px;
+        text-align: center;
+    }
+    section nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    section nav a:hover {
+        text-decoration: underline;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .content h2 {
+        font-size: 22px;
+        color: #00467F;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .badge {
+        display: inline-block;
+        padding: 3px 6px;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 3px;
+        margin-right: 5px;
+        color: white;
+    }
+    .badge-important {
+        background-color: #DF251F; /* 필독 배지 색상 */
+    }
+    .badge-notice {
+        background-color: #65FF5E; /* 공지 배지 색상 */
+    }
+    .cta-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #00467F;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .cta-button:hover {
+        background-color: #003A66;
+    }
+    
+    /* 추가적인 테이블 스타일링 */
+    .notice-table th, .notice-table td {
+        text-align: center;
+    }
+    .notice-table a {
+        color: #00467F;
+        text-decoration: none;
+    }
+    .notice-table a:hover {
+        text-decoration: underline;
+    }
 </style>
 </head>
 <body>
+
 <section>
-	<table>
-		<caption><h3> 공 지 사 항 </h3></caption> <!-- 테이블 제목 -->
-		<tr align="center">
-			<td> 제 목 </td>
-			<td> 작성자 </td>
-			<td> 조회수 </td>
-			<td> 작성일 </td>
-		</tr>
-		<c:forEach items="${glist }" var="gdto">
-		<tr align="center">
-			<td align="center">
-				<c:if test="${gdto.state==2 }">
-				<span id="badge1">필독</span> <!-- '필독' 배지 -->
-				</c:if>
-				<c:if test="${gdto.state==1 }">
-				<span id="badge2">공지</span> <!-- '공지' 배지 -->
-				</c:if>
-				<a href="readnum?id=${gdto.id}"> ${gdto.title } </a> <!-- 제목 링크 -->
-			</td>
-			<td> ${gdto.writer } </td>
-			<td> ${gdto.readnum } </td>
-			<td> ${gdto.writeday } </td>
-		</tr>
-		</c:forEach>
-	</table>
+    <header>
+        <h1>고객센터</h1>
+    </header>
+
+    <nav>
+        <a href="../gongji/list">공지사항</a>
+        <a href="../inquiry/list">Q & A</a>
+        <a href="">FAQ</a>
+    </nav>
+    
+    <div class="container">
+        <div class="content">
+            <h2>공지사항</h2>
+            <table class="notice-table">
+                <tr>
+                    <th>제 목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>작성일</th>
+                </tr>
+                <c:forEach items="${glist}" var="gdto">
+                <tr>
+                    <td>
+                        <c:if test="${gdto.state == 2}">
+                            <span class="badge badge-important">필독</span>
+                        </c:if>
+                        <c:if test="${gdto.state == 1}">
+                            <span class="badge badge-notice">공지</span>
+                        </c:if>
+                        <a href="readnum?id=${gdto.id}">${gdto.title}</a>
+                    </td>
+                    <td>${gdto.writer}</td>
+                    <td>${gdto.readnum}</td>
+                    <td>${gdto.writeday}</td>
+                </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <p>© 2024 eLTA항공. 모든 권리 보유.</p>
+    </div>
+    
 </section>
+
 </body>
 </html>

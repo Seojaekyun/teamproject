@@ -19,7 +19,7 @@
 	}
 	body {
 		margin: auto;
-		font-family: 'Hahmlet';
+		font-family: Arial, sans-serif;
 	}
 	header {
 		width: 100%;
@@ -51,13 +51,12 @@
 	}
 	#section1 #loginMenu a:hover {
 		text-decoration: none;
-		color: green;
-		font-weight: 900;
+		color: #00467F;
 	}
 	#section1 #loginMenu ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 0;
+		padding: 10px;;
 		display: flex;
 		align-items: center;
 	}
@@ -69,7 +68,7 @@
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 30px;
+		top: 28px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -84,54 +83,29 @@
 		cursor: pointer;
 		border-bottom: 1px solid #ddd;
 	}
-	#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
-		text-decoration: underline;
-		color: green;
+	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
+		text-decoration: none;
+		color: #00467F;
 	}
-	#section1 #loginMenu #supMenu {
+	#section1 #loginMenu #supMenu, #section1 #loginMenu #myInfo {
 		position: relative;
-	}
-	#section1 #loginMenu #myInfo {
-		position: relative;
-	}
-	#section1 #loginMenu #supMenu .menu {
-		padding-left: 0;
-		position: absolute;
-		left: -10px;
-		top: 30px;
-		background: white;
-		display: none;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		z-index: 10;
-	}
-	#section1 #loginMenu #supMenu .menu > li {
-		list-style-type: none;
-		width: 130px;
-		height: 35px;
-		line-height: 35px;
-		text-align: center;
-		cursor: pointer;
-		border-bottom: 1px solid #ddd;
-	}
-	#section1 #loginMenu #supMenu .menu > li:hover {
-		text-decoration: underline;
-		color: green;
 	}
 	header > nav {
 		width: 1200px;
 		height: 70px;
 		margin: auto;
 		line-height: 50px;
-		font-family: 'Gugi';
+		font-family: Arial, sans-serif;
+		font-size: 18px;
 	}
 	header > nav a {
 		text-decoration: none;
 		color: black;
 	}
 	header > nav a:hover {
-		text-decoration: underline;
-		color: green;
-		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+		text-decoration: none;
+		color: #00467F;
+		
 	}
 	header > nav #main {
 		padding-left: 0px;
@@ -152,7 +126,7 @@
 		padding-left: 0px;
 		position: absolute;
 		left: 0px;
-		top: 48px;
+		top: 33px;
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -165,35 +139,32 @@
 		border-bottom: 1px solid #ddd;
 	}
 	footer {
-		padding-top: 10px;
-		padding-bottom: 5px;
-		width: 100%;
-		height: auto;
-		margin: auto;
-		font-family: 'Hahmlet';
-		margin-top: 30px;
-		font-size: 13px;
-		background: #9AB973;
-		color: white;
-		text-align: center;
-	}
-	footer table {
-		width: 100%;
-		max-width: 1000px;
-		margin: auto;
-	}
-	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
-			flex-direction: column;
+			padding-top: 10px;
+			padding-bottom: 5px;
+			width: 100%;
+			height: auto;
+			margin: auto;
+			font-family: 'Hahmlet';
+			margin-top: 30px;
+			font-size: 13px;
+			background: gray;
+			color: white;
 			text-align: center;
 		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
+		.footer-container {
+			width: 100%;
+			max-width: 1000px;
+			margin: auto;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: flex-start;
 		}
-		footer table, footer td {
-			font-size: 11px;
+		.footer-logo {
+			flex: 0 0 200px;
+			margin-bottom: 10px;
 		}
+<!-- hj -->
 	}
 	.air_service {
 		position: relative;
@@ -864,7 +835,66 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
+<!-- hj -->
+<!-- jk -->
+		.footer-content {
+			flex: 1;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+		.footer-row {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 5px;
+		}
+		.footer-column {
+			flex: 1;
+			text-align: left;
+			padding: 0 10px;
+		}
+		@media (max-width: 768px) {
+			header, #outer #first, nav ul {
+				flex-direction: column;
+				text-align: center;
+			}
+			nav ul li {
+				display: block;
+				margin: 10px 0;
+			}
+			footer .footer-container, .footer-content, .footer-row {
+				flex-direction: column;
+				align-items: center;
+			}
+			.footer-column {
+				text-align: center;
+				padding: 5px 0;
+			}
+		}
+	
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	function viewCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "block";
+	}
+	function hideCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "none";
+	}
+	function viewMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "block";
+	}
+	function hideMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "none";
+	}
+	function viewMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "visible";
+	}
+	function hideMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
+	}
+<!-- jk -->
 
 
 
@@ -913,16 +943,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			<ul id="main">
 				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
 					<ul class="menu">
-						<li><a href="../menu/index1">여행 준비</a></li>
-						<li><a href="../menu/index2">여행</a></li>
-						<li><a href="../menu/index3">예약 취소</a></li>
+						<li><a href="../reserve/reservation">항공권 예약</a></li>
+						<li><a href="../menu/index2">예약 조회</a></li>
+						<li><a href="../menu/index3">체크인</a></li>
+						<li><a href="../menu/index3">운항정보</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)"> 항공권
+				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
+					<a href="../guide/checkinGuide">여행준비</a>
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="../guide/checkinGuide">체크인</a></li>
+						<li><a href="../guide/seatGuide">좌석배정</a></li>
+						<li><a href="../guide/baggageGuide">수하물</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
@@ -939,7 +971,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔
+				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)">
+					<a href="https://kr.hotels.com/en/?locale=en_US&siteid=300000041&semcid=HCOM-KR.B.GOOGLE.BT-c-EN.GT&semdtl=a118251106649.b1141783171757.g1kwd-324456688060.e1c.m1CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE.r1006f90a2301371776d11c8cc22069d38bd13a4cf95a9f802dfa68907dc4069d6.c18NrPiYS3BbMcb8bv0o2xPA.j11030718.k1.d1624808917252.h1e.i1.l1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&gad_source=1&gclid=CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE" target="_blank">
+					 호텔
+					</a>
 					<ul class="menu">
 						<li>1</li>
 						<li>2</li>
@@ -949,6 +984,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			</ul>
 		</nav>
 	</header>
+<!-- hj -->
 
     <div class="main_content">
 	<div class="air_service"> 
@@ -1165,6 +1201,10 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 </div>
 </div>
+<!-- hj -->
+	
+<!-- 채팅 스타일 -->
+
 <style>
 	#chat-console {
 		width: 320px;
@@ -1180,6 +1220,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		flex-direction: column;
 		overflow: hidden;
 		font-family: Arial, sans-serif;
+		z-index: 9999;
 	}
 	#chat-header {
 		background-color: #2DD1C5;
@@ -1191,6 +1232,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		position: relative;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
+		z-index: 9999;
 	}
 	#chat-header button {
 		position: absolute;
@@ -1205,6 +1247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		font-size: 12px;
 		border-radius: 5px;
 		transition: background-color 0.3s;
+		z-index: 9999;
 	}
 	#chat-header button:hover {
 		background-color: #C0392B;
@@ -1215,33 +1258,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		overflow-y: auto;
 		background-color: #F8F9FA;
 		display: flex;
-		flex-direction: column; /* 메시지가 세로로 쌓이도록 설정 */
+		flex-direction: column;
 	}
 	#chat-body .message {
 		margin-bottom: 12px;
-		display: flex; /* 메시지를 독립된 블록으로 처리 */
-		width: 100%; /* 메시지가 부모의 전체 너비를 차지하게 함 */
+		display: flex;
+		width: 100%;
 	}
 	#chat-body .user-message {
-		color: black;
-		text-align: left;
-		background-color: #E3F2FD;
-		padding: 10px;
-		border-radius: 15px;
-		max-width: 80%;
-		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
-		align-self: flex-start; /* 왼쪽 정렬 */
-		clear: both;
-	}
-	#chat-body .admin-message {
 		color: white;
 		text-align: right;
 		background-color: #2DD1C5;
 		padding: 10px;
 		border-radius: 15px;
 		max-width: 80%;
-		display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
+		display: block;
 		align-self: flex-end; /* 오른쪽 정렬 */
+		clear: both;
+	}	
+	#chat-body .admin-message {
+		color: black;
+		text-align: left;
+		background-color: #E3F2FD;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block;
+		align-self: flex-start; /* 왼쪽 정렬 */
 		clear: both;
 	}
 	#chat-input {
@@ -1273,43 +1316,38 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	#chat-toggle {
 		position: fixed;
+		width: 60px;
+		height: 60px;
 		bottom: 20px;
 		right: 30px;
-		background-color: #2DD1C5;
-		color: white;
-		padding: 12px 25px;
+		background-color: #00467F;
+		color: yellow;
+		padding: 5px;
 		cursor: pointer;
 		border-radius: 30px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 		transition: background-color 0.3s;
 		font-family: Arial, sans-serif;
+		font-size: 30px;
+	}
+	#chatbot {
+		width: 95%;
+		height: 95%;
 	}
 	#chat-toggle:hover {
 		background-color: #1A9987;
 	}
-	#chat-body .end-message {
-		color: red;
-		text-align: center;
-		font-weight: bold;
-		margin: 20px 0; /* 위아래에 여유 공간 추가 */
-		display: block;
-	}
-	
-	
-	
+
 </style>
-
-
 <script>
-	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
+	// 상담 종료 시
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
 		endButton.innerText = '닫기';
 		endButton.onclick = closeAndResetChat;
 	}
-	
-	// 닫기 버튼을 눌렀을 때 채팅 기록 리셋 및 창 닫기
+	// 닫기 버튼
 	function closeAndResetChat() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../main/resetChatHistory", true);
@@ -1329,7 +1367,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 		xhr.send();
 	}
-	
 	// 메시지 전송 함수
 	function sendMessage(message) {
 		var messageInput = message || document.getElementById('chat-message').value;
@@ -1349,7 +1386,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
 	}
-	
 	// Enter 키로 메시지 전송
 	document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('chat-message').addEventListener('keydown', function(event) {
@@ -1359,10 +1395,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	});
-	
-</script>
 
-<script>
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -1375,39 +1408,45 @@ document.addEventListener('DOMContentLoaded', function () {
 			chatToggle.style.display = 'block';
 		}
 	}
-	
-	// Long Polling으로 메시지 갱신
+	// 메시지 갱신
 	function pollMessages() {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "/main/getMessages", true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var chatBody = document.getElementById('chat-body');
-				var messages = JSON.parse(xhr.responseText);
-				chatBody.innerHTML = '';
-				messages.forEach(function(msg) {
-					var newMessage = document.createElement('div');
-					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
-					newMessage.textContent = msg;
-					chatBody.appendChild(newMessage);
-				});
-				pollMessages();
-			}
-		};
-		xhr.send();
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("GET", "/main/getMessages", true);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            var chatBody = document.getElementById('chat-body');
+	            var messages = JSON.parse(xhr.responseText);
+	            chatBody.innerHTML = '';
+	            messages.forEach(function(msg) {
+	                var newMessage = document.createElement('div');
+	                if (msg.startsWith('팅커벨:')) {
+	                    newMessage.className = 'admin-message';
+	                    newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
+	                } else {
+	                    newMessage.className = 'user-message';
+	                    // "손님: " 접두사를 제거하고 메시지만 출력
+	                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
+	                }
+	                chatBody.appendChild(newMessage);
+	            });
+	            pollMessages();
+	        }
+	    };
+	    xhr.send();
 	}
-	
-	// 페이지 로드 후 처음 메시지 요청 시작
+	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
-	</script>
+
+</script>
+
+	<!-- 채팅 상담 버튼 -->
+	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>
 	
-	
-	<!-- 채팅창 -->
-	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
+	<!-- 채팅 창 -->
 	<div id="chat-console">
 		<div id="chat-header">
-			채팅 상담
-			<button id="endChatButton" onclick="endChat()">끝내기</button>
+		채팅 상담
+		<button id="endChatButton" onclick="endChat()">끝내기</button>
 
 		</div>
 		<div id="chat-body"></div>
@@ -1416,34 +1455,37 @@ document.addEventListener('DOMContentLoaded', function () {
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
-
-	<sitemesh:write property="body" />
+	
+<sitemesh:write property="body" />
 
 	<footer>
-		<table>
-			<tr>
-				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo" src="../static/resources/123.png" width="80" align="middle"></td>
-				<td> 상호명 : LLTA </td>
-				<td> 365고객센터 </td>
-			</tr>
-			<tr>
-				<td> 대표이사 : 주인장 </td>
-				<td> 080-888-1234(무료) </td>
-			</tr>
-			<tr>
-				<td> 본사 : 경기도 파주시 야당동 </td>
-				<td> email : Tmaster@air.co.kr </td>
-			</tr>
-			<tr>
-				<td> 사업자 등록번호 : 444-44-44444 </td>
-				<td> 전화번호 : 010-1234-5678 </td>
-			</tr>
-			<tr>
-				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
-				<td></td>
-			</tr>
-		</table>
+		<div class="footer-container">
+			<div class="footer-logo">
+				<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
+			</div>
+			<div class="footer-content">
+				<div class="footer-row">
+					<div class="footer-column">eLTA(주)</div>
+					<div class="footer-column">365고객센터</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">대표이사 주인장</div>
+					<div class="footer-column">080-888-1234(무료)</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">경기도 파주시 야당동</div>
+					<div class="footer-column">email : Tmaster@air.co.kr</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">사업자 등록번호 444-44-44444</div>
+					<div class="footer-column">전화번호 010-1234-5678</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">통신판매업 신고 제 24-1233</div>
+					<div class="footer-column"></div>
+				</div>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>
