@@ -546,39 +546,81 @@ background-color: white;
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+// 페이지가 로드되면 실행될 함수
 document.addEventListener('DOMContentLoaded', function () {
-    // 페이지 로드 시 공항 목록 불러오기
+    // 공항 목록을 불러오는 함수 호출
     loadAirports();
-
-    function loadAirports() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/flights/airports', true);  // 비동기 GET 요청
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {  // 요청이 완료되고 성공했을 때
-                var data = JSON.parse(xhr.responseText);  // 응답 데이터를 JSON으로 파싱
-                var airportList = document.getElementById('airport-list');
-                airportList.innerHTML = '';  // 기존 목록 초기화
-
-                data.forEach(function(airport) {
-                    var li = document.createElement('li');
-                    li.textContent = airport.airportName + ' (' + airport.airportCode + ')';
-                    li.onclick = function() {
-                        document.getElementById('departure-text').textContent = airport.airportName;
-                        document.getElementById('popup').style.display = 'none';  // 팝업 닫기
-                    };
-                    airportList.appendChild(li);  // 목록에 추가
-                });
-            }
-        };
-
-        xhr.send();  // 요청 보내기
-    }
 });
 
+function loadAirports() {
+    // 서버에 요청을 보내는 함수
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
 
+    xhr.onload = function() {
+        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
+        var airportList = document.getElementById('airport-list');
+        airportList.innerHTML = ''; // 기존 목록 비우기
 
+        // 공항 목록을 HTML에 추가하기
+        data.forEach(function(airport) {
+            var li = document.createElement('li');
+            if(airport.detailed_city=='null')
+            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
+            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+            li.onclick = function() {
+            	
+            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
+                document.getElementById('from-text').textContent = airport.airport_code;
+            	
+            	if(airport.detailed_city=='null')
+                {document.getElementById('departure-text').textContent = airport.city}
+            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
+                // 팝업 닫기
+                closePopup('departure');
+            };
 
+            airportList.appendChild(li); // 리스트에 항목 추가
+        });
+    };
+
+    xhr.send(); // 요청 전송
+}
+
+function loadAirports() {
+    // 서버에 요청을 보내는 함수
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
+
+    xhr.onload = function() {
+        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
+        var airportList = document.getElementById('airport-list');
+        airportList.innerHTML = ''; // 기존 목록 비우기
+
+        // 공항 목록을 HTML에 추가하기
+        data.forEach(function(airport) {
+            var li = document.createElement('li');
+            if(airport.detailed_city=='null')
+            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
+            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+            li.onclick = function() {
+            	
+            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
+                document.getElementById('from-text').textContent = airport.airport_code;
+            	
+            	if(airport.detailed_city=='null')
+                {document.getElementById('departure-text').textContent = airport.city}
+            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
+                // 팝업 닫기
+                closePopup('departure');
+            };
+
+            airportList.appendChild(li); // 리스트에 항목 추가
+        });
+    };
+
+    xhr.send(); // 요청 전송
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 	
