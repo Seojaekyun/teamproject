@@ -554,6 +554,36 @@
             button.addEventListener('click', activateMenu);
         });
 
+<!-- hj -->
+body
+{
+	margin:0px;
+}
+
+section
+{
+	
+	width: 1000px;
+	height: 400px;
+	border: 1px solid black;
+	
+	
+}
+
+.home-banner
+{
+	width:100%;
+	background:#E0F7FA;
+	margin:auto;
+	padding-bottom:100px;
+	padding-top:100px;
+	
+	position: relative;
+	z-index:-1;
+	
+}
+ <!-- hj -->
+  <!-- jk -->
         // Swiper 초기화
         var testimonialsSwiper = new Swiper('.testimonials-swiper', {
             loop: true,
@@ -595,6 +625,7 @@
                 },
             },
         });
+<!-- jk -->
 
         // Intersection Observer for Fade-in Animation
         const sections = document.querySelectorAll('section');
