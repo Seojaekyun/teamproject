@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.mapper.FlightMapper;
 
-@Service
+
 
 
 @Service("fs")
@@ -31,6 +31,7 @@ public class FlightServiceImpl implements FlightService {
     public List<AirportsDto> getAllAirports() {
     	
         return flightMapper.findAllAirports();
+    }
 
     public List<FlightDto> getAvailableFlightsByDate(String date) {
         return flightMapper.getAvailableFlightsByDate(date);
