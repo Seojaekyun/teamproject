@@ -139,71 +139,66 @@
 		border-bottom: 1px solid #ddd;
 	}
 	footer {
-			padding-top: 10px;
-			padding-bottom: 5px;
-			width: 100%;
-			height: auto;
-			margin: auto;
-			font-family: 'Hahmlet';
-			margin-top: 30px;
-			font-size: 13px;
-			background: gray;
-			color: white;
+		padding-top: 10px;
+		padding-bottom: 5px;
+		width: 100%;
+		height: auto;
+		margin: auto;
+		font-family: 'Hahmlet';
+		margin-top: 30px;
+		font-size: 13px;
+		background: gray;
+		color: white;
+		text-align: center;
+	}
+	.footer-container {
+		width: 100%;
+		max-width: 1000px;
+		margin: auto;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	.footer-logo {
+		flex: 0 0 200px;
+		margin-bottom: 10px;
+	}
+	.footer-content {
+		flex: 1;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.footer-row {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 5px;
+	}
+	.footer-column {
+		flex: 1;
+		text-align: left;
+		padding: 0 10px;
+	}
+	@media (max-width: 768px) {
+		header, #outer #first, nav ul {
+			flex-direction: column;
 			text-align: center;
 		}
-		.footer-container {
-			width: 100%;
-			max-width: 1000px;
-			margin: auto;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: flex-start;
+		nav ul li {
+			display: block;
+			margin: 10px 0;
 		}
-		.footer-logo {
-			flex: 0 0 200px;
-			margin-bottom: 10px;
-		}
-<!-- hj -->
-	}
-	
-<!-- hj -->
-<!-- jk -->
-		.footer-content {
-			flex: 1;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-		}
-		.footer-row {
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 5px;
+		footer .footer-container, .footer-content, .footer-row {
+			flex-direction: column;
+			align-items: center;
 		}
 		.footer-column {
-			flex: 1;
-			text-align: left;
-			padding: 0 10px;
+			text-align: center;
+			padding: 5px 0;
 		}
-		@media (max-width: 768px) {
-			header, #outer #first, nav ul {
-				flex-direction: column;
-				text-align: center;
-			}
-			nav ul li {
-				display: block;
-				margin: 10px 0;
-			}
-			footer .footer-container, .footer-content, .footer-row {
-				flex-direction: column;
-				align-items: center;
-			}
-			.footer-column {
-				text-align: center;
-				padding: 5px 0;
-			}
-		}
+	}
 	
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -226,10 +221,6 @@
 	function hideMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
 	}
-<!-- jk -->
-
-
-
 </script>
 
 <sitemesh:write property="head" />
@@ -316,10 +307,6 @@
 			</ul>
 		</nav>
 	</header>
-<!-- hj -->
-
-    
-<!-- hj -->
 	
 <!-- 채팅 스타일 -->
 
