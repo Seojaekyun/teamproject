@@ -5,8 +5,8 @@
 		select * from inquiry order by id desc
 	</select>
 	<insert id="writeOk" parameterType="com.example.demo.dto.InquiryDto">
-		insert into inquiry(title,content,writeday,userid)
-		values(#{title},#{content},now(),#{userid})
+		insert into inquiry(title,content,writeday,userid,state)
+		values(#{title},#{content},now(),#{userid},#{state})
 	</insert>
 	<update id="readnum">
 		update inquiry set readnum=readnum+1 where id=#{param}
