@@ -546,13 +546,14 @@ background-color: white;
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-// 페이지가 로드되면 실행될 함수
+//도착지 리스트
 document.addEventListener('DOMContentLoaded', function () {
     // 공항 목록을 불러오는 함수 호출
-    loadAirports();
+    loadDeparture();
 });
 
-function loadAirports() {
+
+function loadDeparture() {
     // 서버에 요청을 보내는 함수
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
@@ -587,40 +588,53 @@ function loadAirports() {
     xhr.send(); // 요청 전송
 }
 
-function loadAirports() {
-    // 서버에 요청을 보내는 함수
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
+//도착지 리스트
+document.addEventListener('DOMContentLoaded', function () {
+    // 공항 목록을 불러오는 함수 호출
+    loadArrival();
+});
 
+
+function loadArrival() {
+    var xhr = new XMLHttpRequest();   
+    xhr.open('GET', '/flights/airports'); 
     xhr.onload = function() {
-        var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
-        var airportList = document.getElementById('airport-list');
-        airportList.innerHTML = ''; // 기존 목록 비우기
 
-        // 공항 목록을 HTML에 추가하기
+        var data = JSON.parse(xhr.responseText);         
+        var airportList = document.getElementById('arrival-list');
+
+        airportList.innerHTML = ''; 
+
         data.forEach(function(airport) {
             var li = document.createElement('li');
-            if(airport.detailed_city=='null')
-            	{ li.textContent = airport.airport_code+'   '+airport.city+','+ airport.country;}
-            else{li.textContent = airport.airport_code+'   '+airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+
+            if (airport.detailed_city == 'null') {
+                li.textContent = airport.airport_code + '   ' + airport.city + ',' + airport.country;
+            } 
+            else {
+                li.textContent = airport.airport_code + '   ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
+            }
+
             li.onclick = function() {
-            	
-            	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
-                document.getElementById('from-text').textContent = airport.airport_code;
-            	
-            	if(airport.detailed_city=='null')
-                {document.getElementById('departure-text').textContent = airport.city}
-            	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
-                // 팝업 닫기
-                closePopup('departure');
+                document.getElementById('to-text').textContent = airport.airport_code;
+
+                if (airport.detailed_city == 'null') {
+                    document.getElementById('arrival-text').textContent = airport.city;
+                } else {
+                    document.getElementById('arrival-text').textContent = airport.city + '/' + airport.detailed_city;
+                }
+
+                closePopup('arrival');
             };
 
-            airportList.appendChild(li); // 리스트에 항목 추가
+            airportList.appendChild(li); 
         });
     };
 
-    xhr.send(); // 요청 전송
+    xhr.send(); 
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 	
@@ -1036,11 +1050,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- 도착지 팝업 -->
     <div id="arrival-popup" class="popup">
         <div class="popup-content">
-            <span class="close-btn" onclick="closePopup('arrival')">&times;</span>
-            <h2>도착지 검색</h2>
-            <input type="text" id="arrival-input" placeholder="도착지 입력" onkeyup="autocomplete('arrival')">
+            <h2>도착지 선택</h2>
             <ul id="arrival-list"></ul>
-            <button onclick="setLocation('arrival')">선택</button> <!-- 선택 버튼 -->
         </div>
     </div>
 
