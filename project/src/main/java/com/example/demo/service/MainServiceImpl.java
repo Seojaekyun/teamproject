@@ -76,6 +76,12 @@ public class MainServiceImpl implements MainService {
 		return null;
 	}
 
+	@Override
+	public String eventList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	

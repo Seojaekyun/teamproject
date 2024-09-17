@@ -257,7 +257,7 @@
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-						<li> 이벤트 </li>
+						<li><a href="../main/eventList"> 이벤트 </a></li>
 					</ul>
 				</span>
 			</div>
@@ -267,17 +267,17 @@
 				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
 					<ul class="menu">
 						<li><a href="../reserve/reservation">항공권 예약</a></li>
-						<li><a href="../menu/index2">예약 조회</a></li>
-						<li><a href="../menu/index3">체크인</a></li>
-						<li><a href="../menu/index3">운항정보</a></li>
+						<li><a href="">예약 조회</a></li>
+						<li><a href="">체크인</a></li>
+						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
 					<ul class="menu">
-						<li><a href="../guide/checkinGuide">체크인</a></li>
-						<li><a href="../guide/seatGuide">좌석배정</a></li>
-						<li><a href="../guide/baggageGuide">수하물</a></li>
+						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
+						<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
+						<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
@@ -294,14 +294,10 @@
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)">
-					<a href="https://kr.hotels.com/en/?locale=en_US&siteid=300000041&semcid=HCOM-KR.B.GOOGLE.BT-c-EN.GT&semdtl=a118251106649.b1141783171757.g1kwd-324456688060.e1c.m1CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE.r1006f90a2301371776d11c8cc22069d38bd13a4cf95a9f802dfa68907dc4069d6.c18NrPiYS3BbMcb8bv0o2xPA.j11030718.k1.d1624808917252.h1e.i1.l1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&gad_source=1&gclid=CjwKCAjwxY-3BhAuEiwAu7Y6s7KXpMTsJnHn5PuW6d4K1hEF5a4bjaFUpneW0s8fNCtDXFCZlBGXtRoCHvEQAvD_BwE" target="_blank">
-					 호텔
-					</a>
+				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
+						<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
 					</ul>
 				</li>
 			</ul>

@@ -52,7 +52,12 @@ public class MainController {
 	public String baggageGuide() {
 		return service.baggageGuide();
 	}
-		
+	
+	@RequestMapping("/main/eventList") 
+	public String eventList() {
+		return service.eventList();
+	}
+	
 	// 메시지 전송 처리
 	@PostMapping("/main/sendMessage")
 	@ResponseBody
