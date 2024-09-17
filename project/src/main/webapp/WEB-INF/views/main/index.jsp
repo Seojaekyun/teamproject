@@ -26,7 +26,7 @@
         background-image: url('../static/resources/background.jpg');
         background-size: cover;
         width: 100%;
-        height: 450px;
+        height: 350px;
         background-repeat: no-repeat;
         z-index: 0;
     }
