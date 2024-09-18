@@ -1496,7 +1496,6 @@ function decrease(type) {
 }
   
   
-  
 #search_button{
 color:white;
 background-color: #1F0C59;
