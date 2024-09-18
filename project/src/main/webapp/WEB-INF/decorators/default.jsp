@@ -1494,7 +1494,9 @@ function decrease(type) {
 	margin: 20px 0; /* 위아래에 여유 공간 추가 */
 	display: block;
 }
-
+  
+  
+  
 #search_button{
 color:white;
 background-color: #1F0C59;
