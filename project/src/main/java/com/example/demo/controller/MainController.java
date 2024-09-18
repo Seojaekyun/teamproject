@@ -58,6 +58,11 @@ public class MainController {
 		return service.eventList();
 	}
 	
+	@RequestMapping("/guide/travel") 
+	public String travel() {
+		return service.travel();
+	}
+	
 	// 메시지 전송 처리
 	@PostMapping("/main/sendMessage")
 	@ResponseBody

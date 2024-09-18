@@ -164,11 +164,10 @@
 			<div id="two">    
 				<button><a href="adReserve">예약관리</a></button>
 				<button><a href="gongjiList">공지사항</a></button>
+				<button><a href="inquiryList">고객문의</a></button>
 				<button><a href="memberList">회원관리</a></button>
 				<button><a href="">비행일정</a></button>
-				<button><a href="">호텔예약</a></button>
 				<button><a href="">예약통계</a></button>
-				<button><a href="inquiryList">고객문의</a></button>
 			</div>
 		</div>
 	</header>

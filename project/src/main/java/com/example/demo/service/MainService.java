@@ -16,6 +16,7 @@ public interface MainService {
 	public String seatGuide();
 	public String baggageGuide();
 	public String eventList();
+	public String travel();
 	
 	
 }

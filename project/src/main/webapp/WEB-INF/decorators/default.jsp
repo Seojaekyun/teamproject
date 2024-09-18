@@ -287,11 +287,12 @@
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)"> 여행지
+				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
+					<a href="../guide/travel"> 여행지 </a>
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="">국내 여행</a></li>
+						<li><a href="">해외 여행</a></li>
+						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
