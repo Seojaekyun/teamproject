@@ -16,6 +16,7 @@
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
     }
+    
     /* 기존 스타일 유지 */
     .main_content {
         display: none;
