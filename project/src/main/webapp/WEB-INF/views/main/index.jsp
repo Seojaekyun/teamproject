@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Flatpickr CSS (날짜 선택용) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 <style>
     body {
         margin: 0;
@@ -426,8 +425,10 @@
         // 공항 목록을 불러오는 함수 호출
         loadAirports();
 
+
         // 기본 콘텐츠를 '항공권예매'로 설정
         showContent('booking');
+
 
         // activateMenu 함수 정의
         function activateMenu(event) {

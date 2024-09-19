@@ -1,15 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>title</title>
 <!-- Flatpickr(달력 라이브러리) CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Flatpickr 한국어 로케일 -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
+
 	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
 	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
@@ -150,59 +155,25 @@
 		background: gray;
 		color: white;
 		text-align: left;
+
 	}
-	.footer-container {
-		width: 100%;
-		max-width: 1000px;
-		margin: auto;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: flex-start;
+	nav ul li {
+		display: block;
+		margin: 10px 0;
 	}
-	.footer-logo {
-		flex: 0 0 200px;
-		margin-bottom: 10px;
+	footer table, footer td {
+		font-size: 11px;
 	}
-	.footer-content {
-		flex: 1;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-	}
-	.footer-row {
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 5px;
-	}
-	.footer-column {
-		flex: 1;
-		text-align: left;
-		padding: 0 10px;
-	}
-	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
-			flex-direction: column;
-			text-align: center;
-		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
-		}
-		footer .footer-container, .footer-content, .footer-row {
-			flex-direction: column;
-			align-items: center;
-		}
-		.footer-column {
-			text-align: center;
-			padding: 5px 0;
-		}
-	}
-	
+
+
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
+
+
+
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
 	}
@@ -221,6 +192,7 @@
 	function hideMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
 	}
+
 </script>
 
 <sitemesh:write property="head" />
@@ -231,8 +203,8 @@
 	<header>
 		<div id="section1">
 			<div id="logo">
-				<a href="../main/index">
-					<img src="../static/resources/eltlogo.png" width="200px" height="75px">
+				<a href="../main/index"> <img
+					src="../static/resources/eltlogo.png" width="200px" height="75px">
 				</a>
 			</div>
 			<div id="loginMenu">
@@ -244,27 +216,31 @@
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid!=null}">
-					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+					<span id="myInfo" onmouseover="viewMmenu(0)"
+						onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 						<ul class="mmenu">
-							<li> 회원정보 </li>
-							<li> 예약정보 </li>
-							<li> 나의문의 </li>
+							<li>회원정보</li>
+							<li>예약정보</li>
+							<li>나의문의</li>
 						</ul>
 					</span>
 					<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
+				<span id="supMenu" onmouseover="viewCmenu(0)"
+					onmouseout="hideCmenu(0)"> 고객센터
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
+
 						<li><a href="../main/eventList"> 이벤트 </a></li>
+
 					</ul>
 				</span>
 			</div>
 		</div>
 		<nav>
 			<ul id="main">
-				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"> 예약
+				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)">예약
 					<ul class="menu">
 						<li><a href="../reserve/reservation">항공권 예약</a></li>
 						<li><a href="">예약 조회</a></li>
@@ -272,30 +248,36 @@
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
+
 					<ul class="menu">
 						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
 						<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
 						<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"> 최저가
+				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)">최저가
 					<ul class="menu">
 						<li>1</li>
 						<li>2</li>
 						<li>3</li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
 					<a href="../guide/travel"> 여행지 </a>
+
 					<ul class="menu">
 						<li><a href="">국내 여행</a></li>
 						<li><a href="">해외 여행</a></li>
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
+
 					<ul class="menu">
 						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
 						<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
@@ -443,6 +425,7 @@
 </style>
 <script>
 	// 상담 종료 시
+
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -498,6 +481,7 @@
 		});
 	});
 
+
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -538,6 +522,7 @@
 	}
 	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
+
 
 </script>
 
@@ -589,6 +574,7 @@
 				</div>
 			</div>
 		</div>
+
 	</footer>
 </body>
 </html>

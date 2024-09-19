@@ -492,19 +492,13 @@ background-color: white;
 }
 
 
-#seats_selection button {
-   width: 150px;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    border: none; /* 기본 테두리를 제거 */
-    border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
-    font-size: 14px; /* 글자 크기 조정 */
-    color: #333; /* 텍스트 색상 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-    outline: none; /* 클릭 시 기본 아웃라인 제거 */
+#passenger-btn span {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
+
+
 
 /* 좌석 선택 팝업 스타일 */
 .seat-popup {
