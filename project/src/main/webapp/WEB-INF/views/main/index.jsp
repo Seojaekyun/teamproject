@@ -601,12 +601,12 @@ function loadDeparture() {
         data.forEach(function(airport) {
             var li = document.createElement('li');
             if(airport.detailed_city=='null')
-            	{ li.textContent = airport.airport_code +airport.city+','+ airport.country;}
-            else{li.textContent = airport.airport_code +airport.city+ '/' +airport.detailed_city+','+ airport.country;}
+            	{ li.textContent = airport.iataCode +airport.city+','+ airport.country;}
+            else{li.textContent = airport.iataCode +airport.city+ '/' +airport.detailed_city+','+ airport.country;}
             li.onclick = function() {
             	
             	// 'From' 텍스트를 클릭된 공항 코드로 업데이트
-                document.getElementById('from-text').textContent = airport.airport_code;
+                document.getElementById('from-text').textContent = airport.iataCode;
             	if(airport.detailed_city=='null')
                 {document.getElementById('departure-text').textContent = airport.city}
             	else{document.getElementById('departure-text').textContent = airport.city+'/'+airport.detailed_city;}
@@ -634,13 +634,13 @@ function loadArrival() {
         data.forEach(function(airport) {
             var li = document.createElement('li');
             if (airport.detailed_city == 'null') {
-                li.textContent = airport.airport_code + '   ' + airport.city + ',' + airport.country;
+                li.textContent = airport.iataCode + '   ' + airport.city + ',' + airport.country;
             } 
             else {
-                li.textContent = airport.airport_code + '   ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
+                li.textContent = airport.iataCode + '   ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
             }
             li.onclick = function() {
-                document.getElementById('to-text').textContent = airport.airport_code;
+                document.getElementById('to-text').textContent = airport.iataCode;
                 if (airport.detailed_city == 'null') {
                     document.getElementById('arrival-text').textContent = airport.city;
                 } else {
