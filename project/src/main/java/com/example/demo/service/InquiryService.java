@@ -18,5 +18,6 @@ public interface InquiryService {
     String updateOk(InquiryDto idto);
     String delete(HttpServletRequest request);
     String inquiryList(HttpServletRequest request, Model model);
+	String inquiryContent(HttpServletRequest request, Model model);
 
 }

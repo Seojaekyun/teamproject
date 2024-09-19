@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.service.AdminService;
-import com.example.demo.service.GongjiService;
+import com.example.demo.service.InquiryService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -16,6 +16,10 @@ public class AdminController {
 	@Autowired
 	@Qualifier("as")
 	private AdminService service;
+	
+	@Autowired
+	@Qualifier("is")
+	private InquiryService iservice;
 	
 	@RequestMapping("/admin/adReserve")
 	public String adReserve() {
@@ -27,5 +31,8 @@ public class AdminController {
 		return service.memberList(request, model);
 	}
 	
-	
+	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
+    public String inquiryList(HttpServletRequest request, Model model) {
+        return iservice.inquiryList(request, model);
+    }
 }
