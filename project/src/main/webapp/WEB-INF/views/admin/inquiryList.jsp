@@ -63,7 +63,7 @@
 		<c:forEach items="${ilist}" var="idto">
 		<tr align="center">
 			<td align="center">
-				<a href="readnum?id=${idto.id}">
+				<a href="inquiryContent?id=${idto.id}">
 					<c:if test="${idto.state==0}">
 					<span id="s1">예약접수 관련 문의</span>
 					</c:if>

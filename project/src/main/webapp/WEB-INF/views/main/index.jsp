@@ -648,6 +648,7 @@ function loadArrival() {
             };
             airportList.appendChild(li); 
         });
+
     };
     xhr.send(); 
 }
@@ -660,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // 모든 li 요소에서 active 클래스 제거
         document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
             el.classList.remove('active');
+
         });
         // 클릭된 li 요소에 active 클래스 추가
         event.currentTarget.parentNode.classList.add('active');

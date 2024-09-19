@@ -15,217 +15,146 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
 
-@import
-	url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap')
-	;
-
-@import
-	url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap')
-	;
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-body {
-	margin: auto;
-	font-family: 'Hahmlet';
-}
-
-header {
-	width: 100%;
-	margin: auto;
-}
-
-#section1 {
-	width: 100%;
-	height: 80px;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-#section1 #logo {
-	width: 200px;
-	height: 75px;
-	margin-left: 50px;
-}
-
-#section1 #loginMenu {
-	display: flex;
-	align-items: center;
-	font-size: 20px;
-	font-weight: 600;
-	margin-right: 60px;
-}
-
-#section1 #loginMenu a {
-	text-decoration: none;
-	color: black;
-}
-
-#section1 #loginMenu a:hover {
-	text-decoration: none;
-	color: green;
-	font-weight: 900;
-}
-
-#section1 #loginMenu ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	align-items: center;
-}
-
-#section1 #loginMenu ul li {
-	position: relative;
-	margin-right: 10px;
-}
-
-#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
-	padding-left: 0;
-	position: absolute;
-	left: -10px;
-	top: 30px;
-	background: white;
-	display: none;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	z-index: 10;
-}
-
-#section1 #loginMenu .cmenu>li, #section1 #loginMenu .mmenu>li {
-	list-style-type: none;
-	width: 130px;
-	height: 35px;
-	line-height: 35px;
-	text-align: center;
-	cursor: pointer;
-	border-bottom: 1px solid #ddd;
-}
-
-#section1 #loginMenu .cmenu>li:hover, #section1 #loginMenu .mmenu>li:hover
-	{
-	text-decoration: underline;
-	color: green;
-}
-
-#section1 #loginMenu #supMenu {
-	position: relative;
-}
-
-#section1 #loginMenu #myInfo {
-	position: relative;
-}
-
-#section1 #loginMenu #supMenu .menu {
-	padding-left: 0;
-	position: absolute;
-	left: -10px;
-	top: 30px;
-	background: white;
-	display: none;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	z-index: 10;
-}
-
-#section1 #loginMenu #supMenu .menu>li {
-	list-style-type: none;
-	width: 130px;
-	height: 35px;
-	line-height: 35px;
-	text-align: center;
-	cursor: pointer;
-	border-bottom: 1px solid #ddd;
-}
-
-#section1 #loginMenu #supMenu .menu>li:hover {
-	text-decoration: underline;
-	color: green;
-}
-
-header>nav {
-	width: 1200px;
-	height: 70px;
-	margin: auto;
-	line-height: 50px;
-	font-family: 'Gugi';
-}
-
-header>nav a {
-	text-decoration: none;
-	color: black;
-}
-
-header>nav a:hover {
-	text-decoration: underline;
-	color: green;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px
-		0 #000;
-}
-
-header>nav #main {
-	padding-left: 0px;
-	margin-left: 100px;
-}
-
-header>nav #main>li {
-	display: inline-block;
-	list-style-type: none;
-	width: 200px;
-	height: 50px;
-	line-height: 30px;
-	text-align: center;
-	font-weight: 900;
-	position: relative;
-	z-index: 5;
-}
-
-header>nav #main>li>.menu {
-	padding-left: 0px;
-	position: absolute;
-	left: 0px;
-	top: 48px;
-	background: white;
-	visibility: hidden;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-header>nav #main>li>.menu>li {
-	list-style-type: none;
-	width: 200px;
-	height: 35px;
-	line-height: 35px;
-	border-bottom: 1px solid #ddd;
-}
-
-footer {
-	padding-top: 10px;
-	padding-bottom: 5px;
-	width: 100%;
-	height: auto;
-	margin: auto;
-	font-family: 'Hahmlet';
-	margin-top: 30px;
-	font-size: 13px;
-	background: #9AB973;
-	color: white;
-	text-align: center;
-}
-
-footer table {
-	width: 100%;
-	max-width: 1000px;
-	margin: auto;
-}
-
-@media ( max-width : 768px) {
-	header, #outer #first, nav ul {
-		flex-direction: column;
+	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	body {
+		margin: auto;
+		font-family: Arial, sans-serif;
+	}
+	header {
+		width: 100%;
+		margin: auto;
+	}
+	#section1 {
+		width: 100%;
+		height: 80px;
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	#section1 #logo {
+		width: 200px;
+		height: 75px;
+		margin-left: 50px;
+	}
+	#section1 #loginMenu {
+		display: flex;
+		align-items: center;
+		font-size: 20px;
+		font-weight: 600;
+		margin-right: 60px;
+	}
+	#section1 #loginMenu a {
+		text-decoration: none;
+		color: black;
+	}
+	#section1 #loginMenu a:hover {
+		text-decoration: none;
+		color: #00467F;
+	}
+	#section1 #loginMenu ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 10px;;
+		display: flex;
+		align-items: center;
+	}
+	#section1 #loginMenu ul li {
+		position: relative;
+		margin-right: 10px;
+	}
+	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
+		padding-left: 0;
+		position: absolute;
+		left: -10px;
+		top: 28px;
+		background: white;
+		display: none;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
+		list-style-type: none;
+		width: 130px;
+		height: 35px;
+		line-height: 35px;
 		text-align: center;
+		cursor: pointer;
+		border-bottom: 1px solid #ddd;
+	}
+	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
+		text-decoration: none;
+		color: #00467F;
+	}
+	#section1 #loginMenu #supMenu, #section1 #loginMenu #myInfo {
+		position: relative;
+	}
+	header > nav {
+		width: 1200px;
+		height: 70px;
+		margin: auto;
+		line-height: 50px;
+		font-family: Arial, sans-serif;
+		font-size: 18px;
+	}
+	header > nav a {
+		text-decoration: none;
+		color: black;
+	}
+	header > nav a:hover {
+		text-decoration: none;
+		color: #00467F;
+		
+	}
+	header > nav #main {
+		padding-left: 0px;
+		margin-left: 100px;
+	}
+	header > nav #main > li {
+		display: inline-block;
+		list-style-type: none;
+		width: 200px;
+		height: 50px;
+		line-height: 30px;
+		text-align: center;
+		font-weight: 900;
+		position: relative;
+		z-index: 5;
+	}
+	header > nav #main > li > .menu {
+		padding-left: 0px;
+		position: absolute;
+		left: 0px;
+		top: 33px;
+		background: white;
+		visibility: hidden;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	header > nav #main > li > .menu > li {
+		list-style-type: none;
+		width: 200px;
+		height: 35px;
+		line-height: 35px;
+		border-bottom: 1px solid #ddd;
+	}
+	footer {
+		padding-top: 10px;
+		padding-bottom: 5px;
+		width: 100%;
+		height: auto;
+		margin: auto;
+		font-family: 'Hahmlet';
+		margin-top: 30px;
+		font-size: 13px;
+		background: gray;
+		color: white;
+		text-align: left;
 	}
 	nav ul li {
 		display: block;
