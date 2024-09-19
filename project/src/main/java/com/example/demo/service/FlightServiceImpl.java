@@ -22,8 +22,9 @@ import com.example.demo.mapper.FlightMapper;
 
 
 
-@Service("fs")
 
+
+@Service("fs")
 
 public class FlightServiceImpl implements FlightService {
 

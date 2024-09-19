@@ -160,11 +160,13 @@
 	nav ul li {
 		display: block;
 		margin: 10px 0;
+
 	}
 	
 	footer table, footer td {
 		font-size: 11px;
 	}
+
 
 
 </style>
@@ -575,7 +577,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</footer>
 </body>
 </html>
