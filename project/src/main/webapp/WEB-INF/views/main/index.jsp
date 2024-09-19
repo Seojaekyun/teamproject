@@ -426,8 +426,10 @@
         // 공항 목록을 불러오는 함수 호출
         loadAirports();
 
+
         // 기본 콘텐츠를 '항공권예매'로 설정
         showContent('booking');
+
 
         // activateMenu 함수 정의
         function activateMenu(event) {
@@ -693,6 +695,10 @@
             }
         });
     });
+    
+    
+    
+    
 
     // 섹션들이 뷰포트에 들어오면 'visible' 클래스를 추가하는 함수
     function revealSections() {
