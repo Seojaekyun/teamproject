@@ -4,11 +4,6 @@ import lombok.Data;
 
 @Data
 public class StateCountDto {
-    private int state;
-    private int count;
+    private int state, count, rank;
     
-    @Override
-    public String toString() {
-        return "StateCountDto(state=" + state + ", count=" + count + ")";
-    }
 }

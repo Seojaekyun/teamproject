@@ -25,8 +25,7 @@
 	section div table {
 		border-spacing:0px;
 		width: 350px;
-		border-spacing:0px;
-		
+		border-spacing:0px;		
 	}
 	section div table tr:first-child {
 		background: lightblue;
@@ -34,6 +33,26 @@
 	section div table td{
 		border: 1px solid lightgray;
 		width: 100px;
+		height: 40px;
+		text-align: center;
+		border-spacing:0px;
+		border-radius: 5px;
+	}
+	section #second{
+		background: white;
+		display: flex;
+		margin: auto;
+	}
+	section #second table {
+		width: 600px;
+		border-spacing:0px;
+		border-spacing:0px;
+	}
+	section #second table tr:first-child {
+		background: lightblue;
+	}
+	section #second table td{
+		border: 1px solid lightgray;
 		height: 40px;
 		text-align: center;
 		border-spacing:0px;
@@ -72,6 +91,9 @@
 	}
 	section #third #inq #title {
 		width: 250px;
+	}
+	#pagination {
+		display: block;
 	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -139,55 +161,35 @@
 	</div>
 	<hr>
 	<h4>&nbsp;&nbsp;&nbsp; | 당일 항공 현황</h4>
+	<br>
 	<div id="second">
-		<div id="one">
-			<div id="ac1">
-				<table>
-					<caption><h5 align="left"> 대한항공 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>kal708</td>
-						<td>09:20</td>
-						<td>출항</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ac2">
-				<table>
-					<caption><h5 align="left"> 아시아나 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>asn458</td>
-						<td>10:00</td>
-						<td>우천 결항</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ac3">
-				<table>
-					<tr>
-						<caption><h5 align="left"> 제주항공 </h5></caption>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>jja172</td>
-						<td>11:20</td>
-						<td>결항</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+	    <div id="one">
+	        <div id="flights">
+	            <table>
+	                <tr>
+	                    <td>출발 공항</td>
+	                    <td>도착 공항</td>
+	                    <td>출발 시간</td>
+	                    <td>비행 시간</td>
+	                </tr>
+	                <c:forEach items="${flightList}" var="flight">
+	                    <tr>
+	                        <td>${flight.departureAirport}</td>
+	                        <td>${flight.arrivalAirport}</td>
+	                        <td>${flight.departureTime}</td>
+	                        <td>${flight.flightDuration}</td>
+	                    </tr>
+	                </c:forEach>
+	            </table>
+	        </div>
+	    </div>
+	    <div id="pagination">
+	       	<c:forEach begin="1" end="${totalPages}" var="i">
+	       	<a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+	       	</c:forEach>
+	    </div>
 	</div>
+
 	<hr>
 	<h4>&nbsp;&nbsp;&nbsp; | 주요문의 현황 </h4>
 	<div id="third">
@@ -200,6 +202,7 @@
                         <td id="title"> 문의 사항 </td>
                         <td> 문의량 </td>
                     </tr>
+                                        
                     <!-- countsList 디버깅 출력 -->
                     <c:if test="${empty countsList}">
                         <tr>
@@ -208,7 +211,7 @@
                     </c:if>
                     <c:forEach items="${countsList}" var="entry" varStatus="status">
                     <tr>
-                        <td id="num"> ${status.index + 1} </td>
+                        <td id="num"> ${entry.rank} </td>
                         <td>
                             <c:choose>
                                 <c:when test="${entry.state eq 4}">
