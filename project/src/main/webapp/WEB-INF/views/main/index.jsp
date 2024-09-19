@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Flatpickr CSS (날짜 선택용) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 <style>
     body {
         margin: 0;
@@ -504,6 +503,7 @@ input[name="t_methods"]:checked + label::after {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
     const mileageButton = document.getElementById('mileage');
@@ -533,6 +533,7 @@ function openPopup(type) {
         document.getElementById('arrival-popup').style.display = 'list-item';  // 도착지 팝업
     }
 }
+
 
 //팝업 x 버튼 함수
 function closePopup(type) {

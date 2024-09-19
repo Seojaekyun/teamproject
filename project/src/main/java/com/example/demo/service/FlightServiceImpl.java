@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import com.example.demo.dto.FlightDto;
 import com.example.demo.mapper.FlightMapper;
 
@@ -22,9 +23,8 @@ import com.example.demo.mapper.FlightMapper;
 
 
 
+
 @Service("fs")
-
-
 
 public class FlightServiceImpl implements FlightService {
 
@@ -33,6 +33,7 @@ public class FlightServiceImpl implements FlightService {
 
 
     @Override
+
 
     public List<AirportsDto> getAllAirports() {
     	
