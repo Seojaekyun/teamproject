@@ -14,9 +14,7 @@ import com.example.demo.dto.AirportsDto;
 
 @Mapper
 public interface FlightMapper {
-
 	List<AirportsDto> findAllAirports();
-
 	List<FlightDto> getAvailableFlights();
 	List<FlightDto> getFlightsByDate(String date);
 	List<FlightDto> getAvailableFlightsByDate(String date);
