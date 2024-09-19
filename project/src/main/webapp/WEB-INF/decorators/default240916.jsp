@@ -491,11 +491,13 @@ background-color: white;
 	width: 150px;
 }
 
+
 #passenger-btn span {
     display: block;
     width: 100%;
     height: 100%;
 }
+
 
 
 /* 좌석 선택 팝업 스타일 */

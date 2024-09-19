@@ -14,6 +14,7 @@
 <!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
+
 @import
 	url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap')
 	;
@@ -694,10 +695,12 @@ input[name="t_methods"]:checked + label::after {
     bottom: -2px; /* 밑으로 약간의 공간을 주기 */
     left: 10%;
 }
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
@@ -1047,6 +1050,26 @@ function decrease(type) {
 
 
 
+
+	function viewCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "block";
+	}
+	function hideCmenu(n) {
+		document.getElementsByClassName("cmenu")[n].style.display = "none";
+	}
+	function viewMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "block";
+	}
+	function hideMmenu(n) {
+		document.getElementsByClassName("mmenu")[n].style.display = "none";
+	}
+	function viewMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "visible";
+	}
+	function hideMenu(n) {
+		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
+	}
+
 </script>
 
 <sitemesh:write property="head" />
@@ -1085,7 +1108,9 @@ function decrease(type) {
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-						<li>이벤트</li>
+
+						<li><a href="../main/eventList"> 이벤트 </a></li>
+
 					</ul>
 				</span>
 			</div>
@@ -1094,16 +1119,20 @@ function decrease(type) {
 			<ul id="main">
 				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)">예약
 					<ul class="menu">
-						<li><a href="../menu/index1">여행 준비</a></li>
-						<li><a href="../menu/index2">여행</a></li>
-						<li><a href="../menu/index3">예약 취소</a></li>
+						<li><a href="../reserve/reservation">항공권 예약</a></li>
+						<li><a href="">예약 조회</a></li>
+						<li><a href="">체크인</a></li>
+						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">항공권
+
+				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
+					<a href="../guide/checkinGuide">여행준비</a>
+
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
+						<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
+						<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 					</ul>
 				</li>
 				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)">최저가
@@ -1113,23 +1142,28 @@ function decrease(type) {
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">여행지
+
+				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
+					<a href="../guide/travel"> 여행지 </a>
+
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="">국내 여행</a></li>
+						<li><a href="">해외 여행</a></li>
+						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)">호텔
+
+				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
+
 					<ul class="menu">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
+						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
+						<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
 					</ul>
 				</li>
 			</ul>
 		</nav>
 	</header>
+
 
 	<div class="main_content">
 		<div class="air_service">
@@ -1351,173 +1385,154 @@ function decrease(type) {
 			</div>
 		</div>
 	</div>
-	<style>
-#chat-console {
-	width: 320px;
-	height: 450px;
-	border: 2px solid #2DD1C5;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	background-color: #fff;
-	display: none;
-	flex-direction: column;
-	overflow: hidden;
-	font-family: Arial, sans-serif;
-}
+	
+	
+<!-- 채팅 스타일 -->
 
-#chat-header {
-	background-color: #2DD1C5;
-	color: white;
-	padding: 15px;
-	text-align: center;
-	font-weight: bold;
-	cursor: pointer;
-	position: relative;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-}
-
-#chat-header button {
-	position: absolute;
-	top: 50%;
-	right: 15px;
-	transform: translateY(-50%);
-	background-color: #E74C3C;
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	cursor: pointer;
-	font-size: 12px;
-	border-radius: 5px;
-	transition: background-color 0.3s;
-}
-
-#chat-header button:hover {
-	background-color: #C0392B;
-}
-
-#chat-body {
-	flex: 1;
-	padding: 15px;
-	overflow-y: auto;
-	background-color: #F8F9FA;
-	display: flex;
-	flex-direction: column; /* 메시지가 세로로 쌓이도록 설정 */
-}
-
-#chat-body .message {
-	margin-bottom: 12px;
-	display: flex; /* 메시지를 독립된 블록으로 처리 */
-	width: 100%; /* 메시지가 부모의 전체 너비를 차지하게 함 */
-}
-
-#chat-body .user-message {
-	color: black;
-	text-align: left;
-	background-color: #E3F2FD;
-	padding: 10px;
-	border-radius: 15px;
-	max-width: 80%;
-	display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
-	align-self: flex-start; /* 왼쪽 정렬 */
-	clear: both;
-}
-
-#chat-body .admin-message {
-	color: white;
-	text-align: right;
-	background-color: #2DD1C5;
-	padding: 10px;
-	border-radius: 15px;
-	max-width: 80%;
-	display: block; /* 한 줄에 하나씩만 출력되도록 설정 */
-	align-self: flex-end; /* 오른쪽 정렬 */
-	clear: both;
-}
-
-#chat-input {
-	display: flex;
-	padding: 10px;
-	background-color: #F1F1F1;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-#chat-input input[type="text"] {
-	flex: 1;
-	padding: 10px;
-	border: 1px solid #CCC;
-	border-radius: 20px;
-	outline: none;
-	margin-right: 10px;
-}
-
-#chat-input button {
-	padding: 8px 15px;
-	background-color: #2DD1C5;
-	color: white;
-	border: none;
-	cursor: pointer;
-	border-radius: 20px;
-	transition: background-color 0.3s;
-}
-
-#chat-input button:hover {
-	background-color: #1A9987;
-}
-
-#chat-toggle {
-	position: fixed;
-	bottom: 20px;
-	right: 30px;
-	background-color: #2DD1C5;
-	color: white;
-	padding: 12px 25px;
-	cursor: pointer;
-	border-radius: 30px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	transition: background-color 0.3s;
-	font-family: Arial, sans-serif;
-}
-
-#chat-toggle:hover {
-	background-color: #1A9987;
-}
-
-#chat-body .end-message {
-	color: red;
-	text-align: center;
-	font-weight: bold;
-	margin: 20px 0; /* 위아래에 여유 공간 추가 */
-	display: block;
-}
-  
-  
-#search_button{
-color:white;
-background-color: #1F0C59;
-padding: 10px 15px;
-border: 1px solid #1F0C59;
-font-size:16px;
-border-radius:15px;
-}
+<style>
+	#chat-console {
+		width: 320px;
+		height: 450px;
+		border: 2px solid #2DD1C5;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background-color: #fff;
+		display: none;
+		flex-direction: column;
+		overflow: hidden;
+		font-family: Arial, sans-serif;
+		z-index: 9999;
+	}
+	#chat-header {
+		background-color: #2DD1C5;
+		color: white;
+		padding: 15px;
+		text-align: center;
+		font-weight: bold;
+		cursor: pointer;
+		position: relative;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		z-index: 9999;
+	}
+	#chat-header button {
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		transform: translateY(-50%);
+		background-color: #E74C3C;
+		color: white;
+		border: none;
+		padding: 5px 10px;
+		cursor: pointer;
+		font-size: 12px;
+		border-radius: 5px;
+		transition: background-color 0.3s;
+		z-index: 9999;
+	}
+	#chat-header button:hover {
+		background-color: #C0392B;
+	}
+	#chat-body {
+		flex: 1;
+		padding: 15px;
+		overflow-y: auto;
+		background-color: #F8F9FA;
+		display: flex;
+		flex-direction: column;
+	}
+	#chat-body .message {
+		margin-bottom: 12px;
+		display: flex;
+		width: 100%;
+	}
+	#chat-body .user-message {
+		color: white;
+		text-align: right;
+		background-color: #2DD1C5;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block;
+		align-self: flex-end; /* 오른쪽 정렬 */
+		clear: both;
+	}	
+	#chat-body .admin-message {
+		color: black;
+		text-align: left;
+		background-color: #E3F2FD;
+		padding: 10px;
+		border-radius: 15px;
+		max-width: 80%;
+		display: block;
+		align-self: flex-start; /* 왼쪽 정렬 */
+		clear: both;
+	}
+	#chat-input {
+		display: flex;
+		padding: 10px;
+		background-color: #F1F1F1;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	#chat-input input[type="text"] {
+		flex: 1;
+		padding: 10px;
+		border: 1px solid #CCC;
+		border-radius: 20px;
+		outline: none;
+		margin-right: 10px;
+	}
+	#chat-input button {
+		padding: 8px 15px;
+		background-color: #2DD1C5;
+		color: white;
+		border: none;
+		cursor: pointer;
+		border-radius: 20px;
+		transition: background-color 0.3s;
+	}
+	#chat-input button:hover {
+		background-color: #1A9987;
+	}
+	#chat-toggle {
+		position: fixed;
+		width: 60px;
+		height: 60px;
+		bottom: 20px;
+		right: 30px;
+		background-color: #00467F;
+		color: yellow;
+		padding: 5px;
+		cursor: pointer;
+		border-radius: 30px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transition: background-color 0.3s;
+		font-family: Arial, sans-serif;
+		font-size: 30px;
+	}
+	#chatbot {
+		width: 95%;
+		height: 95%;
+	}
+	#chat-toggle:hover {
+		background-color: #1A9987;
+	}
 
 </style>
+<script>
+	// 상담 종료 시
 
-
-	<script>
-	//상담 종료 시 상담이 종료되었습니다 메시지를 보내고 버튼을 닫기로 변경
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
 		endButton.innerText = '닫기';
 		endButton.onclick = closeAndResetChat;
 	}
-	
-	// 닫기 버튼을 눌렀을 때 채팅 기록 리셋 및 창 닫기
+	// 닫기 버튼
 	function closeAndResetChat() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../main/resetChatHistory", true);
@@ -1537,7 +1552,6 @@ border-radius:15px;
 		};
 		xhr.send();
 	}
-	
 	// 메시지 전송 함수
 	function sendMessage(message) {
 		var messageInput = message || document.getElementById('chat-message').value;
@@ -1557,7 +1571,6 @@ border-radius:15px;
 		};
 		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
 	}
-	
 	// Enter 키로 메시지 전송
 	document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('chat-message').addEventListener('keydown', function(event) {
@@ -1567,10 +1580,8 @@ border-radius:15px;
 			}
 		});
 	});
-	
-</script>
 
-	<script>
+
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -1583,39 +1594,46 @@ border-radius:15px;
 			chatToggle.style.display = 'block';
 		}
 	}
-	
-	// Long Polling으로 메시지 갱신
+	// 메시지 갱신
 	function pollMessages() {
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "/main/getMessages", true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var chatBody = document.getElementById('chat-body');
-				var messages = JSON.parse(xhr.responseText);
-				chatBody.innerHTML = '';
-				messages.forEach(function(msg) {
-					var newMessage = document.createElement('div');
-					newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
-					newMessage.textContent = msg;
-					chatBody.appendChild(newMessage);
-				});
-				pollMessages();
-			}
-		};
-		xhr.send();
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("GET", "/main/getMessages", true);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            var chatBody = document.getElementById('chat-body');
+	            var messages = JSON.parse(xhr.responseText);
+	            chatBody.innerHTML = '';
+	            messages.forEach(function(msg) {
+	                var newMessage = document.createElement('div');
+	                if (msg.startsWith('팅커벨:')) {
+	                    newMessage.className = 'admin-message';
+	                    newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
+	                } else {
+	                    newMessage.className = 'user-message';
+	                    // "손님: " 접두사를 제거하고 메시지만 출력
+	                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
+	                }
+	                chatBody.appendChild(newMessage);
+	            });
+	            pollMessages();
+	        }
+	    };
+	    xhr.send();
 	}
-	
-	// 페이지 로드 후 처음 메시지 요청 시작
+	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
-	</script>
 
 
-	<!-- 채팅창 -->
-	<div id="chat-toggle" onclick="toggleChat()">채팅 상담</div>
+</script>
+
+	<!-- 채팅 상담 버튼 -->
+	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>
+	
+	<!-- 채팅 창 -->
 	<div id="chat-console">
 		<div id="chat-header">
-			채팅 상담
-			<button id="endChatButton" onclick="endChat()">끝내기</button>
+		채팅 상담
+		<button id="endChatButton" onclick="endChat()">끝내기</button>
 
 		</div>
 		<div id="chat-body"></div>
@@ -1624,35 +1642,39 @@ border-radius:15px;
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
-
-	<sitemesh:write property="body" />
+	
+<sitemesh:write property="body" />
 
 	<footer>
-		<table>
-			<tr>
-				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo"
-					src="../static/resources/123.png" width="80" align="middle"></td>
-				<td>상호명 : LLTA</td>
-				<td>365고객센터</td>
-			</tr>
-			<tr>
-				<td>대표이사 : 주인장</td>
-				<td>080-888-1234(무료)</td>
-			</tr>
-			<tr>
-				<td>본사 : 경기도 파주시 야당동</td>
-				<td>email : Tmaster@air.co.kr</td>
-			</tr>
-			<tr>
-				<td>사업자 등록번호 : 444-44-44444</td>
-				<td>전화번호 : 010-1234-5678</td>
-			</tr>
-			<tr>
-				<td>통신판매업신고 : 2023-경기비행-1233</td>
-				<td></td>
-			</tr>
-		</table>
+
+		<div class="footer-container">
+			<div class="footer-logo">
+				<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
+			</div>
+			<div class="footer-content">
+				<div class="footer-row">
+					<div class="footer-column">eLTA(주)</div>
+					<div class="footer-column">365고객센터</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">대표이사 주인장</div>
+					<div class="footer-column">080-888-1234(무료)</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">경기도 파주시 야당동</div>
+					<div class="footer-column">email : Tmaster@air.co.kr</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">사업자 등록번호 444-44-44444</div>
+					<div class="footer-column">전화번호 010-1234-5678</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-column">통신판매업 신고 제 24-1233</div>
+					<div class="footer-column"></div>
+				</div>
+			</div>
+		</div>
+
 	</footer>
 </body>
 </html>

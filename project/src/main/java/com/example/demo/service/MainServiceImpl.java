@@ -58,6 +58,38 @@ public class MainServiceImpl implements MainService {
 		return null;
     }
 
+	@Override
+	public String checkinGuide() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String seatGuide() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String baggageGuide() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String eventList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String travel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 	
 
 	

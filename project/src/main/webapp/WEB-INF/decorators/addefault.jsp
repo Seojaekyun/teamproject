@@ -164,11 +164,10 @@
 			<div id="two">    
 				<button><a href="adReserve">예약관리</a></button>
 				<button><a href="gongjiList">공지사항</a></button>
+				<button><a href="inquiryList">고객문의</a></button>
 				<button><a href="memberList">회원관리</a></button>
 				<button><a href="">비행일정</a></button>
-				<button><a href="">호텔예약</a></button>
 				<button><a href="">예약통계</a></button>
-				<button><a href="inquiryList">고객문의</a></button>
 			</div>
 		</div>
 	</header>
@@ -231,31 +230,34 @@
         }
     });
 
-    // Long Polling으로 새로운 메시지가 있을 때만 갱신
-    function pollMessages() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "../main/getMessages", true);  // 서버로부터 메시지 요청
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var chatBody = document.getElementById('chat-body');
-                var messages = JSON.parse(xhr.responseText); // JSON 배열 파싱
-                chatBody.innerHTML = '';  // 기존 메시지 초기화
-                // 각 메시지를 화면에 추가
-                messages.forEach(function(msg) {
-                    var newMessage = document.createElement('div');
-                    newMessage.className = msg.startsWith('팅커벨:') ? 'admin-message' : 'user-message';
-                    newMessage.textContent = msg;
-                    chatBody.appendChild(newMessage);
-                });
-                pollMessages(); // 재귀 호출로 새로운 메시지 확인
-            }
-        };
-        xhr.send();
-    }
-
-    // 페이지 로드 후 처음 메시지 요청 시작
-    pollMessages();
-
+ // 메시지 갱신
+	function pollMessages() {
+	    var xhr = new XMLHttpRequest();
+	    xhr.open("GET", "/main/getMessages", true);
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            var chatBody = document.getElementById('chat-body');
+	            var messages = JSON.parse(xhr.responseText);
+	            chatBody.innerHTML = '';
+	            messages.forEach(function(msg) {
+	                var newMessage = document.createElement('div');
+	                if (msg.startsWith('팅커벨:')) {
+	                    newMessage.className = 'admin-message';
+	                    newMessage.textContent = msg.replace(/^팅커벨:\s*/, '');
+	                } else {
+	                    newMessage.className = 'user-message';
+	                    // "손님: " 접두사를 제거하고 메시지만 출력
+	                    newMessage.textContent = '🚶'+ msg.replace(/^손님:\s*/, '');
+	                }
+	                chatBody.appendChild(newMessage);
+	            });
+	            pollMessages();
+	        }
+	    };
+	    xhr.send();
+	}
+	// 페이지 로드 후 메시지 요청 시작
+	pollMessages();
 </script>
 
 <sitemesh:write property="body"/>

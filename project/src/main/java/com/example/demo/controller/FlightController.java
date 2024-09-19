@@ -14,6 +14,7 @@ import com.example.demo.dto.AirportsDto;
 import com.example.demo.service.FlightService;
 
 @RestController
+
 @RequestMapping("/flights")
 public class FlightController {
 
@@ -26,3 +27,4 @@ public class FlightController {
         return flightService.getAllAirports();
     }
 }
+

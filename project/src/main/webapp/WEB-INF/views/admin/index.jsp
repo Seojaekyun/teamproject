@@ -42,8 +42,11 @@
 	section #third table {
 		border-spacing:0px;
 		width: 500px;
+		height: 224px;
 		border-spacing:0px;
 		margin-right: 30px;
+		overflow: hidden;
+		display: inline-block;
 	}
 	section #third #topinq {
 		border-spacing:0px;
@@ -229,19 +232,19 @@
 						<td id="num"> ${idto.id } </td>
 						<td id="title" align="center">
 							<a href="readnum?id=${idto.id}">
-								<c:if test="${idto.title==0}">
+								<c:if test="${idto.state==0}">
 								<span id="s1">예약접수 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==1}">
+								<c:if test="${idto.state==1}">
 								<span id="s2">탑승수속 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==2}">
+								<c:if test="${idto.state==2}">
 								<span id="s1">예약취소 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==3}">
+								<c:if test="${idto.state==3}">
 								<span id="s2">웹사이트 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==4}">
+								<c:if test="${idto.state==4}">
 								<span id="s1">기타 문의</span>
 								</c:if>
 							</a>

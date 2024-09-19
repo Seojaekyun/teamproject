@@ -17,13 +17,13 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private MemberMapper mapper;
-
+	
 	@Override
 	public String adReserve() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public String memberList(HttpServletRequest request, Model model) {
 		ArrayList<MemberDto> mlist=mapper.list();
@@ -33,7 +33,5 @@ public class AdminServiceImpl implements AdminService{
 		return "/admin/memberList";
 	}
 	
-
 	
-
 }
