@@ -1,22 +1,14 @@
 package com.example.demo.service;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.mapper.FlightMapper;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.AirportsDto;
-import com.example.demo.mapper.FlightMapper;
 
 @Service("fs")
 

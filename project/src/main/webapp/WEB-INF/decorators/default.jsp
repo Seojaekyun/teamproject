@@ -150,17 +150,29 @@ href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 		font-family: 'Hahmlet';
 		margin-top: 30px;
 		font-size: 13px;
-		background: gray;
+		background: lightgray;
 		color: white;
+		text-align: center;
+	}
+	footer table {
+		width: 100%;
+		max-width: 1000px;
+		margin: auto;
 		text-align: left;
 	}
-	nav ul li {
-		display: block;
-		margin: 10px 0;
-	}
-		
-	footer table, footer td {
-		font-size: 11px;
+	@media (max-width: 768px) {
+		header, #outer #first, nav ul {
+			flex-direction: column;
+			text-align: center;
+		}
+		nav ul li {
+			display: block;
+			margin: 10px 0;
+		}
+		footer table, footer td {
+			text-align: left;
+			font-size: 11px;
+		}
 	}
 
 </style>
@@ -522,36 +534,31 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<sitemesh:write property="body" />
 	
-<footer>
-	
-	<div class="footer-container">
-		<div class="footer-logo">
-			<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
-		</div>
-		<div class="footer-content">
-			<div class="footer-row">
-				<div class="footer-column">eLTA(주)</div>
-				<div class="footer-column">365고객센터</div>
-			</div>
-			<div class="footer-row">
-				<div class="footer-column">대표이사 주인장</div>
-				<div class="footer-column">080-888-1234(무료)</div>
-			</div>
-			<div class="footer-row">
-				<div class="footer-column">경기도 파주시 야당동</div>
-				<div class="footer-column">email : Tmaster@air.co.kr</div>
-			</div>
-			<div class="footer-row">
-				<div class="footer-column">사업자 등록번호 444-44-44444</div>
-				<div class="footer-column">전화번호 010-1234-5678</div>
-			</div>
-			<div class="footer-row">
-				<div class="footer-column">통신판매업 신고 제 24-1233</div>
-				<div class="footer-column"></div>
-			</div>
-		</div>
-	</div>
-	
-</footer>
+	<footer>
+		<table>
+			<tr>
+				<td rowspan="5" width="200"></td>
+				<td rowspan="5"><img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle"></td>
+				<td> (주)eLT항공 </td>
+				<td> 365고객센터 </td>
+			</tr>
+			<tr>
+				<td> 대표이사 주인장 </td>
+				<td> 080-888-1234(무료) </td>
+			</tr>
+			<tr>
+				<td> 본사 : 경기도 파주시 야당동 </td>
+				<td> email : Tmaster@air.co.kr </td>
+			</tr>
+			<tr>
+				<td> 사업자 등록번호 444-44-44444 </td>
+				<td> 전화번호 010-1234-5678 </td>
+			</tr>
+			<tr>
+				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
+				<td></td>
+			</tr>
+		</table>
+	</footer>
 </body>
 </html>

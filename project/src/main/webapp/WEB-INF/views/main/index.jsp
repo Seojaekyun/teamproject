@@ -21,412 +21,411 @@
     .main_content {
         display: none;
     }
-.air_service {
-	position: relative;
-	background-image: url('../static/resources/background.jpg');
-	background-size: cover;
-	width: 100%;
-	height: 450px;
-	background-repeat: no-repeat;
-	z-index: 0;
-}
-.air_align {
-	margin-left: 73px;
-	margin-right: 73px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-.air_contentbox {
-	position: relative;
-	top: 5.3rm;
-	left: 0;
-	width: 90%;
-	height: 70%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	z-index: 2;
-}
-.air_widget {
-	position: absolute;
-	top: 7.4rem;
-	display: block;
-	width: 100%;
-	height: 54px;
-	content: "";
-	z-index: 1;
-	margin: auto;
-}
-.booking_widget_list {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	height: 55px;
-	position: relative;
-}
-.booking_widget_list li {
-	flex: 1;
-	text-align: center;
-	border: 1px solid #65728a;
-	padding-block: 15px;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-	margin: 0.5px;
-	background-color: #65728a;
-	z-index: 2;
-}
-.booking_widget_list li.active {
-	background-color: white;
-	border: 3px solid white;
-}
-.booking_widget_list li.active span {
-	color: #65728a;
-	font-weight: 900;
-}
-#booking_menu {
-	display: inline-block;
-}
-.booking_widget_list button {
-	width: 100%;
-	height: 100%;
-	background: none;
-	border: none;
-	font-size: 16px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.booking_widget_list button span {
-	font-size: 16px;
-	color: white;
-	position: relative;
-	top: -5px;
-}
-/* booking_contents의 기본 스타일 */
-.booking_contents {
-	display: flex;
-	flex-direction: column; /* 자식 요소들을 세로로 배치 */
-	align-items: center;
-	background-color: white;
-	border: 1px solid #ccc;
-	border-radius: 15px;
-	width: 100%;
-	height: 220px;
-	padding-left: 40px;
-	padding-top: 30px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-}
-/* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
-.booking_methods {
-	display: absolute;
-	align-items: center;
-	width: 100%;
-	height: 170px;
-}
-.select_contents, .check-in_contents, .schedule_contents {
-	position: relative;
-	width: 100%;
-	height: 220px;
-	z-index: 3;
-	background-color: white;
-	border: 2px solid white;
-	border-radius: 15px;
-	margin-top: -10px;
-	padding-left: 40px;
-	padding-top: 30px;
-	padding-right: 40px;
-	padding-bottom: 10px;
-	display: none;
-}
-.b_methodbox {
-	float: left;
-	width: auto;
-	margin-top: 0;
-	margin-right: 3.5rem;
-	margin-bottom: 1rem;
-	text-align: left;
-}
-.booking_types {
-    list-style-type: none; /* 리스트 스타일 제거 */
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc; /* 경계선 추가 */
-    border-radius: 25px;
-}
-.booking_types li {
-    flex: 1;
-    text-align: center;
-}
-/* 기본 스타일 */
-#general, #mileage {
-	padding: 10px 20px;
-    background-color: white;
-    color: #1f0c59;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    border-radius: 25px;
-    list-style-type: none;
-    transition: background-color 0.3s, color 0.3s;
-    font-size:16px;
-    border:none;
-}
-#general{
- width: 75px;
-}
-#mileage{
-width: 145px;}
-#general:hover, #mileage:hover {
-    text-decoration: underline; /* hover 시 밑줄 추가 */
-    text-decoration-color: #1f0c59; /* 밑줄 색을 글씨색과 동일하게 설정 */
-}
-.active-button  {
-	background-color: #1f0c59 !important; /* 파란색 배경 */
-    color: white !important; /* 하얀색 글씨 */
-    padding: 10px 20px !important; /* 좌우 패딩 */
-    border-radius: 25px !important; /* 모서리 둥글게 */
-    border: 1px solid #1f0c59 !important; /* 기본 테두리 제거 */
-    font-size: 16px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-}
-.active-button:hover {
-    text-decoration: underline !important; /* 기본적으로 밑줄 없음 */
-    text-decoration-color: white !important;}
-#quick_booking {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	align-self: flex-start;
-	width: 270px;
-	height: 80px;
-}
-.quick_booking_button {
-	flex: 1;
-	text-align: center;
-	margin: 0 5px;
-	padding: 10px;
-	border: none;
-	background-color: white;
-	cursor: pointer;
-	font-size: 16px;
-	color: #333;
-	border-radius: 15px;
-}
-.circle_button {
-	flex-grow: 1;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	padding: 0px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.quick_booking_button:first-child {
-	flex-grow: 2;
-}
-.quick_booking_button:last-child {
-	flex-grow: 2;
-}
-.quick_booking_button:hover {
-	background-color: #ddd;
-}
-#from-text, #departure-text {
-	display: block;
-	margin: 0;
-}
-#from-text, #to-text {
-	font-size: 40px;
-	font-weight: bold;
-}
-#departure-text, #arrival-text {
-	font-size: 14px;
-	color: #666;
-}
-/* 출/도착지 팝업 스타일 */
-.popup {
-	position: absolute;
-	top: 280px;
-	left: 0%; /* 원하는 위치로 변경 가능 */
-	width: 740px;
-	padding: 20px;
-	background-color: white;
-	border: 1px solid #ccc;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 15px;
-	z-index:1000;
-}
-.close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 24px;
-	cursor: pointer;
-}
-.quick_booking_aligner {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-	width: 100%;
-	max-width: 1150px;
-	margin-left: -10px;
-	margin-top: 45px;
-}
-.flatpickr-calendar {
-	position: absolute !important;
-	left: 10% !important; top : 550px !important;
-	width: 80% !important; /* 달력 전체 너비 */
-	max-width: 100% !important;
-	border-radius: 10px !important;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-	font-size: 16px !important;
-	top: 550px !important;
-}
-p {
-	font-size: 14px;
-	color: #333;
-}
-#date_selection button, #passenger_selection button, #seats_selection button
-	{
-	padding-top: 20px;
-	padding-bottom: 5px;
-	background-color: transparent;
-	border: none;
-	border-bottom: 1px solid #333;
-	font-size: 16px;
-	color: #333;
-	cursor: pointer;
-	text-align: left;
-	outline: none;
-}
-#date_selection button {
-	width: 310px;
-}
-#passenger_selection button {
-	width: 150px;
-}
-.passenger-popup {
-	position: absolute;
-	top: 280px;
-	left: 40%; /* 원하는 위치로 변경 가능 */
-	width: 740px;
-	padding: 20px;
-	background-color: white;
-	border: 1px solid #ccc;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	z-index: 1000;
-	border-radius: 15px;
-}
-.passenger-counter {
-	display: flex; /* 가로로 정렬 */
-	justify-content: space-around; /* 여유 공간을 균등하게 배치 */
-	align-items: center; /* 세로 정렬 */
-}
-.passenger-type {
-	display: flex;
-	align-items: center; /* 세로 정렬 */
-	margin-top: 20px;
-	font-size: 20px;
-}
-.decrease-btn, .increase-btn {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	border: 1px solid #ccc;
-	background-color: #fff;
-	font-size: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	margin: 0 10px; /* 버튼 간의 여유 공간 */
-}
-#seats_selection button {
-	width: 150px;
-	padding-top: 20px;
-	padding-bottom: 5px;
-	background-color: transparent; /* 배경색을 투명하게 설정 */
-	border: none; /* 기본 테두리를 제거 */
-	border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
-	font-size: 14px; /* 글자 크기 조정 */
-	color: #333; /* 텍스트 색상 */
-	cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-	text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-	outline: none; /* 클릭 시 기본 아웃라인 제거 */
-}
-/* 좌석 선택 팝업 스타일 */
-.seats-popup {
-	position: absolute;
-	top: 280px;
-	left: 40%; /* 원하는 위치로 변경 가능 */
-	width: 740px;
-	padding: 20px;
-	background-color: white;
-	border: 1px solid #ccc;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	z-index: 1000;
-	border-radius: 15px;
-}
-.seat-options {
-	display: flex;
-	justify-content: space-around;
-	margin-top: 20px;
-}
-.seat-options button {
-	flex: 1;
-	margin: 5px;
-	padding: 15px;
-	cursor: pointer;
-	background-color: white;
-	border: 1px solid #ccc;
-	font-size: 16px;
-	transition: background-color 0.3s ease;
-}
-.seat-options button:hover {
-	background-color: #f0f0f0;
-}
-/* 라디오 버튼 숨기기 */
-input[name="t_methods"] {
-    display: none;
-}
-/* 기본 버튼 스타일 */
-#trip-methods label {
-    cursor: pointer;
-    padding: 5px 10px;
-    font-size: 16px;
-    border: none;
-    display: inline-block;
-    margin-right: 10px;
-    position: relative;
-    color: black;
-}
-/* 선택된 버튼 아래 빨간 줄 */
-input[name="t_methods"]:checked + label {
-    font-weight: bold;
-    color: black;
-}
-/* 선택된 버튼 아래에 빨간 줄 */
-input[name="t_methods"]:checked + label::after {
-    content: "";
-    display: block;
-    width: 80%;
-    height: 3px;
-    background-color: red;
-    position: absolute;
-    bottom: -2px; /* 밑으로 약간의 공간을 주기 */
-    left: 10%;
-}
+	.air_service {
+		position: relative;
+		background-image: url('../static/resources/background.jpg');
+		background-size: cover;
+		width: 100%;
+		height: 350px;
+		background-repeat: no-repeat;
+		z-index: 0;
+	}
+	.air_align {
+		margin-left: 73px;
+		margin-right: 73px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.air_contentbox {
+		position: relative;
+		left: 0;
+		width: 90%;
+		height: 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
+	.air_widget {
+		position: absolute;
+		top: 2.5rem;
+		display: block;
+		width: 100%;
+		height: 54px;
+		content: "";
+		z-index: 1;
+		margin: auto;
+	}
+	.booking_widget_list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		height: 55px;
+		position: relative;
+	}
+	.booking_widget_list li {
+		flex: 1;
+		text-align: center;
+		border: 1px solid #65728a;
+		padding-block: 15px;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+		margin: 0.5px;
+		background-color: #65728a;
+		z-index: 2;
+	}
+	.booking_widget_list li.active {
+		background-color: white;
+		border: 3px solid white;
+	}
+	.booking_widget_list li.active span {
+		color: #65728a;
+		font-weight: 900;
+	}
+	#booking_menu {
+		display: inline-block;
+	}
+	.booking_widget_list button {
+		width: 100%;
+		height: 100%;
+		background: none;
+		border: none;
+		font-size: 16px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.booking_widget_list button span {
+		font-size: 16px;
+		color: white;
+		position: relative;
+		top: -5px;
+	}
+	/* booking_contents의 기본 스타일 */
+	.booking_contents {
+		display: flex;
+		flex-direction: column; /* 자식 요소들을 세로로 배치 */
+		align-items: center;
+		background-color: white;
+		border: 1px solid #ccc;
+		border-radius: 15px;
+		width: 100%;
+		height: 220px;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+	}
+	/* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
+	.booking_methods {
+		display: absolute;
+		align-items: center;
+		width: 100%;
+		height: 170px;
+	}
+	.select_contents, .check-in_contents, .schedule_contents {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		z-index: 3;
+		background-color: white;
+		border: 2px solid white;
+		border-radius: 15px;
+		margin-top: -10px;
+		padding-left: 40px;
+		padding-top: 30px;
+		padding-right: 40px;
+		padding-bottom: 10px;
+		display: none;
+	}
+	.b_methodbox {
+		float: left;
+		width: auto;
+		margin-top: 0;
+		margin-right: 3.5rem;
+		margin-bottom: 1rem;
+		text-align: left;
+	}
+	.booking_types {
+	    list-style-type: none; /* 리스트 스타일 제거 */
+	    padding: 0;
+	    margin: 0;
+	    display: flex;
+	    justify-content: space-between;
+	    border: 1px solid #ccc; /* 경계선 추가 */
+	    border-radius: 25px;
+	}
+	.booking_types li {
+	    flex: 1;
+	    text-align: center;
+	}
+	/* 기본 스타일 */
+	#general, #mileage {
+		padding: 10px 20px;
+	    background-color: white;
+	    color: #1f0c59;
+	    border: 1px solid #ccc;
+	    cursor: pointer;
+	    border-radius: 25px;
+	    list-style-type: none;
+	    transition: background-color 0.3s, color 0.3s;
+	    font-size:16px;
+	    border:none;
+	}
+	#general{
+	 width: 75px;
+	}
+	#mileage{
+	width: 145px;}
+	#general:hover, #mileage:hover {
+	    text-decoration: underline; /* hover 시 밑줄 추가 */
+	    text-decoration-color: #1f0c59; /* 밑줄 색을 글씨색과 동일하게 설정 */
+	}
+	.active-button  {
+		background-color: #1f0c59 !important; /* 파란색 배경 */
+	    color: white !important; /* 하얀색 글씨 */
+	    padding: 10px 20px !important; /* 좌우 패딩 */
+	    border-radius: 25px !important; /* 모서리 둥글게 */
+	    border: 1px solid #1f0c59 !important; /* 기본 테두리 제거 */
+	    font-size: 16px !important;
+	    font-weight: bold !important;
+	    cursor: pointer !important;
+	}
+	.active-button:hover {
+	    text-decoration: underline !important; /* 기본적으로 밑줄 없음 */
+	    text-decoration-color: white !important;}
+	#quick_booking {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		align-self: flex-start;
+		width: 270px;
+		height: 80px;
+	}
+	.quick_booking_button {
+		flex: 1;
+		text-align: center;
+		margin: 0 5px;
+		padding: 10px;
+		border: none;
+		background-color: white;
+		cursor: pointer;
+		font-size: 16px;
+		color: #333;
+		border-radius: 15px;
+	}
+	.circle_button {
+		flex-grow: 1;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		padding: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.quick_booking_button:first-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:last-child {
+		flex-grow: 2;
+	}
+	.quick_booking_button:hover {
+		background-color: #ddd;
+	}
+	#from-text, #departure-text {
+		display: block;
+		margin: 0;
+	}
+	#from-text, #to-text {
+		font-size: 40px;
+		font-weight: bold;
+	}
+	#departure-text, #arrival-text {
+		font-size: 14px;
+		color: #666;
+	}
+	/* 출/도착지 팝업 스타일 */
+	.popup {
+		position: absolute;
+		top: 280px;
+		left: 0%; /* 원하는 위치로 변경 가능 */
+		width: 740px;
+		padding: 20px;
+		background-color: white;
+		border: 1px solid #ccc;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		border-radius: 15px;
+		z-index:1000;
+	}
+	.close-btn {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 24px;
+		cursor: pointer;
+	}
+	.quick_booking_aligner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+		width: 100%;
+		max-width: 1150px;
+		margin-left: -10px;
+		margin-top: 45px;
+	}
+	.flatpickr-calendar {
+		position: absolute !important;
+		left: 10% !important; top : 550px !important;
+		width: 80% !important; /* 달력 전체 너비 */
+		max-width: 100% !important;
+		border-radius: 10px !important;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+		font-size: 16px !important;
+		top: 550px !important;
+	}
+	p {
+		font-size: 14px;
+		color: #333;
+	}
+	#date_selection button, #passenger_selection button, #seats_selection button
+		{
+		padding-top: 20px;
+		padding-bottom: 5px;
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid #333;
+		font-size: 16px;
+		color: #333;
+		cursor: pointer;
+		text-align: left;
+		outline: none;
+	}
+	#date_selection button {
+		width: 310px;
+	}
+	#passenger_selection button {
+		width: 150px;
+	}
+	.passenger-popup {
+		position: absolute;
+		top: 280px;
+		left: 40%; /* 원하는 위치로 변경 가능 */
+		width: 740px;
+		padding: 20px;
+		background-color: white;
+		border: 1px solid #ccc;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+		border-radius: 15px;
+	}
+	.passenger-counter {
+		display: flex; /* 가로로 정렬 */
+		justify-content: space-around; /* 여유 공간을 균등하게 배치 */
+		align-items: center; /* 세로 정렬 */
+	}
+	.passenger-type {
+		display: flex;
+		align-items: center; /* 세로 정렬 */
+		margin-top: 20px;
+		font-size: 20px;
+	}
+	.decrease-btn, .increase-btn {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		margin: 0 10px; /* 버튼 간의 여유 공간 */
+	}
+	#seats_selection button {
+		width: 150px;
+		padding-top: 20px;
+		padding-bottom: 5px;
+		background-color: transparent; /* 배경색을 투명하게 설정 */
+		border: none; /* 기본 테두리를 제거 */
+		border-bottom: 1px solid #333; /* 하단에만 테두리 추가 */
+		font-size: 14px; /* 글자 크기 조정 */
+		color: #333; /* 텍스트 색상 */
+		cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
+		text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+		outline: none; /* 클릭 시 기본 아웃라인 제거 */
+	}
+	/* 좌석 선택 팝업 스타일 */
+	.seats-popup {
+		position: absolute;
+		top: 280px;
+		left: 40%; /* 원하는 위치로 변경 가능 */
+		width: 740px;
+		padding: 20px;
+		background-color: white;
+		border: 1px solid #ccc;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+		border-radius: 15px;
+	}
+	.seat-options {
+		display: flex;
+		justify-content: space-around;
+		margin-top: 20px;
+	}
+	.seat-options button {
+		flex: 1;
+		margin: 5px;
+		padding: 15px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid #ccc;
+		font-size: 16px;
+		transition: background-color 0.3s ease;
+	}
+	.seat-options button:hover {
+		background-color: #f0f0f0;
+	}
+	/* 라디오 버튼 숨기기 */
+	input[name="t_methods"] {
+	    display: none;
+	}
+	/* 기본 버튼 스타일 */
+	#trip-methods label {
+	    cursor: pointer;
+	    padding: 5px 10px;
+	    font-size: 16px;
+	    border: none;
+	    display: inline-block;
+	    margin-right: 10px;
+	    position: relative;
+	    color: black;
+	}
+	/* 선택된 버튼 아래 빨간 줄 */
+	input[name="t_methods"]:checked + label {
+	    font-weight: bold;
+	    color: black;
+	}
+	/* 선택된 버튼 아래에 빨간 줄 */
+	input[name="t_methods"]:checked + label::after {
+	    content: "";
+	    display: block;
+	    width: 80%;
+	    height: 3px;
+	    background-color: red;
+	    position: absolute;
+	    bottom: -2px; /* 밑으로 약간의 공간을 주기 */
+	    left: 10%;
+	}
     /* 추가된 섹션 스타일 */
     .fade-in-section {
         width: 1000px;
