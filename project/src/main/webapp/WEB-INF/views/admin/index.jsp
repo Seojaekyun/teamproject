@@ -40,7 +40,7 @@
 	}
 	section #second{
 		background: white;
-		display: flex;
+		display: block;
 		margin: auto;
 	}
 	section #second table {
@@ -93,8 +93,13 @@
 		width: 250px;
 	}
 	#pagination {
-		display: block;
+	    display: flex;
+	    justify-content: left;
+	    margin-top: 10px;
+	    clear: both;
+	    width: 600px;
 	}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -169,7 +174,8 @@
 	                <tr>
 	                    <td>출발 공항</td>
 	                    <td>도착 공항</td>
-	                    <td>출발 시간</td>
+	                    <td style="width: 200px;">출발 시간</td>
+	                    <td style="width: 200px;">현지도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
 	                <c:forEach items="${flightList}" var="flight">
@@ -177,6 +183,7 @@
 	                        <td>${flight.departureAirport}</td>
 	                        <td>${flight.arrivalAirport}</td>
 	                        <td>${flight.departureTime}</td>
+	                        <td>${flight.arrivalTime}</td>
 	                        <td>${flight.flightDuration}</td>
 	                    </tr>
 	                </c:forEach>
@@ -185,7 +192,7 @@
 	    </div>
 	    <div id="pagination">
 	       	<c:forEach begin="1" end="${totalPages}" var="i">
-	       	<a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+	       	<a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>&nbsp;&nbsp;&nbsp;
 	       	</c:forEach>
 	    </div>
 	</div>
