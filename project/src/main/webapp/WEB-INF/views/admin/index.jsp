@@ -42,8 +42,11 @@
 	section #third table {
 		border-spacing:0px;
 		width: 500px;
+		height: 224px;
 		border-spacing:0px;
 		margin-right: 30px;
+		overflow: hidden;
+		display: inline-block;
 	}
 	section #third #topinq {
 		border-spacing:0px;
@@ -190,30 +193,49 @@
 	<div id="third">
 		<div id="one">
 			<div id="topinq">
-				<table>
-					<caption><h5 align="left"> 주요문의 </h5></caption>
-					<tr>
-						<td id="num"> 순위 </td>
-						<td id="title"> 문의 사항 </td>
-						<td> 문의량 </td>
-					</tr>
-					<tr>
-						<td> 1 </td>
-						<td> 예약관련 문의 </td>
-						<td> 1754 </td>
-					</tr>
-					<tr>
-						<td> 2 </td>
-						<td> 일정관련 문의 </td>
-						<td> 512 </td>
-					</tr>
-					<tr>
-						<td> 3 </td>
-						<td> 기타 </td>
-						<td> 76 </td>
-					</tr>
-				</table>
-			</div>
+                <table>
+                    <caption><h5 align="left"> 주요문의 </h5></caption>
+                    <tr>
+                        <td id="num"> 순위 </td>
+                        <td id="title"> 문의 사항 </td>
+                        <td> 문의량 </td>
+                    </tr>
+                    <!-- countsList 디버깅 출력 -->
+                    <c:if test="${empty countsList}">
+                        <tr>
+                            <td colspan="3">데이터가 없습니다.</td>
+                        </tr>
+                    </c:if>
+                    <c:forEach items="${countsList}" var="entry" varStatus="status">
+                    <tr>
+                        <td id="num"> ${status.index + 1} </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${entry.state eq 4}">
+                                    <span id="s1">기타 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 3}">
+                                    <span id="s2">웹사이트 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 2}">
+                                    <span id="s1">예약취소 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 1}">
+                                    <span id="s2">탑승수속 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 0}">
+                                    <span id="s1">예약접수 관련 문의</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span id="s1">알 수 없는 문의</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td> ${entry.count} </td>
+                    </tr>
+                    </c:forEach>
+                </table>
+            </div>
 			<div id="inq">
 				<table>
 					<caption><h5 align="left"> 최근문의 </h5></caption>
@@ -228,20 +250,20 @@
 					<tr>
 						<td id="num"> ${idto.id } </td>
 						<td id="title" align="center">
-							<a href="readnum?id=${idto.id}">
-								<c:if test="${idto.title==0}">
+							<a href="inquiryContent?id=${idto.id}">
+								<c:if test="${idto.state==0}">
 								<span id="s1">예약접수 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==1}">
+								<c:if test="${idto.state==1}">
 								<span id="s2">탑승수속 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==2}">
+								<c:if test="${idto.state==2}">
 								<span id="s1">예약취소 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==3}">
+								<c:if test="${idto.state==3}">
 								<span id="s2">웹사이트 관련 문의</span>
 								</c:if>
-								<c:if test="${idto.title==4}">
+								<c:if test="${idto.state==4}">
 								<span id="s1">기타 문의</span>
 								</c:if>
 							</a>

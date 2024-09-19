@@ -37,7 +37,32 @@ public class MainController {
 	public String adminI(HttpServletRequest request, Model model) {
 		return service.adminI(request, model);
 	}
-		
+	
+	@RequestMapping("/guide/checkinGuide") 
+	public String checkinGuide() {
+		return service.checkinGuide();
+	}
+	
+	@RequestMapping("/guide/seatGuide") 
+	public String seatGuide() {
+		return service.seatGuide();
+	}
+	
+	@RequestMapping("/guide/baggageGuide") 
+	public String baggageGuide() {
+		return service.baggageGuide();
+	}
+	
+	@RequestMapping("/main/eventList") 
+	public String eventList() {
+		return service.eventList();
+	}
+	
+	@RequestMapping("/guide/travel") 
+	public String travel() {
+		return service.travel();
+	}
+	
 	// 메시지 전송 처리
 	@PostMapping("/main/sendMessage")
 	@ResponseBody

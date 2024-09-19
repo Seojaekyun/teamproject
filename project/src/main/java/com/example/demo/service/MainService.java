@@ -12,5 +12,11 @@ public interface MainService {
 	public String saveMessage(String message, boolean isAdmin);
 	public List<String> getMessages();
 	public String clearChatMessages();
+	public String checkinGuide();
+	public String seatGuide();
+	public String baggageGuide();
+	public String eventList();
+	public String travel();
+	
 	
 }

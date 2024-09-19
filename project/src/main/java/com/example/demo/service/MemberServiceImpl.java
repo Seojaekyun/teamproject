@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -15,22 +17,26 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper mapper;
 	
 	@Override
-	public String member() 
-	{		 
+	public String member() {
 		return "/member/member";
 	}
 	
 	@Override
-	public String useridCheck(String userid)
-	{
-		return mapper.useridCheck(userid); 
+	public String useridCheck(String userid) {
+		return mapper.useridCheck(userid);
 	}
-
+	
 	@Override
-	public String memberOk(MemberDto mdto) 
-	{
+	public String memberOk(MemberDto mdto) {
 		mapper.memberOk(mdto);
 		return "redirect:/login/login";
 	}
+	
+	@Override
+	public List<MemberDto> getAllMembers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	
 }

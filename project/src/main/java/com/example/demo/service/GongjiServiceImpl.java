@@ -40,7 +40,7 @@ public class GongjiServiceImpl implements GongjiService {
 	public String writeOk(GongjiDto gdto, HttpSession session) {
 		mapper.writeOk(gdto);
 		
-		return "/admin/gongjiList";
+		return "redirect:/admin/gongjiList";
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class GongjiServiceImpl implements GongjiService {
 		
 		model.addAttribute("gdto", gdto);
 		
-		return "/gongji/update";
+		return "/admin/gongjiUpdate";
 	}
 
 	@Override
 	public String updateOk(GongjiDto gdto) {
 		mapper.updateOk(gdto);
-		return "redirect:/gongji/content?id="+gdto.getId();
+		return "redirect:/admin/gongjiContent?id="+gdto.getId();
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class GongjiServiceImpl implements GongjiService {
 		String id=request.getParameter("id");
 		mapper.delete(id);
 		
-		return "redirect:/gongji/list";
+		return "redirect:/admin/gongjiList";
 	}
 
 	@Override
