@@ -20,23 +20,20 @@ public class MemberController {
 	private MemberService service;
 	
 	@RequestMapping("/member/member")
-	public String member()
-	{
+	public String member() {
 		return service.member();
 	}
 	
 	@RequestMapping("/member/useridCheck")
-	public @ResponseBody String useridCheck(HttpServletRequest request)
-	{
+	public @ResponseBody String useridCheck(HttpServletRequest request) {
 		String userid=request.getParameter("userid");
-		
 		return service.useridCheck(userid);
 	}
 	
 	@RequestMapping("/member/memberOk")
-	public String memberOk(MemberDto mdto)
-	{
+	public String memberOk(MemberDto mdto) {
 		return service.memberOk(mdto);
 	}
+	
 	
 }

@@ -1,8 +1,17 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.FlightsDto;
+import com.example.demo.dto.FlightDto;
+
 import java.util.List;
 
+import com.example.demo.dto.AirportsDto;
+
 public interface FlightService {
-    List<FlightsDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
+
+	 List<AirportsDto> getAllAirports();
+
+   List<FlightDto> getAvailableFlightsByDate(String date);
+	List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
+	List<FlightDto> getAvailableFlights();
+
 }
