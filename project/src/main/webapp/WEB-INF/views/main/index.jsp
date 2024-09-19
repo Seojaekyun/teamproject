@@ -564,7 +564,7 @@
 
     function openPopup(type) {
         if (type === 'departure') {
-            document.getElementById('popup').style.display = 'block';  // 출발지 팝업
+            document.getElementById('departure-popup').style.display = 'block';  // 출발지 팝업
         } else if (type === 'arrival') {
             document.getElementById('arrival-popup').style.display = 'block';  // 도착지 팝업
         }
@@ -575,7 +575,7 @@
 
     function closePopup(type) {
         if (type === 'departure') {
-            document.getElementById('popup').style.display = 'none';  // 출발지 팝업 닫기
+            document.getElementById('departure-popup').style.display = 'none';  // 출발지 팝업 닫기
         } else if (type === 'arrival') {
             document.getElementById('arrival-popup').style.display = 'none';  // 도착지 팝업 닫기
         } else if (type === 'passenger') {
@@ -800,10 +800,13 @@
                                         </button>
                                     </div>
                                     <!-- 출발지 div 팝업 -->
-                                    <div id="popup" class="popup" style="display: none;">
+                                    <div id="departure-popup" class="popup">
                                         <div class="popup-content">
-                                            <h2>출발지 선택</h2>
+                                        	<span class="close-btn" onclick="closePopup('departure')">&times;</span>
+                                            <h2>출발지 검색</h2>
+                                            <input type="text" id="departure-input" placeholder="출발지 입력" onkeyup="autocomplete('departure')">
                                             <ul id="airport-list"></ul> <!-- 공항 목록이 표시될 리스트 -->
+                                            <button onclick="setLocation('departure')">선택</button> <!-- 선택 버튼 -->
                                         </div>
                                     </div>
                                     <!-- 도착지 팝업 -->
