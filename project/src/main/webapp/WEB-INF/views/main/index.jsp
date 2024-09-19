@@ -614,7 +614,6 @@ function loadDeparture() {
             airportList.appendChild(li); // 리스트에 항목 추가
         });
         
- 
     };
     xhr.send(); // 요청 전송
 }
