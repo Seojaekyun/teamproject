@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.InquiryDto;
+import com.example.demo.dto.StateCountDto;
 import com.example.demo.mapper.InquiryMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Qualifier("is")
@@ -76,9 +79,32 @@ public class InquiryServiceImpl implements InquiryService {
 
     @Override
     public String inquiryList(HttpServletRequest request, Model model) {
+        // 모든 문의 리스트 조회
         ArrayList<InquiryDto> ilist = mapper.list();
         model.addAttribute("ilist", ilist);
+        
+        // State별 문의 수 조회
+        List<StateCountDto> countsList = mapper.listCountsPerState();
+        
+        // 디버깅: countsList 내용 출력
+        System.out.println("countsList size: " + countsList.size());
+        for (StateCountDto entry : countsList) {
+            System.out.println("State: " + entry.getState() + ", Count: " + entry.getCount());
+        }
+        
+        // JSP에 countsList 전달
+        model.addAttribute("countsList", countsList);
+        
         return "/admin/inquiryList";
     }
+
+	@Override
+	public String inquiryContent(HttpServletRequest request, Model model) {
+		String id = request.getParameter("id");
+        InquiryDto idto = mapper.content(id);
+        idto.setContent(idto.getContent().replace("\\r\\n", "<br>"));
+        model.addAttribute("idto", idto);
+        return "/admin/inquiryContent";
+	}
     
 }

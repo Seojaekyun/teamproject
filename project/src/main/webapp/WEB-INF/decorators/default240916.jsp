@@ -491,8 +491,11 @@ background-color: white;
 	width: 150px;
 }
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
 #seats_selection button {
    width: 150px;
     padding-top: 20px;
@@ -505,6 +508,16 @@ background-color: white;
     cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     outline: none; /* 클릭 시 기본 아웃라인 제거 */
+
+#passenger-btn span {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+#passenger-btn span {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 =======
 #passenger-btn span {
@@ -513,8 +526,11 @@ background-color: white;
     height: 100%;
 }
 
+<<<<<<< HEAD
 
 >>>>>>> branch 'hyunju' of https://github.com/Seojaekyun/teamproject.git
+=======
+>>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
 
 /* 좌석 선택 팝업 스타일 */
 .seat-popup {

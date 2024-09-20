@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String memberOk(MemberDto mdto) {
 		mapper.memberOk(mdto);
-		return "/login/login";
+		return "redirect:/login/login";
 	}
 	
 	@Override

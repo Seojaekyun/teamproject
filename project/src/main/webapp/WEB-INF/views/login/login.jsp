@@ -190,11 +190,11 @@
      <h2> 로그인 </h2>
      <div> 
        <div class="inner">아이디</div>
-       <input type="text" name="userid" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)">
+       <input type="text" name="userid" value="superman" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)">
      </div>
      <div> 
        <div class="inner">비밀번호</div>
-       <input type="password" name="pwd" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
+       <input type="password" name="pwd" value="123" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
      </div>
      <p align="center"> <input type="submit" value="로그인" id="sub"> </p>
      <p> 아이디찾기 | 비밀번호 찾기 </p>

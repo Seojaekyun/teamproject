@@ -4,5 +4,12 @@
 	<select id="ilist" resultType="com.example.demo.dto.InquiryDto">
 		select * from inquiry order by id desc
 	</select>
+	<select id="listCountsPerState" resultType="com.example.demo.dto.StateCountDto">
+		SELECT state, COUNT(*) AS count FROM inquiry
+		GROUP BY state ORDER BY state DESC
+	</select>
+		<select id="loginOk" resultType="String">
+		select name from member where userid=#{userid} and pwd=#{pwd}
+	</select>
 	
 </mapper>

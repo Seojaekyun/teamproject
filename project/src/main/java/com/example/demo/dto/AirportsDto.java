@@ -11,4 +11,6 @@ public class AirportsDto {
     private String country;         
     private String timezone;
     private String detailedCity;
+
 }
+

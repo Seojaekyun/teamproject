@@ -68,7 +68,7 @@ position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 80%;
+	width: 85%;
 	height: 55px;
 	position: relative;
 }
@@ -119,7 +119,7 @@ position: relative;
 	background-color: white;
 	border: 1px solid #ccc;
 	border-radius: 15px;
-	width: 80%;
+	width: 85%;
 	height: 235px;
 	padding-left: 40px;
 	padding-top: 30px;
@@ -135,7 +135,7 @@ position: relative;
 }
 .select_contents, .check-in_contents, .schedule_contents {
 	position: relative;
-	width: 80%;
+	width: 85%;
 	height: 235px;
 	z-index: 3;
 	background-color: white;
@@ -187,6 +187,8 @@ position: relative;
 }
 #mileage{
 width: 145px;}
+
+ 
 #general:hover, #mileage:hover {
     text-decoration: underline; /* hover 시 밑줄 추가 */
     text-decoration-color: #1f0c59; /* 밑줄 색을 글씨색과 동일하게 설정 */
@@ -204,6 +206,18 @@ width: 145px;}
 .active-button:hover {
     text-decoration: underline !important; /* 기본적으로 밑줄 없음 */
     text-decoration-color: white !important;}
+    
+.inner {
+    position: absolute;
+    transform: translateY(40%); /* 수직 중앙 정렬 보정 */ 
+    left: 9px;
+    top: -5px;
+    opacity: 0.6;
+    background:#fff;
+    z-index:1;
+   }    
+    
+    
 #quick_booking {
 	display: flex;
 	justify-content: space-between;
@@ -271,13 +285,6 @@ width: 145px;}
 }
 .airport-list {height:270px; overflow-y:auto;}
 
-.close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 24px;
-	cursor: pointer;
-}
 .quick_booking_aligner {
 	/*display: flex;
 	justify-content: space-between;
@@ -292,7 +299,7 @@ width: 145px;}
     justify-content: space-around;
     align-items: center;
     gap: 0px;
-    width: 1200px;
+    width: 1300px;
     max-width: 1300px;
     margin-left: -25px;
     margin-top: 50px;
@@ -328,7 +335,10 @@ p {
 	width: 310px;
 }
 #passenger_selection button {
-	width: 150px;
+	width: 160px;
+}
+#seats_selection button {
+	width: 160px;
 }
 .passenger-popup {
 	position: absolute;
@@ -551,8 +561,19 @@ z-index:white;
     color: #333;
 }
 
+.login-close-btn{
+	position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+
 /* 로그인 폼 스타일 */
 .input-group {
+position: relative;
     margin-bottom: 15px;
 }
 
@@ -608,6 +629,10 @@ z-index:white;
 
 .login-options a:hover {
     text-decoration: underline;
+}
+
+form {
+margin-top:20px;
 }
 
 
@@ -708,13 +733,9 @@ document.addEventListener('DOMContentLoaded', function() {
         generalButton.classList.add('active-button:hover');
         mileageButton.classList.remove('active-button');
         mileageButton.classList.remove('active-button:hover');
+
     });
-    mileageButton.addEventListener('click', function() {
-        mileageButton.classList.add('active-button');
-        mileageButton.classList.add('active-button:hover');
-        generalButton.classList.remove('active-button');
-        generalButton.classList.remove('active-button:hover');
-    });
+
 });
 //팝업 열기 함수
 function openPopup(type) {
@@ -1054,6 +1075,44 @@ function decrease(type) {
         }
     });
     
+    // 로그인 상태 체크 및 로그인 팝업 처리
+    function checkLoginStatus(event) {
+        // 서버에 로그인 상태 확인 요청
+        fetch('/checkLoginStatus')
+            .then(response => response.json())
+            .then(isLoggedIn => {
+                if (isLoggedIn) {
+                    // 로그인된 상태면 버튼 색상 변경 (활성화)
+                    activateMileageButton();
+                } else {
+                    // 로그인되지 않은 상태면 팝업을 띄우고, 버튼 클릭 이벤트는 막음
+                    event.preventDefault();  // 기본 클릭 동작 방지
+                    openLoginPopup();  // 로그인 팝업 띄우기
+                }
+            });
+    }
+
+    // 로그인 성공 후 마일리지 버튼 활성화 (색상 변경)
+    function activateMileageButton() {
+        const generalButton = document.getElementById('general');
+        const mileageButton = document.getElementById('mileage');
+        mileageButton.classList.add('active-button'); // 클래스 추가로 버튼 색 변경
+        mileageButton.classList.add('active-button:hover');
+        generalButton.classList.remove('active-button');
+        generalButton.classList.remove('active-button:hover');
+
+        
+        
+        console.log('로그인 성공, 마일리지 예매 버튼 활성화');
+    }
+    
+    // 로그인 처리 후 버튼 색상 변경
+    function login() {
+        // 로그인 성공 로직 추가 가능 (예: 서버에 로그인 요청 후 응답 처리)
+        closeLoginPopup();  // 팝업 닫기
+        activateMileageButton();  // 로그인 성공 후 버튼 활성화
+        console.log('로그인 성공');
+    }
  
  // 팝업 열기
     function openLoginPopup() {
@@ -1103,6 +1162,16 @@ function decrease(type) {
    	    		document.getElementsByClassName("inner")[n].style.fontSize=num+"px";
    	    		document.getElementsByClassName("inner")[n].style.top="-15px";
    	    		document.getElementsByClassName("inner")[n].style.opacity=1;
+   	    		document.getElementsByClassName("inner")[n].style.style="#1f0c59";
+   	    		document.getElementsByClassName("inner")[n].style.fontWeight="bold";
+   	    		document.getElementsByClassName("inner")[n].style.paddingLeft="2px";
+   	    		document.getElementsByClassName("inner")[n].style.paddingRight="2px";
+   	    		if(n== 0)
+   	    		{document.getElementsByClassName("inner")[n].textContent = "아이디 *";}
+   	    		else
+   	    		{document.getElementsByClassName("inner")[n].textContent = "비밀번호 *";}
+   	    		
+   	    		
    	    		
    	    		if(num==11)
    	    		{	
@@ -1132,6 +1201,8 @@ function decrease(type) {
     	   		document.getElementsByClassName("inner")[n].style.fontSize=num+"px";
     	   		document.getElementsByClassName("inner")[n].style.top="-5px";
    	    		document.getElementsByClassName("inner")[n].style.opacity=0.6;
+   	    		document.getElementsByClassName("inner")[n].style.style="#333";
+   	    		
     	   		
     	   		if(num>=18)
     	   		{	
@@ -1203,7 +1274,7 @@ function decrease(type) {
 											<button type="button" id="general">예매</button>
 										</li>
 										<li>
-											<button type="button" id="mileage" onclick="openLoginPopup()">마일리지 예매</button>
+											<button type="button" id="mileage" onclick="checkLoginStatus(event)">마일리지 예매</button>
 									</ul>
 								</div>
 								
@@ -1213,15 +1284,16 @@ function decrease(type) {
 <!-- 마일리지 예매 팝업 -->
 <div id="login-popup" class="login-popup" style="display: none;">
     <div class="login-popup-content">
-        <span class="close-btn" onclick="closeLoginPopup()">&times;</span>
+        <span class="login-close-btn" onclick="closeLoginPopup()">&times;</span>
         <h2>로그인</h2>
         
         <!-- 로그인 폼 -->
-        <form method="post" action="loginOk" onsubmit="return check(this);">
+        <form method="post" action="/login" onsubmit="return check(this);">
             <div class="input-group">
     <div> 
        <div class="inner">아이디</div>
        <input type="text" name="userid" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)" required>
+     </div>
      </div>
      <div> 
             </div>

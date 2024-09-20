@@ -1,10 +1,12 @@
 package com.example.demo.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.dto.InquiryDto;
+import com.example.demo.dto.StateCountDto;
 
 @Mapper
 public interface InquiryMapper {
@@ -14,5 +16,6 @@ public interface InquiryMapper {
 	InquiryDto content(String id);
 	void updateOk(InquiryDto idto);
 	void delete(String id);
+	List<StateCountDto> listCountsPerState();
 	
 }
