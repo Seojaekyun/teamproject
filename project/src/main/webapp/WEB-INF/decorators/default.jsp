@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,12 +9,15 @@ pageEncoding="UTF-8"%>
 <title>title</title>
 <!-- Flatpickr(달력 라이브러리) CSS -->
 <link rel="stylesheet"
+
 href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
@@ -178,7 +182,12 @@ href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </style>
 <script
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
+
+
+
+
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
 	}
@@ -209,6 +218,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<div id="section1">
 			<div id="logo">
 				<a href="../main/index"> <img src="../static/resources/eltlogo.png" width="200px" height="75px"> </a>
+
 			</div>
 			<div id="loginMenu">
 				<c:if test="${userid!=null&&userid=='admin'}">
@@ -228,11 +238,14 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
+				<span id="supMenu" onmouseover="viewCmenu(0)"
+					onmouseout="hideCmenu(0)"> 고객센터
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
+
 						<li><a href="../main/eventList"> 이벤트 </a></li>
+
 					</ul>
 				</span>
 			</div>
@@ -247,8 +260,10 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
+
 					<ul class="menu">
 						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
 						<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
@@ -262,15 +277,19 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 						<li>3</li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
 					<a href="../guide/travel"> 여행지 </a>
+
 					<ul class="menu">
 						<li><a href="">국내 여행</a></li>
 						<li><a href="">해외 여행</a></li>
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
+
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
+
 					<ul class="menu">
 						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
 						<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
@@ -472,6 +491,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			}
 		});
 	});
+
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -514,7 +534,7 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	}
 	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
-		
+
 </script>
 	
 	<!-- 채팅 상담 버튼 -->
