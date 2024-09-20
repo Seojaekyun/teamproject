@@ -25,8 +25,7 @@
 	section div table {
 		border-spacing:0px;
 		width: 350px;
-		border-spacing:0px;
-		
+		border-spacing:0px;		
 	}
 	section div table tr:first-child {
 		background: lightblue;
@@ -34,6 +33,26 @@
 	section div table td{
 		border: 1px solid lightgray;
 		width: 100px;
+		height: 40px;
+		text-align: center;
+		border-spacing:0px;
+		border-radius: 5px;
+	}
+	section #second{
+		background: white;
+		display: block;
+		margin: auto;
+	}
+	section #second table {
+		width: 600px;
+		border-spacing:0px;
+		border-spacing:0px;
+	}
+	section #second table tr:first-child {
+		background: lightblue;
+	}
+	section #second table td{
+		border: 1px solid lightgray;
 		height: 40px;
 		text-align: center;
 		border-spacing:0px;
@@ -73,6 +92,14 @@
 	section #third #inq #title {
 		width: 250px;
 	}
+	#pagination {
+	    display: flex;
+	    justify-content: left;
+	    margin-top: 10px;
+	    clear: both;
+	    width: 600px;
+	}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -139,84 +166,86 @@
 	</div>
 	<hr>
 	<h4>&nbsp;&nbsp;&nbsp; | 당일 항공 현황</h4>
+	<br>
 	<div id="second">
-		<div id="one">
-			<div id="ac1">
-				<table>
-					<caption><h5 align="left"> 대한항공 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>kal708</td>
-						<td>09:20</td>
-						<td>출항</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ac2">
-				<table>
-					<caption><h5 align="left"> 아시아나 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>asn458</td>
-						<td>10:00</td>
-						<td>우천 결항</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ac3">
-				<table>
-					<tr>
-						<caption><h5 align="left"> 제주항공 </h5></caption>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>예정</td>
-					</tr>
-					<tr>
-						<td>jja172</td>
-						<td>11:20</td>
-						<td>결항</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+	    <div id="one">
+	        <div id="flights">
+	            <table>
+	                <tr>
+	                    <td>출발 공항</td>
+	                    <td>도착 공항</td>
+	                    <td style="width: 200px;">출발 시간</td>
+	                    <td style="width: 200px;">현지도착 시간</td>
+	                    <td>비행 시간</td>
+	                </tr>
+	                <c:forEach items="${flightList}" var="flight">
+	                    <tr>
+	                        <td>${flight.departureAirport}</td>
+	                        <td>${flight.arrivalAirport}</td>
+	                        <td>${flight.departureTime}</td>
+	                        <td>${flight.arrivalTime}</td>
+	                        <td>${flight.flightDuration}</td>
+	                    </tr>
+	                </c:forEach>
+	            </table>
+	        </div>
+	    </div>
+	    <div id="pagination">
+	       	<c:forEach begin="1" end="${totalPages}" var="i">
+	       	<a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>&nbsp;&nbsp;&nbsp;
+	       	</c:forEach>
+	    </div>
 	</div>
+
 	<hr>
 	<h4>&nbsp;&nbsp;&nbsp; | 주요문의 현황 </h4>
 	<div id="third">
 		<div id="one">
 			<div id="topinq">
-				<table>
-					<caption><h5 align="left"> 주요문의 </h5></caption>
-					<tr>
-						<td id="num"> 순위 </td>
-						<td id="title"> 문의 사항 </td>
-						<td> 문의량 </td>
-					</tr>
-					<tr>
-						<td> 1 </td>
-						<td> 예약관련 문의 </td>
-						<td> 1754 </td>
-					</tr>
-					<tr>
-						<td> 2 </td>
-						<td> 일정관련 문의 </td>
-						<td> 512 </td>
-					</tr>
-					<tr>
-						<td> 3 </td>
-						<td> 기타 </td>
-						<td> 76 </td>
-					</tr>
-				</table>
-			</div>
+                <table>
+                    <caption><h5 align="left"> 주요문의 </h5></caption>
+                    <tr>
+                        <td id="num"> 순위 </td>
+                        <td id="title"> 문의 사항 </td>
+                        <td> 문의량 </td>
+                    </tr>
+                                        
+                    <!-- countsList 디버깅 출력 -->
+                    <c:if test="${empty countsList}">
+                        <tr>
+                            <td colspan="3">데이터가 없습니다.</td>
+                        </tr>
+                    </c:if>
+                    <c:forEach items="${countsList}" var="entry" varStatus="status">
+                    <tr>
+                        <td id="num"> ${entry.rank} </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${entry.state eq 4}">
+                                    <span id="s1">기타 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 3}">
+                                    <span id="s2">웹사이트 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 2}">
+                                    <span id="s1">예약취소 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 1}">
+                                    <span id="s2">탑승수속 관련 문의</span>
+                                </c:when>
+                                <c:when test="${entry.state eq 0}">
+                                    <span id="s1">예약접수 관련 문의</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span id="s1">알 수 없는 문의</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td> ${entry.count} </td>
+                    </tr>
+                    </c:forEach>
+                </table>
+            </div>
 			<div id="inq">
 				<table>
 					<caption><h5 align="left"> 최근문의 </h5></caption>
@@ -231,7 +260,7 @@
 					<tr>
 						<td id="num"> ${idto.id } </td>
 						<td id="title" align="center">
-							<a href="readnum?id=${idto.id}">
+							<a href="inquiryContent?id=${idto.id}">
 								<c:if test="${idto.state==0}">
 								<span id="s1">예약접수 관련 문의</span>
 								</c:if>

@@ -18,10 +18,12 @@
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
     }
+    
     /* 기존 스타일 유지 */
     .main_content {
         display: none;
     }
+
 .air_service {
 	position: relative;
 	background-image: url('../static/resources/background.jpg');
@@ -612,6 +614,7 @@ z-index:white;
 
 
 
+
     /* 추가된 섹션 스타일 */
     .fade-in-section {
         width: 1000px;
@@ -697,6 +700,7 @@ z-index:white;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
+
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
     const mileageButton = document.getElementById('mileage');
@@ -930,6 +934,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
                 document.getElementById('date-btn').innerHTML = "가는날"; // 텍스트 변경
             }
+
         });
     });
 });
@@ -1240,7 +1245,6 @@ function decrease(type) {
     </div>
 </div>
 
-
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">
 									<input type="radio" name="t_methods" value="round"
@@ -1279,6 +1283,7 @@ function decrease(type) {
 											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
 											<h2>출발지 선택</h2>
 											<ul id="airport-list" class="airport-list"></ul>
+
 											<!-- 공항 목록이 표시될 리스트 -->
 
 									</div>
@@ -1291,6 +1296,7 @@ function decrease(type) {
 											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
 											<h2>도착지 선택</h2>
 											<ul id="arrival-list" class="airport-list"></ul>
+
 
 									</div>
 

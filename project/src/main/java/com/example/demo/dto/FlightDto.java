@@ -4,19 +4,8 @@ import lombok.Data;
 
 @Data
 public class FlightDto {
-
-
-
-
 	private int flightId;
-	private String flightNumber;
-	private String departureAirport;
-	private String arrivalAirport;
-	private String departureTime;
-	private String arrivalTime;
-	
-	
-
-
+	private String flightNumber, departureAirport, arrivalAirport, departureTime;
+	private String arrivalTime, flightDuration, airplaneId;
 
 }

@@ -191,8 +191,8 @@
                     <input type="hidden" name="userid" value="${userid}">
                     
                     <div>
-                        <label for="status">문의 유형</label>
-                        <select name="status" id="status" required>
+                        <label for="state">문의 유형</label>
+                        <select name="state" id="state" required>
                             <option value="" disabled selected>문의 유형을 선택하세요</option>
                             <option value="0">예약접수 관련 문의</option>
                             <option value="1">탑승수속 관련 문의</option>

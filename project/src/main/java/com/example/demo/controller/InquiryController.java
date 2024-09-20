@@ -26,11 +26,6 @@ public class InquiryController {
         return service.list(request, model);
     }
 
-    @RequestMapping("/admin/inquiryList")
-    public String inquiryList(HttpServletRequest request, Model model) {
-        return service.inquiryList(request, model);
-    }
-
     @RequestMapping("/inquiry/write")
     public String write() {
         return service.write();
@@ -50,7 +45,7 @@ public class InquiryController {
     public String content(HttpServletRequest request, Model model) {
         return service.content(request, model);
     }
-
+    
     @RequestMapping("/inquiry/update")
     public String update(HttpServletRequest request, Model model) {
         return service.update(request, model);

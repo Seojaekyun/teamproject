@@ -37,10 +37,10 @@ public class GongjiServiceImpl implements GongjiService {
 	}
 	
 	@Override
-	public String writeOk(GongjiDto gdto, HttpSession session) {
+	public String gongjiWriteOk(GongjiDto gdto, HttpSession session) {
 		mapper.writeOk(gdto);
 		
-		return "/admin/gongjiList";
+		return "redirect:/admin/gongjiList";
 	}
 
 	@Override
