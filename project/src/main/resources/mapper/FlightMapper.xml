@@ -10,19 +10,19 @@
 	<select id="getAvailableFlights" resultType="com.example.demo.dto.FlightDto">
 		SELECT flight_id, departure_airport, arrival_airport, departure_time FROM Flights
 	</select>
-	<!-- <select id="getAvailableFlightsByDate" resultType="com.example.demo.dto.FlightDto">
+	<select id="getAvailableFlightsByDate" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
-	</select> -->
-	<select id="getAvailableFlightsByDate" parameterType="String" resultType="com.example.demo.dto.FlightDto">
-		SELECT * FROM flights WHERE departure_time >= NOW() ORDER BY departure_time
 	</select>
+	<!-- <select id="getAvailableFlightsByDate" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights WHERE departure_time >= NOW() ORDER BY departure_time
+	</select> -->
 	<select id="findFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
 		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time
 		FROM flights WHERE departure_airport = #{departure}
 		AND arrival_airport = #{arrival} AND DATE(departure_time) = #{departureDate} AND DATE(arrival_time) = #{arrivalDate}
 	</select>
 	<select id="getAllFlights" resultType="com.example.demo.dto.FlightDto">
-		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time FROM flights
+		SELECT * FROM flights WHERE departure_time >= NOW() ORDER BY departure_time
 	</select>
 	<select id="getFlights" resultType="com.example.demo.dto.FlightDto">
 		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id

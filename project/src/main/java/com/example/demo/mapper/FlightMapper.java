@@ -24,6 +24,8 @@ public interface FlightMapper {
 	List<FlightDto> getFlights();
     List<FlightDto> getFlightsWithPagination(@Param("limit") int limit, @Param("offset") int offset);
 	int getTotalFlightsCount();
+	List<FlightDto> getAllFlights(String currentDate);
+	
 
 }
 

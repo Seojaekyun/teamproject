@@ -41,7 +41,7 @@ public class MainServiceImpl implements MainService {
 	    String currentDate = LocalDate.now().toString();
 
 	    // flights 데이터를 현재 날짜 기준으로 6개만 가져오기
-	    List<FlightDto> flightList = fmapper.getAvailableFlightsByDate(currentDate);
+	    List<FlightDto> flightList = fmapper.getAllFlights(currentDate);
 	    model.addAttribute("flightList", flightList);
 
 	    // 모든 문의 리스트 조회
