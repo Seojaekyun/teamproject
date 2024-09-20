@@ -1217,14 +1217,19 @@ function decrease(type) {
         <h2>로그인</h2>
         
         <!-- 로그인 폼 -->
-        <form onsubmit="return check(this);">
+        <form method="post" action="loginOk" onsubmit="return check(this);">
             <div class="input-group">
-                <div class="inner"><label for="username">아이디</label></div>
-                <input type="text" id="username" onfocus="sizedown(0)" onblur="init(this,0)" required>
+    <div> 
+       <div class="inner">아이디</div>
+       <input type="text" name="userid" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)" required>
+     </div>
+     <div> 
             </div>
             <div class="input-group">
-                <div class="inner"><label for="password">비밀번호</label></div>
-                <input type="password" id="password" onfocus="sizedown(1)" onblur="init(this,1)" required>
+     <div> 
+       <div class="inner">비밀번호</div>
+       <input type="password" name="pwd" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)" required> 
+     </div>
             </div>
             <div class="input-group">
                 <input type="checkbox" id="save-id">
@@ -1236,7 +1241,7 @@ function decrease(type) {
         <div class="login-options">
             <a href="#">아이디 찾기</a> | 
             <a href="#">비밀번호 찾기</a>
-        </div>
+        </div>    
     </div>
 </div>
 
