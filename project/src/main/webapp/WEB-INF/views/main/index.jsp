@@ -858,15 +858,16 @@ function loadArrival() {
         data.forEach(function(airport) {
             var li = document.createElement('li');
 
-            if (airport.detailed_city == 'null') {
+            // 공항코드와 나머지 텍스트를 분리하여 각각 따로 표시
+            var airportCode = document.createElement('span');
+            airportCode.classList.add('airport-code'); // 스타일 적용을 위한 클래스 추가
+            airportCode.textContent = airport.airportCode;
 
-                li.textContent = airport.iataCode + ' /  ' + airport.city + ',' + airport.country;
-
-            } 
-            else {
-
-                li.textContent = airport.iata_code + ' /  ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
-
+            var airportInfo = document.createElement('span');
+            if (airport.detailedCity == 'null' || airport.detailedCity == null) {
+                airportInfo.textContent = ' ' + airport.city + ', ' + airport.country;
+            } else {
+                airportInfo.textContent = ' ' + airport.city + '/' + airport.detailedCity + ', ' + airport.country;
             }
 
             // li 요소에 공항코드와 나머지 정보를 추가
@@ -1430,7 +1431,8 @@ function decrease(type) {
 								</button>
 							</div>
 						</div>
-						
+
+
 					</div>
 				</div>
 			</div>
