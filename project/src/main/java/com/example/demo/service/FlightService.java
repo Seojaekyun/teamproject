@@ -8,10 +8,8 @@ import com.example.demo.dto.AirportsDto;
 
 public interface FlightService {
 	 List<AirportsDto> getAllAirports();
-   List<FlightDto> getAvailableFlightsByDate(String date);
-	List<AirportsDto> getAllAirports();
-	List<FlightDto> getAvailableFlightsByDate(String date);
-	List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
-	List<FlightDto> getAvailableFlights();
+	 List<FlightDto> getAvailableFlightsByDate(String date);
+	 List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
+	 List<FlightDto> getAvailableFlights();
 
 }
