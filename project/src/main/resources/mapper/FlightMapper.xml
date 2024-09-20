@@ -31,7 +31,7 @@
 	</select>
 	<select id="getFlightsWithPagination" resultType="com.example.demo.dto.FlightDto">
 		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id
-		FROM flights ORDER BY departure_time DESC LIMIT #{limit} OFFSET #{offset}
+		FROM flights ORDER BY departure_time ASC LIMIT #{limit} OFFSET #{offset}
 	</select>
 	<select id="getTotalFlightsCount" resultType="int">
 		SELECT COUNT(*) FROM flights
