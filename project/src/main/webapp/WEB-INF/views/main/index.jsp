@@ -18,12 +18,10 @@
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
     }
-    
     /* 기존 스타일 유지 */
     .main_content {
         display: none;
     }
-
 .air_service {
 	position: relative;
 	background-image: url('../static/resources/background.jpg');
@@ -189,6 +187,8 @@ position: relative;
 }
 #mileage{
 width: 145px;}
+
+ 
 #general:hover, #mileage:hover {
     text-decoration: underline; /* hover 시 밑줄 추가 */
     text-decoration-color: #1f0c59; /* 밑줄 색을 글씨색과 동일하게 설정 */
@@ -206,6 +206,18 @@ width: 145px;}
 .active-button:hover {
     text-decoration: underline !important; /* 기본적으로 밑줄 없음 */
     text-decoration-color: white !important;}
+    
+.inner {
+    position: absolute;
+    transform: translateY(40%); /* 수직 중앙 정렬 보정 */ 
+    left: 9px;
+    top: -5px;
+    opacity: 0.6;
+    background:#fff;
+    z-index:1;
+   }    
+    
+    
 #quick_booking {
 	display: flex;
 	justify-content: space-between;
@@ -614,7 +626,6 @@ z-index:white;
 
 
 
-
     /* 추가된 섹션 스타일 */
     .fade-in-section {
         width: 1000px;
@@ -700,7 +711,6 @@ z-index:white;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
     const mileageButton = document.getElementById('mileage');
@@ -848,14 +858,17 @@ function loadArrival() {
         data.forEach(function(airport) {
             var li = document.createElement('li');
 
-            if (airport.detailed_city == 'null') {
+            // 공항코드와 나머지 텍스트를 분리하여 각각 따로 표시
+            var airportCode = document.createElement('span');
+            airportCode.classList.add('airport-code'); // 스타일 적용을 위한 클래스 추가
+            airportCode.textContent = airport.airportCode;
 
-                li.textContent = airport.airportCode + ' /  ' + airport.city + ',' + airport.country;
 
-            } 
-            else {
-
-                li.textContent = airport.airportCode + ' /  ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
+            var airportInfo = document.createElement('span');
+            if (airport.detailedCity == 'null' || airport.detailedCity == null) {
+                airportInfo.textContent = ' ' + airport.city + ', ' + airport.country;
+            } else {
+                airportInfo.textContent = ' ' + airport.city + '/' + airport.detailedCity + ', ' + airport.country;
 
             }
 
@@ -880,7 +893,8 @@ function loadArrival() {
     };
     xhr.send();
 }
-document.addEventListener('DOMContentLoaded', function () {	
+document.addEventListener('DOMContentLoaded', function () {
+	
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
     // activateMenu 함수 정의
@@ -932,7 +946,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
                 document.getElementById('date-btn').innerHTML = "가는날"; // 텍스트 변경
             }
-
         });
     });
 });
@@ -1220,14 +1233,20 @@ function decrease(type) {
         <h2>로그인</h2>
         
         <!-- 로그인 폼 -->
-        <form onsubmit="return check(this);">
+        <form method="post" action="loginOk" onsubmit="return check(this);">
             <div class="input-group">
-                <div class="inner"><label for="username">아이디</label></div>
-                <input type="text" id="username" onfocus="sizedown(0)" onblur="init(this,0)" required>
+    <div> 
+       <div class="inner">아이디</div>
+       <input type="text" name="userid" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)" required>
+     </div>
+     </div>
+     <div> 
             </div>
             <div class="input-group">
-                <div class="inner"><label for="password">비밀번호</label></div>
-                <input type="password" id="password" onfocus="sizedown(1)" onblur="init(this,1)" required>
+     <div> 
+       <div class="inner">비밀번호</div>
+       <input type="password" name="pwd" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)" required> 
+     </div>
             </div>
             <div class="input-group">
                 <input type="checkbox" id="save-id">
@@ -1239,9 +1258,10 @@ function decrease(type) {
         <div class="login-options">
             <a href="#">아이디 찾기</a> | 
             <a href="#">비밀번호 찾기</a>
-        </div>
+        </div>    
     </div>
 </div>
+
 
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">
@@ -1281,7 +1301,6 @@ function decrease(type) {
 											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
 											<h2>출발지 선택</h2>
 											<ul id="airport-list" class="airport-list"></ul>
-
 											<!-- 공항 목록이 표시될 리스트 -->
 
 									</div>
@@ -1294,7 +1313,6 @@ function decrease(type) {
 											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
 											<h2>도착지 선택</h2>
 											<ul id="arrival-list" class="airport-list"></ul>
-
 
 									</div>
 
@@ -1415,7 +1433,8 @@ function decrease(type) {
 								</button>
 							</div>
 						</div>
-						
+
+
 					</div>
 				</div>
 			</div>
@@ -1459,8 +1478,7 @@ function decrease(type) {
                 <p>직원들이 친절하고 기내식도 맛있었어요. 가족 모두 만족했습니다.</p>
             </div>
         </div>
-    </section>
-    
+    </section>   
     
 </body>
 </html>
