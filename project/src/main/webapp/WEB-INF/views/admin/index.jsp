@@ -21,6 +21,7 @@
 		background: white;
 		display: flex;
 		margin: auto;
+		padding: 0px 0px 10px 0px;
 	}
 	section div table {
 		border-spacing:0px;

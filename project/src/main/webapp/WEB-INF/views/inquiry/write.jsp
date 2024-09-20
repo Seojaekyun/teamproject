@@ -188,8 +188,12 @@
                 
                 <!-- 문의 작성 폼 -->
                 <form method="post" action="writeOk">
-                    <input type="hidden" name="userid" value="${userid}">
-                    
+                	<c:if test="${userid == null}">
+                		<input type="hidden" name="userid" value="guest">
+                	</c:if>
+                	<c:if test="${userid != null}">
+                    	<input type="hidden" name="userid" value="${userid}">
+                    </c:if>
                     <div>
                         <label for="state">문의 유형</label>
                         <select name="state" id="state" required>

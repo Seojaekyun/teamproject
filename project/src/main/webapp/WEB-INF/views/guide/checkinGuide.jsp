@@ -69,15 +69,15 @@
 	section .content ol li {
 		margin-bottom: 10px;
 	}
-	section .content table {
+	section table {
 		width: 100%;
 		border-collapse: collapse;
 		margin-bottom: 20px;
 	}
-	section .content table, th, td {
+	section > table, th, td {
 		border: 1px solid #ddd;
 	}
-	section .content th, td {
+	section > th, td {
 		padding: 12px;
 		text-align: left;
 	}
