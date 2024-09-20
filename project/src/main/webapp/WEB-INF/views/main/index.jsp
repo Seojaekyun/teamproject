@@ -881,8 +881,7 @@ function loadArrival() {
     };
     xhr.send();
 }
-document.addEventListener('DOMContentLoaded', function () {
-	
+document.addEventListener('DOMContentLoaded', function () {	
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
     // activateMenu 함수 정의
