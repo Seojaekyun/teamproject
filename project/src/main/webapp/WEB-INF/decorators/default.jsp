@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,15 +8,14 @@
 <title>title</title>
 <!-- Flatpickr(달력 라이브러리) CSS -->
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
-
-	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
 		margin: 0;
 		padding: 0;
@@ -110,7 +109,6 @@
 	header > nav a:hover {
 		text-decoration: none;
 		color: #00467F;
-		
 	}
 	header > nav #main {
 		padding-left: 0px;
@@ -152,31 +150,35 @@
 		font-family: 'Hahmlet';
 		margin-top: 30px;
 		font-size: 13px;
-		background: gray;
+		background: lightgray;
 		color: white;
+		text-align: center;
+	}
+	footer table {
+		width: 100%;
+		max-width: 1000px;
+		margin: auto;
 		text-align: left;
-
 	}
-	nav ul li {
-		display: block;
-		margin: 10px 0;
-
+	@media (max-width: 768px) {
+		header, #outer #first, nav ul {
+			flex-direction: column;
+			text-align: center;
+		}
+		nav ul li {
+			display: block;
+			margin: 10px 0;
+		}
+		footer table, footer td {
+			text-align: left;
+			font-size: 11px;
+		}
 	}
-	
-	footer table, footer td {
-		font-size: 11px;
-	}
-
-
 
 </style>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-
-
-
-
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
 	}
@@ -206,9 +208,7 @@
 	<header>
 		<div id="section1">
 			<div id="logo">
-				<a href="../main/index"> <img
-					src="../static/resources/eltlogo.png" width="200px" height="75px">
-				</a>
+				<a href="../main/index"> <img src="../static/resources/eltlogo.png" width="200px" height="75px"> </a>
 			</div>
 			<div id="loginMenu">
 				<c:if test="${userid!=null&&userid=='admin'}">
@@ -219,24 +219,20 @@
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid!=null}">
-					<span id="myInfo" onmouseover="viewMmenu(0)"
-						onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
-						<ul class="mmenu">
-							<li>회원정보</li>
-							<li>예약정보</li>
-							<li>나의문의</li>
-						</ul>
-					</span>
-					<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
+				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+					<ul class="mmenu">
+						<li>회원정보</li>
+						<li>예약정보</li>
+						<li>나의문의</li>
+					</ul>
+				</span>
+				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)"
-					onmouseout="hideCmenu(0)"> 고객센터
+				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)"> 고객센터
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-
 						<li><a href="../main/eventList"> 이벤트 </a></li>
-
 					</ul>
 				</span>
 			</div>
@@ -251,10 +247,8 @@
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
-
 					<ul class="menu">
 						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
 						<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
@@ -268,19 +262,15 @@
 						<li>3</li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
 					<a href="../guide/travel"> 여행지 </a>
-
 					<ul class="menu">
 						<li><a href="">국내 여행</a></li>
 						<li><a href="">해외 여행</a></li>
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
-
 					<ul class="menu">
 						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
 						<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
@@ -290,8 +280,8 @@
 		</nav>
 	</header>
 	
-<!-- 채팅 스타일 -->
-
+	<!-- 채팅 스타일 -->
+	
 <style>
 	#chat-console {
 		width: 320px;
@@ -362,7 +352,7 @@
 		display: block;
 		align-self: flex-end; /* 오른쪽 정렬 */
 		clear: both;
-	}	
+	}
 	#chat-body .admin-message {
 		color: black;
 		text-align: left;
@@ -424,11 +414,10 @@
 	#chat-toggle:hover {
 		background-color: #1A9987;
 	}
-
+	
 </style>
 <script>
-	// 상담 종료 시
-
+	// 상담 종료 시	
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -460,7 +449,7 @@
 		var messageInput = message || document.getElementById('chat-message').value;
 		var chatBody = document.getElementById('chat-body');
 		if (messageInput.trim() === "") return;
-		var xhr = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../main/sendMessage", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function() {
@@ -483,8 +472,6 @@
 			}
 		});
 	});
-
-
 	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
@@ -492,92 +479,86 @@
 		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
 			chatConsole.style.display = 'flex';
 			chatToggle.style.display = 'none';
-		} else {
+		}
+		else {
 			chatConsole.style.display = 'none';
 			chatToggle.style.display = 'block';
 		}
 	}
 	// 메시지 갱신
 	function pollMessages() {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open("GET", "/main/getMessages", true);
-	    xhr.onreadystatechange = function() {
-	        if (xhr.readyState === 4 && xhr.status === 200) {
-	            var chatBody = document.getElementById('chat-body');
-	            var messages = JSON.parse(xhr.responseText);
-	            chatBody.innerHTML = '';
-	            messages.forEach(function(msg) {
-	                var newMessage = document.createElement('div');
-	                if (msg.startsWith('팅커벨:')) {
-	                    newMessage.className = 'admin-message';
-	                    newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
-	                } else {
-	                    newMessage.className = 'user-message';
-	                    // "손님: " 접두사를 제거하고 메시지만 출력
-	                    newMessage.textContent = msg.replace(/^손님:\s*/, '');
-	                }
-	                chatBody.appendChild(newMessage);
-	            });
-	            pollMessages();
-	        }
-	    };
-	    xhr.send();
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "/main/getMessages", true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var chatBody = document.getElementById('chat-body');
+				var messages = JSON.parse(xhr.responseText);
+				chatBody.innerHTML = '';
+				messages.forEach(function(msg) {
+					var newMessage = document.createElement('div');
+					if (msg.startsWith('팅커벨:')) {
+						newMessage.className = 'admin-message';
+						newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
+					}
+					else {
+						newMessage.className = 'user-message';
+						// "손님: " 접두사를 제거하고 메시지만 출력
+						newMessage.textContent = msg.replace(/^손님:\s*/, '');
+					}
+					chatBody.appendChild(newMessage);
+				});
+				pollMessages();
+			}
+		};
+		xhr.send();
 	}
 	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
-
-
+		
 </script>
-
+	
 	<!-- 채팅 상담 버튼 -->
 	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>
-	
 	<!-- 채팅 창 -->
 	<div id="chat-console">
-		<div id="chat-header">
+	<div id="chat-header">
 		채팅 상담
 		<button id="endChatButton" onclick="endChat()">끝내기</button>
-
-		</div>
-		<div id="chat-body"></div>
-		<div id="chat-input">
-			<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
-			<button onclick="sendMessage()">보내기</button>
-		</div>
+	</div>
+	<div id="chat-body"></div>
+	<div id="chat-input">
+		<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
+		<button onclick="sendMessage()">보내기</button>
+	</div>
 	</div>
 	
-<sitemesh:write property="body" />
-
+	<sitemesh:write property="body" />
+	
 	<footer>
-
-		<div class="footer-container">
-			<div class="footer-logo">
-				<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
-			</div>
-			<div class="footer-content">
-				<div class="footer-row">
-					<div class="footer-column">eLTA(주)</div>
-					<div class="footer-column">365고객센터</div>
-				</div>
-				<div class="footer-row">
-					<div class="footer-column">대표이사 주인장</div>
-					<div class="footer-column">080-888-1234(무료)</div>
-				</div>
-				<div class="footer-row">
-					<div class="footer-column">경기도 파주시 야당동</div>
-					<div class="footer-column">email : Tmaster@air.co.kr</div>
-				</div>
-				<div class="footer-row">
-					<div class="footer-column">사업자 등록번호 444-44-44444</div>
-					<div class="footer-column">전화번호 010-1234-5678</div>
-				</div>
-				<div class="footer-row">
-					<div class="footer-column">통신판매업 신고 제 24-1233</div>
-					<div class="footer-column"></div>
-				</div>
-			</div>
-		</div>
-
+		<table>
+			<tr>
+				<td rowspan="5" width="200"></td>
+				<td rowspan="5"><img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle"></td>
+				<td> (주)eLT항공 </td>
+				<td> 365고객센터 </td>
+			</tr>
+			<tr>
+				<td> 대표이사 주인장 </td>
+				<td> 080-888-1234(무료) </td>
+			</tr>
+			<tr>
+				<td> 본사 : 경기도 파주시 야당동 </td>
+				<td> email : Tmaster@air.co.kr </td>
+			</tr>
+			<tr>
+				<td> 사업자 등록번호 444-44-44444 </td>
+				<td> 전화번호 010-1234-5678 </td>
+			</tr>
+			<tr>
+				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
+				<td></td>
+			</tr>
+		</table>
 	</footer>
 </body>
 </html>

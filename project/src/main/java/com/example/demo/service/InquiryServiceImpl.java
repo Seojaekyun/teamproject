@@ -98,8 +98,6 @@ public class InquiryServiceImpl implements InquiryService {
         return "/admin/inquiryList";
     }
 
-
-
 	@Override
 	public String inquiryContent(HttpServletRequest request, Model model) {
 		String id = request.getParameter("id");

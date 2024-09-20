@@ -23,16 +23,6 @@ public class GongjiController {
 		return service.list(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiWrite")
-	public String write() {
-		return service.gongjiWrite();
-	}
-	
-	@RequestMapping("/gongji/writeOk")
-	public String write(GongjiDto gdto, HttpSession session) {
-		return service.writeOk(gdto, session);
-	}
-	
 	@RequestMapping("/gongji/readnum")
 	public String readnum(HttpServletRequest request) {
 		return service.readnum(request);
@@ -43,29 +33,6 @@ public class GongjiController {
 		return service.content(request, model);
 	}
 	
-	@RequestMapping("/gongji/update")
-	public String update(HttpServletRequest request, Model model) {
-		return service.update(request, model);
-	}
 	
-	@RequestMapping("/gongji/updateOk")
-	public String update(GongjiDto gdto) {
-		return service.updateOk(gdto);
-	}
-	
-	@RequestMapping("/gongji/delete")
-	public String delete(HttpServletRequest request) {
-		return service.delete(request);
-	}
-	
-	@RequestMapping("/admin/gongjiList")
-	public String gongjiList(HttpServletRequest request, Model model) {
-		return service.gongjiList(request, model);
-	}
-	
-	@RequestMapping("/admin/gongjiContent")
-	public String gongjiContent(HttpServletRequest request, Model model) {
-		return service.gongjiContent(request, model);
-	}
 
 }
