@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,46 +36,31 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-    public String adminI(HttpServletRequest request, Model model) {
-        // 페이지 번호 파라미터 받기 (기본값 1페이지)
-        int page = 1;
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
+	public String adminI(HttpServletRequest request, Model model) {
+	    // 현재 날짜 구하기
+	    String currentDate = LocalDate.now().toString();
 
-        int limit = 10;  // 한 페이지에 10개씩 보여줌
-        int offset = (page - 1) * limit;
+	    // flights 데이터를 현재 날짜 기준으로 6개만 가져오기
+	    List<FlightDto> flightList = fmapper.getAvailableFlightsByDate(currentDate);
+	    model.addAttribute("flightList", flightList);
 
-        // flights 데이터를 페이징으로 가져오기
-        List<FlightDto> flightList = fmapper.getFlightsWithPagination(limit, offset);
-        model.addAttribute("flightList", flightList);
+	    // 모든 문의 리스트 조회
+	    ArrayList<InquiryDto> ilist = mapper.ilist();
+	    model.addAttribute("ilist", ilist);
 
-        // 전체 항공편 수 계산
-        int totalFlights = fmapper.getTotalFlightsCount();
-        int totalPages = (int) Math.ceil((double) totalFlights / limit);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
+	    // State별 문의 수 조회
+	    List<StateCountDto> countsList = mapper.listCountsPerState();
+	    countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
 
-        // 모든 문의 리스트 조회
-        ArrayList<InquiryDto> ilist = mapper.ilist();
-        model.addAttribute("ilist", ilist);
+	    for (int i = 0; i < countsList.size(); i++) {
+	        countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
+	    }
 
-        // State별 문의 수 조회
-        List<StateCountDto> countsList = mapper.listCountsPerState();
+	    model.addAttribute("countsList", countsList);
 
-        // 문의량을 기준으로 내림차순 정렬
-        countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
-
-        // countsList에 순위 부여
-        for (int i = 0; i < countsList.size(); i++) {
-            countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
-        }
-
-        // JSP에 countsList 전달
-        model.addAttribute("countsList", countsList);
-
-        return "/admin/index";
+	    return "/admin/index";  // admin/index.jsp로 이동
 	}
+
 	
 	// 메시지 저장 메서드
     @Override

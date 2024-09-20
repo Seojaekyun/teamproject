@@ -203,7 +203,7 @@
 	                    <td>비행 시간</td>
 	                </tr>
 	                <c:forEach items="${flightList}" var="flight">
-	                <c:if test="${(flight.departureAirport!='GMP')&&(flight.departureAirport!='ICN')}">
+	                <c:if test="${(flight.arrivalAirport=='GMP')||(flight.arrivalAirport=='ICN')}">
 	                    <tr>
 	                        <td>${flight.departureAirport}</td>
 	                        <td>${flight.arrivalAirport}</td>
