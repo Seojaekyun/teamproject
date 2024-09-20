@@ -857,7 +857,6 @@ function loadArrival() {
 
                 li.textContent = airport.iata_code + ' /  ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
 
-
             }
 
             // li 요소에 공항코드와 나머지 정보를 추가
