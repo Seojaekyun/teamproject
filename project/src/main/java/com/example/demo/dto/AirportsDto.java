@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AirportsDto {
     private int id;                
-    private String airportCode;      
+    private String iataCode;      
     private String airportName;      
     private String city;            
     private String country;         
