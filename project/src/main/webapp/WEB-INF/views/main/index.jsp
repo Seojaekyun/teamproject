@@ -1417,6 +1417,7 @@ function decrease(type) {
 								</button>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
