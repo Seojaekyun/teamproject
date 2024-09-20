@@ -1476,8 +1476,7 @@ function decrease(type) {
                 <p>직원들이 친절하고 기내식도 맛있었어요. 가족 모두 만족했습니다.</p>
             </div>
         </div>
-    </section>
-    
+    </section>   
     
 </body>
 </html>
