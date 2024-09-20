@@ -850,12 +850,12 @@ function loadArrival() {
 
             if (airport.detailed_city == 'null') {
 
-                li.textContent = airport.iataCode + ' /  ' + airport.city + ',' + airport.country;
+                li.textContent = airport.airportCode + ' /  ' + airport.city + ',' + airport.country;
 
             } 
             else {
 
-                li.textContent = airport.iata_code + ' /  ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
+                li.textContent = airport.airportCode + ' /  ' + airport.city + '/' + airport.detailed_city + ',' + airport.country;
 
             }
 
