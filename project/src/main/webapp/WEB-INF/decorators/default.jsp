@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,17 +6,12 @@
 <meta charset="UTF-8">
 <title>title</title>
 <!-- Flatpickr(달력 라이브러리) CSS -->
-<link rel="stylesheet"
-
-href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
-
-
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
@@ -147,49 +140,49 @@ href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 		border-bottom: 1px solid #ddd;
 	}
 	footer {
-		padding-top: 10px;
-		padding-bottom: 5px;
+		padding: 10px 0;
 		width: 100%;
-		height: auto;
-		margin: auto;
-		font-family: 'Hahmlet';
-		margin-top: 30px;
-		font-size: 13px;
 		background: lightgray;
 		color: white;
 		text-align: center;
+		font-family: 'Hahmlet';
+		font-size: 13px;
 	}
-	footer table {
-		width: 100%;
+	
+	.footer-container {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 		max-width: 1000px;
 		margin: auto;
+		flex-wrap: wrap;
+	}
+	
+	.footer-logo img {
+		width: 80px;
+	}
+	
+	.footer-info, .footer-contact {
 		text-align: left;
 	}
+	
+	.footer-info div, .footer-contact div {
+		margin-bottom: 5px;
+	}
+	
 	@media (max-width: 768px) {
-		header, #outer #first, nav ul {
+		.footer-container {
 			flex-direction: column;
 			text-align: center;
 		}
-		nav ul li {
-			display: block;
-			margin: 10px 0;
-		}
-		footer table, footer td {
-			text-align: left;
-			font-size: 11px;
+		.footer-info, .footer-contact {
+			text-align: center;
 		}
 	}
 
-
 </style>
-<script
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-
-
-
-
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
 	}
@@ -562,31 +555,26 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<footer>
 
-		<table>
-			<tr>
-				<td rowspan="5" width="200"></td>
-				<td rowspan="5"><img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle"></td>
-				<td> (주)eLT항공 </td>
-				<td> 365고객센터 </td>
-			</tr>
-			<tr>
-				<td> 대표이사 주인장 </td>
-				<td> 080-888-1234(무료) </td>
-			</tr>
-			<tr>
-				<td> 본사 : 경기도 파주시 야당동 </td>
-				<td> email : Tmaster@air.co.kr </td>
-			</tr>
-			<tr>
-				<td> 사업자 등록번호 444-44-44444 </td>
-				<td> 전화번호 010-1234-5678 </td>
-			</tr>
-			<tr>
-				<td> 통신판매업신고 : 2023-경기비행-1233 </td>
-				<td></td>
-			</tr>
-		</table>
+		<div class="footer-container">
+			<div class="footer-logo">
+				<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
+			</div>
+			<div class="footer-info">
+				<div>(주)eLT항공</div>
+				<div>대표이사 주인장</div>
+				<div>본사 : 경기도 파주시 야당동</div>
+				<div>사업자 등록번호 444-44-44444</div>
+				<div>통신판매업신고 : 2023-경기비행-1233</div>
+			</div>
+			<div class="footer-contact">
+				<div>365고객센터</div>
+				<div>080-888-1234(무료)</div>
+				<div>email : Tmaster@air.co.kr</div>
+				<div>전화번호 010-1234-5678</div>
+			</div>
+		</div>
 
 	</footer>
+
 </body>
 </html>

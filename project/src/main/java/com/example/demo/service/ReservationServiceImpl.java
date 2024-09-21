@@ -18,11 +18,11 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
-	private FlightMapper flightMapper;
+	private FlightMapper fmapper;
 	@Autowired
-	private SeatMapper sMapper;
+	private SeatMapper smapper;
 	@Autowired
-	private ReservationMapper reservationMapper;
+	private ReservationMapper rmapper;
 	
 	@Override
 	public String reserveFlight(int customerId, int flightId, String seatNumber, String seatClass, String customerName, String customerEmail) {
@@ -36,9 +36,9 @@ public class ReservationServiceImpl implements ReservationService {
 		rdto.setCustomerName(customerName);
 		rdto.setCustomerEmail(customerEmail);
 		
-		reservationMapper.insertReservation(rdto);
+		rmapper.insertReservation(rdto);
 		// 좌석 상태 업데이트
-		reservationMapper.updateSeatAvailability(flightId, seatNumber, false);
+		rmapper.updateSeatAvailability(flightId, seatNumber, false);
 		
 		return "Reservation Successful!";
 	}
@@ -46,7 +46,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<SeatDto> getAvailableSeats(int flightId) {
 		//System.out.println("SeatMapper 호출됨, flightId: " + flightId);  // 디버깅 로그 추가
-		List<SeatDto> availableSeats = sMapper.getAvailableSeats(flightId);
+		List<SeatDto> availableSeats = smapper.getAvailableSeats(flightId);
 		//System.out.println("좌석 정보: " + availableSeats);  // 좌석 정보를 콘솔에 출력
 		return availableSeats;
 	}

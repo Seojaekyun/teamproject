@@ -651,7 +651,6 @@ margin-top:20px;
 }
 
 
-
     /* 추가된 섹션 스타일 */
     .fade-in-section {
         width: 1000px;
@@ -894,11 +893,13 @@ function loadArrival() {
             airportCode.classList.add('airport-code'); // 스타일 적용을 위한 클래스 추가
             airportCode.textContent = airport.airportCode;
 
+
             var airportInfo = document.createElement('span');
             if (airport.detailedCity == 'null' || airport.detailedCity == null) {
                 airportInfo.textContent = ' ' + airport.city + ', ' + airport.country;
             } else {
                 airportInfo.textContent = ' ' + airport.city + '/' + airport.detailedCity + ', ' + airport.country;
+
             }
 
             // li 요소에 공항코드와 나머지 정보를 추가
@@ -1323,6 +1324,7 @@ function decrease(type) {
         <h2>로그인</h2>
         
         <!-- 로그인 폼 -->
+
         <form method="post" action="/login" onsubmit="return check(this);">
             <div class="input-group">
     <div> 
@@ -1568,8 +1570,7 @@ function decrease(type) {
                 <p>직원들이 친절하고 기내식도 맛있었어요. 가족 모두 만족했습니다.</p>
             </div>
         </div>
-    </section>
-    
+    </section>   
     
 </body>
 </html>

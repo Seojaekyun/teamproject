@@ -50,7 +50,7 @@
 	header #logo {
 		width: 200px;
 		flex-shrink: 0;
-		valign: top;
+		line-height: 45px;
 	}
 	header #two {
 		display: flex;

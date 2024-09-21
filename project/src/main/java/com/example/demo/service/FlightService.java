@@ -15,4 +15,5 @@ public interface FlightService {
 	List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
 	List<FlightDto> getAvailableFlights();
 
+
 }

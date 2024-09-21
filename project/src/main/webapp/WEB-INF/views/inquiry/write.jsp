@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 작성하기</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>문의 작성하기</title>
+<style>
         /* 공통 스타일 정의 */
         body {
             font-family: Arial, sans-serif;
@@ -188,8 +187,12 @@
                 
                 <!-- 문의 작성 폼 -->
                 <form method="post" action="writeOk">
-                    <input type="hidden" name="userid" value="${userid}">
-                    
+                	<c:if test="${userid == null}">
+                		<input type="hidden" name="userid" value="guest">
+                	</c:if>
+                	<c:if test="${userid != null}">
+                    	<input type="hidden" name="userid" value="${userid}">
+                    </c:if>
                     <div>
                         <label for="state">문의 유형</label>
                         <select name="state" id="state" required>

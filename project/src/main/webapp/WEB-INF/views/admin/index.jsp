@@ -17,10 +17,9 @@
 		height: 45px;
 	}
 	section div{
-		width: 1200px;
 		background: white;
 		display: flex;
-		margin: auto;
+		padding: 0px 20px 20px 20px;
 	}
 	section div table {
 		border-spacing:0px;
@@ -38,15 +37,13 @@
 		border-spacing:0px;
 		border-radius: 5px;
 	}
-	section #second{
-		background: white;
-		display: block;
-		margin: auto;
-	}
+
 	section #second table {
 		width: 600px;
 		border-spacing:0px;
 		border-spacing:0px;
+		overflow: hidden;
+		display: inline-block;
 	}
 	section #second table tr:first-child {
 		background: lightblue;
@@ -172,13 +169,15 @@
 	        <div id="flights">
 	            <table>
 	                <tr>
+	                	<caption><h5 align="left"> 출항 </h5></caption>
 	                    <td>출발 공항</td>
 	                    <td>도착 공항</td>
 	                    <td style="width: 200px;">출발 시간</td>
 	                    <td style="width: 200px;">현지도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
-	                <c:forEach items="${flightList}" var="flight">
+	                <c:forEach items="${departureList}" var="flight">
+	                <c:if test="${(flight.departureAirport eq 'GMP')||(flight.departureAirport eq 'ICN')}">
 	                    <tr>
 	                        <td>${flight.departureAirport}</td>
 	                        <td>${flight.arrivalAirport}</td>
@@ -186,15 +185,38 @@
 	                        <td>${flight.arrivalTime}</td>
 	                        <td>${flight.flightDuration}</td>
 	                    </tr>
+	                </c:if>
 	                </c:forEach>
 	            </table>
 	        </div>
 	    </div>
-	    <div id="pagination">
-	       	<c:forEach begin="1" end="${totalPages}" var="i">
-	       	<a href="?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>&nbsp;&nbsp;&nbsp;
-	       	</c:forEach>
+	    
+	    <div id="one">
+	        <div id="flights">
+	            <table>
+	                <tr>
+	                	<caption><h5 align="left"> 입항 </h5></caption>
+	                    <td>출발 공항</td>
+	                    <td>도착 공항</td>
+	                    <td style="width: 200px;">출발 시간</td>
+	                    <td style="width: 200px;">현지도착 시간</td>
+	                    <td>비행 시간</td>
+	                </tr>
+	                <c:forEach items="${arrivalList}" var="flight">
+	                <c:if test="${(flight.arrivalAirport eq 'GMP')||(flight.arrivalAirport eq 'ICN')}">
+	                    <tr>
+	                        <td>${flight.departureAirport}</td>
+	                        <td>${flight.arrivalAirport}</td>
+	                        <td>${flight.departureTime}</td>
+	                        <td>${flight.arrivalTime}</td>
+	                        <td>${flight.flightDuration}</td>
+	                    </tr>
+	                </c:if>
+	                </c:forEach>
+	            </table>
+	        </div>
 	    </div>
+	    
 	</div>
 
 	<hr>
