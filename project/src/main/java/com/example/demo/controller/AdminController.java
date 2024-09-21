@@ -28,6 +28,11 @@ public class AdminController {
 	@Qualifier("gs")
 	private GongjiService gservice;
 	
+	@RequestMapping("/admin/index")
+	public String adminI(HttpServletRequest request, Model model) {
+		return service.adminI(request, model);
+	}
+	
 	@RequestMapping("/admin/adReserve")
 	public String adReserve() {
 		return service.adReserve();

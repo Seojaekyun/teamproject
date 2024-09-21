@@ -23,26 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private SeatMapper smapper;
 	@Autowired
 	private ReservationMapper rmapper;
-	
-	@Override
-	public String reserveFlight(int customerId, int flightId, String seatNumber, String seatClass, String customerName, String customerEmail) {
 		
-		// 예약 처리 로직 추가
-		ReservationDto rdto = new ReservationDto();
-		rdto.setCustomerId(customerId);
-		rdto.setFlightId(flightId);
-		rdto.setSeatNumber(seatNumber);
-		rdto.setSeatClass(seatClass);
-		rdto.setCustomerName(customerName);
-		rdto.setCustomerEmail(customerEmail);
-		
-		rmapper.insertReservation(rdto);
-		// 좌석 상태 업데이트
-		rmapper.updateSeatAvailability(flightId, seatNumber, false);
-		
-		return "Reservation Successful!";
-	}
-	
 	@Override
 	public List<SeatDto> getAvailableSeats(int flightId) {
 		//System.out.println("SeatMapper 호출됨, flightId: " + flightId);  // 디버깅 로그 추가

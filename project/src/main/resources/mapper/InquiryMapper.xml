@@ -4,6 +4,9 @@
 	<select id="list" resultType="com.example.demo.dto.InquiryDto">
 		select * from inquiry order by id desc
 	</select>
+	<select id="ilist" resultType="com.example.demo.dto.InquiryDto">
+		select * from inquiry order by id desc limit 3
+	</select>
 	<insert id="writeOk" parameterType="com.example.demo.dto.InquiryDto">
 		insert into inquiry(title,content,writeday,userid,state)
 		values(#{title},#{content},now(),#{userid},#{state})
@@ -24,12 +27,9 @@
 	<select id="inquiryContent" resultType="com.example.demo.dto.InquiryDto">
 		select * from inquiry where id=#{param}
 	</select>
-	<!-- State별 문의 수 조회 쿼리 추가 -->
-    <select id="listCountsPerState" resultType="com.example.demo.dto.StateCountDto">
-        SELECT state, COUNT(*) AS count
-        FROM inquiry
-        GROUP BY state
-        ORDER BY state DESC
+	<select id="listCountsPerState" resultType="com.example.demo.dto.StateCountDto">
+		SELECT state, COUNT(*) AS count FROM inquiry
+		GROUP BY state ORDER BY state DESC limit 3
     </select>
     <resultMap id="stateCountMap" type="com.example.demo.dto.StateCountDto">
         <result property="state" column="state"/>

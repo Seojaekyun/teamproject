@@ -1,13 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.FlightDto;
-import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
-import com.example.demo.dto.StateCountDto;
-import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.MainMapper;
-
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -15,9 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,47 +18,13 @@ public class MainServiceImpl implements MainService {
 	
 	@Autowired
 	private MainMapper mapper;
-	@Autowired
-	private FlightMapper fmapper;
+	@Qualifier("ms")
 	private List<String> chatMessages = new ArrayList<>();  // 메시지를 저장할 리스트
 	
 	@Override
 	public String index() {
-		
 		return "/main/index";
 	}
-
-	@Override
-	public String adminI(HttpServletRequest request, Model model) {
-	    // 현재 날짜 구하기
-	    String currentDate = LocalDate.now().toString();
-
-        // 출항 항공편 5개 조회
-        List<FlightDto> departureList = fmapper.getDepartureFlights();
-        // 입항 항공편 5개 조회
-        List<FlightDto> arrivalList = fmapper.getArrivalFlights();
-
-        // 모델에 리스트 추가
-        model.addAttribute("departureList", departureList);
-        model.addAttribute("arrivalList", arrivalList);
-
-	    // 모든 문의 리스트 조회
-	    ArrayList<InquiryDto> ilist = mapper.ilist();
-	    model.addAttribute("ilist", ilist);
-
-	    // State별 문의 수 조회
-	    List<StateCountDto> countsList = mapper.listCountsPerState();
-	    countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
-
-	    for (int i = 0; i < countsList.size(); i++) {
-	        countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
-	    }
-
-	    model.addAttribute("countsList", countsList);
-
-	    return "/admin/index";  // admin/index.jsp로 이동
-	}
-
 	
 	// 메시지 저장 메서드
     @Override
@@ -91,57 +48,53 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public String checkinGuide() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String seatGuide() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String baggageGuide() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String eventList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String travel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	 @Override
-	    public boolean checkLoginStatus(HttpSession session) {
-	        Boolean isLoggedIn = (Boolean) session.getAttribute("loggedIn");
-	        return isLoggedIn != null && isLoggedIn;  // 로그인 상태를 반환
-	    }
-	 
-	 @Override
-	 public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-			String name = mapper.loginOk(mdto);
-			
-			if (name != null) {
-				// 로그인 성공 시 세션에 사용자 정보 저장
-				session.setAttribute("userid", mdto.getUserid());
-				session.setAttribute("name", name);
-				session.setAttribute("loggedIn", true);  // 로그인 상태를 세션에 저장
-				
-				// 메인 페이지로 리다이렉트
-				return "redirect:/main/index";
-			} else {
-				// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
-				return "redirect:/login/login?err=1";
-	 }
-
-
+	@Override
+	public boolean checkLoginStatus(HttpSession session) {
+		Boolean isLoggedIn = (Boolean) session.getAttribute("loggedIn");
+		return isLoggedIn != null && isLoggedIn;  // 로그인 상태를 반환
+	}
 	
-	 }}
+	@Override
+	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String name = mapper.loginOk(mdto);
+		
+		if (name != null) {
+			// 로그인 성공 시 세션에 사용자 정보 저장
+			session.setAttribute("userid", mdto.getUserid());
+			session.setAttribute("name", name);
+			session.setAttribute("loggedIn", true);  // 로그인 상태를 세션에 저장
+			
+			// 메인 페이지로 리다이렉트
+			return "redirect:/main/index";
+		}
+		else {
+			// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
+			return "redirect:/login/login?err=1";
+		}
+	}
+	
+	
+}

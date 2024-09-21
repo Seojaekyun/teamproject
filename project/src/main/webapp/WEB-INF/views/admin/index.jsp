@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,7 +24,7 @@
 	}
 	section div table {
 		border-spacing:0px;
-		width: 350px;
+		
 		border-spacing:0px;		
 	}
 	section div table tr:first-child {
@@ -31,63 +32,30 @@
 	}
 	section div table td{
 		border: 1px solid lightgray;
-		width: 100px;
+		padding: 0px 10px 0px 10px;
 		height: 40px;
 		text-align: center;
 		border-spacing:0px;
 		border-radius: 5px;
 	}
 
-	section #second table {
-		width: 600px;
-		border-spacing:0px;
-		border-spacing:0px;
-		overflow: hidden;
-		display: inline-block;
-	}
-	section #second table tr:first-child {
-		background: lightblue;
-	}
-	section #second table td{
-		border: 1px solid lightgray;
-		height: 40px;
-		text-align: center;
-		border-spacing:0px;
-		border-radius: 5px;
-	}
 	section #third table {
-		border-spacing:0px;
-		width: 500px;
-		height: 224px;
-		border-spacing:0px;
-		margin-right: 30px;
+
 		overflow: hidden;
 		display: inline-block;
 	}
 	section #third #topinq {
 		border-spacing:0px;
-		width: 300px;
+		
 		border-spacing:0px;
 	}
 	section #third #inq td{
 		border: 1px solid lightgray;
-		width: 130px;
+		
 		height: 40px;
 		text-align: center;
 		border-spacing:0px;
 		border-radius: 5px;
-	}
-	section #third #topinq #num {
-		width: 50px;
-	}
-	section #third #topinq #title {
-		width: 250px;
-	}
-	section #third #inq #num {
-		width: 50px;
-	}
-	section #third #inq #title {
-		width: 250px;
 	}
 	#pagination {
 	    display: flex;
@@ -112,52 +80,30 @@
 <section>
 	<h4>&nbsp;&nbsp;&nbsp; | 당일 예약 현황</h4>
 	<div id="first">
-		
 		<div id="one">
 			<div id="ap1">
 				<table>
-					<caption><h5 align="left"> 대한항공 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>잔여석</td>
-					</tr>
-					<tr>
-						<td>kal708</td>
-						<td>09:20</td>
-						<td>28ea</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ap2">
-				<table>
-					<caption><h5 align="left"> 아시아나 </h5></caption>
-					<tr>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>잔여석</td>
-					</tr>
-					<tr>
-						<td>asn458</td>
-						<td>10:00</td>
-						<td>3ea</td>
-					</tr>
-				</table>
-			</div>
-			<div id="ap3">
-				<table>
-					<tr>
-						<caption><h5 align="left"> 제주항공 </h5></caption>
-						<td>항공편명</td>
-						<td>출항시간</td>
-						<td>잔여석</td>
-					</tr>
-					<tr>
-						<td>jja172</td>
-						<td>11:20</td>
-						<td>54ea</td>
-					</tr>
-				</table>
+                    <caption><h5 align="left"> 대한항공 </h5></caption>
+                    <tr>
+                        <td>항공편명</td>
+                        <td>출항시간</td>
+                        <td>예약석</td>
+                    </tr>
+                    <!-- 예약 데이터 출력 -->
+                    <c:forEach items="${rsvList}" var="rsv">
+                        <tr>
+                            <td>${rsv.flightName}</td>
+                            <td>${rsv.departureTimeFormatted}</td>
+                            <td>${rsv.reservationCount}</td>
+                        </tr>
+                    </c:forEach>
+                    <!-- 데이터가 없을 경우 메시지 출력 -->
+                    <c:if test="${empty rsvList}">
+                        <tr>
+                            <td colspan="3">예약 데이터가 없습니다.</td>
+                        </tr>
+                    </c:if>
+                </table>
 			</div>
 		</div>
 	</div>
@@ -170,10 +116,10 @@
 	            <table>
 	                <tr>
 	                	<caption><h5 align="left"> 출항 </h5></caption>
-	                    <td>출발 공항</td>
-	                    <td>도착 공항</td>
-	                    <td style="width: 200px;">출발 시간</td>
-	                    <td style="width: 200px;">현지도착 시간</td>
+	                    <td>출발</td>
+	                    <td>도착</td>
+	                    <td>출발 시간</td>
+	                    <td>현지도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
 	                <c:forEach items="${departureList}" var="flight">
@@ -196,10 +142,10 @@
 	            <table>
 	                <tr>
 	                	<caption><h5 align="left"> 입항 </h5></caption>
-	                    <td>출발 공항</td>
-	                    <td>도착 공항</td>
-	                    <td style="width: 200px;">출발 시간</td>
-	                    <td style="width: 200px;">현지도착 시간</td>
+	                    <td>출발</td>
+	                    <td>도착</td>
+	                    <td>현지출발 시간</td>
+	                    <td>도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
 	                <c:forEach items="${arrivalList}" var="flight">
