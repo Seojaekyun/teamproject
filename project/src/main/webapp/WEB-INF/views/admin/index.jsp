@@ -176,8 +176,8 @@
 	                    <td style="width: 200px;">현지도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
-	                <c:forEach items="${flightList}" var="flight">
-	                <c:if test="${(flight.departureAirport=='GMP')||(flight.departureAirport=='ICN')}">
+	                <c:forEach items="${departureList}" var="flight">
+	                <c:if test="${(flight.departureAirport eq 'GMP')||(flight.departureAirport eq 'ICN')}">
 	                    <tr>
 	                        <td>${flight.departureAirport}</td>
 	                        <td>${flight.arrivalAirport}</td>
@@ -202,8 +202,8 @@
 	                    <td style="width: 200px;">현지도착 시간</td>
 	                    <td>비행 시간</td>
 	                </tr>
-	                <c:forEach items="${flightList}" var="flight">
-	                <c:if test="${(flight.arrivalAirport=='GMP')||(flight.arrivalAirport=='ICN')}">
+	                <c:forEach items="${arrivalList}" var="flight">
+	                <c:if test="${(flight.arrivalAirport eq 'GMP')||(flight.arrivalAirport eq 'ICN')}">
 	                    <tr>
 	                        <td>${flight.departureAirport}</td>
 	                        <td>${flight.arrivalAirport}</td>

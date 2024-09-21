@@ -10,11 +10,11 @@ import java.util.List;
 @Service
 public class SeatServiceImpl implements SeatService {
 	@Autowired
-	private SeatMapper seatMapper;
+	private SeatMapper smapper;
 	
 	@Override
 	public List<SeatDto> getAvailableSeats(int flightId) {
-		return seatMapper.getAvailableSeats(flightId);
+		return smapper.getAvailableSeats(flightId);
 	}
 	
 	
