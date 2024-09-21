@@ -12,6 +12,7 @@ import com.example.demo.dto.AirportsDto;
 
 @Service("fs")
 public class FlightServiceImpl implements FlightService {
+
 	@Autowired
 	private FlightMapper fmapper;
 	

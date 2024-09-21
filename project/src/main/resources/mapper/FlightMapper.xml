@@ -34,7 +34,6 @@
 		SELECT * FROM flights WHERE departure_time >= NOW() AND arrival_airport IN ('GMP', 'ICN')
 		ORDER BY departure_time LIMIT 5
 	</select>
-	
-	
+
 
 </mapper>

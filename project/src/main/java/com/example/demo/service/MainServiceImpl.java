@@ -9,6 +9,8 @@ import com.example.demo.mapper.MainMapper;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -116,12 +118,30 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	 @Override
+	    public boolean checkLoginStatus(HttpSession session) {
+	        Boolean isLoggedIn = (Boolean) session.getAttribute("loggedIn");
+	        return isLoggedIn != null && isLoggedIn;  // 로그인 상태를 반환
+	    }
+	 
+	 @Override
+	 public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+			String name = mapper.loginOk(mdto);
+			
+			if (name != null) {
+				// 로그인 성공 시 세션에 사용자 정보 저장
+				session.setAttribute("userid", mdto.getUserid());
+				session.setAttribute("name", name);
+				session.setAttribute("loggedIn", true);  // 로그인 상태를 세션에 저장
+				
+				// 메인 페이지로 리다이렉트
+				return "redirect:/main/index";
+			} else {
+				// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
+				return "redirect:/login/login?err=1";
+	 }
+
 
 	
-
-	
-
-	
-	
-
-}
+	 }}

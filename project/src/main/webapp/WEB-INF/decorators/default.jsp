@@ -179,7 +179,7 @@
 			text-align: center;
 		}
 	}
-	
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -293,8 +293,9 @@
 			</ul>
 		</nav>
 	</header>
-	
+
 	<!-- 채팅 스타일 -->
+
 	
 <style>
 	#chat-console {
@@ -431,7 +432,9 @@
 	
 </style>
 <script>
-	// 상담 종료 시	
+
+	// 상담 종료 시
+
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -486,6 +489,7 @@
 			}
 		});
 	});
+
 
 	// 채팅 창 토글
 	function toggleChat() {
@@ -550,6 +554,7 @@
 	<sitemesh:write property="body" />
 	
 	<footer>
+
 		<div class="footer-container">
 			<div class="footer-logo">
 				<img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
@@ -568,6 +573,7 @@
 				<div>전화번호 010-1234-5678</div>
 			</div>
 		</div>
+
 	</footer>
 
 </body>

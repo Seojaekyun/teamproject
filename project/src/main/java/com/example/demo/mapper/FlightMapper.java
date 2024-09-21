@@ -6,7 +6,6 @@ import com.example.demo.dto.FlightDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,6 +13,7 @@ import com.example.demo.dto.AirportsDto;
 
 @Mapper
 public interface FlightMapper {
+
 	List<AirportsDto> findAllAirports();
 	List<FlightDto> getAvailableFlights();
 	List<FlightDto> getFlightsByDate(String date);

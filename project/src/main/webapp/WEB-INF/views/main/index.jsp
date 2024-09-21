@@ -68,8 +68,8 @@ position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 80%;
-	height: 55px;
+	width: 85%;
+	height: 40px;
 	position: relative;
 }
 .booking_widget_list li {
@@ -82,6 +82,11 @@ position: relative;
 	margin: 0.5px;
 	background-color: #65728a;
 	z-index: 2;
+    height: 65px;
+}
+.booking_widget_list li.active {
+	background-color: white;
+	border: 3px solid white;
 }
 .booking_widget_list li.active {
 	background-color: white;
@@ -113,18 +118,20 @@ position: relative;
 }
 /* booking_contents의 기본 스타일 */
 .booking_contents {
+	position:relative;
 	display: flex;
 	flex-direction: column; /* 자식 요소들을 세로로 배치 */
 	align-items: center;
 	background-color: white;
-	border: 1px solid #ccc;
+	border: 1px solid white;
 	border-radius: 15px;
-	width: 80%;
+	width: 85%;
 	height: 235px;
 	padding-left: 40px;
 	padding-top: 30px;
 	padding-right: 40px;
 	padding-bottom: 10px;
+	z-index: 3;
 }
 /* 예약 방법과 왕복/편도 선택 버튼을 한 줄에 나열 */
 .booking_methods {
@@ -135,13 +142,12 @@ position: relative;
 }
 .select_contents, .check-in_contents, .schedule_contents {
 	position: relative;
-	width: 80%;
+	width: 85%;
 	height: 235px;
 	z-index: 3;
 	background-color: white;
 	border: 2px solid white;
 	border-radius: 15px;
-	margin-top: -10px;
 	padding-left: 40px;
 	padding-top: 30px;
 	padding-right: 40px;
@@ -151,6 +157,7 @@ position: relative;
 .b_methodbox {
 	float: left;
 	width: auto;
+	margin-left: 10px;
 	margin-top: 0;
 	margin-right: 3.5rem;
 	margin-bottom: 1rem;
@@ -211,7 +218,7 @@ width: 145px;}
     position: absolute;
     transform: translateY(40%); /* 수직 중앙 정렬 보정 */ 
     left: 9px;
-    top: -5px;
+    top: 1px;
     opacity: 0.6;
     background:#fff;
     z-index:1;
@@ -219,18 +226,21 @@ width: 145px;}
     
     
 #quick_booking {
+	margin-left:20px;
+	margin-right:40px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	align-self: flex-start;
-	width: 270px;
+	width: 280px;
 	height: 80px;
+	padding:0px;
 }
 .quick_booking_button {
 	flex: 1;
 	text-align: center;
 	margin: 0 5px;
-	padding: 10px;
+	padding: 0px;
 	border: none;
 	background-color: white;
 	cursor: pointer;
@@ -238,6 +248,10 @@ width: 145px;}
 	color: #333;
 	border-radius: 15px;
 }
+.quick_booking_button span{
+display:block;}
+
+
 .circle_button {
 	flex-grow: 1;
 	width: 40px;
@@ -262,17 +276,17 @@ width: 145px;}
 	margin: 0;
 }
 #from-text, #to-text {
-	font-size: 40px;
+	font-size: 42px;
 	font-weight: bold;
 }
 #departure-text, #arrival-text {
-	font-size: 14px;
+	font-size: 15px;
 	color: #666;
 }
 /* 출/도착지 팝업 스타일 */
 .popup {
 	position: absolute;
-	top: 300px;
+	top: 250px;
 	left: 0%; /* 원하는 위치로 변경 가능 */
 	width: 740px;
 	padding: 20px;
@@ -285,13 +299,6 @@ width: 145px;}
 }
 .airport-list {height:270px; overflow-y:auto;}
 
-.close-btn {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 24px;
-	cursor: pointer;
-}
 .quick_booking_aligner {
 	/*display: flex;
 	justify-content: space-between;
@@ -303,10 +310,10 @@ width: 145px;}
 	margin-top: 45px;*/
 	
 	display: flex;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
     align-items: center;
     gap: 0px;
-    width: 1200px;
+    width: 1300px;
     max-width: 1300px;
     margin-left: -25px;
     margin-top: 50px;
@@ -325,6 +332,10 @@ p {
 	font-size: 14px;
 	color: #333;
 }
+#date_selection, #passenger_selection, #seats_selection{
+margin-right:40px;
+}
+
 #date_selection button, #passenger_selection button, #seats_selection button
 	{
 	padding-top: 20px;
@@ -342,11 +353,14 @@ p {
 	width: 310px;
 }
 #passenger_selection button {
-	width: 150px;
+	width: 160px;
+}
+#seats_selection button {
+	width: 160px;
 }
 .passenger-popup {
 	position: absolute;
-	top: 300px;
+	top: 250px;
 	left: 40%; /* 원하는 위치로 변경 가능 */
 	width: 740px;
 	padding: 20px;
@@ -384,7 +398,7 @@ p {
 /* 좌석 선택 팝업 스타일 */
 .seats-popup {
 	position: absolute;
-	top: 300px;
+	top: 250px;
 	left: 40%; /* 원하는 위치로 변경 가능 */
 	width: 740px;
 	padding: 20px;
@@ -565,8 +579,19 @@ z-index:white;
     color: #333;
 }
 
+.login-close-btn{
+	position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+
 /* 로그인 폼 스타일 */
 .input-group {
+position: relative;
     margin-bottom: 15px;
 }
 
@@ -603,9 +628,6 @@ z-index:white;
     transition: background-color 0.3s ease;
 }
 
-.login-btn:hover {
-    background-color: #4b319c;
-}
 
 /* 로그인 옵션 */
 .login-options {
@@ -624,6 +646,9 @@ z-index:white;
     text-decoration: underline;
 }
 
+form {
+margin-top:20px;
+}
 
 
     /* 추가된 섹션 스타일 */
@@ -722,22 +747,28 @@ document.addEventListener('DOMContentLoaded', function() {
         generalButton.classList.add('active-button:hover');
         mileageButton.classList.remove('active-button');
         mileageButton.classList.remove('active-button:hover');
+
     });
-    mileageButton.addEventListener('click', function() {
-        mileageButton.classList.add('active-button');
-        mileageButton.classList.add('active-button:hover');
-        generalButton.classList.remove('active-button');
-        generalButton.classList.remove('active-button:hover');
-    });
+
 });
 //팝업 열기 함수
 function openPopup(type) {
+	
+	closeAllPopups();
+	
     if (type === 'passenger') {
         document.getElementById('passenger-selection-popup').style.display = 'block';  // 탑승객 선택 팝업 표시
     } else if (type === 'departure') {
     	document.getElementById('popup').style.display = 'list-item';  // 출발지 팝업
     } else if (type === 'arrival') {
         document.getElementById('arrival-popup').style.display = 'list-item';  // 도착지 팝업
+    }
+    
+    function closeAllPopups() {
+        document.getElementById('passenger-selection-popup').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';  
+        document.getElementById('arrival-popup').style.display = 'none';  
+        document.getElementById('seats-popup').style.display = 'none';
     }
 }
 
@@ -756,21 +787,12 @@ function closePopup(type) {
 // 팝업 닫기 공통 함수
 document.addEventListener('click', function(event) {
     const passengerPopup = document.getElementById('passenger-selection-popup');
-    const departurePopup = document.getElementById('popup');
-    const arrivalPopup = document.getElementById('arrival-popup');
     const seatPopup = document.getElementById('seats-popup');
     const seatSelectBtn = document.getElementById('seats-btn');
     const passengerBtn = document.getElementById('passenger-btn');
     // 팝업 외부를 클릭하면 모든 팝업 닫기
     if (passengerPopup.style.display === 'block' && !passengerPopup.contains(event.target) && event.target !== passengerBtn) {
         passengerPopup.style.display = 'none';
-    }
-    
-    if (departurePopup.style.display === 'block' && !departurePopup.contains(event.target)) {
-        departurePopup.style.display = 'none';
-    }
-    if (arrivalPopup.style.display === 'block' && !arrivalPopup.contains(event.target)) {
-        arrivalPopup.style.display = 'none';
     }
     if (seatPopup.style.display === 'block' && !seatPopup.contains(event.target) && event.target !== seatSelectBtn) {
         seatPopup.style.display = 'none';
@@ -804,6 +826,14 @@ function loadDeparture() {
         var airportList = document.getElementById('airport-list');      
         airportList.innerHTML = ''; // 기존 목록 비우기
 
+        // 기본값 설정 (DB에서 불러온 데이터 중 하나를 선택)
+        var defaultAirport = data.find(airport => airport.airportCode === 'ICN'); 
+
+            document.getElementById('from-text').textContent = defaultAirport.airportCode;
+            document.getElementById('departure-text').textContent = defaultAirport.city + '/' + defaultAirport.detailedCity
+      
+        
+        
         // 공항 목록을 HTML에 추가하기
         data.forEach(function(airport) {
             var li = document.createElement('li');
@@ -894,19 +924,27 @@ function loadArrival() {
     xhr.send();
 }
 document.addEventListener('DOMContentLoaded', function () {
-	
+    const bookingButton = document.getElementById('booking');
+    
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
+    
+    // 예매 버튼을 기본으로 활성화 상태로 설정
+    document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
+        el.classList.remove('active'); // 모든 li에서 active 클래스 제거
+    });
+    bookingButton.parentNode.classList.add('active'); // 항공권예매 버튼에 active 클래스 추가
+
     // activateMenu 함수 정의
     function activateMenu(event) {
         // 모든 li 요소에서 active 클래스 제거
         document.querySelectorAll('.booking_widget_list li').forEach(function(el) {
             el.classList.remove('active');
-
         });
         // 클릭된 li 요소에 active 클래스 추가
         event.currentTarget.parentNode.classList.add('active');
     }
+
     // 버튼 클릭 시 activateMenu 함수 호출
     document.querySelectorAll('.booking_widget_list li button').forEach(function(button) {
         button.addEventListener('click', activateMenu);
@@ -1070,6 +1108,44 @@ function decrease(type) {
         }
     });
     
+    // 로그인 상태 체크 및 로그인 팝업 처리
+    function checkLoginStatus(event) {
+        // 서버에 로그인 상태 확인 요청
+        fetch('/checkLoginStatus')
+            .then(response => response.json())
+            .then(isLoggedIn => {
+                if (isLoggedIn) {
+                    // 로그인된 상태면 버튼 색상 변경 (활성화)
+                    activateMileageButton();
+                } else {
+                    // 로그인되지 않은 상태면 팝업을 띄우고, 버튼 클릭 이벤트는 막음
+                    event.preventDefault();  // 기본 클릭 동작 방지
+                    openLoginPopup();  // 로그인 팝업 띄우기
+                }
+            });
+    }
+
+    // 로그인 성공 후 마일리지 버튼 활성화 (색상 변경)
+    function activateMileageButton() {
+        const generalButton = document.getElementById('general');
+        const mileageButton = document.getElementById('mileage');
+        mileageButton.classList.add('active-button'); // 클래스 추가로 버튼 색 변경
+        mileageButton.classList.add('active-button:hover');
+        generalButton.classList.remove('active-button');
+        generalButton.classList.remove('active-button:hover');
+
+        
+        
+        console.log('로그인 성공, 마일리지 예매 버튼 활성화');
+    }
+    
+    // 로그인 처리 후 버튼 색상 변경
+    function login() {
+        // 로그인 성공 로직 추가 가능 (예: 서버에 로그인 요청 후 응답 처리)
+        closeLoginPopup();  // 팝업 닫기
+        activateMileageButton();  // 로그인 성공 후 버튼 활성화
+        console.log('로그인 성공');
+    }
  
  // 팝업 열기
     function openLoginPopup() {
@@ -1119,6 +1195,16 @@ function decrease(type) {
    	    		document.getElementsByClassName("inner")[n].style.fontSize=num+"px";
    	    		document.getElementsByClassName("inner")[n].style.top="-15px";
    	    		document.getElementsByClassName("inner")[n].style.opacity=1;
+   	    		document.getElementsByClassName("inner")[n].style.style="#1f0c59";
+   	    		document.getElementsByClassName("inner")[n].style.fontWeight="bold";
+   	    		document.getElementsByClassName("inner")[n].style.paddingLeft="2px";
+   	    		document.getElementsByClassName("inner")[n].style.paddingRight="2px";
+   	    		if(n== 0)
+   	    		{document.getElementsByClassName("inner")[n].textContent = "아이디 *";}
+   	    		else
+   	    		{document.getElementsByClassName("inner")[n].textContent = "비밀번호 *";}
+   	    		
+   	    		
    	    		
    	    		if(num==11)
    	    		{	
@@ -1148,6 +1234,11 @@ function decrease(type) {
     	   		document.getElementsByClassName("inner")[n].style.fontSize=num+"px";
     	   		document.getElementsByClassName("inner")[n].style.top="-5px";
    	    		document.getElementsByClassName("inner")[n].style.opacity=0.6;
+   	    		document.getElementsByClassName("inner")[n].style.style="#333";
+   	    		if(n== 0)
+   	    		{document.getElementsByClassName("inner")[n].textContent = "아이디";}
+   	    		else
+   	    		{document.getElementsByClassName("inner")[n].textContent = "비밀번호";}
     	   		
     	   		if(num>=18)
     	   		{	
@@ -1189,7 +1280,7 @@ function decrease(type) {
 
 						<ul class="booking_widget_list">
 							<li class="booking_menu">
-								<button type="button" onclick="showContent('booking')">
+								<button type="button" onclick="showContent('booking')" id="booking">
 									<span> 항공권예매 </span>
 								</button>
 							</li>
@@ -1219,7 +1310,7 @@ function decrease(type) {
 											<button type="button" id="general">예매</button>
 										</li>
 										<li>
-											<button type="button" id="mileage" onclick="openLoginPopup()">마일리지 예매</button>
+											<button type="button" id="mileage" onclick="checkLoginStatus(event)">마일리지 예매</button>
 									</ul>
 								</div>
 								
@@ -1229,11 +1320,12 @@ function decrease(type) {
 <!-- 마일리지 예매 팝업 -->
 <div id="login-popup" class="login-popup" style="display: none;">
     <div class="login-popup-content">
-        <span class="close-btn" onclick="closeLoginPopup()">&times;</span>
+        <span class="login-close-btn" onclick="closeLoginPopup()">&times;</span>
         <h2>로그인</h2>
         
         <!-- 로그인 폼 -->
-        <form method="post" action="loginOk" onsubmit="return check(this);">
+
+        <form method="post" action="/login" onsubmit="return check(this);">
             <div class="input-group">
     <div> 
        <div class="inner">아이디</div>

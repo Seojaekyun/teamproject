@@ -8,5 +8,8 @@
 		SELECT state, COUNT(*) AS count FROM inquiry
 		GROUP BY state ORDER BY state DESC limit 3
 	</select>
+		<select id="loginOk" resultType="String">
+		select name from member where userid=#{userid} and pwd=#{pwd}
+	</select>
 	
 </mapper>
