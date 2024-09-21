@@ -10,11 +10,11 @@
 		UPDATE Seats SET is_available = #{isAvailable} WHERE
 		flight_id = #{flightId} AND seat_number = #{seatNumber}
 	</update>
-	<select id="reservations" resultType="com.example.demo.dto.ReservationDto">
-		SELECT CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
-		f.departure_time AS departureTime, COUNT(r.reservation_id) AS reservationCount
-		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time > NOW()
-		GROUP BY flightName, departureTime ORDER BY departureTime ASC LIMIT 5
+	<select id="getRsvanow" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
+		JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW()
+		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
 	
 	

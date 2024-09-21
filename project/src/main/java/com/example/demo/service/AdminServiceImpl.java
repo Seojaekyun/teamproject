@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,37 +38,52 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String adminI(HttpServletRequest request, Model model) {
 		// 현재 날짜 구하기
-        String currentDate = LocalDate.now().toString();
-
-        // 출항 항공편 5개 조회
-        List<FlightDto> departureList = fmapper.getDepartureFlights();
-        // 입항 항공편 5개 조회
-        List<FlightDto> arrivalList = fmapper.getArrivalFlights();
-
-        // 모델에 리스트 추가
-        model.addAttribute("departureList", departureList);
-        model.addAttribute("arrivalList", arrivalList);
-
-        // 모든 문의 리스트 조회
-        ArrayList<InquiryDto> ilist = imapper.ilist();
-        model.addAttribute("ilist", ilist);
-
-        // State별 문의 수 조회
-        List<StateCountDto> countsList = imapper.listCountsPerState();
-        countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
-
-        for (int i = 0; i < countsList.size(); i++) {
-            countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
-        }
-
-        model.addAttribute("countsList", countsList);
-
-        // **예약 데이터 조회 및 모델에 추가**
-        List<ReservationDto> rsvList = rmapper.reservations();
-        model.addAttribute("rsvList", rsvList);
-
-        return "/admin/index";
-    }
+		String currentDate = LocalDate.now().toString();
+		
+		// 항공편 5개 조회
+		List<FlightDto> departureList = fmapper.getDepartureFlights();
+		List<FlightDto> arrivalList = fmapper.getArrivalFlights();
+		
+		model.addAttribute("departureList", departureList);
+		model.addAttribute("arrivalList", arrivalList);
+		
+		// 모든 문의 리스트 조회
+		ArrayList<InquiryDto> ilist = imapper.ilist();
+		model.addAttribute("ilist", ilist);
+		
+		// State별 문의 수 조회
+		List<StateCountDto> countsList = imapper.listCountsPerState();
+		countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
+		
+		for (int i = 0; i < countsList.size(); i++) {
+			countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
+		}
+		
+		model.addAttribute("countsList", countsList);
+		
+		// 현재 시간 이후의 예약 5개씩 조회
+		List<ReservationDto> rsvList = rmapper.getRsvanow();
+		
+		// GMP로 시작하는 항공편의 예약 리스트
+		List<ReservationDto> gmpRsv = rsvList.stream()
+			.filter(rsv -> rsv.getFlightName().startsWith("GMP"))
+			.limit(5).collect(Collectors.toList());
+		model.addAttribute("gmpRsv", gmpRsv);
+		
+		// ICN으로 시작하는 항공편의 예약 리스트
+		List<ReservationDto> icnRsv = rsvList.stream()
+			.filter(rsv -> rsv.getFlightName().startsWith("ICN"))
+			.limit(5).collect(Collectors.toList());
+		model.addAttribute("icnRsv", icnRsv);
+		
+		// 기타 항공편의 예약 리스트
+		List<ReservationDto> otherRsv = rsvList.stream()
+			.filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
+			.limit(5).collect(Collectors.toList());
+		model.addAttribute("otherRsv", otherRsv);
+		
+		return "/admin/index";
+	}
 	
 	@Override
 	public String adReserve() {
