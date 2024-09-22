@@ -16,6 +16,14 @@
 		JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW()
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
+	<select id="getRsvByDate" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
+		JOIN flights f ON r.flight_id = f.flight_id WHERE DATE(f.departure_time) = #{selectedDate}
+		GROUP BY r.flight_id ORDER BY f.departure_time
+	</select>
+	
+	
 	
 	
 </mapper>

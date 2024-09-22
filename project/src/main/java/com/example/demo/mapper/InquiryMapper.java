@@ -18,5 +18,7 @@ public interface InquiryMapper {
 	void delete(String id);
 	List<StateCountDto> listCountsPerState();
 	ArrayList<InquiryDto> ilist();
+	void updateAnswer(int inquiryId, String answerText);
+	void answer(int inquiryId, String answerText);
 	
 }

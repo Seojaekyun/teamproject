@@ -106,5 +106,17 @@ public class InquiryServiceImpl implements InquiryService {
         model.addAttribute("idto", idto);
         return "/admin/inquiryContent";
 	}
+
+	@Override
+    public String answer(int inquiryId, String answerText) {
+        mapper.answer(inquiryId, answerText); // 답변 저장 로직 처리
+        return "redirect:/admin/inquiryContent?id=" + inquiryId; // 저장 후 해당 문의 페이지로 리다이렉트
+    }
+
+    @Override
+    public String updateAnswer(int inquiryId, String answerText) {
+        mapper.updateAnswer(inquiryId, answerText); // 답변 수정 로직 처리
+        return "redirect:/admin/inquiryContent?id=" + inquiryId; // 수정 후 해당 문의 페이지로 리다이렉트
+    }
     
 }

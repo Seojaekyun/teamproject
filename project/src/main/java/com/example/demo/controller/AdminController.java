@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.GongjiDto;
 import com.example.demo.service.AdminService;
@@ -33,9 +34,18 @@ public class AdminController {
 		return service.adminI(request, model);
 	}
 	
-	@RequestMapping("/admin/adReserve")
-	public String adReserve() {
-		return service.adReserve();
+	@RequestMapping("/admin/reserveList")
+	public String reserveList(
+	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
+	    @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
+	    @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
+	    @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
+	    Model model) {
+	    
+	    // 선택한 날짜를 모델에 추가해 JSP로 전달
+	    model.addAttribute("selectedDate", selectedDate);
+	    
+	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, model);
 	}
 	
 	@RequestMapping("/admin/memberList")
@@ -51,6 +61,16 @@ public class AdminController {
 	@RequestMapping("/admin/inquiryContent")
     public String inquiryContent(HttpServletRequest request, Model model) {
         return iservice.inquiryContent(request, model);
+    }
+	
+	@RequestMapping("/admin/answer")
+    public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+        return iservice.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
+    }
+
+    @RequestMapping("/admin/updateAnswer")
+    public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+        return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
     }
 	
 	@RequestMapping("/admin/gongjiList")

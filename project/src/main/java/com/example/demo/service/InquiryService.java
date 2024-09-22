@@ -19,5 +19,7 @@ public interface InquiryService {
     String delete(HttpServletRequest request);
     String inquiryList(HttpServletRequest request, Model model);
 	String inquiryContent(HttpServletRequest request, Model model);
+	String answer(int inquiryId, String answerText);
+	String updateAnswer(int inquiryId, String answerText);
 
 }

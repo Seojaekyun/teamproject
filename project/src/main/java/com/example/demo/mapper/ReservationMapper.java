@@ -13,6 +13,7 @@ public interface ReservationMapper {
 			@Param("seatNumber") String seatNumber,
 			@Param("isAvailable") boolean isAvailable); // 좌석 상태 업데이트
 	List<ReservationDto> getRsvanow();
+	List<ReservationDto> getRsvByDate(String selectedDate);
     
     
 }

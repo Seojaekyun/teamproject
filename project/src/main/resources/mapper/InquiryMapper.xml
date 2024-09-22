@@ -35,5 +35,13 @@
         <result property="state" column="state"/>
         <result property="count" column="count"/>
     </resultMap>
+    <update id="answer">
+    	UPDATE inquiry SET answer = 1, answertext = #{answerText} WHERE id = #{inquiryId}
+    </update>
+    <update id="updateAnswer">
+    	UPDATE inquiry SET answertext = #{answerText} WHERE id = #{inquiryId}
+    </update>
+
+    
 	
 </mapper>

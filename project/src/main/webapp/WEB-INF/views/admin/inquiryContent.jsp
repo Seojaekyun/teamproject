@@ -75,6 +75,48 @@
 		background-color: #4CAF50;
 		color: white;
 	}
+	/* 답변 입력 폼 스타일 */
+	#answerForm {
+		width: 600px;
+		margin: 20px auto;
+		display: block; /* 폼이 항상 표시되게 */
+	}
+	#answerForm textarea {
+		width: 100%;
+		height: 150px;
+		padding: 10px;
+		font-size: 14px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		margin-bottom: 10px;
+	}
+	#answerForm input[type="submit"] {
+		display: inline-block;
+		padding: 8px 16px;
+		background-color: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	#answerForm input[type="submit"]:hover {
+		background-color: #45a049;
+	}
+	#editAnswerBtn {
+		display: inline-block;
+		padding: 8px 16px;
+		background-color: #f39c12;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+		margin-top: 10px;
+	}
+	#editAnswerBtn:hover {
+		background-color: #e67e22;
+	}
 </style>
 </head>
 <body>
@@ -94,11 +136,35 @@
 			<td id="content">${idto.content}</td>
 		</tr>
 	</table>
+
+	<!-- 버튼 영역 -->
 	<div id="btn">
 		<a href="inquiryList">목록</a>
-		<a href="update?id=${idto.id}">수정</a>
 		<a href="delete?id=${idto.id}">삭제</a>
 	</div>
+
+	<!-- 답변 입력/보기 폼 -->
+	<c:choose>
+		<c:when test="${idto.answer == 0}">
+			<!-- 답변 입력 폼 -->
+			<form id="answerForm" action="answer" method="post">
+				<input type="hidden" name="id" value="${idto.id}"> <!-- 문의사항 ID 전달 -->
+				<textarea name="answer" placeholder="여기에 답변을 입력하세요..."></textarea>
+				<input type="submit" value="답변 제출">
+			</form>
+		</c:when>
+		<c:when test="${idto.answer == 1}">
+			<!-- 답변 내용 표시 및 수정 -->
+			<h3>답변 내용</h3>
+			<div id="answerForm">
+				<form action="updateAnswer" method="post">
+					<input type="hidden" name="id" value="${idto.id}">
+					<textarea name="answer">${idto.answertext}</textarea>
+					<input type="submit" value="답변 수정">
+				</form>
+			</div>
+		</c:when>
+	</c:choose>
 
 </body>
 </html>
