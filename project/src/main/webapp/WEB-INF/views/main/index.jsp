@@ -1028,8 +1028,6 @@ function updateButtonTextWithIcon(buttonId, newText) {
         button.appendChild(icon);  // 아이콘을 다시 버튼에 추가 (이미 있는 경우)
     }
 }
-
-
 <!-- 탑승객 관련 함수 -->
 function updatePassengerButton() {
     var adultCount = document.getElementById('adult-count').textContent;
