@@ -820,7 +820,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //출발지 리스트 로드 함수 수정
 function loadDeparture() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/flights/airports'); // 서버에 GET 요청
+    xhr.open('GET', '/api/flights/airports'); // 서버에 GET 요청
     xhr.onload = function() {
         var data = JSON.parse(xhr.responseText); // JSON 데이터 파싱
         var airportList = document.getElementById('airport-list');      
@@ -862,6 +862,9 @@ function loadDeparture() {
                 } else {
                     document.getElementById('departure-text').textContent = airport.city + '/' + airport.detailedCity;
                 }
+             	// hidden 필드에 선택한 출발지 공항 코드 설정
+                document.getElementById('from-hidden').value = airport.airportCode;
+                console.log("출발지 설정됨: " + airport.airportCode); // 디버깅 로그
                 closePopup('departure');
             };
 
@@ -878,7 +881,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function loadArrival() {
     var xhr = new XMLHttpRequest();   
-    xhr.open('GET', '/flights/airports'); 
+    xhr.open('GET', '/api/flights/airports'); 
     xhr.onload = function() {
         var data = JSON.parse(xhr.responseText);         
         var airportList = document.getElementById('arrival-list');
@@ -914,10 +917,14 @@ function loadArrival() {
                 } else {
                     document.getElementById('arrival-text').textContent = airport.city + '/' + airport.detailedCity;
                 }
+                // hidden 필드에 선택한 도착지 공항 코드 설정
+                document.getElementById('to-hidden').value = airport.airportCode;
+                console.log("도착지 설정됨: " + airport.airportCode); // 디버깅 로그
                 closePopup('arrival');
             };
 
             // 리스트에 항목 추가
+             
             airportList.appendChild(li);
         });
     };
@@ -964,10 +971,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('date-btn').innerHTML = 
                     selectedDates[0].toLocaleDateString() + 
                     " ~ " + selectedDates[1].toLocaleDateString();
+             // 날짜 필드에 형식에 맞춰 값을 저장
+                document.getElementById('departureDate-hidden').value = instance.formatDate(selectedDates[0], "Y-m-d");
+                document.getElementById('arrivalDate-hidden').value = instance.formatDate(selectedDates[1], "Y-m-d");
+
+          
             } else if (tripMethod === "one-way" && selectedDates.length === 1) {
                 // 편도일 경우: 하루만 선택되면 버튼에 표시
                 document.getElementById('date-btn').innerHTML = 
                     "가는 날: " + selectedDates[0].toLocaleDateString();
+                // 편도의 경우 출발일만 저장
+                document.getElementById('departureDate-hidden').value = instance.formatDate(selectedDates[0], "Y-m-d");
+                document.getElementById('arrivalDate-hidden').value = ""; // 편도일 경우 도착일을 비움
             }
         }
     });
@@ -1266,6 +1281,30 @@ function decrease(type) {
     	son=open("psForm","","width=400,height=370");
     	son.moveTo(200,200);
     }
+    
+    
+    
+    
+ // 출발지 선택 시
+    function selectDeparture(airportCode, city) {
+    document.getElementById('from-text').textContent = airport.airportCode;
+    document.getElementById('departure-text').textContent = city;
+    document.getElementById('from-hidden').value = airport.airportCode; // hidden 필드에 값 설정
+    console.log("출발지 설정: " + airport.airportCode); // 디버그용 로그
+    closePopup('departure');
+	}
+
+ // 도착지 선택 시
+    function selectArrival(airportCode, city) {
+        document.getElementById('to-text').textContent = airportCode;
+        document.getElementById('arrival-text').textContent = city;
+        document.getElementById('to-hidden').value = airportCode; // hidden 필드에 값 설정
+        console.log("도착지 설정: " + airportCode); // 디버그용 로그
+        closePopup('arrival');
+    }
+    
+    
+   
 
 </script>
 </head>
@@ -1355,6 +1394,9 @@ function decrease(type) {
 </div>
 
 
+
+<form action="${pageContext.request.contextPath}/flights/search" method="get">
+
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">
 									<input type="radio" name="t_methods" value="round"
@@ -1407,6 +1449,13 @@ function decrease(type) {
 											<ul id="arrival-list" class="airport-list"></ul>
 
 									</div>
+									
+									
+									<!-- 출발지, 도착지 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departure" id="from-hidden">
+        							<input type="hidden" name="arrival" id="to-hidden">
+        							
+        							
 
 									<!-- 날짜 선택 버튼 -->
 									<div id="date_selection">
@@ -1415,6 +1464,12 @@ function decrease(type) {
 											<span>가는날 ~ 오는날</span>
 										</button>
 									</div>
+									
+									 <!-- 날짜 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departureDate" id="departureDate-hidden">
+        							<input type="hidden" name="arrivalDate" id="arrivalDate-hidden">
+									
+									
 
 									<!-- 탑승객 선택 버튼 -->
 									<div id="passenger_selection">
@@ -1424,6 +1479,11 @@ function decrease(type) {
 											<span>인원수</span>
 										</button>
 									</div>
+									
+									
+									
+									<!-- 탑승객 수 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="passengers" id="passenger-hidden">
 
 									<!-- 승객 선택 팝업 -->
 									<div id="passenger-selection-popup" class="passenger-popup"
@@ -1461,6 +1521,9 @@ function decrease(type) {
 											<span>선택하세요</span>
 										</button>
 									</div>
+									
+									 <!-- 좌석 등급 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="seatClass" id="seatClass-hidden">
 
 									<!-- 좌석 등급 DIV -->
 									<div id="seats-popup" class="seats-popup"
@@ -1478,6 +1541,7 @@ function decrease(type) {
 
 
 									<!-- 항공편 선택 버튼 -->
+									<!--  
 									<div id="search_airline">
 										<a href="/flight/flightSearchResults">
 											<button type="button" id="search_button">
@@ -1485,9 +1549,29 @@ function decrease(type) {
 											</button>
 										</a>
 									</div>
+									
+									-->
+									
+									
+									
+    								<div id="search_airline">
+        								<button type="submit" id="search_button">
+            									<span>항공편 검색</span>
+        								</button>
+    								</div>
+    								
+    								
+    								
+
+
+
+
+									
 
 
 								</div>
+					
+</form>
 							</div>
 						</div>
 						<div class="select_contents">

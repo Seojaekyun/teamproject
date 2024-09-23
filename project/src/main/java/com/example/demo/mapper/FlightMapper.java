@@ -18,7 +18,10 @@ public interface FlightMapper {
 	List<FlightDto> getAvailableFlights();
 	List<FlightDto> getFlightsByDate(String date);
 	List<FlightDto> getAvailableFlightsByDate(String date);
-	List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate);
+	List<FlightDto> findFlights(@Param("departure") String departure, 
+            @Param("arrival") String arrival, 
+            @Param("departureDate") String departureDate, 
+            @Param("arrivalDate") String arrivalDate);
 	List<FlightDto> getAllFlights();
     List<FlightDto> getFlightsWithPagination(@Param("limit") int limit, @Param("offset") int offset);
 	int getTotalFlightsCount();

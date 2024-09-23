@@ -4,7 +4,6 @@
 <head>
     <title>항공편 검색 결과</title>
     <style>
-        /* 간단한 스타일 추가 */
         table {
             width: 80%;
             margin: auto;

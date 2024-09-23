@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.FlightMapper">
 
+
+	  <!-- ResultMap 정의 -->
+    <resultMap id="FlightResultMap" type="com.example.demo.dto.FlightDto">
+        <id property="flightId" column="flight_id"/>
+        <!-- <result property="flightNumber" column="flight_number"/> --> <!-- 필요 시 유지 -->
+        <result property="departureAirport" column="departure_airport"/>
+        <result property="arrivalAirport" column="arrival_airport"/>
+        <result property="departureTime" column="departure_time"/>
+        <result property="arrivalTime" column="arrival_time"/>
+        <result property="flightDuration" column="flight_duration"/>
+        <result property="airplaneId" column="airplane_id"/>
+    </resultMap>
+
+
+
+
+
+
+
     <select id="findAllAirports" resultType="com.example.demo.dto.AirportsDto">
         SELECT * FROM airports
     </select>
@@ -11,11 +30,7 @@
 	<select id="getAvailableFlightsByDate" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
 	</select>
-	<select id="findFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
-		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time
-		FROM flights WHERE departure_airport = #{departure}
-		AND arrival_airport = #{arrival} AND DATE(departure_time) = #{departureDate} AND DATE(arrival_time) = #{arrivalDate}
-	</select>
+	
 	<select id="getAllFlights" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE departure_time >= NOW() ORDER BY departure_time 
 	</select>
@@ -34,6 +49,21 @@
 		SELECT * FROM flights WHERE departure_time >= NOW() AND arrival_airport IN ('GMP', 'ICN')
 		ORDER BY departure_time LIMIT 5
 	</select>
+	
+	
+	
+	
+	
+	<!-- findFlights 쿼리 (is_available 조건 제거) -->
+    <select id="findFlights" parameterType="map" resultMap="FlightResultMap">
+        SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id
+        FROM flights 
+        WHERE departure_airport = #{departure}
+          AND arrival_airport = #{arrival} 
+          AND DATE(departure_time) = #{departureDate} 
+          AND DATE(arrival_time) = #{arrivalDate}
+    </select>
+	
 	
 
 </mapper>
