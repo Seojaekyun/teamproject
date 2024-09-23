@@ -160,7 +160,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public String flightList(Integer page, String selectedDate, Model model) {
-	    int itemsPerPage = 10;  // 페이지당 항목 수를 고정
+	    int itemsPerPage = 10;  // 페이지당 항목 수
 
 	    // 시작 인덱스 계산
 	    int start = (page - 1) * itemsPerPage;
@@ -168,29 +168,54 @@ public class AdminServiceImpl implements AdminService{
 	    // 항공편 리스트 가져오기
 	    List<FlightDto> flightList;
 	    if (selectedDate != null && !selectedDate.isEmpty()) {
-	        // 날짜에 따른 항공편 리스트 가져오기
 	        flightList = fmapper.getFlightsByDate(selectedDate);
 	    } else {
 	        flightList = fmapper.getAllFlights();
 	    }
 
-	    // 페이징 적용
-	    List<FlightDto> pagedFlights = (start >= flightList.size()) ? Collections.emptyList() :
-	        flightList.subList(start, Math.min(start + itemsPerPage, flightList.size()));
+	    // GMP, ICN, 기타로 분류
+	    List<FlightDto> gmpFlights = flightList.stream()
+	        .filter(flight -> flight.getDepartureAirport().equals("GMP"))
+	        .collect(Collectors.toList());
+
+	    List<FlightDto> icnFlights = flightList.stream()
+	        .filter(flight -> flight.getDepartureAirport().equals("ICN"))
+	        .collect(Collectors.toList());
+
+	    List<FlightDto> otherFlights = flightList.stream()
+	        .filter(flight -> !flight.getDepartureAirport().equals("GMP") && !flight.getDepartureAirport().equals("ICN"))
+	        .collect(Collectors.toList());
+
+	    // 페이징 적용 (메인 테이블과 각 서브 테이블에 대해 처리)
+	    List<FlightDto> pagedFlights = flightList.subList(start, Math.min(start + itemsPerPage, flightList.size()));
+
+	    // 페이징 처리
+	    List<FlightDto> pagedGmpFlights = gmpFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	    List<FlightDto> pagedIcnFlights = icnFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	    List<FlightDto> pagedOtherFlights = otherFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
 
 	    // 전체 페이지 수 계산
 	    int totalPages = (int) Math.ceil((double) flightList.size() / itemsPerPage);
+	    int totalGmpPages = (int) Math.ceil((double) gmpFlights.size() / itemsPerPage);
+	    int totalIcnPages = (int) Math.ceil((double) icnFlights.size() / itemsPerPage);
+	    int totalOtherPages = (int) Math.ceil((double) otherFlights.size() / itemsPerPage);
 
 	    // 모델에 추가
 	    model.addAttribute("flightList", pagedFlights);
-	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
-	    model.addAttribute("selectedDate", selectedDate);  // 선택된 날짜를 모델에 추가
+	    model.addAttribute("currentPage", page);
 
-	    return "/admin/flightsList";  // flightsList.jsp로 이동
+	    model.addAttribute("pagedGmpFlights", pagedGmpFlights);
+	    model.addAttribute("totalGmpPages", totalGmpPages);
+	    model.addAttribute("pagedIcnFlights", pagedIcnFlights);
+	    model.addAttribute("totalIcnPages", totalIcnPages);
+	    model.addAttribute("pagedOtherFlights", pagedOtherFlights);
+	    model.addAttribute("totalOtherPages", totalOtherPages);
+
+	    model.addAttribute("selectedDate", selectedDate);  // 선택된 날짜 추가
+
+	    return "/admin/flightsList";
 	}
-
-
 
 	@Override
 	public String memberList(HttpServletRequest request, Model model) {
