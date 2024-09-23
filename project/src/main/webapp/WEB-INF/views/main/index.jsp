@@ -932,6 +932,7 @@ function loadArrival() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     const bookingButton = document.getElementById('booking');
+   
     
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
