@@ -1563,13 +1563,13 @@ function decrease(type) {
 						</div>
 						
 <style>
-.select_contents {
+.select_contents, .check-in_contents {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#select_methods {
+#select_methods, #check-in_methods {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1577,7 +1577,7 @@ function decrease(type) {
     width: 80%;
 }
 
-.select_info_aligner {
+.select_info_aligner, .check-in_info_aligner{
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5개의 열로 구성 */
     gap: 5px; /* 각 요소 사이의 간격 */
@@ -1594,27 +1594,27 @@ function decrease(type) {
     
 }
 
-#select_number, #select_date, #select_sung, #select_name {
+#select_number, #select_date, #select_sung, #select_name, #check-in_number, #check-in_date. #check-in_sung, #check-int_name {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     
 }
 
-#select_number{
+#select_number, #check-in_number{
 width:85%;
 }
 
-#select_date{
+#select_date, #check-in_date{
  margin-left: 55px;
 width:95%;
 }
 
-#select_sung{
+#select_sung, #check-in_sung{
  margin-left: 75px;
 width:85%
 }
-#select_name{
+#select_name, #check-in_name{
 margin-left: 50px;
 width:85%}
 
@@ -1624,7 +1624,7 @@ width:85%}
 
 
 
-#select_number input {
+#select_number input, #check-in_number input {
     width: 130%;
     border: none;
     border-bottom: 1px solid black;
@@ -1636,14 +1636,14 @@ width:85%}
     
 }
 
-#select_number input::placeholder {
+#select_number input::placeholder, #check-in_number input::placeholder {
     font-size: 16px; /* 원하는 크기로 설정 */
 	 padding-left: -10px;
 	
 }
 
 
-#select_sung input, #select_name input {
+#select_sung input, #select_name input, #check-in_sung input, #check-in_name input {
  width: 90%;
     border: none;
     border-bottom: 1px solid black;
@@ -1651,7 +1651,7 @@ width:85%}
     margin-top:15px;
 }
 
-#date{
+#date, #cdate{
 width: 100%;
 border: none;
 border-bottom: 1px solid black;
@@ -1666,14 +1666,14 @@ margin-right:30px;
 
 
 
-#select_selection {
+#select_selection, #check-in_selection {
     display: flex;
     justify-content: flex-start;
     align-self: flex-end;
     align-items: center;
 }
 
-#select_button {
+#select_button, #cselect_button {
 	width: 115px;
     background-color: #1f0c59;
     color: white;
@@ -1686,17 +1686,17 @@ margin-right:30px;
     margin-left:25px;
 }
 
-#select_button:hover {
+#select_button:hover, #check-in_button:hover {
     background-color: #0055a5;
 }
 
-#select_agree_contents {
+#select_agree_contents, #check-in_agree_contents {
     margin-top: 30px;
     text-align: left;
     font-size: 14px;
 }
 
-#select_agree_contents input {
+#select_agree_contents input, #check-in_agree_contents input {
     margin-right: 10px;
     width: 13px; /* 너비를 조정 */
     height: 13px; /* 높이를 조정 */
@@ -1709,15 +1709,45 @@ margin-right:30px;
 
 						<div class="check-in_contents">
 							<div id="check-in methods">
-								<input type="radio" name="t_methods" value="0"> <label>왕복</label>
-								<input type="radio" name="t_methods" value="1"> <label>편도</label>
-							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>om</span> <span>$nbsp;출발지</span>
-								</button>
+								<div class="check-in_info_aligner">
+									<!-- 날짜 선택 버튼 -->
+									<div id="check-in_number">
+										<p>예약번호 또는 항공권번호&nbsp;</p>
+										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890">
+									</div>
+
+									<div id="check-in_date">
+										<p>출발일&nbsp;</p>
+										<button type="button" id="cdate">
+										</button>
+									</div>
+									
+									<div id="check-in_sung">
+										<p>승객 성&nbsp;</p>
+										<input type="text" id="csung" >
+									</div>
+									<div id="check-in_name">
+										<p>승객 이름&nbsp;</p>
+										<input type="text" id="cname" >
+									</div>
+									
+									<div id="check-in_selection">
+											<button type="button" id="cselect_button">
+												<span>조회</span>
+											</button>
+									</div>
+																		
+									</div>
+									
+									<div id="check-in_agree_contents">
+									<input type="checkbox" id="cagree-contents" required> 
+									<label for="cagree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
+									</div>
 							</div>
 						</div>
+						
+						
+
 
 						<div class="schedule_contents">
 							<div id="schedule methods">
