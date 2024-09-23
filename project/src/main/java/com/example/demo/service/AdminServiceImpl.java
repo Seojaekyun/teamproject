@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -157,14 +159,20 @@ public class AdminServiceImpl implements AdminService{
     }
 	
 	@Override
-	public String flightList(Integer page, Model model) {
+	public String flightList(Integer page, String selectedDate, Model model) {
 	    int itemsPerPage = 10;  // 페이지당 항목 수를 고정
 
 	    // 시작 인덱스 계산
 	    int start = (page - 1) * itemsPerPage;
 
-	    // 전체 항공편 리스트 가져오기
-	    List<FlightDto> flightList = fmapper.getAllFlights();
+	    // 항공편 리스트 가져오기
+	    List<FlightDto> flightList;
+	    if (selectedDate != null && !selectedDate.isEmpty()) {
+	        // 날짜에 따른 항공편 리스트 가져오기
+	        flightList = fmapper.getFlightsByDate(selectedDate);
+	    } else {
+	        flightList = fmapper.getAllFlights();
+	    }
 
 	    // 페이징 적용
 	    List<FlightDto> pagedFlights = (start >= flightList.size()) ? Collections.emptyList() :
@@ -177,9 +185,12 @@ public class AdminServiceImpl implements AdminService{
 	    model.addAttribute("flightList", pagedFlights);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("selectedDate", selectedDate);  // 선택된 날짜를 모델에 추가
 
 	    return "/admin/flightsList";  // flightsList.jsp로 이동
 	}
+
+
 
 	@Override
 	public String memberList(HttpServletRequest request, Model model) {
