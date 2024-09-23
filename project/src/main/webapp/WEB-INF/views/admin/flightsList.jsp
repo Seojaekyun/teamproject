@@ -123,13 +123,21 @@
 		<!-- Pagination -->
 		<div class="pagination">
 			<c:if test="${totalPages > 1}">
+				<!-- 이전 5페이지 -->
+				<c:if test="${currentPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 10});">이전 10</a>
+				</c:if>
+
 				<!-- 이전 페이지 -->
 				<c:if test="${currentPage > 1}">
 					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 1});">이전</a>
 				</c:if>
-				
-				<!-- 페이지 번호 -->
-				<c:forEach begin="1" end="${totalPages}" var="i">
+
+				<!-- 페이지 번호 (최대 10개 표시) -->
+				<c:set var="startPage" value="${(currentPage - 5 > 1) ? currentPage - 5 : 1}" />
+				<c:set var="endPage" value="${(currentPage + 4 > totalPages) ? totalPages : currentPage + 4}" />
+
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
 					<c:choose>
 						<c:when test="${i == currentPage}">
 							<span class="active">${i}</span>
@@ -139,10 +147,15 @@
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				
+
 				<!-- 다음 페이지 -->
 				<c:if test="${currentPage < totalPages}">
 					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 1});">다음</a>
+				</c:if>
+
+				<!-- 다음 5페이지 -->
+				<c:if test="${currentPage + 10 <= totalPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 10});">다음 10</a>
 				</c:if>
 			</c:if>
 		</div>
