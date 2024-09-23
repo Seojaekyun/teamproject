@@ -26,9 +26,10 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate) {
-		return fmapper.findFlights(departure, arrival, departureDate, arrivalDate);
-	}
+    public List<FlightDto> findFlights(String departure, String arrival, String departureDate, String arrivalDate) {
+        // 조건에 따라 유연하게 쿼리 수행
+        return fmapper.findFlights(departure, arrival, departureDate, arrivalDate);
+    }
 	
 	@Override
 	public List<FlightDto> getAvailableFlights() {
