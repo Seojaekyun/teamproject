@@ -36,26 +36,25 @@ public class AdminController {
 	
 	@RequestMapping("/admin/reserveList")
 	public String reserveList(
-	        @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	        @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
-	        @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
-	        @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
-	        @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-	        Model model) {
-
-	    // 서비스로 전달
-	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
+			@RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
+			@RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			Model model) {
+		
+		// 서비스로 전달
+		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
-
-	
+		
 	@RequestMapping("/admin/flightsList")
 	public String flightsList(
-	    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	    @RequestParam(value = "flightType", required = false, defaultValue = "all") String flightType,
-	    Model model) {
-
-	    return service.flightList(page, selectedDate, flightType, model);
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "flightType", required = false, defaultValue = "all") String flightType,
+			Model model) {
+		
+		return service.flightList(page, selectedDate, flightType, model);
 	}
 	
 	@RequestMapping("/admin/memberList")

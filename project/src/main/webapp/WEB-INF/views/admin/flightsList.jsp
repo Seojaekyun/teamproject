@@ -133,281 +133,304 @@
 <div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 
 <section id="sec1">
-    <!-- 날짜 선택 기능 추가 -->
-    <div class="date-container">
-        <button id="clsd" onclick="clearDate()">날짜 선택 해제</button><br>    
-        <div id="datepicker"></div>
-        <div id="selectedDate">
-            <c:if test="${not empty selectedDate}">
-                선택한 날짜: ${selectedDate}
-            </c:if>
-        </div>
-    </div>
+	<!-- 날짜 선택 기능 추가 -->
+	<div class="date-container">
+		<button id="clsd" onclick="clearDate()">날짜 선택 해제</button><br>    
+		<div id="datepicker"></div>
+		<div id="selectedDate">
+			<c:if test="${not empty selectedDate}">
+				선택한 날짜: ${selectedDate}
+			</c:if>
+		</div>
+	</div>
 
-    <div class="table-container">
-        <table id="flightTable">
-            <caption>항공편</caption>
-            <tr>
-                <th>항공편명</th>
-                <th>출발 공항</th>
-                <th>도착 공항</th>
-                <th>출발 시간</th>
-                <th>도착 시간</th>
-                <th>좌석 수</th>
-            </tr>
-            <c:forEach var="flight" items="${flightList}">
-                <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.departureAirport}</td>
-                    <td>${flight.arrivalAirport}</td>
-                    <td>${flight.departureTime}</td>
-                    <td>${flight.arrivalTime}</td>
-                    <td>${flight.availableSeats}</td>
-                </tr>
-            </c:forEach>
-            <c:if test="${empty flightList}">
-                <tr>
-                    <td colspan="6">항공편 데이터가 없습니다.</td>
-                </tr>
-            </c:if>
-        </table>
-        <!-- Pagination -->
-        <div id="mainPagination" class="pagination">
-    <c:forEach begin="1" end="${totalPages}" var="i">
-        <c:choose>
-            <c:when test="${i == currentPage}">
-                <span class="active">${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-</div>
-    </div>
+	<div class="table-container">
+		<table id="flightTable">
+			<caption>항공편</caption>
+			<tr>
+				<th>항공편명</th>
+				<th>출발 공항</th>
+				<th>도착 공항</th>
+				<th>출발 시간</th>
+				<th>도착 시간</th>
+				<th>좌석 수</th>
+			</tr>
+			<c:forEach var="flight" items="${flightList}">
+				<tr>
+					<td>${flight.flightNumber}</td>
+					<td>${flight.departureAirport}</td>
+					<td>${flight.arrivalAirport}</td>
+					<td>${flight.departureTime}</td>
+					<td>${flight.arrivalTime}</td>
+					<td>${flight.availableSeats}</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${empty flightList}">
+				<tr>
+					<td colspan="6">항공편 데이터가 없습니다.</td>
+				</tr>
+			</c:if>
+		</table>
+		<!-- Pagination -->
+
+		<div id="mainPagination" class="pagination">
+			<c:if test="${totalPages > 1}">
+				<!-- 이전 페이지 버튼 -->
+				<c:if test="${currentPage > 5}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 5}, 'all');">이전5</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:set var="startPage" value="${currentPage - 2}" />
+				<c:set var="endPage" value="${currentPage + 2}" />
+				<c:if test="${startPage < 1}">
+					<c:set var="startPage" value="1" />
+					<c:set var="endPage" value="5" />
+				</c:if>
+				<c:if test="${endPage > totalPages}">
+					<c:set var="endPage" value="${totalPages}" />
+					<c:set var="startPage" value="${totalPages - 4}" />
+					<c:if test="${startPage < 1}">
+						<c:set var="startPage" value="1" />
+					</c:if>
+				</c:if>
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<c:choose>
+						<c:when test="${i == currentPage}">
+							<span class="active">${i}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 다음 페이지 버튼 -->
+				<c:if test="${currentPage +5 < totalPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 5}, 'all');">다음5</a>
+				</c:if>
+			</c:if>
+		</div>
+	</div>
 </section>
 
 <section id="sec2">
-    <!-- GMP 테이블 -->
-    <div class="table-container">
-        <table id="gmpTable">
-            <caption>GMP 출발 항공편</caption>
-            <tr>
-                <th>항공편명</th>
-                <th>출발 공항</th>
-                <th>도착 공항</th>
-                <th>출발 시간</th>
-                <th>도착 시간</th>
-                <th>좌석 수</th>
-            </tr>
-            <c:forEach var="flight" items="${pagedGmpFlights}">
-                <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.departureAirport}</td>
-                    <td>${flight.arrivalAirport}</td>
-                    <td>${flight.departureTime}</td>
-                    <td>${flight.arrivalTime}</td>
-                    <td>${flight.availableSeats}</td>
-                </tr>
-            </c:forEach>
-            <c:if test="${empty pagedGmpFlights}">
-                <tr>
-                    <td colspan="6">GMP 항공편 데이터가 없습니다.</td>
-                </tr>
-            </c:if>
-        </table>
-        <!-- GMP 페이지네이션 -->
-        <div id="gmpPagination" class="pagination">
-    <c:forEach begin="1" end="${totalGmpPages}" var="i">
-        <c:choose>
-            <c:when test="${i == currentGmpPage}">
-                <span class="active">${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-</div>
-    </div>
+	<!-- GMP 테이블 -->
+	<div class="table-container">
+		<table id="gmpTable">
+			<caption>GMP 출발 항공편</caption>
+			<tr>
+				<th>항공편명</th>
+				<th>출발 공항</th>
+				<th>도착 공항</th>
+				<th>출발 시간</th>
+				<th>도착 시간</th>
+				<th>좌석 수</th>
+			</tr>
+			<c:forEach var="flight" items="${pagedGmpFlights}">
+				<tr>
+					<td>${flight.flightNumber}</td>
+					<td>${flight.departureAirport}</td>
+					<td>${flight.arrivalAirport}</td>
+					<td>${flight.departureTime}</td>
+					<td>${flight.arrivalTime}</td>
+					<td>${flight.availableSeats}</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${empty pagedGmpFlights}">
+				<tr>
+					<td colspan="6">GMP 항공편 데이터가 없습니다.</td>
+				</tr>
+			</c:if>
+		</table>
+		<!-- GMP 페이지네이션 -->
+		<div id="gmpPagination" class="pagination">
+			<c:forEach begin="1" end="${totalGmpPages}" var="i">
+				<c:choose>
+					<c:when test="${i == currentGmpPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>
+	</div>
 
-    <!-- ICN 테이블 -->
-    <div class="table-container">
-        <table id="icnTable">
-            <caption>ICN 출발 항공편</caption>
-            <tr>
-                <th>항공편명</th>
-                <th>출발 공항</th>
-                <th>도착 공항</th>
-                <th>출발 시간</th>
-                <th>도착 시간</th>
-                <th>좌석 수</th>
-            </tr>
-            <c:forEach var="flight" items="${pagedIcnFlights}">
-                <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.departureAirport}</td>
-                    <td>${flight.arrivalAirport}</td>
-                    <td>${flight.departureTime}</td>
-                    <td>${flight.arrivalTime}</td>
-                    <td>${flight.availableSeats}</td>
-                </tr>
-            </c:forEach>
-            <c:if test="${empty pagedIcnFlights}">
-                <tr>
-                    <td colspan="6">ICN 항공편 데이터가 없습니다.</td>
-                </tr>
-            </c:if>
-        </table>
-        <!-- ICN 페이지네이션 -->
-        <div id="icnPagination" class="pagination">
-    <c:forEach begin="1" end="${totalIcnPages}" var="i">
-        <c:choose>
-            <c:when test="${i == currentIcnPage}">
-                <span class="active">${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-</div>
-    </div>
+	<!-- ICN 테이블 -->
+	<div class="table-container">
+		<table id="icnTable">
+			<caption>ICN 출발 항공편</caption>
+			<tr>
+				<th>항공편명</th>
+				<th>출발 공항</th>
+				<th>도착 공항</th>
+				<th>출발 시간</th>
+				<th>도착 시간</th>
+				<th>좌석 수</th>
+			</tr>
+			<c:forEach var="flight" items="${pagedIcnFlights}">
+					<tr>
+					<td>${flight.flightNumber}</td>
+					<td>${flight.departureAirport}</td>
+					<td>${flight.arrivalAirport}</td>
+					<td>${flight.departureTime}</td>
+					<td>${flight.arrivalTime}</td>
+					<td>${flight.availableSeats}</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${empty pagedIcnFlights}">
+				<tr>
+					<td colspan="6">ICN 항공편 데이터가 없습니다.</td>
+				</tr>
+			</c:if>
+		</table>
+		<!-- ICN 페이지네이션 -->
+		<div id="icnPagination" class="pagination">
+			<c:forEach begin="1" end="${totalIcnPages}" var="i">
+				<c:choose>
+					<c:when test="${i == currentIcnPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>
+	</div>
 
-    <!-- 기타 테이블 -->
-    <div class="table-container">
-        <table id="otherTable">
-            <caption>기타 항공편</caption>
-            <tr>
-                <th>항공편명</th>
-                <th>출발 공항</th>
-                <th>도착 공항</th>
-                <th>출발 시간</th>
-                <th>도착 시간</th>
-                <th>좌석 수</th>
-            </tr>
-            <c:forEach var="flight" items="${pagedOtherFlights}">
-                <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.departureAirport}</td>
-                    <td>${flight.arrivalAirport}</td>
-                    <td>${flight.departureTime}</td>
-                    <td>${flight.arrivalTime}</td>
-                    <td>${flight.availableSeats}</td>
-                </tr>
-            </c:forEach>
-            <c:if test="${empty pagedOtherFlights}">
-                <tr>
-                    <td colspan="6">기타 항공편 데이터가 없습니다.</td>
-                </tr>
-            </c:if>
-        </table>
-        <!-- 기타 페이지네이션 -->
-        <div id="otherPagination" class="pagination">
-    <c:forEach begin="1" end="${totalOtherPages}" var="i">
-        <c:choose>
-            <c:when test="${i == currentOtherPage}">
-                <span class="active">${i}</span>
-            </c:when>
-            <c:otherwise>
-                <a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-</div>
-    </div>
+	<!-- 기타 테이블 -->
+	<div class="table-container">
+		<table id="otherTable">
+			<caption>기타 항공편</caption>
+			<tr>
+				<th>항공편명</th>
+				<th>출발 공항</th>
+				<th>도착 공항</th>
+				<th>출발 시간</th>
+				<th>도착 시간</th>
+				<th>좌석 수</th>
+			</tr>
+			<c:forEach var="flight" items="${pagedOtherFlights}">
+				<tr>
+					<td>${flight.flightNumber}</td>
+					<td>${flight.departureAirport}</td>
+					<td>${flight.arrivalAirport}</td>
+					<td>${flight.departureTime}</td>
+					<td>${flight.arrivalTime}</td>
+					<td>${flight.availableSeats}</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${empty pagedOtherFlights}">
+				<tr>
+					<td colspan="6">기타 항공편 데이터가 없습니다.</td>
+				</tr>
+			</c:if>
+		</table>
+		<!-- 기타 페이지네이션 -->
+		<div id="otherPagination" class="pagination">
+			<c:forEach begin="1" end="${totalOtherPages}" var="i">
+				<c:choose>
+					<c:when test="${i == currentOtherPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>
+	</div>
 </section>
-
 
 <!-- jQuery 및 jQuery UI 스크립트 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-//날짜 선택 기능 수정
-$(function() {
-    $("#datepicker").datepicker({
-        inline: true,
-        dateFormat: 'yy-mm-dd',
-        defaultDate: null,
-        onSelect: function(dateText) {
-            $("#selectedDate").text('선택한 날짜: ' + dateText);
-            sessionStorage.setItem("selectedDate", dateText);
+	// 날짜 선택 기능 수정
+	$(function() {
+	    $("#datepicker").datepicker({
+	        inline: true,
+	        dateFormat: 'yy-mm-dd',
+	        defaultDate: null,
+	        onSelect: function(dateText) {
+	            $("#selectedDate").text('선택한 날짜: ' + dateText);
+	            sessionStorage.setItem("selectedDate", dateText);
 
-            // 모든 테이블 업데이트
-            loadPage(1, 'all');
-            loadPage(1, 'gmp');
-            loadPage(1, 'icn');
-            loadPage(1, 'other');
-        }
-    });
+	            // 모든 테이블 업데이트
+	            loadPage(1, 'all');
+	            loadPage(1, 'gmp');
+	            loadPage(1, 'icn');
+	            loadPage(1, 'other');
+	        }
+	    });
 
-    var savedDate = sessionStorage.getItem("selectedDate");
-    if (savedDate) {
-        $("#selectedDate").text('선택한 날짜: ' + savedDate);
-        $("#datepicker").datepicker('setDate', savedDate);
+	    var savedDate = sessionStorage.getItem("selectedDate");
+	    if (savedDate) {
+	        $("#selectedDate").text('선택한 날짜: ' + savedDate);
+	        $("#datepicker").datepicker('setDate', savedDate);
 
-        // 모든 테이블 업데이트
-        loadPage(1, 'all');
-        loadPage(1, 'gmp');
-        loadPage(1, 'icn');
-        loadPage(1, 'other');
-    } else {
-        $("#selectedDate").text('');
-        $("#datepicker").datepicker('setDate', null);
+	        // 모든 테이블 업데이트
+	        loadPage(1, 'all');
+	        loadPage(1, 'gmp');
+	        loadPage(1, 'icn');
+	        loadPage(1, 'other');
+	    } else {
+	        $("#selectedDate").text('');
+	        $("#datepicker").datepicker('setDate', null);
 
-        // 모든 테이블 업데이트
-        loadPage(1, 'all');
-        loadPage(1, 'gmp');
-        loadPage(1, 'icn');
-        loadPage(1, 'other');
-    }
-});
+	        // 모든 테이블 업데이트
+	        loadPage(1, 'all');
+	        loadPage(1, 'gmp');
+	        loadPage(1, 'icn');
+	        loadPage(1, 'other');
+	    }
+	});
 
-function clearDate() {
-    sessionStorage.removeItem("selectedDate");
-    $("#selectedDate").text('');
-    $("#datepicker").datepicker('setDate', null);
+	function clearDate() {
+	    sessionStorage.removeItem("selectedDate");
+	    $("#selectedDate").text('');
+	    $("#datepicker").datepicker('setDate', null);
 
-    // 모든 테이블 업데이트
-    loadPage(1, 'all');
-    loadPage(1, 'gmp');
-    loadPage(1, 'icn');
-    loadPage(1, 'other');
-}
+	    // 모든 테이블 업데이트
+	    loadPage(1, 'all');
+	    loadPage(1, 'gmp');
+	    loadPage(1, 'icn');
+	    loadPage(1, 'other');
+	}
 
-function loadPage(page, flightType) {
-    var selectedDate = sessionStorage.getItem("selectedDate");
+	function loadPage(page, flightType) {
+	    var selectedDate = sessionStorage.getItem("selectedDate");
 
-    $.ajax({
-        url: "/admin/flightsList",
-        type: "GET",
-        data: {
-            page: page,
-            selectedDate: selectedDate,
-            flightType: flightType  // 'gmp', 'icn', 'other', 'all'
-        },
-        success: function(data) {
-            if (flightType === 'gmp') {
-                $("#gmpTable").html($(data).find("#gmpTable").html());
-                $("#gmpPagination").html($(data).find("#gmpPagination").html());
-            } else if (flightType === 'icn') {
-                $("#icnTable").html($(data).find("#icnTable").html());
-                $("#icnPagination").html($(data).find("#icnPagination").html());
-            } else if (flightType === 'other') {
-                $("#otherTable").html($(data).find("#otherTable").html());
-                $("#otherPagination").html($(data).find("#otherPagination").html());
-            } else {
-                $("#flightTable").html($(data).find("#flightTable").html());
-                $("#mainPagination").html($(data).find("#mainPagination").html());
-            }
-        },
-        error: function(error) {
-            console.log("데이터 가져오기 실패:", error);
-        }
-    });
-}
-
+	    $.ajax({
+	        url: "/admin/flightsList",
+	        type: "GET",
+	        data: {
+	            page: page,
+	            selectedDate: selectedDate,
+	            flightType: flightType  // 'gmp', 'icn', 'other', 'all'
+	        },
+	        success: function(data) {
+	            if (flightType === 'gmp') {
+	                $("#gmpTable").html($(data).find("#gmpTable").html());
+	                $("#gmpPagination").html($(data).find("#gmpPagination").html());
+	            } else if (flightType === 'icn') {
+	                $("#icnTable").html($(data).find("#icnTable").html());
+	                $("#icnPagination").html($(data).find("#icnPagination").html());
+	            } else if (flightType === 'other') {
+	                $("#otherTable").html($(data).find("#otherTable").html());
+	                $("#otherPagination").html($(data).find("#otherPagination").html());
+	            } else {
+	                $("#flightTable").html($(data).find("#flightTable").html());
+	                $("#mainPagination").html($(data).find("#mainPagination").html());
+	            }
+	        },
+	        error: function(error) {
+	            console.log("데이터 가져오기 실패:", error);
+	        }
+	    });
+	}
 </script>
 
 </body>
