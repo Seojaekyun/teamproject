@@ -17,23 +17,35 @@
         display: flex;
         max-width: 1200px;
         margin: auto;
+        justify-content: space-between;
     }
-    #cal {
-        width: 30%;
-        margin-right: 70px;
-    }
-    #tables {
+    #sec1 #tables {
         display: flex;
         justify-content: space-between;
-        width: 90%;
+        width: 60%;
     }
-    .table-container {
+    #sec2 #tables {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    #sec1 .table-container {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        height: 340px;
+    }
+    #sec2 .table-container {
         width: 33%;
         background-color: white;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 20px;
+        height: 340px;
     }
     table {
         width: 100%;
@@ -62,14 +74,17 @@
         color: white;
         text-align: left;
     }
-    #datepicker {
-        width: 100%;
+    #sec1 #cal {
+        width: 39%;
+        height: 340px;
         background-color: white;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
     .ui-datepicker {
-        width: 100% !important;
+    	margin: auto;
+        width: 95% !important;
+        height: 95%;
     }
     .ui-datepicker td {
         text-align: center;
@@ -82,7 +97,6 @@
         color: white;
     }
     .ui-datepicker th {
-        padding: 10px 0;
         background-color: #000A8E;
         color: white;
     }
@@ -95,7 +109,6 @@
         font-size: 16px;
         font-weight: bold;
         color: #333;
-        margin-bottom: 20px;
     }
     .pagination {
         text-align: center;
@@ -132,6 +145,11 @@
         background: #000A8E;
         color: white;
         border-radius: 5px;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 10px;
+        width: 150px;
     }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -153,6 +171,71 @@
 			</c:if>
 		</div>
 	</div>
+	<div id="tables">
+		<!-- 전체 항공편 테이블 -->
+		<div class="table-container" id="allFlights">
+			<table>
+				<caption>전체 예약</caption>
+				<tr>
+					<th>항공편명</th>
+					<th>출항시간</th>
+					<th>예약석</th>
+				</tr>
+				<c:forEach var="rsv" items="${rsvList}">
+					<tr>
+						<td>${rsv.flightName}</td>
+						<td>${rsv.departureTime}</td>
+						<td>${rsv.reservationCount}</td>
+					</tr>
+				</c:forEach>
+				<c:if test="${empty rsvList}">
+					<tr>
+						<td colspan="3">예약 데이터가 없습니다.</td>
+					</tr>
+				</c:if>
+			</table>
+			<!-- 페이지네이션 -->
+			<div class="pagination">
+				<c:if test="${totalPages > 1}">
+					<!-- 이전 페이지 버튼 -->
+					<c:if test="${currentPage > 3}">
+						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage - 3});">이전3</a>
+					</c:if>
+					<!-- 페이지 번호 표시 -->
+					<c:set var="startPage" value="${currentPage - 1}" />
+					<c:set var="endPage" value="${currentPage + 1}" />
+					<c:if test="${startPage < 1}">
+						<c:set var="startPage" value="1" />
+						<c:set var="endPage" value="3" />
+					</c:if>
+					<c:if test="${endPage > totalPages}">
+						<c:set var="endPage" value="${totalPages}" />
+						<c:set var="startPage" value="${totalPages - 2}" />
+						<c:if test="${startPage < 1}">
+							<c:set var="startPage" value="1" />
+						</c:if>
+					</c:if>
+					<c:forEach begin="${startPage}" end="${endPage}" var="i">
+						<c:choose>
+							<c:when test="${i == currentPage}">
+								<span class="active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:void(0);" onclick="loadAllPage(${i});">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<!-- 다음 페이지 버튼 -->
+					<c:if test="${currentPage +3 < totalPages}">
+						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage + 3});">다음3</a>
+					</c:if>
+				</c:if>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Section 2: 전체 예약 내역 -->
+<section id="sec2">
 	<div id="tables">
 		<!-- GMP 항공편 테이블 -->
 		<div class="table-container" id="gmpFlights">
@@ -335,71 +418,9 @@
 			</div>
 		</div>
 	</div>
-</section>
-<!-- Section 2: 전체 예약 내역 -->
-<section id="sec2">
-	<div id="tables">
-		<!-- 전체 항공편 테이블 -->
-		<div class="table-container" id="allFlights">
-			<table>
-				<caption>전체 예약</caption>
-				<tr>
-					<th>항공편명</th>
-					<th>출항시간</th>
-					<th>예약석</th>
-				</tr>
-				<c:forEach var="rsv" items="${rsvList}">
-					<tr>
-						<td>${rsv.flightName}</td>
-						<td>${rsv.departureTime}</td>
-						<td>${rsv.reservationCount}</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${empty rsvList}">
-					<tr>
-						<td colspan="3">예약 데이터가 없습니다.</td>
-					</tr>
-				</c:if>
-			</table>
-			<!-- 페이지네이션 -->
-			<div class="pagination">
-				<c:if test="${totalPages > 1}">
-					<!-- 이전 페이지 버튼 -->
-					<c:if test="${currentPage > 3}">
-						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage - 3});">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${currentPage - 1}" />
-					<c:set var="endPage" value="${currentPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalPages}">
-						<c:set var="endPage" value="${totalPages}" />
-						<c:set var="startPage" value="${totalPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<span class="active">${i}</span>
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:void(0);" onclick="loadAllPage(${i});">${i}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<!-- 다음 페이지 버튼 -->
-					<c:if test="${currentPage +3 < totalPages}">
-						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage + 3});">다음3</a>
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-	</div>
+
+
+	
 </section>
 <script>
 	var gmpPage = 1;

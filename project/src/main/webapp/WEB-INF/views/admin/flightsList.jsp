@@ -22,7 +22,7 @@
     #sec2 {
 	    display: flex;
 	    flex-direction: column; /* 테이블을 수직으로 배치 */
-	    gap: 20px; /* 테이블 사이에 간격 추가 */
+	    /* gap: 20px; */ /* 테이블 사이에 간격 추가 */
 	}
     .table-container {
         background-color: white;
@@ -36,14 +36,14 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         overflow: hidden;
-        margin-bottom: 20px;
-    }
-    .date-container {
+        /* margin-bottom: 20px; */
         width: 30%; /* 달력 컨테이너 너비 */
-        padding: 20px;
+        /* padding: 20px; */
+        height: 340px;
     }
     .table-container {
         width: 68%; /* 테이블 컨테이너 너비 */
+        height: 340px;
     }
     table {
         width: 100%;
@@ -114,8 +114,14 @@
         width: 150px;
     }
     #datepicker {
+    	width:100%;
         display: inline-block;
         margin: 0 auto;
+    }
+    .ui-datepicker {
+    	margin: auto;
+        width: 95% !important;
+        height: 95%;
     }
     #selectedDate {
         font-size: 16px;
@@ -176,19 +182,19 @@
 		<div id="mainPagination" class="pagination">
 			<c:if test="${totalPages > 1}">
 				<!-- 이전 페이지 버튼 -->
-				<c:if test="${currentPage > 5}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 5}, 'all');">이전5</a>
+				<c:if test="${currentPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 10}, 'all');">이전10</a>
 				</c:if>
 				<!-- 페이지 번호 표시 -->
-				<c:set var="startPage" value="${currentPage - 2}" />
-				<c:set var="endPage" value="${currentPage + 2}" />
+				<c:set var="startPage" value="${currentPage - 5}" />
+				<c:set var="endPage" value="${currentPage + 4}" />
 				<c:if test="${startPage < 1}">
 					<c:set var="startPage" value="1" />
-					<c:set var="endPage" value="5" />
+					<c:set var="endPage" value="10" />
 				</c:if>
 				<c:if test="${endPage > totalPages}">
 					<c:set var="endPage" value="${totalPages}" />
-					<c:set var="startPage" value="${totalPages - 4}" />
+					<c:set var="startPage" value="${totalPages - 9}" />
 					<c:if test="${startPage < 1}">
 						<c:set var="startPage" value="1" />
 					</c:if>
@@ -204,8 +210,8 @@
 					</c:choose>
 				</c:forEach>
 				<!-- 다음 페이지 버튼 -->
-				<c:if test="${currentPage +5 < totalPages}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 5}, 'all');">다음5</a>
+				<c:if test="${currentPage + 10 < totalPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 10}, 'all');">다음10</a>
 				</c:if>
 			</c:if>
 		</div>
@@ -243,19 +249,42 @@
 		</table>
 		<!-- GMP 페이지네이션 -->
 		<div id="gmpPagination" class="pagination">
-			<c:forEach begin="1" end="${totalGmpPages}" var="i">
-				<c:choose>
-					<c:when test="${i == currentGmpPage}">
-						<span class="active">${i}</span>
-					</c:when>
-					<c:otherwise>
-						<a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+			<c:if test="${totalGmpPages > 1}">
+				<!-- 이전 페이지 버튼 -->
+				<c:if test="${currentGmpPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentGmpPage - 10}, 'gmp');">이전10</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:set var="startPage" value="${currentGmpPage - 5}" />
+				<c:set var="endPage" value="${currentGmpPage + 4}" />
+				<c:if test="${startPage < 1}">
+					<c:set var="startPage" value="1" />
+					<c:set var="endPage" value="10" />
+				</c:if>
+				<c:if test="${endPage > totalGmpPages}">
+					<c:set var="endPage" value="${totalGmpPages}" />
+					<c:set var="startPage" value="${totalGmpPages - 9}" />
+					<c:if test="${startPage < 1}">
+						<c:set var="startPage" value="1" />
+					</c:if>
+				</c:if>
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<c:choose>
+						<c:when test="${i == currentGmpPage}">
+							<span class="active">${i}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 다음 페이지 버튼 -->
+				<c:if test="${currentGmpPage + 10 < totalGmpPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentGmpPage + 10}, 'gmp');">다음10</a>
+				</c:if>
+			</c:if>
 		</div>
 	</div>
-
 	<!-- ICN 테이블 -->
 	<div class="table-container">
 		<table id="icnTable">
@@ -286,19 +315,42 @@
 		</table>
 		<!-- ICN 페이지네이션 -->
 		<div id="icnPagination" class="pagination">
-			<c:forEach begin="1" end="${totalIcnPages}" var="i">
-				<c:choose>
-					<c:when test="${i == currentIcnPage}">
-						<span class="active">${i}</span>
-					</c:when>
-					<c:otherwise>
-						<a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+			<c:if test="${totalIcnPages > 1}">
+				<!-- 이전 페이지 버튼 -->
+				<c:if test="${currentIcnPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentIcnPage - 10}, 'icn');">이전10</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:set var="startPage" value="${currentIcnPage - 5}" />
+				<c:set var="endPage" value="${currentIcnPage + 4}" />
+				<c:if test="${startPage < 1}">
+					<c:set var="startPage" value="1" />
+					<c:set var="endPage" value="10" />
+				</c:if>
+				<c:if test="${endPage > totalIcnPages}">
+					<c:set var="endPage" value="${totalIcnPages}" />
+					<c:set var="startPage" value="${totalIcnPages - 9}" />
+					<c:if test="${startPage < 1}">
+						<c:set var="startPage" value="1" />
+					</c:if>
+				</c:if>
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<c:choose>
+						<c:when test="${i == currentIcnPage}">
+							<span class="active">${i}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 다음 페이지 버튼 -->
+				<c:if test="${currentIcnPage +10 < totalIcnPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentIcnPage + 10}, 'icn');">다음10</a>
+				</c:if>
+			</c:if>
 		</div>
 	</div>
-
 	<!-- 기타 테이블 -->
 	<div class="table-container">
 		<table id="otherTable">
@@ -329,16 +381,40 @@
 		</table>
 		<!-- 기타 페이지네이션 -->
 		<div id="otherPagination" class="pagination">
-			<c:forEach begin="1" end="${totalOtherPages}" var="i">
-				<c:choose>
-					<c:when test="${i == currentOtherPage}">
-						<span class="active">${i}</span>
-					</c:when>
-					<c:otherwise>
-						<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+			<c:if test="${totalOtherPages > 1}">
+				<!-- 이전 페이지 버튼 -->
+				<c:if test="${currentOtherPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage - 10}, 'other');">이전10</a>
+				</c:if>
+				<!-- 페이지 번호 표시 -->
+				<c:set var="startPage" value="${currentOtherPage - 5}" />
+				<c:set var="endPage" value="${currentOtherPage + 4}" />
+				<c:if test="${startPage < 1}">
+					<c:set var="startPage" value="1" />
+					<c:set var="endPage" value="10" />
+				</c:if>
+				<c:if test="${endPage > totalOtherPages}">
+					<c:set var="endPage" value="${totalOtherPages}" />
+					<c:set var="startPage" value="${totalOtherPages - 9}" />
+					<c:if test="${startPage < 1}">
+						<c:set var="startPage" value="1" />
+					</c:if>
+				</c:if>
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<c:choose>
+						<c:when test="${i == currentOtherPage}">
+							<span class="active">${i}</span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 다음 페이지 버튼 -->
+				<c:if test="${currentOtherPage +10 < totalOtherPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage + 10}, 'other');">다음10</a>
+				</c:if>
+			</c:if>
 		</div>
 	</div>
 </section>
