@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.example.demo.dto.FlightDto;
@@ -89,83 +90,108 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-    public String reserveList(String selectedDate, Integer gmpPage, Integer icnPage, Integer otherPage, Model model) {
-        int itemsPerPage = 10; // 페이지당 항목 수
+	public String reserveList(String selectedDate, Integer gmpPage, Integer icnPage, Integer otherPage, Integer page, Model model) {
+	    int itemsPerPage = 10; // 페이지당 항목 수
 
-        // GMP, ICN, 기타 항공편의 시작 및 끝 인덱스 계산
-        int gmpStart = (gmpPage - 1) * itemsPerPage;
-        int gmpEnd = gmpStart + itemsPerPage;
+	    // 페이지 번호가 null이거나 1보다 작으면 기본값으로 설정
+	    if (page == null || page < 1) {
+	        page = 1;
+	    }
+	    if (gmpPage == null || gmpPage < 1) {
+	        gmpPage = 1;
+	    }
+	    if (icnPage == null || icnPage < 1) {
+	        icnPage = 1;
+	    }
+	    if (otherPage == null || otherPage < 1) {
+	        otherPage = 1;
+	    }
 
-        int icnStart = (icnPage - 1) * itemsPerPage;
-        int icnEnd = icnStart + itemsPerPage;
+	    // GMP, ICN, 기타 항공편의 시작 및 끝 인덱스 계산
+	    int gmpStart = (gmpPage - 1) * itemsPerPage;
+	    int gmpEnd = gmpStart + itemsPerPage;
 
-        int otherStart = (otherPage - 1) * itemsPerPage;
-        int otherEnd = otherStart + itemsPerPage;
+	    int icnStart = (icnPage - 1) * itemsPerPage;
+	    int icnEnd = icnStart + itemsPerPage;
 
-        List<ReservationDto> rsvList;
+	    int otherStart = (otherPage - 1) * itemsPerPage;
+	    int otherEnd = otherStart + itemsPerPage;
 
-        // 선택한 날짜가 있을 경우 해당 날짜에 맞는 예약 데이터만 가져오기
-        if (selectedDate != null && !selectedDate.isEmpty()) {
-            rsvList = rmapper.getRsvByDate(selectedDate);  // 특정 날짜의 예약 내역 가져오기
-            System.out.println("선택한 날짜에 해당하는 예약 수: " + rsvList.size());
-        } else {
-            rsvList = rmapper.getRsvanow();  // 선택한 날짜가 없으면 현재 이후 예약 내역 가져오기
-        }
+	    List<ReservationDto> rsvList;
 
-        // GMP, ICN, 기타 출발 항공편 필터링
-        List<ReservationDto> gmpRsv = rsvList.stream()
-            .filter(rsv -> rsv.getFlightName().startsWith("GMP"))
-            .collect(Collectors.toList());
+	    // 선택한 날짜가 있을 경우 해당 날짜에 맞는 예약 데이터만 가져오기
+	    if (selectedDate != null && !selectedDate.isEmpty()) {
+	        rsvList = rmapper.getRsvByDate(selectedDate);  // 특정 날짜의 예약 내역 가져오기
+	        System.out.println("선택한 날짜에 해당하는 예약 수: " + rsvList.size());
+	    } else {
+	        rsvList = rmapper.getRsvanow();  // 선택한 날짜가 없으면 현재 이후 예약 내역 가져오기
+	    }
 
-        List<ReservationDto> icnRsv = rsvList.stream()
-            .filter(rsv -> rsv.getFlightName().startsWith("ICN"))
-            .collect(Collectors.toList());
+	    // 전체 예약 내역에 대한 페이징 처리
+	    int totalItems = rsvList.size();
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 
-        List<ReservationDto> otherRsv = rsvList.stream()
-            .filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
-            .collect(Collectors.toList());
+	    int startIndex = (page - 1) * itemsPerPage;
+	    int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-        // 페이징 적용 및 예외 처리
-        List<ReservationDto> pagedGmpRsv = (gmpStart >= gmpRsv.size()) ? Collections.emptyList() :
-            gmpRsv.subList(gmpStart, Math.min(gmpEnd, gmpRsv.size()));
+	    List<ReservationDto> pagedRsvList = (startIndex >= totalItems) ? Collections.emptyList() : rsvList.subList(startIndex, endIndex);
 
-        List<ReservationDto> pagedIcnRsv = (icnStart >= icnRsv.size()) ? Collections.emptyList() :
-            icnRsv.subList(icnStart, Math.min(icnEnd, icnRsv.size()));
+	    // GMP, ICN, 기타 출발 항공편 필터링
+	    List<ReservationDto> gmpRsv = rsvList.stream()
+	        .filter(rsv -> rsv.getFlightName().startsWith("GMP"))
+	        .collect(Collectors.toList());
 
-        List<ReservationDto> pagedOtherRsv = (otherStart >= otherRsv.size()) ? Collections.emptyList() :
-            otherRsv.subList(otherStart, Math.min(otherEnd, otherRsv.size()));
+	    List<ReservationDto> icnRsv = rsvList.stream()
+	        .filter(rsv -> rsv.getFlightName().startsWith("ICN"))
+	        .collect(Collectors.toList());
 
-        // 페이징 처리용 변수 계산
-        int totalGmpPages = (int) Math.ceil((double) gmpRsv.size() / itemsPerPage);
-        int totalIcnPages = (int) Math.ceil((double) icnRsv.size() / itemsPerPage);
-        int totalOtherPages = (int) Math.ceil((double) otherRsv.size() / itemsPerPage);
+	    List<ReservationDto> otherRsv = rsvList.stream()
+	        .filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
+	        .collect(Collectors.toList());
 
-        // 모델에 추가
-        model.addAttribute("gmpRsv", pagedGmpRsv);
-        model.addAttribute("icnRsv", pagedIcnRsv);
-        model.addAttribute("otherRsv", pagedOtherRsv);
+	    // 각 항공편 타입에 대한 페이징 처리
+	    List<ReservationDto> pagedGmpRsv = (gmpStart >= gmpRsv.size()) ? Collections.emptyList() :
+	        gmpRsv.subList(gmpStart, Math.min(gmpEnd, gmpRsv.size()));
 
-        model.addAttribute("totalGmpPages", totalGmpPages);
-        model.addAttribute("totalIcnPages", totalIcnPages);
-        model.addAttribute("totalOtherPages", totalOtherPages);
+	    List<ReservationDto> pagedIcnRsv = (icnStart >= icnRsv.size()) ? Collections.emptyList() :
+	        icnRsv.subList(icnStart, Math.min(icnEnd, icnRsv.size()));
 
-        model.addAttribute("gmpPage", gmpPage);
-        model.addAttribute("icnPage", icnPage);
-        model.addAttribute("otherPage", otherPage);
+	    List<ReservationDto> pagedOtherRsv = (otherStart >= otherRsv.size()) ? Collections.emptyList() :
+	        otherRsv.subList(otherStart, Math.min(otherEnd, otherRsv.size()));
 
-        model.addAttribute("selectedDate", selectedDate);
+	    // 각 항공편 타입에 대한 총 페이지 수 계산
+	    int totalGmpPages = (int) Math.ceil((double) gmpRsv.size() / itemsPerPage);
+	    int totalIcnPages = (int) Math.ceil((double) icnRsv.size() / itemsPerPage);
+	    int totalOtherPages = (int) Math.ceil((double) otherRsv.size() / itemsPerPage);
 
-        return "/admin/reserveList";
-    }
-	
+	    // 모델에 데이터 추가
+	    model.addAttribute("rsvList", pagedRsvList);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("currentPage", page);
+
+	    model.addAttribute("gmpRsv", pagedGmpRsv);
+	    model.addAttribute("icnRsv", pagedIcnRsv);
+	    model.addAttribute("otherRsv", pagedOtherRsv);
+
+	    model.addAttribute("totalGmpPages", totalGmpPages);
+	    model.addAttribute("totalIcnPages", totalIcnPages);
+	    model.addAttribute("totalOtherPages", totalOtherPages);
+
+	    model.addAttribute("gmpPage", gmpPage);
+	    model.addAttribute("icnPage", icnPage);
+	    model.addAttribute("otherPage", otherPage);
+
+	    model.addAttribute("selectedDate", selectedDate);
+
+	    return "/admin/reserveList";
+	}
+
+
 	@Override
-	public String flightList(Integer page, String selectedDate, Model model) {
+	public String flightList(Integer page, String selectedDate, String flightType, Model model) {
 	    int itemsPerPage = 10;  // 페이지당 항목 수
-
-	    // 시작 인덱스 계산
 	    int start = (page - 1) * itemsPerPage;
 
-	    // 항공편 리스트 가져오기
 	    List<FlightDto> flightList;
 	    if (selectedDate != null && !selectedDate.isEmpty()) {
 	        flightList = fmapper.getFlightsByDate(selectedDate);
@@ -173,7 +199,7 @@ public class AdminServiceImpl implements AdminService{
 	        flightList = fmapper.getAllFlights();
 	    }
 
-	    // GMP, ICN, 기타로 분류
+	    // 출발 공항에 따라 분류
 	    List<FlightDto> gmpFlights = flightList.stream()
 	        .filter(flight -> flight.getDepartureAirport().equals("GMP"))
 	        .collect(Collectors.toList());
@@ -186,35 +212,39 @@ public class AdminServiceImpl implements AdminService{
 	        .filter(flight -> !flight.getDepartureAirport().equals("GMP") && !flight.getDepartureAirport().equals("ICN"))
 	        .collect(Collectors.toList());
 
-	    // 페이징 적용 (메인 테이블과 각 서브 테이블에 대해 처리)
-	    List<FlightDto> pagedFlights = flightList.subList(start, Math.min(start + itemsPerPage, flightList.size()));
+	    if ("all".equals(flightType)) {
+	        List<FlightDto> pagedFlights = flightList.subList(
+	            start, Math.min(start + itemsPerPage, flightList.size()));
+	        int totalPages = (int) Math.ceil((double) flightList.size() / itemsPerPage);
+	        model.addAttribute("flightList", pagedFlights);
+	        model.addAttribute("totalPages", totalPages);
+	        model.addAttribute("currentPage", page);
+	    } else if ("gmp".equals(flightType)) {
+	        List<FlightDto> pagedGmpFlights = gmpFlights.stream()
+	            .skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	        int totalGmpPages = (int) Math.ceil((double) gmpFlights.size() / itemsPerPage);
+	        model.addAttribute("pagedGmpFlights", pagedGmpFlights);
+	        model.addAttribute("totalGmpPages", totalGmpPages);
+	        model.addAttribute("currentGmpPage", page);
+	    } else if ("icn".equals(flightType)) {
+	        List<FlightDto> pagedIcnFlights = icnFlights.stream()
+	            .skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	        int totalIcnPages = (int) Math.ceil((double) icnFlights.size() / itemsPerPage);
+	        model.addAttribute("pagedIcnFlights", pagedIcnFlights);
+	        model.addAttribute("totalIcnPages", totalIcnPages);
+	        model.addAttribute("currentIcnPage", page);
+	    } else if ("other".equals(flightType)) {
+	        List<FlightDto> pagedOtherFlights = otherFlights.stream()
+	            .skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	        int totalOtherPages = (int) Math.ceil((double) otherFlights.size() / itemsPerPage);
+	        model.addAttribute("pagedOtherFlights", pagedOtherFlights);
+	        model.addAttribute("totalOtherPages", totalOtherPages);
+	        model.addAttribute("currentOtherPage", page);
+	    }
 
-	    // 페이징 처리
-	    List<FlightDto> pagedGmpFlights = gmpFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
-	    List<FlightDto> pagedIcnFlights = icnFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
-	    List<FlightDto> pagedOtherFlights = otherFlights.stream().skip(start).limit(itemsPerPage).collect(Collectors.toList());
+	    model.addAttribute("selectedDate", selectedDate);
 
-	    // 전체 페이지 수 계산
-	    int totalPages = (int) Math.ceil((double) flightList.size() / itemsPerPage);
-	    int totalGmpPages = (int) Math.ceil((double) gmpFlights.size() / itemsPerPage);
-	    int totalIcnPages = (int) Math.ceil((double) icnFlights.size() / itemsPerPage);
-	    int totalOtherPages = (int) Math.ceil((double) otherFlights.size() / itemsPerPage);
-
-	    // 모델에 추가
-	    model.addAttribute("flightList", pagedFlights);
-	    model.addAttribute("totalPages", totalPages);
-	    model.addAttribute("currentPage", page);
-
-	    model.addAttribute("pagedGmpFlights", pagedGmpFlights);
-	    model.addAttribute("totalGmpPages", totalGmpPages);
-	    model.addAttribute("pagedIcnFlights", pagedIcnFlights);
-	    model.addAttribute("totalIcnPages", totalIcnPages);
-	    model.addAttribute("pagedOtherFlights", pagedOtherFlights);
-	    model.addAttribute("totalOtherPages", totalOtherPages);
-
-	    model.addAttribute("selectedDate", selectedDate);  // 선택된 날짜 추가
-
-	    return "/admin/flightsList";
+	    return "/admin/flightsList";  // 전체 페이지를 반환합니다.
 	}
 
 	@Override

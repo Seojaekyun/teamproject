@@ -36,26 +36,26 @@ public class AdminController {
 	
 	@RequestMapping("/admin/reserveList")
 	public String reserveList(
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	    @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
-	    @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
-	    @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
-	    Model model) {
-	    
-	    // 선택한 날짜를 모델에 추가해 JSP로 전달
-	    model.addAttribute("selectedDate", selectedDate);
-	    
-	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, model);
+	        @RequestParam(value = "selectedDate", required = false) String selectedDate,
+	        @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
+	        @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
+	        @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
+	        @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+	        Model model) {
+
+	    // 서비스로 전달
+	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
+
 	
 	@RequestMapping("/admin/flightsList")
 	public String flightsList(
 	    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
 	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
+	    @RequestParam(value = "flightType", required = false, defaultValue = "all") String flightType,
 	    Model model) {
 
-	    // 서비스에서 항공편 리스트와 페이징 정보를 가져옴
-	    return service.flightList(page, selectedDate, model);
+	    return service.flightList(page, selectedDate, flightType, model);
 	}
 	
 	@RequestMapping("/admin/memberList")

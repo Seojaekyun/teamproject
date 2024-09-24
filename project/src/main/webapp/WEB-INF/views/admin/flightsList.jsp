@@ -146,7 +146,7 @@
 
     <div class="table-container">
         <table id="flightTable">
-            <caption>항공편 리스트</caption>
+            <caption>항공편</caption>
             <tr>
                 <th>항공편명</th>
                 <th>출발 공항</th>
@@ -172,18 +172,18 @@
             </c:if>
         </table>
         <!-- Pagination -->
-        <div class="pagination">
-            <c:forEach begin="1" end="${totalPages}" var="i">
-                <c:choose>
-                    <c:when test="${i == currentPage}">
-                        <span class="active">${i}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
+        <div id="mainPagination" class="pagination">
+    <c:forEach begin="1" end="${totalPages}" var="i">
+        <c:choose>
+            <c:when test="${i == currentPage}">
+                <span class="active">${i}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
     </div>
 </section>
 
@@ -191,7 +191,7 @@
     <!-- GMP 테이블 -->
     <div class="table-container">
         <table id="gmpTable">
-            <caption>GMP 출발 항공편 리스트</caption>
+            <caption>GMP 출발 항공편</caption>
             <tr>
                 <th>항공편명</th>
                 <th>출발 공항</th>
@@ -217,24 +217,24 @@
             </c:if>
         </table>
         <!-- GMP 페이지네이션 -->
-        <div class="pagination">
-            <c:forEach begin="1" end="${totalGmpPages}" var="i">
-                <c:choose>
-                    <c:when test="${i == currentPage}">
-                        <span class="active">${i}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
+        <div id="gmpPagination" class="pagination">
+    <c:forEach begin="1" end="${totalGmpPages}" var="i">
+        <c:choose>
+            <c:when test="${i == currentGmpPage}">
+                <span class="active">${i}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
     </div>
 
     <!-- ICN 테이블 -->
     <div class="table-container">
         <table id="icnTable">
-            <caption>ICN 출발 항공편 리스트</caption>
+            <caption>ICN 출발 항공편</caption>
             <tr>
                 <th>항공편명</th>
                 <th>출발 공항</th>
@@ -260,24 +260,24 @@
             </c:if>
         </table>
         <!-- ICN 페이지네이션 -->
-        <div class="pagination">
-            <c:forEach begin="1" end="${totalIcnPages}" var="i">
-                <c:choose>
-                    <c:when test="${i == currentPage}">
-                        <span class="active">${i}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
+        <div id="icnPagination" class="pagination">
+    <c:forEach begin="1" end="${totalIcnPages}" var="i">
+        <c:choose>
+            <c:when test="${i == currentIcnPage}">
+                <span class="active">${i}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
     </div>
 
     <!-- 기타 테이블 -->
     <div class="table-container">
         <table id="otherTable">
-            <caption>기타 항공편 리스트</caption>
+            <caption>기타 항공편</caption>
             <tr>
                 <th>항공편명</th>
                 <th>출발 공항</th>
@@ -303,18 +303,18 @@
             </c:if>
         </table>
         <!-- 기타 페이지네이션 -->
-        <div class="pagination">
-            <c:forEach begin="1" end="${totalOtherPages}" var="i">
-                <c:choose>
-                    <c:when test="${i == currentPage}">
-                        <span class="active">${i}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
+        <div id="otherPagination" class="pagination">
+    <c:forEach begin="1" end="${totalOtherPages}" var="i">
+        <c:choose>
+            <c:when test="${i == currentOtherPage}">
+                <span class="active">${i}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+</div>
     </div>
 </section>
 
@@ -324,7 +324,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-// 날짜 선택 기능 추가
+//날짜 선택 기능 수정
 $(function() {
     $("#datepicker").datepicker({
         inline: true,
@@ -334,8 +334,11 @@ $(function() {
             $("#selectedDate").text('선택한 날짜: ' + dateText);
             sessionStorage.setItem("selectedDate", dateText);
 
-            // 페이지 번호 초기화 및 데이터 로드
-            loadPage(1, dateText);
+            // 모든 테이블 업데이트
+            loadPage(1, 'all');
+            loadPage(1, 'gmp');
+            loadPage(1, 'icn');
+            loadPage(1, 'other');
         }
     });
 
@@ -344,14 +347,20 @@ $(function() {
         $("#selectedDate").text('선택한 날짜: ' + savedDate);
         $("#datepicker").datepicker('setDate', savedDate);
 
-        // 페이지 번호 초기화 및 데이터 로드
-        loadPage(1, savedDate);
+        // 모든 테이블 업데이트
+        loadPage(1, 'all');
+        loadPage(1, 'gmp');
+        loadPage(1, 'icn');
+        loadPage(1, 'other');
     } else {
         $("#selectedDate").text('');
         $("#datepicker").datepicker('setDate', null);
 
-        // 페이지 번호 초기화 및 데이터 로드
-        loadPage(1);
+        // 모든 테이블 업데이트
+        loadPage(1, 'all');
+        loadPage(1, 'gmp');
+        loadPage(1, 'icn');
+        loadPage(1, 'other');
     }
 });
 
@@ -360,8 +369,11 @@ function clearDate() {
     $("#selectedDate").text('');
     $("#datepicker").datepicker('setDate', null);
 
-    // 페이지 번호 초기화 및 전체 데이터 로드
-    loadPage(1);
+    // 모든 테이블 업데이트
+    loadPage(1, 'all');
+    loadPage(1, 'gmp');
+    loadPage(1, 'icn');
+    loadPage(1, 'other');
 }
 
 function loadPage(page, flightType) {
@@ -378,16 +390,16 @@ function loadPage(page, flightType) {
         success: function(data) {
             if (flightType === 'gmp') {
                 $("#gmpTable").html($(data).find("#gmpTable").html());
-                $(".pagination").html($(data).find(".pagination").html());
+                $("#gmpPagination").html($(data).find("#gmpPagination").html());
             } else if (flightType === 'icn') {
                 $("#icnTable").html($(data).find("#icnTable").html());
-                $(".pagination").html($(data).find(".pagination").html());
+                $("#icnPagination").html($(data).find("#icnPagination").html());
             } else if (flightType === 'other') {
                 $("#otherTable").html($(data).find("#otherTable").html());
-                $(".pagination").html($(data).find(".pagination").html());
+                $("#otherPagination").html($(data).find("#otherPagination").html());
             } else {
                 $("#flightTable").html($(data).find("#flightTable").html());
-                $(".pagination").html($(data).find(".pagination").html());
+                $("#mainPagination").html($(data).find("#mainPagination").html());
             }
         },
         error: function(error) {
