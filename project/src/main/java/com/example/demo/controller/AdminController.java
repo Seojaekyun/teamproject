@@ -63,8 +63,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
-    public String inquiryList(HttpServletRequest request, Model model) {
-        return iservice.inquiryList(request, model);
+    public String inquiryList(Model model, Integer page) {
+        return service.inquiryList(model, page);
     }
 	
 	@RequestMapping("/admin/inquiryContent")
@@ -84,7 +84,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/gongjiList")
 	public String gongjiList(HttpServletRequest request, Model model) {
-		return gservice.gongjiList(request, model);
+		return service.gongjiList(request, model);
 	}
 	
 	@RequestMapping("/admin/gongjiContent")

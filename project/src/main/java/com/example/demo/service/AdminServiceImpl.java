@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.StateCountDto;
 import com.example.demo.mapper.FlightMapper;
+import com.example.demo.mapper.GongjiMapper;
 import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
@@ -38,6 +41,8 @@ public class AdminServiceImpl implements AdminService{
 	private ReservationMapper rmapper;
 	@Autowired
 	private InquiryMapper imapper;
+	@Autowired
+	private GongjiMapper gmapper;
 	
 	@Override
 	public String adminI(HttpServletRequest request, Model model) {
@@ -271,6 +276,58 @@ public class AdminServiceImpl implements AdminService{
 		
 		return "/admin/memberList";
 	}
+
+	@Override
+	public String inquiryList(Model model, Integer page) {
+	    if (page == null) {
+	        page = 1;  // 기본 페이지 값 설정
+	    }
+
+	    int itemsPerPage = 20;  // 페이지당 항목 수
+	    int offset = (page - 1) * itemsPerPage;  // 페이지에 따른 시작점 계산
+
+	    // 전체 문의 수 가져오기
+	    int totalItems = imapper.getInquiryCount();
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+	    // 페이징된 문의 리스트 가져오기
+	    List<InquiryDto> ilist = imapper.list(offset, itemsPerPage);
+
+	    // 모델에 추가
+	    model.addAttribute("ilist", ilist);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalItems", totalItems);
+
+	    return "/admin/inquiryList";
+	}
 	
+	@Override
+	public String gongjiList(HttpServletRequest request, Model model) {
+	    // 페이지 번호 파라미터 받기 (기본값은 1)
+	    String pageParam = request.getParameter("page");
+	    int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+
+	    int itemsPerPage = 20;  // 페이지당 항목 수
+	    int offset = (currentPage - 1) * itemsPerPage;  // 시작 인덱스 계산
+
+	    // 전체 공지사항 수 가져오기
+	    int totalItems = gmapper.getTotalCount();
+
+	    // 페이징 적용하여 리스트 가져오기
+	    List<GongjiDto> glist = gmapper.list(offset, itemsPerPage);
+
+	    // 전체 페이지 수 계산
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+	    // 모델에 필요한 데이터 추가
+	    model.addAttribute("glist", glist);
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("totalPages", totalPages);
+
+	    return "/admin/gongjiList";
+	}
+
+
 	
 }

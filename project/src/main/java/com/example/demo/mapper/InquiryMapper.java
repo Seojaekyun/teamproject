@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.StateCountDto;
 
 @Mapper
 public interface InquiryMapper {
-	ArrayList<InquiryDto> list();
+	List<InquiryDto> list(@Param("offset") int offset, @Param("itemsPerPage") int itemsPerPage);
 	void writeOk(InquiryDto idto);
 	void readnum(String id);
 	InquiryDto content(String id);
@@ -20,5 +21,6 @@ public interface InquiryMapper {
 	ArrayList<InquiryDto> ilist();
 	void updateAnswer(int inquiryId, String answerText);
 	void answer(int inquiryId, String answerText);
+	int getInquiryCount();
 	
 }

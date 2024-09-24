@@ -50,6 +50,37 @@
 		border-radius: 5px;
 		text-decoration: none;
 	}
+	.pagination {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.pagination a {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #333;
+		color: white;
+		cursor: default;
+		text-decoration: none;
+	}
+	.pagination span {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+		cursor: default;
+	}
 	#badge1 {
 		background: #DF251F;
 		padding: 3px;
@@ -74,6 +105,7 @@
 		<h2>공지사항 관리</h2>
 	</div>
 	<section>
+		<div align="right"><a href="gongjiWrite" id="write">작성하기</a></div>
 		<table>
 			<tr align="center">
 				<th>제 목</th>
@@ -97,12 +129,33 @@
 					<td>${gdto.writeday}</td>
 				</tr>
 			</c:forEach>
-			<tr align="right">
-				<td colspan="4"> <!-- 글쓰기 버튼 -->
-					<a href="gongjiWrite" id="write">작성하기</a>
-				</td>
-			</tr>
 		</table>
+		<!-- 페이징 처리 -->
+		<div class="pagination">
+			<c:set var="prevPage" value="${currentPage - 10 < 1 ? 1 : currentPage - 10}" />
+			<a href="?page=${prevPage}">&laquo; 이전10</a>
+			<c:set var="startPage" value="${currentPage <= 5 ? 1 : currentPage - 4}" />
+			<c:set var="endPage" value="${startPage + 9}" />
+			<c:if test="${startPage < 1}">
+				<c:set var="startPage" value="1" />
+			</c:if>
+			<c:if test="${endPage > totalPages}">
+				<c:set var="endPage" value="${totalPages}" />
+				<c:set var="startPage" value="${endPage - 9 > 0 ? endPage - 9 : 1}" />
+			</c:if>
+			<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:choose>
+					<c:when test="${i == currentPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="?page=${i}">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:set var="nextPage" value="${currentPage + 10 > totalPages ? totalPages : currentPage + 10}" />
+			<a href="?page=${nextPage}">다음10 &raquo;</a>
+		</div>
 	</section>
 </body>
 </html>

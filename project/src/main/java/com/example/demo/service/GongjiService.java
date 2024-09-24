@@ -16,8 +16,8 @@ public interface GongjiService {
 	String updateOk(GongjiDto gdto);
 	String delete(HttpServletRequest request);
 	String gongjiWrite();
-	String gongjiList(HttpServletRequest request, Model model);
 	String gongjiContent(HttpServletRequest request, Model model);
 	String gongjiWriteOk(GongjiDto gdto, HttpSession session);
+	
 	
 }
