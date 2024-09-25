@@ -46,12 +46,17 @@
 	</select>
 
 	
-	<!-- findFlights 쿼리 (is_available 조건 제거) -->
-	<select id="findFlights" parameterType="map" resultMap="FlightResultMap">
-		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id
-		FROM flights WHERE departure_airport = #{departure} AND arrival_airport = #{arrival}
-		AND DATE(departure_time) = #{departureDate} AND DATE(arrival_time) = #{arrivalDate}
-	</select>
+	 <!-- findFlights 쿼리 (arrivalDate 조건을 동적으로 추가) -->
+    <select id="findFlights" parameterType="map" resultMap="FlightResultMap">
+        SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id
+        FROM flights 
+        WHERE departure_airport = #{departure} 
+          AND arrival_airport = #{arrival}
+          AND DATE(departure_time) = #{departureDate}
+        <if test="arrivalDate != null and arrivalDate != ''">
+            AND DATE(arrival_time) = #{arrivalDate}
+        </if>
+    </select>
 	
 	
 </mapper>

@@ -1,138 +1,101 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>항공편 검색 결과</title>
+    <meta charset="UTF-8">
+    <title>항공편 검색 결과 - eLT항공</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <style>
-
-        table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-
+        /* 간단한 스타일 추가 */
+        .flight-table {
+            margin-top: 30px;
         }
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .flight-results {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-        .flight-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        .flight-card:last-child {
-            border-bottom: none;
-        }
-        .flight-info {
-            display: flex;
-            justify-content: space-between;
-            flex-grow: 2;
-            margin-right: 20px;
-        }
-        .flight-info div {
-            text-align: center;
-        }
-        .flight-time {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .flight-airport {
-            font-size: 16px;
-            color: #555;
-        }
-        .flight-duration {
-            color: #999;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        .seat-options {
-            display: flex;
-            justify-content: space-around;
-            flex-grow: 1;
-        }
-        .seat-option {
-            text-align: center;
-        }
-        .seat-option .price {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .seat-option .label {
-            font-size: 14px;
-            color: #777;
-        }
-        .detail-button {
-            background-color: #1a73e8;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+        .select-flight-btn {
             cursor: pointer;
-        }
-        .detail-button:hover {
-            background-color: #155ab2;
         }
     </style>
 </head>
 <body>
-    <h1>항공편 검색 결과</h1>
-    <c:if test="${not empty flights}">
-        <div class="flight-results">
-            <c:forEach var="flight" items="${flights}">
-                <div class="flight-card">
-                    <!-- Flight information -->
-                    <div class="flight-info">
-                        <div>
-                            <div class="flight-time">${flight.departureTime}</div>
-                            <div class="flight-airport">${flight.departureAirport}</div>
-                        </div>
-                        <div>
-                            <div class="flight-duration">${flight.flightDuration}</div>
-                        </div>
-                        <div>
-                            <div class="flight-time">${flight.arrivalTime}</div>
-                            <div class="flight-airport">${flight.arrivalAirport}</div>
-                        </div>
-                    </div>
+    <div class="container">
+        <h2 class="mt-4">항공편 검색 결과</h2>
+        
+        <!-- 가는날 비행기 목록 -->
+        <c:if test="${not empty flights}">
+            <h4 class="mt-4">가는 날 비행기</h4>
+            <table class="table table-bordered flight-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>출발 공항</th>
+                        <th>도착 공항</th>
+                        <th>출발 시간</th>
+                        <th>도착 시간</th>
+                        <th>비행 시간</th>
+                        <th>항공기 ID</th>
+                        <th>선택</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="flight" items="${flights}">
+                        <tr>
+                            <td>${flight.flightId}</td>
+                            <td>${flight.departureAirport}</td>
+                            <td>${flight.arrivalAirport}</td>
+                            <td>${flight.departureTime}</td>
+                            <td>${flight.arrivalTime}</td>
+                            <td>${flight.flightDuration}</td>
+                            <td>${flight.airplaneId}</td>
+                            <td>
+                                <!-- 가는날 비행기 선택 시 오는날 비행기 조회 -->
+                                <form action="${pageContext.request.contextPath}/flights/searchReturn" method="get">
+                                    <input type="hidden" name="selectedDeparture" value="${flight.arrivalAirport}">
+                                    <input type="hidden" name="selectedArrival" value="${flight.departureAirport}">
+                                    <input type="hidden" name="returnDate" value="${arrivalDate}">
+                                    <button type="submit" class="btn btn-primary select-flight-btn">선택</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
 
-                    <!-- Seat pricing options -->
-                    <div class="seat-options">
-                        <div class="seat-option">
-                            <div class="price">193,000 원</div>
-                            <div class="label">일반석 세이버</div>
-                        </div>
-                        <div class="seat-option">
-                            <div class="price">203,000 원</div>
-                            <div class="label">프레스티지 스탠다드</div>
-                        </div>
-                        <div class="seat-option">
-                            <div class="price">283,000 원</div>
-                            <div class="label">퍼스트 플렉스</div>
-                        </div>
-                    </div>
+        <!-- 오는날 비행기 목록 -->
+        <c:if test="${not empty returnFlights}">
+            <h4 class="mt-4">오는 날 비행기</h4>
+            <table class="table table-bordered flight-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>출발 공항</th>
+                        <th>도착 공항</th>
+                        <th>출발 시간</th>
+                        <th>도착 시간</th>
+                        <th>비행 시간</th>
+                        <th>항공기 ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="flight" items="${returnFlights}">
+                        <tr>
+                            <td>${flight.flightId}</td>
+                            <td>${flight.departureAirport}</td>
+                            <td>${flight.arrivalAirport}</td>
+                            <td>${flight.departureTime}</td>
+                            <td>${flight.arrivalTime}</td>
+                            <td>${flight.flightDuration}</td>
+                            <td>${flight.airplaneId}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
 
-                    <!-- Detail button -->
-                    <div>
-                        <button class="detail-button">상세 보기</button>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </c:if>
-    <c:if test="${empty flights}">
-        <p style="text-align: center;">조건에 맞는 항공편이 없습니다.</p>
-    </c:if>
+        <!-- 결과가 없을 경우 -->
+        <c:if test="${empty flights and empty returnFlights}">
+            <p class="mt-4">검색 조건에 부합하는 항공편이 없습니다.</p>
+        </c:if>
+    </div>
 </body>
 </html>

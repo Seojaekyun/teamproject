@@ -52,13 +52,35 @@ public class FlightController {
             @RequestParam(required = false) String arrivalDate,
             Model model) {
     	
-    	// 서비스에서 항공편을 조회
-        List<FlightDto> flights = service.findFlights(departure, arrival, departureDate, arrivalDate);
+    	 // 초기 검색 시에는 가는날 비행기만 조회 (오는날은 나중에 조회)
+        List<FlightDto> departingFlights = service.findFlights(departure, arrival, departureDate, null);
 
-        // 조회된 항공편 데이터를 모델에 추가
-        model.addAttribute("flights", flights);
+
+        // 조회된 가는날 비행기 데이터를 모델에 추가
+        model.addAttribute("flights", departingFlights);
+        
+        // 오는날 정보를 모델에 추가하여 flightSearchResults.jsp에서 사용할 수 있도록 함
+        model.addAttribute("arrivalDate", arrivalDate);
     	
         // 검색 결과를 보여줄 JSP 파일로 이동
         return "flight/flightSearchResults";  // "views/flight/flightSearchResults.jsp"로 이동
     }
-}  //현재 컨트롤러 코드야 수정해줘
+    
+    @GetMapping("/searchReturn")
+    public String searchReturnFlights(
+            @RequestParam String selectedDeparture,  // 선택된 가는날 비행기의 도착 공항 코드
+            @RequestParam String selectedArrival,    // 선택된 가는날 비행기의 출발 공항 코드
+            @RequestParam String returnDate,         // 오는날 날짜
+            Model model
+    ) {
+        // 오는날 비행기 조회: 출발 공항과 도착 공항을 교환하고, 오는날 날짜로 조회
+        List<FlightDto> returnFlights = service.findFlights(selectedDeparture, selectedArrival, returnDate, null);
+
+        // 조회된 오는날 비행기 데이터를 모델에 추가
+        model.addAttribute("returnFlights", returnFlights);
+
+        // 같은 JSP 페이지로 이동하여 결과를 함께 표시
+        return "flight/flightSearchResults";
+    }
+    
+}  
