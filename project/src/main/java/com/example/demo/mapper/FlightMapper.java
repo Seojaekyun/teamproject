@@ -6,6 +6,7 @@ import com.example.demo.dto.FlightDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -28,7 +29,7 @@ public interface FlightMapper {
 	List<FlightDto> getAllFlights(String currentDate);
 	List<FlightDto> getDepartureFlights();
 	List<FlightDto> getArrivalFlights();
-	
+	List<FlightDto> getFlightsByDate(@Param("date") LocalDate date);	
 	
 
 }

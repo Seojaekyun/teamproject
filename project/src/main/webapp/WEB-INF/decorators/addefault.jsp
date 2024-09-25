@@ -171,9 +171,6 @@
 			</div>
 		</div>
 	</header>
-<section>
-
-</section>
 	<!-- 관리자 채팅 상담 UI -->
 	<div id="chat-console">
 		<div id="chat-header">

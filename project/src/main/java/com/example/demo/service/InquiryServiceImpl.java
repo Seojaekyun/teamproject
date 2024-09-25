@@ -23,9 +23,27 @@ public class InquiryServiceImpl implements InquiryService {
     private InquiryMapper mapper;
     
     @Override
-    public String list(HttpServletRequest request, Model model) {
-        ArrayList<InquiryDto> ilist = mapper.list();
-        model.addAttribute("ilist", ilist);
+    public String list(HttpServletRequest request, Model model, Integer page) {
+    	if (page == null) {
+	        page = 1;  // 기본 페이지 값 설정
+	    }
+
+	    int itemsPerPage = 10;  // 페이지당 항목 수
+	    int offset = (page - 1) * itemsPerPage;  // 페이지에 따른 시작점 계산
+
+	    // 전체 문의 수 가져오기
+	    int totalItems = mapper.getInquiryCount();
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+	    // 페이징된 문의 리스트 가져오기
+	    List<InquiryDto> ilist = mapper.list(offset, itemsPerPage);
+
+	    // 모델에 추가
+	    model.addAttribute("ilist", ilist);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalItems", totalItems);
+	    
         return "/inquiry/list";
     }
 
@@ -75,27 +93,6 @@ public class InquiryServiceImpl implements InquiryService {
         String id = request.getParameter("id");
         mapper.delete(id);
         return "redirect:/inquiry/list";
-    }
-
-    @Override
-    public String inquiryList(HttpServletRequest request, Model model) {
-        // 모든 문의 리스트 조회
-        ArrayList<InquiryDto> ilist = mapper.list();
-        model.addAttribute("ilist", ilist);
-        
-        // State별 문의 수 조회
-        List<StateCountDto> countsList = mapper.listCountsPerState();
-        
-        // 디버깅: countsList 내용 출력
-        System.out.println("countsList size: " + countsList.size());
-        for (StateCountDto entry : countsList) {
-            System.out.println("State: " + entry.getState() + ", Count: " + entry.getCount());
-        }
-        
-        // JSP에 countsList 전달
-        model.addAttribute("countsList", countsList);
-        
-        return "/admin/inquiryList";
     }
 
 	@Override
