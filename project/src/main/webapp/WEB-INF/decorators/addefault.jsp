@@ -162,11 +162,11 @@
 				</a>
 			</div>
 			<div id="two">    
-				<button><a href="reserveList">예약관리</a></button>
+				<button><a href="reserveList">예약현황</a></button>
 				<button><a href="gongjiList">공지사항</a></button>
 				<button><a href="inquiryList">고객문의</a></button>
 				<button><a href="memberList">회원관리</a></button>
-				<button><a href="">비행일정</a></button>
+				<button><a href="flightsList">비행일정</a></button>
 				<button><a href="">예약통계</a></button>
 			</div>
 		</div>

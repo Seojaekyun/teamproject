@@ -15,6 +15,8 @@ public interface MemberMapper {
 	public static List<MemberDto> selectAllMembers() {
 		return null;
 	}
+	public int getTotalMemberCount();
+	public ArrayList<MemberDto> getMemberList(int offset, int itemsPerPage);
 	
 	
 }

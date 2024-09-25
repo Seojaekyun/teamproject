@@ -4,11 +4,12 @@
 <head>
     <title>항공편 검색 결과</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+
         }
         h1 {
             text-align: center;
@@ -114,11 +115,11 @@
                         </div>
                         <div class="seat-option">
                             <div class="price">203,000 원</div>
-                            <div class="label">일반석 스탠다드</div>
+                            <div class="label">프레스티지 스탠다드</div>
                         </div>
                         <div class="seat-option">
                             <div class="price">283,000 원</div>
-                            <div class="label">일반석 플렉스</div>
+                            <div class="label">퍼스트 플렉스</div>
                         </div>
                     </div>
 

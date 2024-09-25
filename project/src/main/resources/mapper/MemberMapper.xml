@@ -14,6 +14,13 @@
 	<select id="selectAllMembers" resultType="com.example.demo.dto.MemberDto">
 		SELECT userid, name FROM member
 	</select>
+	<select id="getMemberList" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member LIMIT #{itemsPerPage} OFFSET #{offset}
+    </select>
+	<select id="getTotalMemberCount" resultType="int">
+		SELECT COUNT(*) FROM member
+	</select>
+	
 	
 		
  </mapper>

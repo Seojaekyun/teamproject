@@ -83,6 +83,25 @@
 		</tr>
 		</c:forEach>
 	</table>
+
+	<!-- 페이지네이션 -->
+	<div align="center">
+		<c:if test="${currentPage > 1}">
+			<a href="?page=${currentPage - 1}">이전</a>
+		</c:if>
+		<c:forEach begin="1" end="${totalPages}" var="i">
+			<c:if test="${i == currentPage}">
+				<span>${i}</span>
+			</c:if>
+			<c:if test="${i != currentPage}">
+				<a href="?page=${i}">${i}</a>
+			</c:if>
+		</c:forEach>
+		<c:if test="${currentPage < totalPages}">
+			<a href="?page=${currentPage + 1}">다음</a>
+		</c:if>
+	</div>
 </section>
+
 </body>
 </html>

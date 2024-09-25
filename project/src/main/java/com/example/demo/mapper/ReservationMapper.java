@@ -14,6 +14,6 @@ public interface ReservationMapper {
 			@Param("isAvailable") boolean isAvailable); // 좌석 상태 업데이트
 	List<ReservationDto> getRsvanow();
 	List<ReservationDto> getRsvByDate(String selectedDate);
-    
-    
+	
+	
 }
