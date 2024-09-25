@@ -13,7 +13,7 @@ import com.example.demo.dto.FlightDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.SelectService;
 
-
+/*
   @Controller public class SelectController {
   
   @Autowired
@@ -32,3 +32,4 @@ import com.example.demo.service.SelectService;
 	   
 	    return "/select/selection";} }
 
+*/

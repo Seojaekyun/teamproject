@@ -855,7 +855,7 @@ function loadDeparture() {
             document.getElementById('from-text').textContent = defaultAirport.airportCode;
             document.getElementById('departure-text').textContent = defaultAirport.city + '/' + defaultAirport.detailedCity
               
-        
+      
         // 공항 목록을 HTML에 추가하기
         data.forEach(function(airport) {
             var li = document.createElement('li');
