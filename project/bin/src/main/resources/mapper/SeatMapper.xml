@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SeatMapper">
+	<select id="getAvailableSeats" parameterType="int" resultType="com.example.demo.dto.SeatDto">
+		SELECT seat_id, seat_number, seat_class, is_available FROM seats
+		WHERE flight_id = #{flightId} AND is_available = 1;
+	</select>
+	
+	
+</mapper>
