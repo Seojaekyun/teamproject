@@ -1465,7 +1465,7 @@ function decrease(type) {
 
 
 
-<form action="${pageContext.request.contextPath}/flights/search" method="get">
+<form action="${pageContext.request.contextPath}/select/selection" method="get">
 
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">
@@ -1628,30 +1628,31 @@ function decrease(type) {
 							</div>
 						</div>
 						<div class="select_contents">
+						<form action="${pageContext.request.contextPath}/select/selection" method="get">
 							<div id="select methods">
 							<div class="select_info_aligner">
 									<!-- 날짜 선택 버튼 -->
 									<div id="select_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="select_num" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890">
 									</div>
 
 									<div id="select_date">
 										<p>출발일&nbsp;</p>
-										<input type="text" id="date">
+										<input type="text" id="date" name="date">
 									</div>
 									
 									<div id="select_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="sung" >
+										<input type="text" id="sung" name="sung">
 									</div>
 									<div id="select_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="name" >
+										<input type="text" id="name" name="name">
 									</div>
 									
 									<div id="select_selection">
-											<button type="button" id="select_button">
+											<button type="submit" id="select_button">
 												<span>조회</span>
 											</button>
 									</div>
@@ -1666,7 +1667,9 @@ function decrease(type) {
                						 필수 동의 항목입니다.
                						 </div>
 							</div>
+						</form>
 						</div>
+
 						
 <style>
 .select_contents, .check-in_contents {
