@@ -8,7 +8,7 @@
  	
  	form{
     width: 400px;
-    height: 915px;
+    height: 615px;
     border: 1px solid #D2D2D2;
     border-radius: .4rem;
     margin: auto;
@@ -51,14 +51,18 @@
  	width:360px;
     height:36px;
     align: center;
+    margin-bottom:10px;
 }
 
 #userid {
+
  	border: 1px solid #D2D2D2;
  	border-radius: .4rem;
  	width:360px;
     height:36px;
     align: center;
+    margin-bottom:10px;
+    
 } 	
 
 #pwd {
@@ -67,6 +71,7 @@
  	width:360px;
     height:36px;
     align: center;
+    margin-bottom:10px;
 }
 
 #pwdchk {
@@ -75,6 +80,7 @@
  	width:360px;
     height:36px;
     align: center;
+    margin-bottom:10px;
 }
 
 #phone {
@@ -82,6 +88,7 @@
 	border-radius: .4rem;
 	width: 103px;
 	height: 36px;
+	margin-bottom:10px;
 }
 
 #txt2 {
@@ -148,6 +155,7 @@
     background-color: black;
     color: white;
     cursor:pointer;
+    margin-top:50px;
     
 	}
 	
@@ -341,7 +349,9 @@
        </select>
        </div>
      </li>
-     
+    
+    
+    <!--  
      <li class="flex-row">
       <div class="age">
       <h6> 연령* </h6>
@@ -374,6 +384,8 @@
       </li>
       </ul>
        </li>
+       
+       -->
 
      <div> <input type="submit" value="회원 가입" id="submit"> </div>     
      </ul>

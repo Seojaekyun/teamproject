@@ -44,6 +44,9 @@
 		padding: 20px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
+	.content {
+		height: 500px;
+	}
 	.content h2 {
 		font-size: 22px;
 		color: #00467F;
@@ -51,18 +54,22 @@
 	}
 	table {
 		width: 100%;
+		height: 500px;
 		border-collapse: collapse;
-		margin-bottom: 20px;
 	}
 	table, th, td {
-		border: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+		height: 30px;
 	}
 	th, td {
 		padding: 12px;
-		text-align: left;
+		text-align: center;
 	}
 	th {
 		background-color: #f2f2f2;
+	}
+	td {
+		font-size: 12px;
 	}
 	.cta-button {
 		display: inline-block;
@@ -75,10 +82,6 @@
 	}
 	.cta-button:hover {
 		background-color: #003A66;
-	}
-	
-	.qna-table th, .qna-table td {
-		text-align: center;
 	}
 	.qna-table a {
 		color: #00467F;
@@ -101,6 +104,37 @@
 	}
 	#write:hover {
 		background: #1A1F6B;
+	}
+	.pagination {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.pagination a {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #333;
+		color: white;
+		cursor: default;
+		text-decoration: none;
+	}
+	.pagination span {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+		cursor: default;
 	}
 	#badge1 {
 		background: #DF251F;
@@ -162,13 +196,44 @@
 						<td>${idto.writeday}</td>
 					</tr>
 				</c:forEach>
-				<tr>
-					<td colspan="4" style="text-align: right;">
-						<a href="write" id="write">문의하기</a>
-					</td>
-				</tr>
+				
+				
 			</table>
+			
 		</div>
+		<!-- 페이징 처리 -->
+						<div class="pagination">
+							<c:if test="${currentPage > 10}">
+								<a href="?page=${currentPage - 10}">&laquo; 이전 10</a>
+							</c:if>
+							
+							<c:set var="startPage" value="${currentPage - 5}" />
+							<c:set var="endPage" value="${currentPage + 4}" />
+							<c:if test="${startPage < 1}">
+								<c:set var="startPage" value="1" />
+							</c:if>
+							<c:if test="${endPage > totalPages}">
+								<c:set var="endPage" value="${totalPages}" />
+							</c:if>
+				
+							<c:forEach begin="${startPage}" end="${endPage}" var="i">
+								<c:choose>
+									<c:when test="${i == currentPage}">
+										<span class="active">${i}</span>
+									</c:when>
+									<c:otherwise>
+										<a href="?page=${i}">${i}</a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							
+							<c:if test="${currentPage + 10 <= totalPages}">
+								<a href="?page=${currentPage + 10}">다음 10 &raquo;</a>
+							</c:if>
+						</div>
+					<div align="right">
+						<a href="write" id="write" style='align: right'>문의하기</a>
+					</div>
 	</div>
 
 	<div>

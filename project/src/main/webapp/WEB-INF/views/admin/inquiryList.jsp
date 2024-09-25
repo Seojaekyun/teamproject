@@ -35,6 +35,7 @@
 	}
 	td {
 		background-color: #f9f9f9;
+		font-size: 12px;
 	}
 	a {
 		text-decoration: none;
@@ -141,19 +142,17 @@
 
 		<!-- 페이징 처리 -->
 		<div class="pagination">
-			<c:if test="${currentPage > 3}">
-				<a href="?page=${currentPage - 3}">&laquo; 이전 3페이지</a>
-			</c:if>
-			
-			<c:set var="startPage" value="${currentPage - 1}" />
-			<c:set var="endPage" value="${currentPage + 1}" />
+			<c:set var="prevPage" value="${currentPage - 10 < 1 ? 1 : currentPage - 10}" />
+			<a href="?page=${prevPage}">&laquo; 이전10</a>
+			<c:set var="startPage" value="${currentPage <= 5 ? 1 : currentPage - 4}" />
+			<c:set var="endPage" value="${startPage + 9}" />
 			<c:if test="${startPage < 1}">
 				<c:set var="startPage" value="1" />
 			</c:if>
 			<c:if test="${endPage > totalPages}">
 				<c:set var="endPage" value="${totalPages}" />
+				<c:set var="startPage" value="${endPage - 9 > 0 ? endPage - 9 : 1}" />
 			</c:if>
-
 			<c:forEach begin="${startPage}" end="${endPage}" var="i">
 				<c:choose>
 					<c:when test="${i == currentPage}">
@@ -164,10 +163,8 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			
-			<c:if test="${currentPage + 3 <= totalPages}">
-				<a href="?page=${currentPage + 3}">다음 3페이지 &raquo;</a>
-			</c:if>
+			<c:set var="nextPage" value="${currentPage + 10 > totalPages ? totalPages : currentPage + 10}" />
+			<a href="?page=${nextPage}">다음10 &raquo;</a>
 		</div>
 	</section>
 </body>
