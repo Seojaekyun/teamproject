@@ -45,8 +45,47 @@
 		FROM reservations r WHERE r.userid = #{userid}
 		ORDER BY r.reservation_date DESC LIMIT 1
 	</select>
-	
-	
+	<select id="getRsvcfac" resultType="map">
+		SELECT CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time,  <!-- 포맷팅 추가 -->
+		r.seat_class, COUNT(*) AS reservation_count,
+		MIN(DATE_FORMAT(r.reservation_date, '%Y-%m-%d')) AS reservationDate
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE r.userid = #{userid} GROUP BY flightName, f.departure_time, r.seat_class
+		ORDER BY f.departure_time desc LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<select id="getTotalRsvc" resultType="int">
+		SELECT COUNT(DISTINCT CONCAT(f.departure_airport, '-', f.arrival_airport), f.departure_time, r.seat_class)
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+	</select>
+	<select id="getSumOfCharges" resultType="map">
+		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay
+		FROM reservations r WHERE r.userid = #{userid}
+	</select>
+<select id="getRsvcfacByDate" resultType="map">
+    SELECT CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+           DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time,  <!-- 날짜 포맷 -->
+           r.seat_class, COUNT(*) AS reservation_count,
+           DATE_FORMAT(MIN(r.reservation_date), '%Y-%m-%d') AS reservationDate  <!-- 날짜 포맷 -->
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    AND DATE(r.reservation_date) = #{selectedDate}  <!-- 날짜 필터링 -->
+    GROUP BY flightName, f.departure_time, r.seat_class
+    ORDER BY f.departure_time
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+<select id="getTotalRsvcByDate" resultType="int">
+    SELECT COUNT(DISTINCT CONCAT(f.departure_airport, '-', f.arrival_airport), 
+                 DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s'), r.seat_class)
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    AND DATE(r.reservation_date) = #{selectedDate}  <!-- 날짜 필터링 -->
+</select>
+
+
+
 	
 	
 </mapper>

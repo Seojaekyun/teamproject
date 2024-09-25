@@ -21,7 +21,7 @@
 		height: 30px;
 		align-items: right;
 		justify-content: flex-end;
-		background-color: gray;
+		background-color: #001160;
 		padding: 10px 20px;
 		box-sizing: border-box;
 		color: white;
@@ -31,7 +31,7 @@
 		height: 50px;
 		align-items: center;
 		justify-content: space-between;
-		background-color: gray;
+		background-color: #001160;
 		padding: 10px 20px;
 		box-sizing: border-box;
 		color: white;
@@ -50,7 +50,8 @@
 	header #logo {
 		width: 200px;
 		flex-shrink: 0;
-		line-height: 45px;
+		line-height: 70px;
+		margin-left: 10px;
 	}
 	header #two {
 		display: flex;
