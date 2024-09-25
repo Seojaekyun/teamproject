@@ -19,7 +19,8 @@
 	section table td {
 		border-bottom: 1px solid #2DD1C5; /* 셀 하단 경계선 */
 		padding: 5px; /* 셀 패딩 */
-		height: 30px; /* 셀 높이 */
+		height: 25px; /* 셀 높이 */
+		font-size: 12px;
 	}
 	section table tr:first-child td {
 		border-top: 2px solid #2DD1C5; /* 첫 번째 행 상단 경계선 */
@@ -74,12 +75,16 @@
 		</tr>
 		<c:forEach items="${mlist}" var="mdto">
 		<tr align="center">
-			<td align="center"> ${mdto.id } </td>
-			<td align="center"> ${mdto.name } </td>
-			<td align="center"> ${mdto.userid } </td>
-			<td align="center"> VIP </td>
-			<td align="center"> 예약중 </td>
-			<td align="center"> - </td>
+		    <td align="center"> ${mdto.id} </td>
+		    <td align="center"> ${mdto.name} </td>
+		    <td align="center"> ${mdto.userid} </td>
+		    <td align="center"> VIP </td>
+		    <td align="center">
+		        <c:forEach items="${mdto.reservations}" var="rsv">
+				${rsv.reservationDate}
+		        </c:forEach>
+		    </td>
+		    <td align="center"> - </td>
 		</tr>
 		</c:forEach>
 	</table>

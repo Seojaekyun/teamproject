@@ -14,6 +14,11 @@ public interface ReservationMapper {
 			@Param("isAvailable") boolean isAvailable); // 좌석 상태 업데이트
 	List<ReservationDto> getRsvanow();
 	List<ReservationDto> getRsvByDate(String selectedDate);
+	List<ReservationDto> getRsvdetail(String flightName, String departureTime, int start, int itemsPerPage);
+	List<ReservationDto> getRsvdfn(String flightName, String departureTime);
+	int getTotalReservations(String flightName, String departureTime);
+	ReservationDto getMyrsv(String string);
+	List<ReservationDto> getReservationsByUserId(String userid);
 	
 	
 }

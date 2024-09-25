@@ -36,26 +36,25 @@ public class AdminController {
 	
 	@RequestMapping("/admin/reserveList")
 	public String reserveList(
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	    @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
-	    @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
-	    @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
-	    Model model) {
-	    
-	    // 선택한 날짜를 모델에 추가해 JSP로 전달
-	    model.addAttribute("selectedDate", selectedDate);
-	    
-	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, model);
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
+			@RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
+			@RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			Model model) {
+		
+		// 서비스로 전달
+		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
-	
+		
 	@RequestMapping("/admin/flightsList")
 	public String flightsList(
-	    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	    Model model) {
-
-	    // 서비스에서 항공편 리스트와 페이징 정보를 가져옴
-	    return service.flightList(page, selectedDate, model);
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "flightType", required = false, defaultValue = "all") String flightType,
+			Model model) {
+		
+		return service.flightList(page, selectedDate, flightType, model);
 	}
 	
 	@RequestMapping("/admin/memberList")
@@ -64,8 +63,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
-    public String inquiryList(HttpServletRequest request, Model model) {
-        return iservice.inquiryList(request, model);
+    public String inquiryList(Model model, Integer page) {
+        return service.inquiryList(model, page);
     }
 	
 	@RequestMapping("/admin/inquiryContent")
@@ -85,7 +84,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/gongjiList")
 	public String gongjiList(HttpServletRequest request, Model model) {
-		return gservice.gongjiList(request, model);
+		return service.gongjiList(request, model);
 	}
 	
 	@RequestMapping("/admin/gongjiContent")
@@ -118,5 +117,9 @@ public class AdminController {
 		return gservice.delete(request);
 	}
 	
+	@RequestMapping("/admin/rsvdList")
+	public String rsvdList(HttpServletRequest request, Model model) {
+		return service.rsvdList(request, model);
+	}
 	
 }

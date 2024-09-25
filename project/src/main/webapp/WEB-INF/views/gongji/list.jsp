@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항</title>
 <style>
-    /* 공통 스타일 정의 */
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -45,6 +44,9 @@
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    .content {
+    	height: 550px;
+    }
     .content h2 {
         font-size: 22px;
         color: #00467F;
@@ -52,22 +54,33 @@
     }
     table {
         width: 100%;
+        height: 500px;
         border-collapse: collapse;
-        margin-bottom: 20px;
     }
     table, th, td {
-        border: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        height: 30px;        
     }
     th, td {
         padding: 12px;
-        text-align: left;
+        text-align: center;
     }
     th {
         background-color: #f2f2f2;
     }
+    td {
+		font-size: 12px;
+    }
+	a {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+		font-weight: bold;
+	}
     .badge {
         display: inline-block;
-        padding: 3px 6px;
+        padding: 3px;
         font-size: 11px;
         font-weight: bold;
         border-radius: 3px;
@@ -80,30 +93,38 @@
     .badge-notice {
         background-color: #65FF5E; /* 공지 배지 색상 */
     }
-    .cta-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #00467F;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        margin-top: 20px;
-    }
-    .cta-button:hover {
-        background-color: #003A66;
-    }
     
-    /* 추가적인 테이블 스타일링 */
-    .notice-table th, .notice-table td {
-        text-align: center;
-    }
-    .notice-table a {
-        color: #00467F;
-        text-decoration: none;
-    }
-    .notice-table a:hover {
-        text-decoration: underline;
-    }
+    .pagination {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.pagination a {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #333;
+		color: white;
+		cursor: default;
+		text-decoration: none;
+	}
+	.pagination span {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+		cursor: default;
+	}
 </style>
 </head>
 <body>
@@ -147,6 +168,32 @@
                 </c:forEach>
             </table>
         </div>
+        <!-- 페이징 처리 -->
+		<div class="pagination">
+			<c:set var="prevPage" value="${currentPage - 10 < 1 ? 1 : currentPage - 10}" />
+			<a href="?page=${prevPage}">&laquo; 이전10</a>
+			<c:set var="startPage" value="${currentPage <= 5 ? 1 : currentPage - 4}" />
+			<c:set var="endPage" value="${startPage + 9}" />
+			<c:if test="${startPage < 1}">
+				<c:set var="startPage" value="1" />
+			</c:if>
+			<c:if test="${endPage > totalPages}">
+				<c:set var="endPage" value="${totalPages}" />
+				<c:set var="startPage" value="${endPage - 9 > 0 ? endPage - 9 : 1}" />
+			</c:if>
+			<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:choose>
+					<c:when test="${i == currentPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="?page=${i}">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:set var="nextPage" value="${currentPage + 10 > totalPages ? totalPages : currentPage + 10}" />
+			<a href="?page=${nextPage}">다음10 &raquo;</a>
+		</div>
     </div>
 
     <div>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.FlightDto;
+
 import com.example.demo.dto.SelectDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.SelectService;
@@ -37,4 +38,5 @@ public class SelectController {
         return "select/selection"; // selection.jsp로 이동
     }
 }
+
 

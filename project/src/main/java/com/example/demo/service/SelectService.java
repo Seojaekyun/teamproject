@@ -6,4 +6,5 @@ import com.example.demo.dto.SelectDto;
 
 public interface SelectService {
 	List<SelectDto> getReservationDetails(String pnr, String sung, String name);
+
 }
