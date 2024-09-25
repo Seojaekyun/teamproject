@@ -117,5 +117,9 @@ public class AdminController {
 		return gservice.delete(request);
 	}
 	
+	@RequestMapping("/admin/rsvdList")
+	public String rsvdList(HttpServletRequest request, Model model) {
+		return service.rsvdList(request, model);
+	}
 	
 }

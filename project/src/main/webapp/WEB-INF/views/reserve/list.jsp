@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>나의 예약 정보</title>
 <style>
     body {
         font-family: 'Noto Sans KR', sans-serif;
@@ -170,15 +170,6 @@
 <div width="100%" style="text-align: center"><h2>예약관리</h2></div>
 <!-- Section 1: 날짜 필터링된 예약 내역 (달력 포함) -->
 <section id="sec1">
-	<div id="cal">
-		<button id="clsd" onclick="clearDate()">날짜 선택 해제</button>
-		<div id="datepicker"></div>
-		<div id="selectedDate">
-			<c:if test="${not empty selectedDate}">
-				선택한 날짜: ${selectedDate}
-			</c:if>
-		</div>
-	</div>
 	<div id="tables">
 		<!-- 전체 항공편 테이블 -->
 		<div class="table-container" id="allFlights">
@@ -191,10 +182,11 @@
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
-						<td><a href="rsvdList?flightName=${rsv.flightName }&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
-						<td>${rsv.departureTime}</td>
-						<td>${rsv.reservationCount}</td>
+						<td>${rsv.flightId}</td>
+						<td></td>
+						<td></td>
 					</tr>
+
 				</c:forEach>
 				<c:if test="${empty rsvList}">
 					<tr>
@@ -242,194 +234,7 @@
 		</div>
 	</div>
 </section>
-<!-- Section 2: 전체 예약 내역 -->
-<section id="sec2">
-	<div id="tables">
-		<!-- GMP 항공편 테이블 -->
-		<div class="table-container" id="gmpFlights">
-			<table>
-				<caption>GMP 출발 예약</caption>
-				<tr>
-					<th>항공편명</th>
-					<th>출항시간</th>
-					<th>예약석</th>
-				</tr>
-				<c:forEach var="grsv" items="${gmpRsv}">
-					<tr>
-						<td><a href="rsvdList?flightName=${grsv.flightName }&departureTime=${grsv.departureTime}">${grsv.flightName}</a></td>
-						<td>${grsv.departureTime}</td>
-						<td>${grsv.reservationCount}</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${empty gmpRsv}">
-					<tr>
-						<td colspan="3">GMP 출발 예약 데이터가 없습니다.</td>
-					</tr>
-				</c:if>
-			</table>
-			<!-- 페이지네이션 -->
-			<div class="pagination">
-				<c:if test="${totalGmpPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${gmpPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${gmpPage - 3}, 'gmp');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${gmpPage - 1}" />
-					<c:set var="endPage" value="${gmpPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalGmpPages}">
-						<c:set var="endPage" value="${totalGmpPages}" />
-						<c:set var="startPage" value="${totalGmpPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<c:choose>
-							<c:when test="${i == gmpPage}">
-								<span class="active">${i}</span>
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:void(0);" onclick="loadPage(${i}, 'gmp');">${i}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${gmpPage + 3 <= totalGmpPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${gmpPage + 3}, 'gmp');">다음3</a>
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-		<!-- ICN 항공편 테이블 -->
-		<div class="table-container" id="icnFlights">
-			<table>
-				<caption>ICN 출발 예약</caption>
-				<tr>
-					<th>항공편명</th>
-					<th>출항시간</th>
-					<th>예약석</th>
-				</tr>
-				<c:forEach var="irsv" items="${icnRsv}">
-					<tr>
-						<td><a href="rsvdList?flightName=${irsv.flightName }&departureTime=${irsv.departureTime}">${irsv.flightName}</a></td>
-						<td>${irsv.departureTime}</td>
-						<td>${irsv.reservationCount}</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${empty icnRsv}">
-					<tr>
-						<td colspan="3">ICN 출발 예약 데이터가 없습니다.</td>
-					</tr>
-				</c:if>
-			</table>
-			<!-- 페이지네이션 -->
-			<div class="pagination">
-				<c:if test="${totalIcnPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${icnPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${icnPage - 3}, 'icn');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${icnPage - 1}" />
-					<c:set var="endPage" value="${icnPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalIcnPages}">
-						<c:set var="endPage" value="${totalIcnPages}" />
-						<c:set var="startPage" value="${totalIcnPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<c:choose>
-							<c:when test="${i == icnPage}">
-								<span class="active">${i}</span>
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:void(0);" onclick="loadPage(${i}, 'icn');">${i}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${icnPage + 3 <= totalIcnPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${icnPage + 3}, 'icn');">다음3</a>
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-		<!-- 기타 항공편 테이블 -->
-		<div class="table-container" id="otherFlights">
-			<table>
-				<caption>기타 출발 예약</caption>
-				<tr>
-					<th>항공편명</th>
-					<th>출항시간</th>
-					<th>예약석</th>
-				</tr>
-				<c:forEach var="orsv" items="${otherRsv}">
-					<tr>
-						<td><a href="rsvdList?flightName=${orsv.flightName }&departureTime=${orsv.departureTime}">${orsv.flightName}</a></td>
-						<td>${orsv.departureTime}</td>
-						<td>${orsv.reservationCount}</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${empty otherRsv}">
-					<tr>
-						<td colspan="3">기타 출발 예약 데이터가 없습니다.</td>
-					</tr>
-				</c:if>
-			</table>
-			<!-- 페이지네이션 -->
-			<div class="pagination">
-				<c:if test="${totalOtherPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${otherPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${otherPage - 3}, 'other');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${otherPage - 1}" />
-					<c:set var="endPage" value="${otherPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalOtherPages}">
-						<c:set var="endPage" value="${totalOtherPages}" />
-						<c:set var="startPage" value="${totalOtherPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
-						<c:choose>
-							<c:when test="${i == otherPage}">
-								<span class="active">${i}</span>
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${otherPage + 3 <= totalOtherPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${otherPage + 3}, 'other');">다음3</a>
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-	</div>
 
-
-	
-</section>
 <script>
 	var gmpPage = 1;
 	var icnPage = 1;

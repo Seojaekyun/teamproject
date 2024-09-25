@@ -11,5 +11,6 @@ public interface AdminService {
 	String reserveList(String selectedDate, Integer gmpPage, Integer icnPage, Integer otherPage, Integer page, Model model);
 	String inquiryList(Model model, Integer page);
 	String gongjiList(HttpServletRequest request, Model model);
+	String rsvdList(HttpServletRequest request, Model model);
 	
 }
