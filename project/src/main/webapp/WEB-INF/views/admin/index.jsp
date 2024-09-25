@@ -22,6 +22,7 @@
 	section {
 		width: 1400px;
 		padding-bottom: 40px;
+		margin: auto;
 	}
 	section div {
 		padding-left: 20px;
