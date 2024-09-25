@@ -4,44 +4,132 @@
 <head>
     <title>항공편 검색 결과</title>
     <style>
+
         table {
             width: 80%;
             margin: auto;
             border-collapse: collapse;
+
         }
-        th, td {
-            border: 1px solid #aaa;
-            padding: 10px;
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .flight-results {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .flight-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .flight-card:last-child {
+            border-bottom: none;
+        }
+        .flight-info {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 2;
+            margin-right: 20px;
+        }
+        .flight-info div {
             text-align: center;
         }
-        th {
-            background-color: #ddd;
+        .flight-time {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .flight-airport {
+            font-size: 16px;
+            color: #555;
+        }
+        .flight-duration {
+            color: #999;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .seat-options {
+            display: flex;
+            justify-content: space-around;
+            flex-grow: 1;
+        }
+        .seat-option {
+            text-align: center;
+        }
+        .seat-option .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .seat-option .label {
+            font-size: 14px;
+            color: #777;
+        }
+        .detail-button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .detail-button:hover {
+            background-color: #155ab2;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">항공편 검색 결과</h1>
+    <h1>항공편 검색 결과</h1>
     <c:if test="${not empty flights}">
-        <table>
-            <tr>
-                <th>항공편 ID</th>
-                <th>출발 공항</th>
-                <th>도착 공항</th>
-                <th>출발 시간</th>
-                <th>도착 시간</th>
-                <th>비행 시간</th>
-            </tr>
+        <div class="flight-results">
             <c:forEach var="flight" items="${flights}">
-                <tr>
-                    <td>${flight.flightId}</td>
-                    <td>${flight.departureAirport}</td>
-                    <td>${flight.arrivalAirport}</td>
-                    <td>${flight.departureTime}</td>
-                    <td>${flight.arrivalTime}</td>
-                    <td>${flight.flightDuration}</td>
-                </tr>
+                <div class="flight-card">
+                    <!-- Flight information -->
+                    <div class="flight-info">
+                        <div>
+                            <div class="flight-time">${flight.departureTime}</div>
+                            <div class="flight-airport">${flight.departureAirport}</div>
+                        </div>
+                        <div>
+                            <div class="flight-duration">${flight.flightDuration}</div>
+                        </div>
+                        <div>
+                            <div class="flight-time">${flight.arrivalTime}</div>
+                            <div class="flight-airport">${flight.arrivalAirport}</div>
+                        </div>
+                    </div>
+
+                    <!-- Seat pricing options -->
+                    <div class="seat-options">
+                        <div class="seat-option">
+                            <div class="price">193,000 원</div>
+                            <div class="label">일반석 세이버</div>
+                        </div>
+                        <div class="seat-option">
+                            <div class="price">203,000 원</div>
+                            <div class="label">프레스티지 스탠다드</div>
+                        </div>
+                        <div class="seat-option">
+                            <div class="price">283,000 원</div>
+                            <div class="label">퍼스트 플렉스</div>
+                        </div>
+                    </div>
+
+                    <!-- Detail button -->
+                    <div>
+                        <button class="detail-button">상세 보기</button>
+                    </div>
+                </div>
             </c:forEach>
-        </table>
+        </div>
     </c:if>
     <c:if test="${empty flights}">
         <p style="text-align: center;">조건에 맞는 항공편이 없습니다.</p>

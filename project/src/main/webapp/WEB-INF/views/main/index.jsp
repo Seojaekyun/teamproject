@@ -831,6 +831,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     window.selectSeat = function(seatType) {
         document.querySelector('#seats-btn span').innerText = seatType;
+        
+     // 숨겨진 필드에 좌석 클래스 설정
+        document.getElementById('seatClass-hidden').value = seatType;
+        
         seatPopup.style.display = 'none';
     }
 });
@@ -954,6 +958,7 @@ function loadArrival() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     const bookingButton = document.getElementById('booking');
+   
     
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
@@ -1101,6 +1106,16 @@ function updatePassengerButton() {
             passengerText += ', ' + additionalPassengers[0] + '···';
         }
     }
+
+    document.getElementById('passenger-btn').innerHTML = passengerText;
+    
+    
+ 	// 숨겨진 필드에 탑승객 수 설정
+    // 형식: "성인:1,소아:0,유아:0"
+    var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
+    document.getElementById('passenger-hidden').value = passengersValue;
+    
+
  // 버튼의 기존 내용을 비우고 다시 추가
     var passengerBtn = document.getElementById('passenger-btn');
     passengerBtn.innerHTML = ''; // 기존 내용을 비움
@@ -1112,6 +1127,7 @@ function updatePassengerButton() {
 
     // 텍스트 추가
     passengerBtn.append(' ' + passengerText); 
+
 }
 document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 기본값 설정
