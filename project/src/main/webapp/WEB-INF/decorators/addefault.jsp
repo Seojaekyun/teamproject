@@ -159,7 +159,7 @@
 		<div id="second">
 			<div id="logo">
 				<a href="../admin/index">
-					<img src="../static/resources/eltlogo.png" height="60px" alt="로고">
+					<img src="../static/resources/1234.png" height="60px" alt="로고">
 				</a>
 			</div>
 			<div id="two">    
