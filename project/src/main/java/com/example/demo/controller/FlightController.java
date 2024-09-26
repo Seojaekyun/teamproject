@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -77,18 +78,31 @@ public class FlightController {
     
     @GetMapping("/searchReturn")
     public String searchReturnFlights(
-            @RequestParam String selectedDeparture,  // 선택된 가는날 비행기의 도착 공항 코드
-            @RequestParam String selectedArrival,    // 선택된 가는날 비행기의 출발 공항 코드
-            @RequestParam String returnDate,         // 오는날 날짜
+    		@RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
+    	    @RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
+    	    @RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
+    	    @RequestParam("selectedGoingFlightTime") String selectedGoingFlightTime,
+    	    @RequestParam("selectedGoingFlightArrivalTime") String selectedGoingFlightArrivalTime, // 가는편 도착 시간 추가
+    	    @RequestParam("returnDate") String returnDate,     // 오는날 날짜
             @RequestParam(required = false) String seatClass,        // 추가된 파라미터
             @RequestParam(required = false) Integer passengers,      // 추가된 파라미터
             Model model
     ) {
     	// 오는날 비행기 조회: seatClass와 passengers가 제공된 경우 필터링
-        List<FlightDto> returnFlights = service.findFlights(selectedDeparture, selectedArrival, null, returnDate, seatClass, passengers);
+    	// 오는날 비행기 조회
+        List<FlightDto> returnFlights = service.findFlights(selectedGoingFlightArrival, selectedGoingFlightDeparture, null, returnDate, seatClass, passengers);
 
-        // 조회된 오는날 비행기 데이터를 모델에 추가
+        
+        // 오는날 비행기 정보 모델에 추가
         model.addAttribute("returnFlights", returnFlights);
+        
+        // 가는편 항공편 정보를 모델에 추가하여 유지
+        model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
+        model.addAttribute("selectedGoingFlightDeparture", selectedGoingFlightDeparture);
+        model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
+        model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
+        model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
+        
         
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
@@ -97,6 +111,51 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
+    
+    
+    
+    
+    @PostMapping("/confirm")
+    public String confirmFlights(
+            @RequestParam String selectedGoingFlightId,
+            @RequestParam String selectedGoingFlightDeparture,
+            @RequestParam String selectedGoingFlightArrival,
+            @RequestParam String selectedGoingFlightTime,
+            @RequestParam String selectedReturnFlightId,
+            @RequestParam String selectedReturnFlightDeparture,
+            @RequestParam String selectedReturnFlightArrival,
+            @RequestParam String selectedReturnFlightTime,
+            Model model) {
+        
+        // 가는편 항공편 정보 모델에 추가
+        model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
+        model.addAttribute("selectedGoingFlightDeparture", selectedGoingFlightDeparture);
+        model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
+        model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
+
+        // 오는편 항공편 정보 모델에 추가
+        model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
+        model.addAttribute("selectedReturnFlightDeparture", selectedReturnFlightDeparture);
+        model.addAttribute("selectedReturnFlightArrival", selectedReturnFlightArrival);
+        model.addAttribute("selectedReturnFlightTime", selectedReturnFlightTime);
+
+        // 최종 예약 확인 페이지로 이동
+        return "flight/flightConfirmation";
+    }
+    
+    
+    
+
+    @PostMapping("/booking")
+    public String booking(@RequestParam String goingFlightId, @RequestParam String returnFlightId, Model model) {
+        // 예약을 위한 로직 추가 (아직 구현되지 않음)
+        
+        // 예약 성공 페이지로 이동
+        return "bookingPage";  // 빈 페이지로 설정
+    }
+
+    
+    
     
 }  
 
