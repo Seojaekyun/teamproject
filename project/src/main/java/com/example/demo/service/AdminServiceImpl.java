@@ -258,23 +258,52 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public String memberList(HttpServletRequest request, Model model) {
-		// 페이지 값 받기 (기본값 1)
-		String pageParam = request.getParameter("page");
-		int page = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-		
-		int itemsPerPage = 20; // 페이지당 출력할 항목 수
-		int totalItems = mmapper.getTotalMemberCount(); // 전체 회원 수 가져오기
-		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-		
-		// 현재 페이지에 맞는 데이터 가져오기
-		int offset = (page - 1) * itemsPerPage;
-		ArrayList<MemberDto> mlist = mmapper.getMemberList(offset, itemsPerPage);
-		
-		model.addAttribute("mlist", mlist);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
-		
-		return "/admin/memberList";
+	    // 페이지 값 받기 (기본값 1)
+	    String pageParam = request.getParameter("page");
+	    int page = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+	    
+	    int itemsPerPage = 20; // 페이지당 출력할 항목 수
+	    int totalItems = mmapper.getTotalMemberCount(); // 전체 회원 수 가져오기
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+	    
+	    // 현재 페이지에 맞는 데이터 가져오기
+	    int offset = (page - 1) * itemsPerPage;
+	    ArrayList<MemberDto> mlist = mmapper.getMemberList(offset, itemsPerPage);
+	    
+	    // 회원 리스트와 예약 리스트 매칭 (userid 기준으로 각 회원의 최근 예약만 가져옴)
+	    for (MemberDto member : mlist) {
+	        // 각 회원의 최근 예약 한 건을 가져옴
+	        ReservationDto recentReservation = rmapper.getMyrsv(member.getUserid());
+	        if (recentReservation != null) {
+	            member.setReservations(Collections.singletonList(recentReservation)); // 최근 예약 하나만 설정
+	        } else {
+	            member.setReservations(Collections.emptyList()); // 예약이 없는 경우 빈 리스트 설정
+	        }
+	    }
+	    
+	    model.addAttribute("mlist", mlist);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    
+	    return "/admin/memberList";
+	}
+	
+	@Override
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+	    String userId = request.getParameter("userid");
+
+	    // 유저 정보와 예약 리스트를 가져옴
+	    MemberDto member = mmapper.getMemberById(userId);
+
+	    if (member != null) {
+	        List<ReservationDto> myrsv = rmapper.getRsvUserid(userId);
+	        member.setReservations(myrsv);
+	    }
+
+	    model.addAttribute("member", member);
+	    model.addAttribute("myrsv", member.getReservations()); // 예약 리스트 전달
+
+	    return "/admin/oneMeminfo";
 	}
 
 	@Override
@@ -328,6 +357,32 @@ public class AdminServiceImpl implements AdminService{
 	    return "/admin/gongjiList";
 	}
 
+	@Override
+	public String rsvdList(HttpServletRequest request, Model model) {
+	    String flightName = request.getParameter("flightName");
+	    String departureTime = request.getParameter("departureTime");
 
+	    // 페이지 처리 관련 변수
+	    int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+	    int itemsPerPage = 10;  // 한 페이지에 표시할 항목 수
+	    int start = (currentPage - 1) * itemsPerPage;
+
+	    // 필터링된 예약 리스트 가져오기
+	    List<ReservationDto> rsvList = rmapper.getRsvdetail(flightName, departureTime, start, itemsPerPage);
+	    List<ReservationDto> rsvfn = rmapper.getRsvdfn(flightName, departureTime);
+
+	    // 필터링된 데이터에 맞는 총 예약 수 가져오기
+	    int totalReservations = rmapper.getTotalReservations(flightName, departureTime); // 필터링된 데이터 기반
+	    int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);
+
+	    // 모델에 추가
+	    model.addAttribute("rsvList", rsvList);
+	    model.addAttribute("rsvfn", rsvfn);
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("totalPages", totalPages);
+
+	    return "/admin/rsvdList";
+	}
 	
+		
 }

@@ -64,27 +64,33 @@
 <body>
 <section>
 	<table>
-		<caption><h3> 회원 관리 </h3></caption> <!-- 테이블 제목 -->
+		<caption><h3> 회원 정보 </h3></caption> <!-- 테이블 제목 -->
 		<tr align="center">
-			<td>  </td>
 			<td> 고객명 </td>
 			<td> ID </td>
 			<td> 회원등급 </td>
+			<td> 요청사항 </td>
+		</tr>
+		<tr align="center">
+		    <td align="center"> ${member.name} </td>
+		    <td align="center"> ${member.userid} </td>
+		    <td align="center"> VIP </td>
+		    <td align="center"> - </td>
+		</tr>
+	</table>
+	<table>
+		<caption><h3> 예약 내역 </h3></caption> <!-- 테이블 제목 -->
+		<tr align="center">
 			<td> 최근예약현황 </td>
 			<td> 요청사항 </td>
 		</tr>
-		<c:forEach items="${mlist}" var="mdto">
+		<c:forEach items="${member.reservations}" var="rsv">
 		<tr align="center">
-		    <td align="center"> ${mdto.id} </td>
-		    <td align="center"> ${mdto.name} </td>
-		    <td align="center"><a href="oneMeminfo?userid=${mdto.userid}"> ${mdto.userid} </a></td>
-		    <td align="center"> VIP </td>
-		    <td align="center">
-		        <c:forEach items="${mdto.reservations}" var="rsv">
+			
+    	    <td align="center">
 				${rsv.reservationDate}
-		        </c:forEach>
-		    </td>
-		    <td align="center"> - </td>
+        	</td>
+        	<td align="center"> - </td>
 		</tr>
 		</c:forEach>
 	</table>
