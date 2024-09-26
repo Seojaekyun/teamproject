@@ -78,13 +78,39 @@
 		    <td align="center"> ${mdto.id} </td>
 		    <td align="center"> ${mdto.name} </td>
 		    <td align="center"><a href="oneMeminfo?userid=${mdto.userid}"> ${mdto.userid} </a></td>
-		    <td align="center"> VIP </td>
+		    <td align="center">
+		    	<c:if test="${mdto.level == 0}">
+		    		일반회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 1}">
+		    		우수회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 2}">
+		    		VIP
+		    	</c:if>
+		    	<c:if test="${mdto.level == 3}">
+		    		탈퇴신청
+		    	</c:if>
+		    	<c:if test="${mdto.level == 4}">
+		    		탈퇴회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 5}">
+		    		복구신청
+		    	</c:if>
+		    </td>
 		    <td align="center">
 		        <c:forEach items="${mdto.reservations}" var="rsv">
 				${rsv.reservationDate}
 		        </c:forEach>
 		    </td>
-		    <td align="center"> - </td>
+		    <td align="center">
+		    	<c:if test="${mdto.level == 3}">
+		    		탈퇴신청
+		    	</c:if>
+		    	<c:if test="${mdto.level == 5}">
+		    		복구신청
+		    	</c:if>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>

@@ -63,6 +63,7 @@
 </head>
 <body>
 <section>
+	<div><a href="memberList"><input type="button" value="이전으로"></a></div>
 	<table>
 		<caption><h3> 회원 정보 </h3></caption> <!-- 테이블 제목 -->
 		<tr align="center">
@@ -74,7 +75,26 @@
 		<tr align="center">
 		    <td align="center"> ${member.name} </td>
 		    <td align="center"> ${member.userid} </td>
-		    <td align="center"> VIP </td>
+		    <td align="center">
+		    	<c:if test="${mdto.level == 0}">
+		    		일반회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 1}">
+		    		우수회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 2}">
+		    		VIP
+		    	</c:if>
+		    	<c:if test="${mdto.level == 3}">
+		    		탈퇴신청
+		    	</c:if>
+		    	<c:if test="${mdto.level == 4}">
+		    		탈퇴회원
+		    	</c:if>
+		    	<c:if test="${mdto.level == 5}">
+		    		복구신청
+		    	</c:if>
+		    </td>
 		    <td align="center"> - </td>
 		</tr>
 	</table>

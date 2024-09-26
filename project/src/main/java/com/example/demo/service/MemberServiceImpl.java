@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -74,13 +75,13 @@ public class MemberServiceImpl implements MemberService {
 
 	    // charge 정보 가져오기
 	    Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
-	    
-	    // chargeSums가 null인 경우를 대비하여 기본 값 설정
+
+	    // chargeSums에서 BigDecimal을 int로 변환하여 사용
 	    int totalCharge = chargeSums != null && chargeSums.get("totalCharge") != null
-	        ? (Integer) chargeSums.get("totalCharge")
+	        ? ((BigDecimal) chargeSums.get("totalCharge")).intValue()
 	        : 0;  // 기본 값 0 설정
 	    int totalChargePay = chargeSums != null && chargeSums.get("totalChargePay") != null
-	        ? (Integer) chargeSums.get("totalChargePay")
+	        ? ((BigDecimal) chargeSums.get("totalChargePay")).intValue()
 	        : 0;  // 기본 값 0 설정
 
 	    // 전체 예약 수 가져오기
@@ -103,8 +104,6 @@ public class MemberServiceImpl implements MemberService {
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
 	}
-
-
 
 
 	

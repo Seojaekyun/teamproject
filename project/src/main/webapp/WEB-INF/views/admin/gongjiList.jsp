@@ -34,6 +34,7 @@
 	}
 	td {
 		background-color: #f9f9f9;
+		font-size:12px;
 	}
 	a {
 		text-decoration: none;
