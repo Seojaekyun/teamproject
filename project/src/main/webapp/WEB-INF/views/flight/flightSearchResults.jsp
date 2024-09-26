@@ -102,7 +102,7 @@
                             
                             <td>
                             <!-- 선택된 가는편과 오는편 정보를 모두 확인 페이지로 전달 -->
-                                <form action="${pageContext.request.contextPath}/flights/confirmSelection" method="get">
+                                <form action="${pageContext.request.contextPath}/flights/confirmSelection" method="post">
                                     <input type="hidden" name="selectedGoingFlightId" value="${selectedGoingFlightId}">
                                     <input type="hidden" name="selectedGoingFlightDeparture" value="${selectedGoingFlightDeparture}">
                                     <input type="hidden" name="selectedGoingFlightArrival" value="${selectedGoingFlightArrival}">
