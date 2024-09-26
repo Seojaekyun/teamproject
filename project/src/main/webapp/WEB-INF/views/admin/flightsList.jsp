@@ -7,139 +7,136 @@
 <meta charset="UTF-8">
 <title> 항공편 현황 </title>
 <style>
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
-    section {
-        display: flex;
-        justify-content: space-between; /* 아이템들을 좌우로 배치 */
-        max-width: 1200px;
-        margin: auto;
-    }
-    #sec2 {
-	    display: flex;
-	    flex-direction: column; /* 테이블을 수직으로 배치 */
-	    /* gap: 20px; */ /* 테이블 사이에 간격 추가 */
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #f9f9f9;
+		margin: 0;
+		padding: 0;
 	}
-    .table-container {
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
-    .date-container {
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        /* margin-bottom: 20px; */
-        width: 30%; /* 달력 컨테이너 너비 */
-        /* padding: 20px; */
-        height: 340px;
-    }
-    .table-container {
-        width: 68%; /* 테이블 컨테이너 너비 */
-        height: 340px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0;
-        font-size: 12px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-    th {
-        background-color: #000A8E;
-        color: white;
-        text-transform: uppercase;
-    }
-    td {
-        background-color: #f9f9f9;
-    }
-    caption {
-        font-size: 16px;
-        font-weight: bold;
-        padding: 10px;
-        background-color: #000A8E;
-        color: white;
-        text-align: left;
-    }
-    .pagination {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .pagination a {
-        display: inline-block;
-        padding: 5px 10px;
-        margin: 0 3px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 12px;
-    }
-    .pagination a.active, .pagination span.active {
-        background-color: #333;
-        color: white;
-        cursor: default;
-        text-decoration: none;
-    }
-    .pagination span {
-        display: inline-block;
-        padding: 5px 10px;
-        margin: 0 3px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 12px;
-        cursor: default;
-    }
-    #clsd {
-        background: #000A8E;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 10px;
-        width: 150px;
-    }
-    #datepicker {
-    	width:100%;
-        display: inline-block;
-        margin: 0 auto;
-    }
-    .ui-datepicker {
-    	margin: auto;
-        width: 95% !important;
-        height: 95%;
-    }
-    #selectedDate {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        margin-top: 10px;
-    }
+	section {
+		display: flex;
+		justify-content: space-between; /* 아이템들을 좌우로 배치 */
+		max-width: 1200px;
+		margin: auto;
+	}
+	#sec2 {
+		display: flex;
+		flex-direction: column; /* 테이블을 수직으로 배치 */
+		/* gap: 20px; */ /* 테이블 사이에 간격 추가 */
+	}
+	.table-container {
+		background-color: white;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		overflow: hidden;
+		margin-bottom: 20px;
+	}
+	.date-container {
+		background-color: white;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		overflow: hidden;
+		width: 30%;
+		height: 340px;
+	}
+	.table-container {
+		width: 68%; /* 테이블 컨테이너 너비 */
+		height: 340px;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0;
+		font-size: 12px;
+	}
+	th, td {
+		border: 1px solid #ddd;
+		padding: 10px;
+		text-align: center;
+	}
+	th {
+		background-color: #000A8E;
+		color: white;
+		text-transform: uppercase;
+	}
+	td {
+		background-color: #f9f9f9;
+	}
+	caption {
+		font-size: 16px;
+		font-weight: bold;
+		padding: 10px;
+		background-color: #000A8E;
+		color: white;
+		text-align: left;
+	}
+	.pagination {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.pagination a {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #333;
+		color: white;
+		cursor: default;
+		text-decoration: none;
+	}
+	.pagination span {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+		cursor: default;
+	}
+	#clsd {
+		background: #000A8E;
+		color: white;
+		border-radius: 10px;
+		padding: 10px 15px;
+		border: none;
+		cursor: pointer;
+		margin-bottom: 10px;
+		width: 120px;
+	}
+	#datepicker {
+		width:100%;
+		display: inline-block;
+		margin: 0 auto;
+	}
+	.ui-datepicker {
+		margin: auto;
+		width: 95% !important;
+		height: 95%;
+	}
+	#selectedDate {
+		font-size: 16px;
+		font-weight: bold;
+		color: #333;
+		margin-top: 10px;
+	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<!-- jQuery UI CSS 추가 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
-<div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 
+<div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 <section id="sec1">
-	<!-- 날짜 선택 기능 추가 -->
+	<!-- 날짜 선택 기능 -->
 	<div class="date-container">
 		<button id="clsd" onclick="clearDate()">날짜 선택 해제</button><br>    
 		<div id="datepicker"></div>
@@ -177,8 +174,6 @@
 				</tr>
 			</c:if>
 		</table>
-		<!-- Pagination -->
-
 		<div id="mainPagination" class="pagination">
 			<c:if test="${totalPages > 1}">
 				<!-- 이전 페이지 버튼 -->
@@ -217,9 +212,7 @@
 		</div>
 	</div>
 </section>
-
 <section id="sec2">
-	<!-- GMP 테이블 -->
 	<div class="table-container">
 		<table id="gmpTable">
 			<caption>GMP 출발 항공편</caption>
@@ -285,7 +278,6 @@
 			</c:if>
 		</div>
 	</div>
-	<!-- ICN 테이블 -->
 	<div class="table-container">
 		<table id="icnTable">
 			<caption>ICN 출발 항공편</caption>
@@ -351,7 +343,6 @@
 			</c:if>
 		</div>
 	</div>
-	<!-- 기타 테이블 -->
 	<div class="table-container">
 		<table id="otherTable">
 			<caption>기타 항공편</caption>
@@ -422,90 +413,90 @@
 <!-- jQuery 및 jQuery UI 스크립트 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
-	// 날짜 선택 기능 수정
+	// 날짜 선택
 	$(function() {
-	    $("#datepicker").datepicker({
-	        inline: true,
-	        dateFormat: 'yy-mm-dd',
-	        defaultDate: null,
-	        onSelect: function(dateText) {
-	            $("#selectedDate").text('선택한 날짜: ' + dateText);
-	            sessionStorage.setItem("selectedDate", dateText);
-
-	            // 모든 테이블 업데이트
-	            loadPage(1, 'all');
-	            loadPage(1, 'gmp');
-	            loadPage(1, 'icn');
-	            loadPage(1, 'other');
-	        }
-	    });
-
-	    var savedDate = sessionStorage.getItem("selectedDate");
-	    if (savedDate) {
-	        $("#selectedDate").text('선택한 날짜: ' + savedDate);
-	        $("#datepicker").datepicker('setDate', savedDate);
-
-	        // 모든 테이블 업데이트
-	        loadPage(1, 'all');
-	        loadPage(1, 'gmp');
-	        loadPage(1, 'icn');
-	        loadPage(1, 'other');
-	    } else {
-	        $("#selectedDate").text('');
-	        $("#datepicker").datepicker('setDate', null);
-
-	        // 모든 테이블 업데이트
-	        loadPage(1, 'all');
-	        loadPage(1, 'gmp');
-	        loadPage(1, 'icn');
-	        loadPage(1, 'other');
-	    }
+		$("#datepicker").datepicker({
+			inline: true,
+			dateFormat: 'yy-mm-dd',
+			defaultDate: null,
+			onSelect: function(dateText) {
+				$("#selectedDate").text('선택한 날짜: ' + dateText);
+				sessionStorage.setItem("selectedDate", dateText);
+				
+				// 모든 테이블 업데이트
+				loadPage(1, 'all');
+				loadPage(1, 'gmp');
+				loadPage(1, 'icn');
+				loadPage(1, 'other');
+			}
+		});
+		
+		var savedDate = sessionStorage.getItem("selectedDate");
+		if (savedDate) {
+			$("#selectedDate").text('선택한 날짜: ' + savedDate);
+			$("#datepicker").datepicker('setDate', savedDate);
+			
+			// 모든 테이블 업데이트
+			loadPage(1, 'all');
+			loadPage(1, 'gmp');
+			loadPage(1, 'icn');
+			loadPage(1, 'other');
+		}
+		else {
+			$("#selectedDate").text('');
+			$("#datepicker").datepicker('setDate', null);
+			
+			// 모든 테이블 업데이트
+			loadPage(1, 'all');
+			loadPage(1, 'gmp');
+			loadPage(1, 'icn');
+			loadPage(1, 'other');
+		}
 	});
-
+	
 	function clearDate() {
-	    sessionStorage.removeItem("selectedDate");
-	    $("#selectedDate").text('');
-	    $("#datepicker").datepicker('setDate', null);
-
-	    // 모든 테이블 업데이트
-	    loadPage(1, 'all');
-	    loadPage(1, 'gmp');
-	    loadPage(1, 'icn');
-	    loadPage(1, 'other');
+		sessionStorage.removeItem("selectedDate");
+		$("#selectedDate").text('');
+		$("#datepicker").datepicker('setDate', null);
+		
+		// 모든 테이블 업데이트
+		loadPage(1, 'all');
+		loadPage(1, 'gmp');
+		loadPage(1, 'icn');
+		loadPage(1, 'other');
 	}
-
+	
 	function loadPage(page, flightType) {
-	    var selectedDate = sessionStorage.getItem("selectedDate");
-
-	    $.ajax({
-	        url: "/admin/flightsList",
-	        type: "GET",
-	        data: {
-	            page: page,
-	            selectedDate: selectedDate,
-	            flightType: flightType  // 'gmp', 'icn', 'other', 'all'
-	        },
-	        success: function(data) {
-	            if (flightType === 'gmp') {
-	                $("#gmpTable").html($(data).find("#gmpTable").html());
-	                $("#gmpPagination").html($(data).find("#gmpPagination").html());
-	            } else if (flightType === 'icn') {
-	                $("#icnTable").html($(data).find("#icnTable").html());
-	                $("#icnPagination").html($(data).find("#icnPagination").html());
-	            } else if (flightType === 'other') {
-	                $("#otherTable").html($(data).find("#otherTable").html());
-	                $("#otherPagination").html($(data).find("#otherPagination").html());
-	            } else {
-	                $("#flightTable").html($(data).find("#flightTable").html());
-	                $("#mainPagination").html($(data).find("#mainPagination").html());
-	            }
-	        },
-	        error: function(error) {
-	            console.log("데이터 가져오기 실패:", error);
-	        }
-	    });
+		var selectedDate = sessionStorage.getItem("selectedDate");
+		
+		$.ajax({
+			url: "/admin/flightsList",
+			type: "GET",
+			data: {
+				page: page,
+				selectedDate: selectedDate,
+				flightType: flightType  // 'gmp', 'icn', 'other', 'all'
+			},
+			success: function(data) {
+				if (flightType === 'gmp') {
+					$("#gmpTable").html($(data).find("#gmpTable").html());
+					$("#gmpPagination").html($(data).find("#gmpPagination").html());
+				} else if (flightType === 'icn') {
+					$("#icnTable").html($(data).find("#icnTable").html());
+					$("#icnPagination").html($(data).find("#icnPagination").html());
+				} else if (flightType === 'other') {
+					$("#otherTable").html($(data).find("#otherTable").html());
+					$("#otherPagination").html($(data).find("#otherPagination").html());
+				} else {
+					$("#flightTable").html($(data).find("#flightTable").html());
+					$("#mainPagination").html($(data).find("#mainPagination").html());
+				}
+			},
+			error: function(error) {
+				console.log("데이터 가져오기 실패:", error);
+			}
+		});
 	}
 </script>
 

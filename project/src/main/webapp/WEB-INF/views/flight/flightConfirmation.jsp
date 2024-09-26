@@ -20,7 +20,7 @@
                     <th>도착 공항</th>
                     <th>출발 시간</th>
                     <th>도착 시간</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
@@ -57,6 +57,7 @@
             </tbody>
         </table>
 
+
 		<!-- 추가 정보 -->
         <h4>선택한 항공편 정보</h4>
         <table class="table table-bordered">
@@ -75,12 +76,14 @@
         </table>
 
 
+
         <!-- 예약 버튼 -->
         <form action="${pageContext.request.contextPath}/flights/booking" method="post">
             <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
             <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
             <input type="hidden" name="seatClass" value="${seatClass}">
             <input type="hidden" name="passengers" value="${passengers}">
+
             <button type="submit" class="btn btn-success">예약하기</button>
         </form>
     </div>

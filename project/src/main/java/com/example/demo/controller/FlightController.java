@@ -78,6 +78,7 @@ public class FlightController {
     
     @GetMapping("/searchReturn")
     public String searchReturnFlights(
+
     		@RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
     	    @RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
     	    @RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
@@ -89,6 +90,7 @@ public class FlightController {
             Model model
     ) {
     	// 오는날 비행기 조회: seatClass와 passengers가 제공된 경우 필터링
+
     	// 오는날 비행기 조회
         List<FlightDto> returnFlights = service.findFlights(selectedGoingFlightArrival, selectedGoingFlightDeparture, null, returnDate, seatClass, passengers);
 
@@ -103,7 +105,6 @@ public class FlightController {
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
         
-        
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
@@ -111,9 +112,7 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
-    
-    
-    
+
     
     @PostMapping("/confirmSelection")
     public String confirmSelection(
@@ -136,18 +135,22 @@ public class FlightController {
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
+
         model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
         model.addAttribute("selectedGoingFlightDeparture", selectedGoingFlightDeparture);
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
+
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime);
         
 
         // 오는편 항공편 정보를 모델에 추가
+
         model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
         model.addAttribute("selectedReturnFlightDeparture", selectedReturnFlightDeparture);
         model.addAttribute("selectedReturnFlightArrival", selectedReturnFlightArrival);
         model.addAttribute("selectedReturnFlightTime", selectedReturnFlightTime);
+
         model.addAttribute("selectedReturnFlightArrivalTime", selectedReturnFlightArrivalTime);
 
         // 좌석 등급과 인원 정보 모델에 추가
@@ -170,8 +173,6 @@ public class FlightController {
         return "bookingPage";  // 빈 페이지로 설정
     }
 
-    
-    
-    
+
 }  
 

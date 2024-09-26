@@ -62,6 +62,11 @@ public class AdminController {
 		return service.memberList(request, model);
 	}
 	
+	@RequestMapping("/admin/oneMeminfo")
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+		return service.oneMeminfo(request, model);
+	}
+	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
     public String inquiryList(Model model, Integer page) {
         return service.inquiryList(model, page);
@@ -117,5 +122,9 @@ public class AdminController {
 		return gservice.delete(request);
 	}
 	
+	@RequestMapping("/admin/rsvdList")
+	public String rsvdList(HttpServletRequest request, Model model) {
+		return service.rsvdList(request, model);
+	}
 	
 }
