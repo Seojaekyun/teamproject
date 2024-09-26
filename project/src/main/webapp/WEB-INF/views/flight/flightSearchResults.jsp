@@ -10,6 +10,7 @@
         /* 간단한 스타일 추가 */
         .flight-table {
             margin-top: 30px;
+
         }
         .select-flight-btn {
             cursor: pointer;
@@ -93,8 +94,6 @@
         }
         .detail-button:hover {
             background-color: #155ab2;
-
-
         }
     </style>
 </head>
@@ -131,7 +130,6 @@
             				<td>
                 		<!-- 가는날 비행기 선택 시 오는날 비행기 조회 -->
                				 	<form action="${pageContext.request.contextPath}/flights/searchReturn" method="get">
-
                				 		<input type="hidden" name="selectedGoingFlightId" value="${flight.flightId}">
                     				<input type="hidden" name="selectedGoingFlightDeparture" value="${flight.departureAirport}">
                     				<input type="hidden" name="selectedGoingFlightArrival" value="${flight.arrivalAirport}">
@@ -185,7 +183,8 @@
                             
                             <td>
                             <!-- 선택된 가는편과 오는편 정보를 모두 확인 페이지로 전달 -->
-                                <form action="${pageContext.request.contextPath}/flights/confirmSelection" method="get">
+                                <form action="${pageContext.request.contextPath}/flights/confirmSelection" method="post">
+
                                     <input type="hidden" name="selectedGoingFlightId" value="${selectedGoingFlightId}">
                                     <input type="hidden" name="selectedGoingFlightDeparture" value="${selectedGoingFlightDeparture}">
                                     <input type="hidden" name="selectedGoingFlightArrival" value="${selectedGoingFlightArrival}">

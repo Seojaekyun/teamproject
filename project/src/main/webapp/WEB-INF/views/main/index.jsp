@@ -1144,6 +1144,7 @@ function updatePassengerButton() {
     document.getElementById('child-hidden').value = childCount;
     document.getElementById('infant-hidden').value = infantCount;
 
+
 }
 document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 기본값 설정

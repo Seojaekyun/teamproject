@@ -112,34 +112,55 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
+
     
-    @PostMapping("/confirm")
-    public String confirmFlights(
-            @RequestParam String selectedGoingFlightId,
-            @RequestParam String selectedGoingFlightDeparture,
-            @RequestParam String selectedGoingFlightArrival,
-            @RequestParam String selectedGoingFlightTime,
-            @RequestParam String selectedReturnFlightId,
-            @RequestParam String selectedReturnFlightDeparture,
-            @RequestParam String selectedReturnFlightArrival,
-            @RequestParam String selectedReturnFlightTime,
-            Model model) {
-        
-        // 가는편 항공편 정보 모델에 추가
+    @PostMapping("/confirmSelection")
+    public String confirmSelection(
+            @RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
+            @RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
+            @RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
+            @RequestParam("selectedGoingFlightTime") String selectedGoingFlightTime,
+            @RequestParam("selectedGoingFlightArrivalTime") String selectedGoingFlightArrivalTime,
+            
+            
+            @RequestParam("selectedReturnFlightId") String selectedReturnFlightId,
+            @RequestParam("selectedReturnFlightDeparture") String selectedReturnFlightDeparture,
+            @RequestParam("selectedReturnFlightArrival") String selectedReturnFlightArrival,
+            @RequestParam("selectedReturnFlightTime") String selectedReturnFlightTime,
+            @RequestParam("selectedReturnFlightArrivalTime") String selectedReturnFlightArrivalTime,
+            
+            
+            @RequestParam String seatClass, // 좌석 등급
+            @RequestParam Integer passengers, // 선택된 인원
+            Model model
+    ) {
+        // 가는편 항공편 정보를 모델에 추가
+
         model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
         model.addAttribute("selectedGoingFlightDeparture", selectedGoingFlightDeparture);
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
 
-        // 오는편 항공편 정보 모델에 추가
+        model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime);
+        
+
+        // 오는편 항공편 정보를 모델에 추가
+
         model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
         model.addAttribute("selectedReturnFlightDeparture", selectedReturnFlightDeparture);
         model.addAttribute("selectedReturnFlightArrival", selectedReturnFlightArrival);
         model.addAttribute("selectedReturnFlightTime", selectedReturnFlightTime);
 
-        // 최종 예약 확인 페이지로 이동
+        model.addAttribute("selectedReturnFlightArrivalTime", selectedReturnFlightArrivalTime);
+
+        // 좌석 등급과 인원 정보 모델에 추가
+        model.addAttribute("seatClass", seatClass);
+        model.addAttribute("passengers", passengers);
+
+        // 선택 확인 페이지로 이동
         return "flight/flightConfirmation";
     }
+
     
     
     
@@ -151,6 +172,7 @@ public class FlightController {
         // 예약 성공 페이지로 이동
         return "bookingPage";  // 빈 페이지로 설정
     }
+
 
 }  
 
