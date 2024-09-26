@@ -508,7 +508,6 @@ input[name="t_methods"]:checked + label::after {
     font-size: 16px;
     margin-left: 10px;
     margin-bottom:5px;
-
 }
 
 #search_airline {
@@ -517,6 +516,14 @@ input[name="t_methods"]:checked + label::after {
     align-self: flex-end;
     align-items: center;
 }
+
+#search_airline {
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-end;
+    align-items: center;
+}
+
 
 
 /* 출발지 리스트의 기본 스타일 */
@@ -1110,10 +1117,8 @@ function updatePassengerButton() {
         }
     }
 
+
     document.getElementById('passenger-btn').innerHTML = passengerText;
-    
-    
- 	
 
  // 버튼의 기존 내용을 비우고 다시 추가
     var passengerBtn = document.getElementById('passenger-btn');
@@ -1127,9 +1132,6 @@ function updatePassengerButton() {
     // 텍스트 추가
     passengerBtn.append(' ' + passengerText); 
     
-    
-    
-    
  	// 숨겨진 필드에 탑승객 수 설정
     // 형식: "성인:1,소아:0,유아:0"
     //var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
@@ -1141,10 +1143,6 @@ function updatePassengerButton() {
     document.getElementById('adult-hidden').value = adultCount;
     document.getElementById('child-hidden').value = childCount;
     document.getElementById('infant-hidden').value = infantCount;
-
-    
-    
-    
 
 }
 document.addEventListener('DOMContentLoaded', function() {
@@ -1183,9 +1181,6 @@ function decrease(type) {
     }
     updatePassengerButton(); // 승객 수가 변경될 때마다 바로 반영
 }
-    
-    
-    
     
 
     // 섹션들이 뷰포트에 들어오면 'visible' 클래스를 추가하는 함수
@@ -1499,7 +1494,7 @@ function decrease(type) {
 
 
 
-<form action="${pageContext.request.contextPath}/flights/search" method="get">
+<form action="${pageContext.request.contextPath}/select/selection" method="get">
 
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">
@@ -1666,30 +1661,32 @@ function decrease(type) {
 							</div>
 						</div>
 						<div class="select_contents">
+						<form action="${pageContext.request.contextPath}/select/selection" method="get">
 							<div id="select methods">
 							<div class="select_info_aligner">
 									<!-- 날짜 선택 버튼 -->
 									<div id="select_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="select_num" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890">
 									</div>
 
 									<div id="select_date">
 										<p>출발일&nbsp;</p>
-										<input type="text" id="date">
+										<input type="text" id="date" name="date">
+
 									</div>
 									
 									<div id="select_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="sung" >
+										<input type="text" id="sung" name="sung">
 									</div>
 									<div id="select_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="name" >
+										<input type="text" id="name" name="name">
 									</div>
 									
 									<div id="select_selection">
-											<button type="button" id="select_button">
+											<button type="submit" id="select_button">
 												<span>조회</span>
 											</button>
 									</div>
@@ -1704,7 +1701,9 @@ function decrease(type) {
                						 필수 동의 항목입니다.
                						 </div>
 							</div>
+						</form>
 						</div>
+
 						
 <style>
 .select_contents, .check-in_contents {
