@@ -3,6 +3,76 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    section {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 1200px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #f8f8f8;
+    }
+    caption {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    button, input[type="button"] {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+    }
+    button:hover, input[type="button"]:hover {
+        background-color: #0056b3;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #007BFF;
+    }
+    .pagination a:hover {
+        background-color: #f4f4f4;
+    }
+    .pagination span {
+        background-color: #007BFF;
+        color: white;
+    }
+</style>
+
 <meta charset="UTF-8">
 <title>공지사항 관리</title>
 <style>
