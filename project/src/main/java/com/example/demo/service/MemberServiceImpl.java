@@ -51,6 +51,7 @@ public class MemberServiceImpl implements MemberService {
 	public String rlist(HttpSession session, HttpServletRequest request, Model model) {
 	    String userid = (String) session.getAttribute("userid");
 
+	    // 사용자 로그인이 되어 있지 않으면 로그인 페이지로 리디렉션
 	    if (userid == null || userid.isEmpty()) {
 	        return "redirect:/login";
 	    }
@@ -73,6 +74,14 @@ public class MemberServiceImpl implements MemberService {
 
 	    // charge 정보 가져오기
 	    Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
+	    
+	    // chargeSums가 null인 경우를 대비하여 기본 값 설정
+	    int totalCharge = chargeSums != null && chargeSums.get("totalCharge") != null
+	        ? (Integer) chargeSums.get("totalCharge")
+	        : 0;  // 기본 값 0 설정
+	    int totalChargePay = chargeSums != null && chargeSums.get("totalChargePay") != null
+	        ? (Integer) chargeSums.get("totalChargePay")
+	        : 0;  // 기본 값 0 설정
 
 	    // 전체 예약 수 가져오기
 	    int totalReservations;
@@ -88,12 +97,13 @@ public class MemberServiceImpl implements MemberService {
 	    model.addAttribute("rsvClist", rsvClist);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
-	    model.addAttribute("totalCharge", chargeSums.get("totalCharge"));
-	    model.addAttribute("totalChargePay", chargeSums.get("totalChargePay"));
+	    model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
+	    model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
 	    model.addAttribute("selectedDate", selectedDate);  // 선택한 날짜를 모델에 추가
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
 	}
+
 
 
 

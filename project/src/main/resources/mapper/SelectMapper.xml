@@ -4,7 +4,7 @@
 
     <!-- 1. reservations 정보 조회 -->
     <select id="getReservationInfo" resultType="map" parameterType="map">
-        SELECT seat_class, seat_number, flight_id
+        SELECT seat_class, seat_class, flight_id
         FROM reservations
         WHERE pnr = #{pnr} AND sung = #{sung} AND name = #{name}
     </select>

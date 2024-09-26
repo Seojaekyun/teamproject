@@ -1494,7 +1494,7 @@ function decrease(type) {
 
 
 
-<form action="${pageContext.request.contextPath}/select/selection" method="get">
+<form action="${pageContext.request.contextPath}/flights/search" method="get">
 
 								<!-- 왕복/편도 선택 버튼 -->
 								<div id="trip-methods" class="trip-methods">

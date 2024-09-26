@@ -24,9 +24,9 @@ public class SelectController {
 
     @GetMapping("/select/selection")
     public String getReservationDetails(
-            @RequestParam("pnr") String pnr,
-            @RequestParam("sung") String sung,
-            @RequestParam("name") String name,
+            @RequestParam(required = false) String pnr,
+            @RequestParam(required = false) String sung,
+            @RequestParam(required = false) String name,
             Model model) {
         
         // 서비스에서 예약 상세 정보 가져오기
