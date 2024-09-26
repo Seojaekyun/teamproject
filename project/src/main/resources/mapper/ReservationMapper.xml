@@ -83,9 +83,9 @@
     WHERE r.userid = #{userid}
     AND DATE(r.reservation_date) = #{selectedDate}  <!-- 날짜 필터링 -->
 </select>
-
-
-
+	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
+		SELECT * FROM reservations WHERE userid = #{userid} ORDER BY reservation_date DESC
+	</select>
 	
 	
 </mapper>

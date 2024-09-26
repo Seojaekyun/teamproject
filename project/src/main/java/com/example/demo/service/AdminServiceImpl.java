@@ -287,8 +287,24 @@ public class AdminServiceImpl implements AdminService{
 	    
 	    return "/admin/memberList";
 	}
+	
+	@Override
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+	    String userId = request.getParameter("userid");
 
+	    // 유저 정보와 예약 리스트를 가져옴
+	    MemberDto member = mmapper.getMemberById(userId);
 
+	    if (member != null) {
+	        List<ReservationDto> myrsv = rmapper.getRsvUserid(userId);
+	        member.setReservations(myrsv);
+	    }
+
+	    model.addAttribute("member", member);
+	    model.addAttribute("myrsv", member.getReservations()); // 예약 리스트 전달
+
+	    return "/admin/oneMeminfo";
+	}
 
 	@Override
 	public String inquiryList(Model model, Integer page) {

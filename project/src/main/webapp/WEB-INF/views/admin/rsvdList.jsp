@@ -140,16 +140,7 @@
         font-size: 12px;
         cursor: default;
     }
-    #clsd {
-        background: #000A8E;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 10px;
-        width: 150px;
-    }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
