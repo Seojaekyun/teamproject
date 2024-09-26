@@ -33,31 +33,39 @@
                         <th>도착 시간</th>
                         <th>비행 시간</th>
                         <th>항공기 ID</th>
+                         <th>Available Seats</th> <!-- 추가된 컬럼 -->
                         <th>선택</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="flight" items="${flights}">
-                        <tr>
-                            <td>${flight.flightId}</td>
-                            <td>${flight.departureAirport}</td>
-                            <td>${flight.arrivalAirport}</td>
-                            <td>${flight.departureTime}</td>
-                            <td>${flight.arrivalTime}</td>
-                            <td>${flight.flightDuration}</td>
-                            <td>${flight.airplaneId}</td>
-                            <td>
-                                <!-- 가는날 비행기 선택 시 오는날 비행기 조회 -->
-                                <form action="${pageContext.request.contextPath}/flights/searchReturn" method="get">
-                                    <input type="hidden" name="selectedDeparture" value="${flight.arrivalAirport}">
-                                    <input type="hidden" name="selectedArrival" value="${flight.departureAirport}">
-                                    <input type="hidden" name="returnDate" value="${arrivalDate}">
-                                    <button type="submit" class="btn btn-primary select-flight-btn">선택</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
+    				<c:forEach var="flight" items="${flights}">
+        				<tr>
+            				<td>${flight.flightId}</td>
+            				<td>${flight.departureAirport}</td>
+            				<td>${flight.arrivalAirport}</td>
+            				<td>${flight.departureTime}</td>
+            				<td>${flight.arrivalTime}</td>
+            				<td>${flight.flightDuration}</td>
+            				<td>${flight.airplaneId}</td>
+            				<td>${flight.availableSeats}</td> <!-- 추가된 데이터 -->
+            				<td>
+                		<!-- 가는날 비행기 선택 시 오는날 비행기 조회 -->
+               				 	<form action="${pageContext.request.contextPath}/flights/searchReturn" method="get">
+                    				<input type="hidden" name="selectedDeparture" value="${flight.arrivalAirport}">
+                    				<input type="hidden" name="selectedArrival" value="${flight.departureAirport}">
+                    				<input type="hidden" name="returnDate" value="${arrivalDate}">
+                    				<input type="hidden" name="seatClass" value="${seatClass}"> <!-- 추가된 숨겨진 필드 -->
+                    				<input type="hidden" name="passengers" value="${passengers}"> <!-- 추가된 숨겨진 필드 -->
+                    				<button type="submit" class="btn btn-primary select-flight-btn" 
+                        				${flight.availableSeats < passengers ? 'disabled' : ''}>
+                        					선택
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
+</tbody>
+
             </table>
         </c:if>
 
@@ -74,6 +82,7 @@
                         <th>도착 시간</th>
                         <th>비행 시간</th>
                         <th>항공기 ID</th>
+                        <th>Available Seats</th> <!-- 추가된 컬럼 -->
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +95,7 @@
                             <td>${flight.arrivalTime}</td>
                             <td>${flight.flightDuration}</td>
                             <td>${flight.airplaneId}</td>
+                            <td>${flight.availableSeats}</td> <!-- 추가된 데이터 -->
                         </tr>
                     </c:forEach>
                 </tbody>

@@ -1084,9 +1084,12 @@ function updateButtonTextWithIcon(buttonId, newText) {
 }
 <!-- 탑승객 관련 함수 -->
 function updatePassengerButton() {
-    var adultCount = document.getElementById('adult-count').textContent;
-    var childCount = document.getElementById('child-count').textContent;
-    var infantCount = document.getElementById('infant-count').textContent;
+	var adultCount = parseInt(document.getElementById('adult-count').textContent, 10) || 0;
+    var childCount = parseInt(document.getElementById('child-count').textContent, 10) || 0;
+    var infantCount = parseInt(document.getElementById('infant-count').textContent, 10) || 0;
+    
+ 
+    
     var passengerText = '성인 ' + adultCount + '명';
     var additionalPassengers = [];
     // 추가 승객 정보를 배열에 저장
@@ -1127,10 +1130,18 @@ function updatePassengerButton() {
     
     
     
- // 숨겨진 필드에 탑승객 수 설정
+ 	// 숨겨진 필드에 탑승객 수 설정
     // 형식: "성인:1,소아:0,유아:0"
-    var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
+    //var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
+    //document.getElementById('passenger-hidden').value = passengersValue;
+    
+ 	// 숨겨진 필드에 총 승객 수 설정 (성인 + 소아)
+ 	var passengersValue = adultCount + childCount;
     document.getElementById('passenger-hidden').value = passengersValue;
+    document.getElementById('adult-hidden').value = adultCount;
+    document.getElementById('child-hidden').value = childCount;
+    document.getElementById('infant-hidden').value = infantCount;
+
     
     
     
@@ -1586,6 +1597,10 @@ function decrease(type) {
 									
 									<!-- 탑승객 수 전달을 위한 숨겨진 필드 -->
         							<input type="hidden" name="passengers" id="passenger-hidden">
+        							<!-- 추가 승객 수 전달을 위한 숨겨진 필드 -->
+									<input type="hidden" name="adultCount" id="adult-hidden" value="1">
+									<input type="hidden" name="childCount" id="child-hidden" value="0">
+									<input type="hidden" name="infantCount" id="infant-hidden" value="0">
 
 									<!-- 승객 선택 팝업 -->
 									<div id="passenger-selection-popup" class="passenger-popup"
