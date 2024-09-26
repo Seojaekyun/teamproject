@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
 
 @Controller
@@ -159,7 +160,25 @@ public class FlightController {
     }
 
     
-    
+    @GetMapping("/seats")
+    public String showSeatSelection(
+    		@RequestParam("flightId") int flightId, 
+            @RequestParam("seatClass") String seatClass, 
+            Model model) {
+    	
+        List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
+        
+     // 좌석 데이터의 크기를 출력하여 데이터가 조회되는지 확인
+        System.out.println("Available seats count: " + availableSeats.size());
+        
+        
+        model.addAttribute("seats", availableSeats);
+        model.addAttribute("seatClass", seatClass);
+        model.addAttribute("flightId", flightId);
+
+        return "flight/seats";  // 이 경로에 JSP가 있어야 함
+    }
+
     
 
     @PostMapping("/booking")

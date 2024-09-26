@@ -5,6 +5,39 @@
     <meta charset="UTF-8">
     <title>항공편 선택 확인 - eLT항공</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    
+    
+    <style>
+        /* 좌석선택 버튼 스타일 */
+        .btn-seat-select {
+            background-color: #00aaff; /* 하늘색 */
+            color: white;
+            margin-right: 10px;
+        }
+        
+        /* 버튼 간격 조정 */
+        .action-buttons {
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        /* 예약하기 버튼과 페이지 하단 간격 추가 */
+        .btn-reservation {
+            
+        }
+    </style>
+    
+    <script>
+    function openSeatSelection() {
+        var seatClass = '${seatClass}';
+        var flightId = '${selectedGoingFlightId}';
+        var url = '${pageContext.request.contextPath}/flights/seats?flightId=' + flightId + '&seatClass=' + seatClass;
+        window.open(url, 'Seat Selection', 'width=1200,height=800');
+    }
+
+	</script>
+</head>
+    
 </head>
 <body>
     <div class="container">
@@ -73,16 +106,24 @@
                 </tr>
             </tbody>
         </table>
+        
+        
+         <!-- 좌석선택 및 예약 버튼 -->
+        <div class="action-buttons">
+            <!-- 좌석선택 버튼 -->
+            <button type="button" class="btn btn-seat-select" onclick="openSeatSelection()">좌석선택</button>
 
-
-        <!-- 예약 버튼 -->
-        <form action="${pageContext.request.contextPath}/flights/booking" method="post">
-            <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
-            <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
-            <input type="hidden" name="seatClass" value="${seatClass}">
-            <input type="hidden" name="passengers" value="${passengers}">
-            <button type="submit" class="btn btn-success">예약하기</button>
-        </form>
+            <!-- 예약하기 버튼 -->
+            <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;">
+                <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
+                <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
+                <input type="hidden" name="seatClass" value="${seatClass}">
+                <input type="hidden" name="passengers" value="${passengers}">
+                <button type="submit" class="btn btn-success btn-reservation">예약하기</button>
+            </form>
+        </div>
     </div>
+
+    
 </body>
 </html>

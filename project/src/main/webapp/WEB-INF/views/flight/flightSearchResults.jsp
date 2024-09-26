@@ -117,8 +117,6 @@
                                     <input type="hidden" name="selectedReturnFlightArrival" value="${flight.arrivalAirport}">
                                     <input type="hidden" name="selectedReturnFlightTime" value="${flight.departureTime}">
                                     <input type="hidden" name="selectedReturnFlightArrivalTime" value="${flight.arrivalTime}">
-                                    <input type="hidden" name="seatClass" value="${seatClass}"> <!-- 추가된 숨겨진 필드 -->
-                    				<input type="hidden" name="passengers" value="${passengers}"> <!-- 추가된 숨겨진 필드 -->
                                     
                                     <button type="submit" class="btn btn-primary select-flight-btn">오는편 선택</button>
                                 </form>

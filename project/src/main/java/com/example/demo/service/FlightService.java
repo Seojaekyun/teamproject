@@ -16,5 +16,8 @@ public interface FlightService {
     
     // 새로 추가된 메서드
     List<SeatDto> getSeatsByFlightId(int flightId);
+    
+    
+    List<SeatDto> getAvailableSeats(int flightId, String seatClass);
 
 }

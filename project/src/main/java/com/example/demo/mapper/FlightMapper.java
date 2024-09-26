@@ -66,6 +66,6 @@ public interface FlightMapper {
 	List<FlightDto> getArrivalFlights();
 	List<FlightDto> getFlightsByDate(@Param("date") LocalDate date);
 	
-
+	 List<SeatDto> getAvailableSeatsByFlightAndClass(@Param("flightId") int flightId, @Param("seatClass") String seatClass);
 }
 
