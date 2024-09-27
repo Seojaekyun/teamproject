@@ -43,7 +43,7 @@
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		margin-right: 60px;
 	}
@@ -58,13 +58,13 @@
 	#section1 #loginMenu ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 10px;;
+		padding: 10px;
 		display: flex;
 		align-items: center;
 	}
 	#section1 #loginMenu ul li {
 		position: relative;
-		margin-right: 10px;
+		/* margin-right: 10px; */
 	}
 	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
 		padding-left: 0;
@@ -75,15 +75,17 @@
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
+		border-radius:5px;
 	}
 	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
 		list-style-type: none;
-		width: 130px;
+		width: 100px;
 		height: 35px;
 		line-height: 35px;
 		text-align: center;
 		cursor: pointer;
-		border-bottom: 1px solid #ddd;
+		font-size: 17px;
+		/* border-bottom: 1px solid #ddd; */
 	}
 	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
 		text-decoration: none;
@@ -119,7 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-weight: 900;
+		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}
@@ -131,13 +133,14 @@
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius:5px;
 	}
 	header > nav #main > li > .menu > li {
 		list-style-type: none;
 		width: 200px;
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #ddd;
+		height: 40px;
+		line-height: 40px;
+		font-weight: 600;
 	}
 	footer {
 		padding: 10px 0;
@@ -226,8 +229,8 @@
 				<c:if test="${userid!=null}">
 				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 					<ul class="mmenu">
-						<li>회원정보</li>
-						<li>예약정보</li>
+						<li><a href="../member/memberView">나의정보</a></li>
+						<li><a href="../reserve/list">예약정보</a></li>
 						<li>나의문의</li>
 					</ul>
 				</span>

@@ -53,6 +53,7 @@
     FROM FlightSeats 
     WHERE flight_id = #{flightId} 
       AND is_available = 1
+
 	</select>
 	
 	
@@ -166,6 +167,7 @@
 
 	<select id="getFlightByGoingFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
     	SELECT * FROM flights WHERE flight_id = #{goingFlightId}
+
 	</select>
 	
     <select id="getFlightByReturnFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
@@ -173,4 +175,103 @@
 	</select>
 
 	
+	 <!-- 기존 findFlights 쿼리 유지 -->
+    <select id="findFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+        SELECT DISTINCT f.flight_id, f.flight_number, f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id
+        FROM flights f
+        JOIN FlightSeats fs ON f.flight_id = fs.flight_id
+        JOIN SeatTemplate st ON fs.seat_id = st.seat_id
+        WHERE f.departure_airport = #{departure}
+          AND f.arrival_airport = #{arrival}
+          <!-- 출발일 필터링 -->
+          <if test="departureDate != null and departureDate != ''">
+              AND DATE(f.departure_time) = #{departureDate}
+          </if>
+          <!-- 도착일 필터링 -->
+          <if test="arrivalDate != null and arrivalDate != ''">
+              AND DATE(f.arrival_time) = #{arrivalDate}
+          </if>
+          <!-- 좌석 등급 필터링 -->
+          <if test="seatClass != null and seatClass != ''">
+              AND st.seat_class = #{seatClass}
+          </if>
+          <!-- 좌석 가용성 필터링 -->
+          <if test="passengers != null">
+              AND fs.is_available = 1
+          </if>
+        <!-- 그룹화 및 좌석 수 필터링 -->
+        <if test="passengers != null">
+            GROUP BY f.flight_id
+            HAVING COUNT(fs.seat_id) >= #{passengers}
+        </if>
+    </select>
+
+
+
+    <!-- findFlightsWithFilters 매핑 -->
+    <select id="findFlightsWithFilters" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+        SELECT DISTINCT 
+            f.flight_id, 
+            f.departure_airport, 
+            f.arrival_airport, 
+            f.departure_time, 
+            f.arrival_time, 
+            f.flight_duration, 
+            f.airplane_id,
+            COUNT(fs.seat_id) AS availableSeats
+        FROM flights f 
+        JOIN FlightSeats fs ON f.flight_id = fs.flight_id 
+        JOIN SeatTemplate st ON fs.seat_id = st.seat_id 
+        WHERE f.departure_airport = #{departure} 
+          AND f.arrival_airport = #{arrival} 
+          <!-- 출발일 필터링 -->
+           <if test="departureDate != null and departureDate != ''">
+    			AND DATE_FORMAT(f.departure_time, '%Y-%m-%d') = #{departureDate}
+		  </if>
+
+           <!-- 도착일 필터링 -->
+      		<if test="arrivalDate != null and arrivalDate != '' and (departureDate == null or departureDate == '')">
+          		AND DATE_FORMAT(f.departure_time, '%Y-%m-%d') = #{arrivalDate}
+      		</if>
+      
+      
+      
+          <!-- 좌석 등급 필터링 -->
+          <if test="seatClass != null and seatClass != ''">
+              AND st.seat_class = #{seatClass}
+          </if>
+          <!-- 좌석 가용성 필터링 -->
+          <if test="passengers != null">
+              AND fs.is_available = 1
+          </if>
+        <!-- 그룹화 및 좌석 수 필터링 -->
+        <if test="passengers != null">
+            GROUP BY f.flight_id 
+            HAVING COUNT(fs.seat_id) >= #{passengers}
+        </if>
+    </select>
+    
+    <!-- getSeatsByFlightIdAndClass 매핑 추가 -->
+<select id="getSeatsByFlightIdAndClass" parameterType="map" resultType="com.example.demo.dto.SeatDto">
+    SELECT * 
+    FROM FlightSeats 
+    WHERE flight_id = #{flightId} 
+      AND seat_class = #{seatClass}
+      AND is_available = 1
+</select>
+	<select id="getAvailableSeatsByFlightAndClass" resultType="com.example.demo.dto.SeatDto">
+    SELECT
+        st.seat_id AS seatId,
+        st.seat_number AS seatNumber,
+        st.seat_class AS seatClass,
+        fs.is_available AS available  <!-- 여기서 별칭 사용 -->
+    FROM
+        seattemplate st
+    JOIN
+        flightseats fs ON st.seat_id = fs.seat_id
+    WHERE
+        fs.flight_id = #{flightId}
+        AND st.seat_class = #{seatClass}
+</select>
+
 </mapper>

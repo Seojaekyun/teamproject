@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
+
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
@@ -108,8 +109,6 @@ public class FlightController {
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
-        
-        
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
@@ -117,10 +116,6 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
-    
-    
-    
-    
     @PostMapping("/confirmSelection")
     public String confirmSelection(
             @RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
@@ -139,10 +134,6 @@ public class FlightController {
             
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
-            
-           
-            
-            HttpSession session,
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
@@ -163,13 +154,10 @@ public class FlightController {
         // 좌석 등급과 인원 정보 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
-        
 
      // 세션에 가는편과 오는편 비행기 ID를 저장합니다.
         session.setAttribute("selectedGoingFlightId", selectedGoingFlightId);
         session.setAttribute("selectedReturnFlightId", selectedReturnFlightId);
-        
-        
         // 선택 확인 페이지로 이동
         return "flight/flightConfirmation";
     }
@@ -180,6 +168,7 @@ public class FlightController {
     		@RequestParam("flightId") int flightId, 
             @RequestParam("seatClass") String seatClass,
             @RequestParam("passengers") int passengers,  // 추가된 부분
+
             Model model) {
     	
         List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
@@ -217,6 +206,7 @@ public class FlightController {
         model.addAttribute("goingSelectedSeats", selectedSeats);  // 가는편 좌석
         session.setAttribute("passengers", passengers);  // 승객 수
         session.setAttribute("seatClass", seatClass);  // 좌석 등급
+
 
         // 오는편 좌석 선택을 위해 필요한 데이터 전달
         // 예를 들어, 오는편 flightId 등을 세션 또는 모델에 저장
@@ -271,11 +261,9 @@ public class FlightController {
 
         // 선택한 좌석 정보를 세션에 저장
         model.addAttribute("returnSelectedSeats", selectedSeats);  // 오는편 좌석
-
         // 예약 페이지로 이동 또는 다음 단계 진행
         return "redirect:/flights/booking";
     }
-    
 
     @PostMapping("/booking")
     public String booking(
@@ -301,6 +289,7 @@ public class FlightController {
             // 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
             return "redirect:/login/login";
         }
+
         
         
         // 유저 정보를 가져옴
@@ -316,14 +305,10 @@ public class FlightController {
         }
         
 
+
      // 세션에서 필요한 정보를 가져옴
         String selectedGoingFlightId = (String) session.getAttribute("selectedGoingFlightId");
         String selectedReturnFlightId = (String) session.getAttribute("selectedReturnFlightId");
-        
-       
-        
-        
-       
 
         // Null 체크 후 기본값 설정
         if (passengers == null) {
@@ -377,8 +362,5 @@ public class FlightController {
         return "flight/bookingPage";  // 예약 페이지 JSP 파일 경로
     }
 
-    
-    
-    
 }  
 

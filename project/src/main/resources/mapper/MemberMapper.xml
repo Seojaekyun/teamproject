@@ -20,7 +20,9 @@
 	<select id="getTotalMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member
 	</select>
-	
-	
+	<select id="getMemberById" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member WHERE userid = #{userid};
+	</select>
+		
 		
  </mapper>

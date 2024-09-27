@@ -3,7 +3,9 @@ package com.example.demo.mapper;
 
 
 import com.example.demo.dto.FlightDto;
+
 import com.example.demo.dto.MemberDto;
+
 import com.example.demo.dto.SeatDto;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -75,5 +77,6 @@ public interface FlightMapper {
 	FlightDto getFlightByGoingFlightId(String goingFlightId);
 	
 	FlightDto getFlightByReturnFlightId(String goingFlightId);
+
 }
 
