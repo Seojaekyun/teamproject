@@ -118,7 +118,6 @@
                                     <button type="submit" class="btn btn-primary select-flight-btn">오는편 선택</button>
                                 </form>
                             </td>
-
                         </tr>
                     </c:forEach>
                 </tbody>
