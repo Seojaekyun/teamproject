@@ -10,7 +10,7 @@ public class FlightDto {
 
 	private int flightId;
 
-	private String flightNumber, departureAirport, arrivalAirport, departureTime;
+	private String flightNumber, departureAirport, arrivalAirport, departureTime, flightName;
 	private String arrivalTime, flightDuration;
 	private int availableSeats;
 	private Integer airplaneId; // 타입이 int일 경우 Integer로 수정 (nullable 가능)

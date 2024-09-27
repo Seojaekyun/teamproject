@@ -160,7 +160,7 @@
 			</tr>
 			<c:forEach var="flight" items="${flightList}">
 				<tr>
-					<td>${flight.flightNumber}</td>
+					<td>${flight.flightName}</td>
 					<td>${flight.departureAirport}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
@@ -218,7 +218,6 @@
 			<caption>GMP 출발 항공편</caption>
 			<tr>
 				<th>항공편명</th>
-				<th>출발 공항</th>
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
@@ -226,8 +225,7 @@
 			</tr>
 			<c:forEach var="flight" items="${pagedGmpFlights}">
 				<tr>
-					<td>${flight.flightNumber}</td>
-					<td>${flight.departureAirport}</td>
+					<td>${flight.flightName}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
@@ -283,7 +281,6 @@
 			<caption>ICN 출발 항공편</caption>
 			<tr>
 				<th>항공편명</th>
-				<th>출발 공항</th>
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
@@ -291,8 +288,7 @@
 			</tr>
 			<c:forEach var="flight" items="${pagedIcnFlights}">
 					<tr>
-					<td>${flight.flightNumber}</td>
-					<td>${flight.departureAirport}</td>
+					<td>${flight.flightName}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
@@ -345,7 +341,7 @@
 	</div>
 	<div class="table-container">
 		<table id="otherTable">
-			<caption>기타 항공편</caption>
+			<caption>해외 항공편</caption>
 			<tr>
 				<th>항공편명</th>
 				<th>출발 공항</th>
@@ -356,7 +352,7 @@
 			</tr>
 			<c:forEach var="flight" items="${pagedOtherFlights}">
 				<tr>
-					<td>${flight.flightNumber}</td>
+					<td>${flight.flightName}</td>
 					<td>${flight.departureAirport}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>

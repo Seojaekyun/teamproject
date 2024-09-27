@@ -30,8 +30,8 @@ public class AdminController {
 	private GongjiService gservice;
 	
 	@RequestMapping("/admin/index")
-	public String adminI(HttpServletRequest request, Model model) {
-		return service.adminI(request, model);
+	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
+		return service.adminI(session, request, model);
 	}
 	
 	@RequestMapping("/admin/reserveList")

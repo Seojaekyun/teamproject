@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>회원관리</title>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>회원관리</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
@@ -13,41 +13,59 @@
 		margin: 0;
 		padding: 0;
 	}
+	h3 {
+		font-size: 24px;
+		font-weight: 700;
+		color: #333;
+		margin-bottom: 20px;
+	}
 	section {
-		width: 1400px;
-		padding-bottom: 40px;
+		width: 90%;
+		max-width: 1200px;
 		margin: auto;
+		padding-bottom: 40px;
+		background-color: #fff;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		padding: 20px;
 	}
-	section div {
-		padding-left: 20px;
-		margin-right: 20px;
-	}
-	section table {
-		width: 70%;
+	table {
+		width: 100%;
 		border-collapse: collapse;
 		margin-bottom: 20px;
-		text-align: center;
-		margin: auto;
-		
 	}
-	section table, th, td {
+	table, th, td {
 		border: 1px solid #ddd;
 	}
 	th, td {
-		padding: 8px;
+		padding: 6px;
 		text-align: center;
 	}
 	th {
-		background-color: #007BFF;
+		background-color: #004EA2;
 		color: white;
-	}
-	caption {
-		font-size: 1.5em;
-		margin-bottom: 10px;
+		text-transform: uppercase;
 	}
 	td {
 		background-color: #fafafa;
+		color: #333;
+		font-size: 14px;
 	}
+	/* 등급 배지 스타일 */
+	.badge {
+		display: inline-block;
+		padding: 2px 4px;
+		font-size: 12px;
+		border-radius: 12px;
+		color: white;
+		font-weight: 700;
+	}
+	.badge-normal { background-color: #6c757d; }   /* 일반회원 */
+	.badge-premium { background-color: #28a745; }  /* 우수회원 */
+	.badge-vip { background-color: #ffc107; }      /* VIP */
+	.badge-withdraw { background-color: #dc3545; } /* 탈퇴신청, 탈퇴회원 */
+	.badge-recover { background-color: #007bff; }  /* 복구신청 */
+
 	button, input[type="button"] {
 		background-color: #007BFF;
 		color: white;
@@ -80,61 +98,73 @@
 		background-color: #007BFF;
 		color: white;
 	}
+	/* 반응형 디자인 */
+	@media (max-width: 768px) {
+		section {
+			width: 100%;
+			padding: 10px;
+		}
+		th, td {
+			padding: 8px;
+			font-size: 12px;
+		}
+	}
 </style>
 </head>
 <body>
 <section>
+	<h3>회원 관리</h3> <!-- 테이블 제목 -->
 	<table>
-		<caption><h3> 회원 관리 </h3></caption> <!-- 테이블 제목 -->
-		<tr align="center">
-			<th> 고객명 </th>
-			<th> ID </th>
-			<th> 회원등급 </thd>
-			<th> 최근예약현황 </th>
-			<th> 요청사항 </th>
+		<tr>
+			<th>고객명</th>
+			<th>ID</th>
+			<th>회원등급</th>
+			<th>최근예약현황</th>
+			<th>요청사항</th>
 		</tr>
-			<c:forEach items="${mlist}" var="mdto">
-				<tr align="center">
-				<td align="center"> ${mdto.name} </td>
-				<td align="center"><a href="oneMeminfo?userid=${mdto.userid}"> ${mdto.userid} </a></td>
-				<td align="center">
-					<c:if test="${mdto.level == 0}">
-						일반회원
-					</c:if>
-					<c:if test="${mdto.level == 1}">
-						우수회원
-					</c:if>
-					<c:if test="${mdto.level == 2}">
-						VIP
-					</c:if>
-					<c:if test="${mdto.level == 3}">
-						탈퇴신청
-					</c:if>
-					<c:if test="${mdto.level == 4}">
-						탈퇴회원
-					</c:if>
-					<c:if test="${mdto.level == 5}">
-						복구신청
-					</c:if>
+		<c:forEach items="${mlist}" var="mdto">
+			<tr>
+				<td>${mdto.name}</td>
+				<td><a href="oneMeminfo?userid=${mdto.userid}">${mdto.userid}</a></td>
+				<td>
+					<c:choose>
+						<c:when test="${mdto.level == 0}">
+							<span class="badge badge-normal">일반회원</span>
+						</c:when>
+						<c:when test="${mdto.level == 1}">
+							<span class="badge badge-premium">우수회원</span>
+						</c:when>
+						<c:when test="${mdto.level == 2}">
+							<span class="badge badge-vip">VIP</span>
+						</c:when>
+						<c:when test="${mdto.level == 3}">
+							<span class="badge badge-withdraw">탈퇴신청</span>
+						</c:when>
+						<c:when test="${mdto.level == 4}">
+							<span class="badge badge-withdraw">탈퇴회원</span>
+						</c:when>
+						<c:when test="${mdto.level == 5}">
+							<span class="badge badge-recover">복구신청</span>
+						</c:when>
+					</c:choose>
 				</td>
-				<td align="center">
+				<td>
 					<c:forEach items="${mdto.reservations}" var="rsv">
-						${rsv.reservationDate}
+						${rsv.reservationDate}<br>
 					</c:forEach>
 				</td>
-				<td align="center">
-					<c:if test="${mdto.level == 3}">
-						탈퇴신청
-					</c:if>
-					<c:if test="${mdto.level == 5}">
-						복구신청
-					</c:if>
+				<td>
+					<c:choose>
+						<c:when test="${mdto.level == 3}">탈퇴신청</c:when>
+						<c:when test="${mdto.level == 5}">복구신청</c:when>
+					</c:choose>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
+
 	<!-- 페이지네이션 -->
-	<div class="pagination" align="center">
+	<div class="pagination">
 		<c:if test="${currentPage > 1}">
 			<a href="?page=${currentPage - 1}">이전</a>
 		</c:if>
@@ -151,6 +181,5 @@
 		</c:if>
 	</div>
 </section>
-	
 </body>
 </html>
