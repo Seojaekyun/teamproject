@@ -8,6 +8,7 @@ public class ReservationDto {
 	private String userid, flightName;
 	private String seatNumber, seatClass, reservationDate, departureTime;
 	private String sung, name, pnr;
+	private String departureAirport;
 	
 	
 }

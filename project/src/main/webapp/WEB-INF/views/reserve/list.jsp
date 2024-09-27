@@ -155,6 +155,7 @@ $(function() {
 			<table>
 				<caption>전체 예약</caption>
 				<tr>
+					<th>예약번호</th>
 					<th>예약일</th>
 					<th>항공편명</th>
 					<th>출항시간</th>
@@ -165,6 +166,7 @@ $(function() {
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
 					<tr>
+						<td>${res.pnr}</td>
 						<td>${res.reservationDate}</td>
 						<td>${res.flightName}</td>
 						<td>${res.departure_time}</td>

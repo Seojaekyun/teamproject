@@ -75,19 +75,19 @@ public class AdminServiceImpl implements AdminService{
 		
 		// GMP로 시작하는 항공편의 예약 리스트
 		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("GMP"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("gmpRsv", gmpRsv);
 		
 		// ICN으로 시작하는 항공편의 예약 리스트
 		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("icnRsv", icnRsv);
 		
 		// 기타 항공편의 예약 리스트
 		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("otherRsv", otherRsv);
 		

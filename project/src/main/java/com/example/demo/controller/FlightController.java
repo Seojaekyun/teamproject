@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
 
 @Controller
