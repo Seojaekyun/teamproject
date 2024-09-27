@@ -31,4 +31,5 @@ public interface ReservationMapper {
     int getTotalRsvcByDate(String userid, String selectedDate);
     
     Map<String, Object> getSumOfCharges(String userid);
+	List<ReservationDto> getRsvUserid(String userId);
 }

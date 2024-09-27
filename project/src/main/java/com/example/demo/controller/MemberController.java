@@ -42,5 +42,25 @@ public class MemberController {
 		return service.rlist(session, request, model);
 	}
 	
+
+    @RequestMapping("/member/memberView")
+    public String memberView(HttpServletRequest request,
+                             HttpSession session,
+                             Model model) {
+        if (session.getAttribute("userid") == null) {
+            return "redirect:/member/login";
+        } else {
+            String err = request.getParameter("err");
+            String userid = session.getAttribute("userid").toString();
+
+            // Service 계층을 통해 회원 정보 가져오기
+            MemberDto mdto = service.getMemberDetails(userid);
+
+            model.addAttribute("mdto", mdto);
+            model.addAttribute("err", err);
+            return "/member/memberView";
+        }
+    }
+	
 	
 }
