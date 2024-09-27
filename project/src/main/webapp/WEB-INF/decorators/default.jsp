@@ -58,13 +58,13 @@
 	#section1 #loginMenu ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 10px;;
+		padding: 10px;
 		display: flex;
 		align-items: center;
 	}
 	#section1 #loginMenu ul li {
 		position: relative;
-		margin-right: 10px;
+		/* margin-right: 10px; */
 	}
 	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
 		padding-left: 0;
@@ -75,15 +75,17 @@
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
+		border-radius:5px;
 	}
 	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
 		list-style-type: none;
-		width: 130px;
+		width: 100px;
 		height: 35px;
 		line-height: 35px;
 		text-align: center;
 		cursor: pointer;
-		border-bottom: 1px solid #ddd;
+		font-size: 17px;
+		/* border-bottom: 1px solid #ddd; */
 	}
 	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
 		text-decoration: none;
@@ -131,13 +133,14 @@
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius:5px;
 	}
 	header > nav #main > li > .menu > li {
 		list-style-type: none;
 		width: 200px;
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #ddd;
+		height: 40px;
+		line-height: 40px;
+		font-weight: 600;
 	}
 	footer {
 		padding: 10px 0;

@@ -28,6 +28,7 @@ import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 @Qualifier("as")
@@ -45,7 +46,9 @@ public class AdminServiceImpl implements AdminService{
 	private GongjiMapper gmapper;
 	
 	@Override
-	public String adminI(HttpServletRequest request, Model model) {
+	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
+		String userid=session.getAttribute("userid").toString();
+		if("admin".equals(userid)) {
 		// 현재 날짜 구하기
 		String currentDate = LocalDate.now().toString();
 		
@@ -92,6 +95,10 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("otherRsv", otherRsv);
 		
 		return "/admin/index";
+		}
+		else {
+			return "redirect:/login/loginAd";
+		}
 	}
 	
 	@Override
@@ -144,15 +151,15 @@ public class AdminServiceImpl implements AdminService{
 		
 		// GMP, ICN, 기타 출발 항공편 필터링
 		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("GMP"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
 				.collect(Collectors.toList());
 		
 		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
 				.collect(Collectors.toList());
 		
 		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
 				.collect(Collectors.toList());
 		
 		// 각 항공편 타입에 대한 페이징 처리
@@ -190,6 +197,7 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("selectedDate", selectedDate);
 		
 		return "/admin/reserveList";
+		
 	}
 	
 	@Override

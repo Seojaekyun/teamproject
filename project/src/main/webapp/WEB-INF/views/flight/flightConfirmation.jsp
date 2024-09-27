@@ -26,7 +26,6 @@
     </style>
     
     <script>
-
 function openSeatSelection() {
     var seatClass = '${seatClass}';
     var flightId = '${selectedGoingFlightId}';
@@ -82,9 +81,6 @@ window.addEventListener('message', function(event) {
 </script>
 
 </head>
-    
-
-</head>
 <body>
     <div class="container">
         <h2 class="mt-4">선택한 항공편 확인</h2>
@@ -100,7 +96,6 @@ window.addEventListener('message', function(event) {
                     <th>출발 시간</th>
                     <th>도착 시간</th>
                     <th>좌석</th>
-
                 </tr>
             </thead>
             <tbody>

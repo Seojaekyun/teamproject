@@ -30,8 +30,8 @@ public class AdminController {
 	private GongjiService gservice;
 	
 	@RequestMapping("/admin/index")
-	public String adminI(HttpServletRequest request, Model model) {
-		return service.adminI(request, model);
+	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
+		return service.adminI(session, request, model);
 	}
 	
 	@RequestMapping("/admin/reserveList")
@@ -107,12 +107,12 @@ public class AdminController {
 		return gservice.gongjiWriteOk(gdto, session);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdate")
+	@RequestMapping("/gongji/update")
 	public String gongjiUpdate(HttpServletRequest request, Model model) {
 		return gservice.update(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdateOk")
+	@RequestMapping("/gongji/updateOk")
 	public String gongjiUpdateOk(GongjiDto gdto) {
 		return gservice.updateOk(gdto);
 	}
