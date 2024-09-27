@@ -15,6 +15,6 @@ public interface MemberService {
 	public String memberOk(MemberDto mdto);
 	public List<MemberDto> getAllMembers();
 	public String rlist(HttpSession session, HttpServletRequest request, Model model);
-	
+	public MemberDto getMemberDetails(String userid);
 	
 }

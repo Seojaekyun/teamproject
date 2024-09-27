@@ -108,6 +108,11 @@ public class MemberServiceImpl implements MemberService {
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
 	}
+	
+	@Override
+    public MemberDto getMemberDetails(String userid) {
+		return mapper.getMemberById(userid);
+    }
 
 
 }
