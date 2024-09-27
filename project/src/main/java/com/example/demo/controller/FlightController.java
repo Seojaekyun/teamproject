@@ -370,7 +370,6 @@ public class FlightController {
         model.addAttribute("seatClass", seatClass);
         
         model.addAttribute("userId", userId);
-
         // 예약 페이지로 이동
         return "flight/bookingPage";  // 예약 페이지 JSP 파일 경로
     }
