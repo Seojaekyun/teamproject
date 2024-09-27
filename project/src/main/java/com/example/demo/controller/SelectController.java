@@ -10,26 +10,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.FlightDto;
+
+import com.example.demo.dto.SelectDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.SelectService;
 
-/*
-  @Controller public class SelectController {
-  
-  @Autowired
-  
-  @Qualifier("sc") private SelectService service;
-  
-  
-  @GetMapping("/select/selection") 
-  public String selection(@RequestParam String sung, @RequestParam String name, @RequestParam String date, @RequestParam String pnr, Model model) 
-  {     // 예약 정보를 조회하는 서비스 메서드 호출
-	    Reservation reservation = SelectService.findReservation(sung, name, date, pnr);
-	    
-	    // 조회한 결과를 모델에 추가
-	    model.addAttribute("reservation", reservation);
-	    
-	   
-	    return "/select/selection";} }
 
-*/
+@Controller
+public class SelectController {
+
+    @Autowired
+    private SelectService selectService;
+
+    @GetMapping("/select/selection")
+    public String getReservationDetails(
+
+            @RequestParam("pnr") String pnr,
+            @RequestParam("sung") String sung,
+            @RequestParam("name") String name,
+            Model model) {
+        
+        // 서비스에서 예약 상세 정보 가져오기
+    	List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name);
+
+        // JSP로 전달할 데이터 설정
+        model.addAttribute("reservationList", reservationList);
+
+        return "select/selection"; // selection.jsp로 이동
+    }
+}
+
+

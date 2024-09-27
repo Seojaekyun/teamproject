@@ -5,11 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A</title>
-<link rel="stylesheet" href="http://demofran.com/admin/css/admin.css?ver=20240910001147">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 	body {
-		font-family: 'Arial', sans-serif;
+		font-family: 'Noto Sans KR', sans-serif;
 		background-color: #f9f9f9;
+		margin: 0;
+		padding: 0;
 		text-align: center;
 	}
 	h3 {
@@ -19,52 +21,46 @@
 		padding-bottom: 10px;
 		margin-bottom: 20px;
 		text-align: left;
-		width: 600px;
+		width: 90%;
+		max-width: 600px;
 		margin: 50px auto;
 	}
 	table {
-		width: 600px;
+		width: 90%;
+		max-width: 600px;
 		margin: 0 auto;
 		border-collapse: collapse;
 		margin-bottom: 20px;
 	}
 	table th, table td {
 		border: 1px solid #ddd;
-		padding: 10px;
+		padding: 15px;
 		text-align: left;
 		vertical-align: top;
 	}
 	table th {
 		width: 150px;
 		background-color: #f4f4f4;
-		font-weight: bold;
+		font-weight: 600;
 		text-align: center;
 	}
 	table td {
-		width: 450px;
 		word-wrap: break-word;
 		white-space: pre-wrap;
-		overflow: hidden;
 	}
 	#content {
-		min-height: 200px;
-		padding: 20px;
-		background-color: #fff;
-		border: 1px solid #e1e1e1;
-		margin-bottom: 20px;
 		line-height: 1.6;
-		color: #333;
-		word-wrap: break-word;
 	}
 	#btn {
 		text-align: right;
-		width: 600px;
-		margin: 0 auto;
+		width: 90%;
+		max-width: 600px;
+		margin: 20px auto;
 	}
 	#btn a {
 		display: inline-block;
 		text-decoration: none;
-		padding: 8px 16px;
+		padding: 10px 20px;
 		border: 1px solid #4CAF50;
 		color: #4CAF50;
 		margin-left: 10px;
@@ -75,11 +71,13 @@
 		background-color: #4CAF50;
 		color: white;
 	}
-	/* 답변 입력 폼 스타일 */
+
+	/* 답변 입력/수정 폼 스타일 */
 	#answerForm {
-		width: 600px;
+		width: 90%;
+		max-width: 600px;
 		margin: 20px auto;
-		display: block; /* 폼이 항상 표시되게 */
+		display: block;
 	}
 	#answerForm textarea {
 		width: 100%;
@@ -92,7 +90,7 @@
 	}
 	#answerForm input[type="submit"] {
 		display: inline-block;
-		padding: 8px 16px;
+		padding: 10px 20px;
 		background-color: #4CAF50;
 		color: white;
 		border: none;
@@ -103,25 +101,26 @@
 	#answerForm input[type="submit"]:hover {
 		background-color: #45a049;
 	}
-	#editAnswerBtn {
-		display: inline-block;
-		padding: 8px 16px;
-		background-color: #f39c12;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-		margin-top: 10px;
-	}
-	#editAnswerBtn:hover {
-		background-color: #e67e22;
+	/* 반응형 디자인 */
+	@media (max-width: 768px) {
+		h3 {
+			font-size: 20px;
+			width: 95%;
+		}
+		table th, table td {
+			padding: 10px;
+			font-size: 14px;
+		}
+		#btn a {
+			padding: 8px 16px;
+			font-size: 14px;
+		}
 	}
 </style>
 </head>
 <body>
 
-	<h3>공지사항</h3>
+	<h3>Q&A</h3>
 	<table>
 		<tr>
 			<th>제목</th>
@@ -156,13 +155,11 @@
 		<c:when test="${idto.answer == 1}">
 			<!-- 답변 내용 표시 및 수정 -->
 			<h3>답변 내용</h3>
-			<div id="answerForm">
-				<form action="updateAnswer" method="post">
-					<input type="hidden" name="id" value="${idto.id}">
-					<textarea name="answer">${idto.answertext}</textarea>
-					<input type="submit" value="답변 수정">
-				</form>
-			</div>
+			<form id="answerForm" action="updateAnswer" method="post">
+				<input type="hidden" name="id" value="${idto.id}">
+				<textarea name="answer">${idto.answertext}</textarea>
+				<input type="submit" value="답변 수정">
+			</form>
 		</c:when>
 	</c:choose>
 

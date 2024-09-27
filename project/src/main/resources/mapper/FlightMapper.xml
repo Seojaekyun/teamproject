@@ -140,9 +140,6 @@
       AND seat_class = #{seatClass}
       AND is_available = 1
 </select>
-
-
-
 	<select id="getAvailableSeatsByFlightAndClass" resultType="com.example.demo.dto.SeatDto">
     SELECT
         st.seat_id AS seatId,
@@ -158,9 +155,4 @@
         AND st.seat_class = #{seatClass}
 </select>
 
-
-	
-    
-
-	
 </mapper>

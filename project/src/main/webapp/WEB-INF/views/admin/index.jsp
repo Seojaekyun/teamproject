@@ -18,10 +18,16 @@
 		font-size: 18px;
 		color: #333;
 		font-weight: 600;
+		margin: 10px 0px 10px 10px;
+	}
+	h5{
+		
+		margin: 10px 0px 5px 10px;
 	}
 	section {
 		width: 1400px;
 		padding-bottom: 40px;
+		margin: auto;
 	}
 	section div {
 		padding-left: 20px;
@@ -61,23 +67,25 @@
 		text-transform: uppercase;
 	}
 	section div table td, section div table th {
-		padding: 12px;
+		padding: 5px;
 		border: 1px solid #e5e5e5;
 		color: #555;
 	}
 	section div table td {
 		background-color: #fafafa;
-		font-size: 14px;
+		font-size: 12px;
 	}
 	section div table caption {
 		font-size: 20px;
+		padding-bottom: 0;
+		margin-bottom: 0!important;
 		color: #333;
 		text-align: left;
 		font-weight: 600;
 	}
 	section a {
 		text-decoration: none;
-		font-size: 14px;
+		font-size: 12px;
 		color: #555;
 	}
 	a:hover {
