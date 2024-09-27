@@ -226,7 +226,7 @@
 				<c:if test="${userid!=null}">
 				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 					<ul class="mmenu">
-						<li>회원정보</li>
+						<li>나의정보</li>
 						<li><a href="../reserve/list">예약정보</a></li>
 						<li>나의문의</li>
 					</ul>

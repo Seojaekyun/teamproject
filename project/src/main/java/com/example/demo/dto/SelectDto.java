@@ -8,6 +8,7 @@ public class SelectDto {
 	private String sung, name;
     private String seatClass;
     private int seatId;
+    private String seatNumber;
     private int flightId;
     private String departureAirport;
     private String arrivalAirport;

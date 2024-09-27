@@ -36,6 +36,7 @@ public class SelectServiceImpl implements SelectService {
             int flightId = (Integer) reservationInfo.get("flight_id");
             int seatId = (Integer) reservationInfo.get("seat_id");
 
+
             // flights 정보 가져오기
             Map<String, Object> flightInfo = selectMapper.getFlightInfo(pnr, sung, name);
 
@@ -47,6 +48,7 @@ public class SelectServiceImpl implements SelectService {
             sdto.setPnr(pnr);
             sdto.setSeatClass((String) reservationInfo.get("seat_class"));
             sdto.setSeatId(seatId);
+
             sdto.setFlightId(flightId);  // int 값으로 처리
 
             // airplane_id를 int로 처리
@@ -73,6 +75,7 @@ public class SelectServiceImpl implements SelectService {
             sdto.setDepartureAirport((String) flightInfo.get("departure_airport"));
             sdto.setArrivalAirport((String) flightInfo.get("arrival_airport"));
             sdto.setFlightName((String) flightInfo.get("flight_name"));
+
 
             reservationList.add(sdto);
         }

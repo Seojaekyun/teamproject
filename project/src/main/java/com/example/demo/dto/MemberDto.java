@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
-	private int id;
+	private int id, level;
 	private String userid,pwd,name,email;
 	private String phone,writeday;
 	private List<ReservationDto> reservations;

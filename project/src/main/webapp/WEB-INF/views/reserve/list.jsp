@@ -7,374 +7,221 @@
 <meta charset="UTF-8">
 <title>나의 예약 정보</title>
 <style>
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
-    section {
-        display: flex;
-        max-width: 1200px;
-        margin: auto;
-        justify-content: space-between;
-    }
-    #sec1 #tables {
-        display: flex;
-        justify-content: space-between;
-        width: 60%;
-    }
-    #sec2 #tables {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-    #sec1 .table-container {
-        width: 100%;
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        height: 340px;
-    }
-    #sec2 .table-container {
-        width: 33%;
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 20px;
-        height: 340px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0;
-        font-size: 12px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-    }
-    th {
-        background-color: #000A8E;
-        color: white;
-        text-transform: uppercase;
-    }
-    td {
-        background-color: #f9f9f9;
-    }
-    caption {
-        font-size: 16px;
-        font-weight: bold;
-        padding: 10px;
-        background-color: #000A8E;
-        color: white;
-        text-align: left;
-    }
-    #sec1 #cal {
-        width: 39%;
-        height: 340px;
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-    }
-    .ui-datepicker {
-    	margin: auto;
-        width: 95% !important;
-        height: 95%;
-    }
-    .ui-datepicker td {
-        text-align: center;
-        padding: 8px;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-    }
-    .ui-datepicker td:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
-    .ui-datepicker th {
-        background-color: #000A8E;
-        color: white;
-    }
-    .ui-datepicker-header {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-    }
-    #selectedDate {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-    }
-    .pagination {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .pagination a {
-        display: inline-block;
-        padding: 5px 10px;
-        margin: 0 3px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 12px;
-    }
-    .pagination a.active, .pagination span.active {
-        background-color: #333;
-        color: white;
-        cursor: default;
-        text-decoration: none;
-    }
-    .pagination span {
-        display: inline-block;
-        padding: 5px 10px;
-        margin: 0 3px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 12px;
-        cursor: default;
-    }
-    #clsd {
-        background: #000A8E;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 10px;
-        width: 150px;
-    }
-    section a {
-    	text-decoration: none;
-    	color: #0d0582;
-    }
-    section a:hover {
-    	font-weight: bold;
-    	text-decoration: none;
-    }
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #f9f9f9;
+		margin: 0;
+		padding: 0;
+	}
+	section {
+		display: flex;
+		max-width: 1200px;
+		margin: auto;
+		justify-content: space-between;
+	}
+	#sec1 #tables {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		height: 640px;
+	}
+	#sec1 .table-container {
+		width: 100%;
+		background-color: white;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		overflow: hidden;
+		margin-bottom: 20px;
+		height: 620px;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0;
+		font-size: 14px;
+	}
+	th, td {
+		border: 1px solid #ddd;
+		padding: 10px;
+		text-align: center;
+	}
+	th {
+		background-color: #000A8E;
+		color: white;
+		text-transform: uppercase;
+	}
+	td {
+		background-color: #f9f9f9;
+	}
+	caption {
+		font-size: 16px;
+		font-weight: bold;
+		padding: 10px;
+		background-color: #000A8E;
+		color: white;
+		text-align: left;
+	}
+	#cal {
+		display: inline-block;
+	}
+	#datepicker {
+		width: 180px;
+		padding: 8px;
+		font-size: 14px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		text-align: center;
+		background-color: #f9f9f9;
+		margin-bottom: 10px;
+	}
+	#clearDate {
+		margin-top: 10px;
+		padding: 8px 12px;
+		background-color: #000A8E;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	.pagination {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.pagination a, .pagination span {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 3px;
+		background-color: #4CAF50;
+		color: white;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 12px;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #333;
+		cursor: default;
+	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(function() {
+	// Datepicker 설정
+	$("#datepicker").datepicker({
+		dateFormat: 'yy-mm-dd',
+		onSelect: function(dateText) {
+			// 선택한 날짜를 input 필드에 설정
+			$("#datepicker").val(dateText);
+			
+			// 선택한 날짜에 맞는 예약 내역을 불러오기 위해 페이지 새로고침
+			window.location.href = "/reserve/list?selectedDate=" + dateText;
+		}
+	});
+
+	// 이전에 선택된 날짜가 있다면 input 필드에 표시
+	var selectedDate = '${selectedDate}';
+	if (selectedDate !== "") {
+		$("#datepicker").datepicker("setDate", selectedDate);
+		$("#datepicker").val(selectedDate);  // input 필드에 날짜 표시
+	}
+
+	// 날짜 초기화 버튼 클릭 시 전체 내역으로 돌아가기
+	$("#clearDate").click(function() {
+		window.location.href = "/reserve/list";
+	});
+});
+</script>
 </head>
 
 <body>
 <div width="100%" style="text-align: center"><h2>예약관리</h2></div>
-<!-- Section 1: 날짜 필터링된 예약 내역 (달력 포함) -->
+
+<!-- Section 1: 예약 내역 (날짜 선택 포함) -->
 <section id="sec1">
 	<div id="tables">
-		<!-- 전체 항공편 테이블 -->
+		
+
+		<!-- 예약 테이블 -->
 		<div class="table-container" id="allFlights">
+		<!-- 날짜 선택 필드 -->
+		<div id="cal">
+			<input type="text" id="datepicker" placeholder="날짜를 선택하세요" readonly/>
+			<!-- 날짜 초기화 버튼 -->
+			<button id="clearDate">날짜 초기화</button>
+		</div>
 			<table>
 				<caption>전체 예약</caption>
 				<tr>
+					<th>예약번호</th>
+					<th>예약일</th>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>좌석등급</th>
+					<th>예약인원</th>
+					<th>요금</th>
+					<th>결제</th>
 				</tr>
-				<c:forEach var="rsv" items="${rsvList}">
+				<c:forEach var="res" items="${rsvClist}">
 					<tr>
-						<td>${rsv.flightId}</td>
-						<td></td>
-						<td></td>
+						<td>${res.pnr}</td>
+						<td>${res.reservationDate}</td>
+						<td>${res.flightName}</td>
+						<td>${res.departure_time}</td>
+						<td>${res.seat_class}</td>
+						<td>${res.reservation_count}</td>
+						<td>${totalCharge} 원</td>
+						<td>
+							<c:if test="${totalChargePay == 0}">
+								결제 예정
+							</c:if>
+							<c:if test="${totalChargePay != 0}">
+								결제 완료
+							</c:if>
+						</td>
 					</tr>
-
 				</c:forEach>
-				<c:if test="${empty rsvList}">
+				<c:if test="${empty rsvClist}">
 					<tr>
-						<td colspan="3">예약 데이터가 없습니다.</td>
+						<td colspan="7">예약 데이터가 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>
+
 			<!-- 페이지네이션 -->
 			<div class="pagination">
 				<c:if test="${totalPages > 1}">
-					<!-- 이전 페이지 버튼 -->
-					<c:if test="${currentPage > 3}">
-						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage - 3});">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${currentPage - 1}" />
-					<c:set var="endPage" value="${currentPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
+					<a href="?page=<c:out value='${currentPage > 10 ? currentPage - 10 : 1}'/>&selectedDate=${selectedDate}">이전10</a>
+					<a href="?page=<c:out value='${currentPage > 1 ? currentPage - 1 : 1}'/>&selectedDate=${selectedDate}">이전</a>
+					
+					<!-- 페이지 번호 계산 -->
+					<c:set var="startPage" value="${currentPage - (currentPage - 1) % 10}" />
+					<c:set var="endPage" value="${startPage + 9}" />
 					<c:if test="${endPage > totalPages}">
 						<c:set var="endPage" value="${totalPages}" />
-						<c:set var="startPage" value="${totalPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
 					</c:if>
+					
+					<!-- 페이지 번호 출력 -->
 					<c:forEach begin="${startPage}" end="${endPage}" var="i">
 						<c:choose>
 							<c:when test="${i == currentPage}">
 								<span class="active">${i}</span>
 							</c:when>
 							<c:otherwise>
-								<a href="javascript:void(0);" onclick="loadAllPage(${i});">${i}</a>
+								<a href="?page=${i}&selectedDate=${selectedDate}">${i}</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<!-- 다음 페이지 버튼 -->
-					<c:if test="${currentPage +3 < totalPages}">
-						<a href="javascript:void(0);" onclick="loadAllPage(${currentPage + 3});">다음3</a>
-					</c:if>
+					
+					<a href="?page=<c:out value='${currentPage < totalPages ? currentPage + 1 : totalPages}'/>&selectedDate=${selectedDate}">다음</a>
+					<a href="?page=<c:out value='${currentPage + 10 <= totalPages ? currentPage + 10 : totalPages}'/>&selectedDate=${selectedDate}">다음10</a>
 				</c:if>
 			</div>
 		</div>
 	</div>
 </section>
 
-<script>
-	var gmpPage = 1;
-	var icnPage = 1;
-	var otherPage = 1;
-	var currentPage = 1; // 전체 예약 내역의 현재 페이지
-	$(function() {
-		$("#datepicker").datepicker({
-			inline: true,
-			dateFormat: 'yy-mm-dd',
-			defaultDate: null,
-			onSelect: function(dateText) {
-				$("#selectedDate").text('선택한 날짜: ' + dateText);
-				sessionStorage.setItem("selectedDate", dateText);
-				// 페이지 번호 초기화
-				gmpPage = 1;
-				icnPage = 1;
-				otherPage = 1;
-				currentPage = 1;
-				// 각 테이블의 첫 페이지 로드
-				loadPage(1, 'gmp', dateText);
-				loadPage(1, 'icn', dateText);
-				loadPage(1, 'other', dateText);
-				loadAllPage(1, dateText);
-			}
-		});
-		var savedDate = sessionStorage.getItem("selectedDate");
-		if (savedDate) {
-			$("#selectedDate").text('선택한 날짜: ' + savedDate);
-			$("#datepicker").datepicker('setDate', savedDate);
-			// 페이지 번호 초기화
-			gmpPage = 1;
-			icnPage = 1;
-			otherPage = 1;
-			currentPage = 1;
-			// 저장된 날짜로 데이터 로드
-			loadPage(1, 'gmp', savedDate);
-			loadPage(1, 'icn', savedDate);
-			loadPage(1, 'other', savedDate);
-			loadAllPage(1, savedDate);
-		}
-		else {
-			$("#selectedDate").text('');
-			$("#datepicker").datepicker('setDate', null);
-			// 페이지 번호 초기화
-			gmpPage = 1;
-			icnPage = 1;
-			otherPage = 1;
-			currentPage = 1;
-			// 전체 데이터 로드
-			loadPage(1, 'gmp');
-			loadPage(1, 'icn');
-			loadPage(1, 'other');
-			loadAllPage(1);
-		}
-	});
-	function loadPage(page, table, selectedDate) {
-		if (typeof selectedDate === 'undefined') {
-			selectedDate = sessionStorage.getItem("selectedDate");
-		}
-			// 페이지 번호 업데이트
-		if (table === 'gmp') {
-				gmpPage = page;
-		}
-		else if (table === 'icn') {
-			icnPage = page;
-		}
-		else if (table === 'other') {
-			otherPage = page;
-		}
-		var data = {
-			gmpPage: gmpPage,
-			icnPage: icnPage,
-			otherPage: otherPage,
-			page: currentPage // 전체 예약 내역의 현재 페이지
-		};
-		if (selectedDate && selectedDate !== "") {
-			data.selectedDate = selectedDate;
-		}
-		else {
-			sessionStorage.removeItem("selectedDate");
-		}
-		$.ajax({
-			url: "/admin/reserveList",
-			type: "GET",
-			data: data,
-			success: function(response) {
-				var newGmpFlights = $(response).find("#gmpFlights").html();
-				var newIcnFlights = $(response).find("#icnFlights").html();
-				var newOtherFlights = $(response).find("#otherFlights").html();
-				$("#gmpFlights").html(newGmpFlights);
-				$("#icnFlights").html(newIcnFlights);
-				$("#otherFlights").html(newOtherFlights);
-			},
-			error: function(error) {
-				console.log("데이터 가져오기 실패:", error);
-			}
-		});
-	}
-	function loadAllPage(page, selectedDate) {
-		if (typeof selectedDate === 'undefined') {
-			selectedDate = sessionStorage.getItem("selectedDate");
-		}
-		currentPage = page;
-		var data = {
-			page: currentPage,
-			gmpPage: gmpPage,
-			icnPage: icnPage,
-			otherPage: otherPage
-		};
-		if (selectedDate && selectedDate !== "") {
-			data.selectedDate = selectedDate;
-		}
-		$.ajax({
-			url: "/admin/reserveList",
-			type: "GET",
-			data: data,
-			success: function(response) {
-				var newAllFlights = $(response).find("#allFlights").html();
-				$("#allFlights").html(newAllFlights);
-			},
-			error: function(error) {
-				console.log("데이터 가져오기 실패:", error);
-			}
-		});
-	}
-	function clearDate() {
-		sessionStorage.removeItem("selectedDate");
-		$("#selectedDate").text('');
-		$("#datepicker").datepicker('setDate', null);
-		// 페이지 번호 초기화
-		gmpPage = 1;
-		icnPage = 1;
-		otherPage = 1;
-		currentPage = 1;
-		// 전체 데이터 로드
-		loadPage(1, 'gmp');
-		loadPage(1, 'icn');
-		loadPage(1, 'other');
-		loadAllPage(1);
-	}
-</script>
 </body>
 </html>

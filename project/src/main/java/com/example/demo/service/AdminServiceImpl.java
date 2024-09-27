@@ -75,19 +75,19 @@ public class AdminServiceImpl implements AdminService{
 		
 		// GMP로 시작하는 항공편의 예약 리스트
 		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("GMP"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("gmpRsv", gmpRsv);
 		
 		// ICN으로 시작하는 항공편의 예약 리스트
 		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("icnRsv", icnRsv);
 		
 		// 기타 항공편의 예약 리스트
 		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getFlightName().startsWith("GMP") && !rsv.getFlightName().startsWith("ICN"))
+				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
 				.limit(5).collect(Collectors.toList());
 		model.addAttribute("otherRsv", otherRsv);
 		
@@ -287,8 +287,24 @@ public class AdminServiceImpl implements AdminService{
 	    
 	    return "/admin/memberList";
 	}
+	
+	@Override
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+	    String userId = request.getParameter("userid");
 
+	    // 유저 정보와 예약 리스트를 가져옴
+	    MemberDto member = mmapper.getMemberById(userId);
 
+	    if (member != null) {
+	        List<ReservationDto> myrsv = rmapper.getRsvUserid(userId);
+	        member.setReservations(myrsv);
+	    }
+
+	    model.addAttribute("member", member);
+	    model.addAttribute("myrsv", member.getReservations()); // 예약 리스트 전달
+
+	    return "/admin/oneMeminfo";
+	}
 
 	@Override
 	public String inquiryList(Model model, Integer page) {

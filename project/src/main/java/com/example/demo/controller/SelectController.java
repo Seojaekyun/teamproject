@@ -24,6 +24,7 @@ public class SelectController {
 
     @GetMapping("/select/selection")
     public String getReservationDetails(
+
             @RequestParam("pnr") String pnr,
             @RequestParam("sung") String sung,
             @RequestParam("name") String name,

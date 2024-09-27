@@ -144,12 +144,12 @@
     #clsd {
         background: #000A8E;
         color: white;
-        border-radius: 5px;
+        border-radius: 10px;
         padding: 10px 15px;
         border: none;
         cursor: pointer;
         margin-bottom: 10px;
-        width: 150px;
+        width: 120px;
     }
     section a {
     	text-decoration: none;
@@ -426,8 +426,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	
 </section>
 <script>
