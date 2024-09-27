@@ -26,6 +26,12 @@
         JOIN airports a2 ON f.arrival_airport = a2.airport_code
         WHERE f.flight_id = #{flight_id}
     </select> 
+    
+    <!--  4. seats 정보 조회 -->
+    <select id="getSeatsInfo" resultType="map">
+    	select * from seattemplate st
+    	join reservations r on r.seat_id= st.seat_id
+    </select>
 
 
 </mapper>

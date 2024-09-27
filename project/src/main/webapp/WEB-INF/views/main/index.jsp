@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +178,7 @@ position: relative;
     text-align: center;
 }
 /* 기본 스타일 */
-#general, #mileage {
+#general, #mileage{
 	padding: 10px 20px;
     background-color: white;
     color: #1f0c59;
@@ -1399,6 +1400,45 @@ function decrease(type) {
         console.log("도착지 설정: " + airportCode); // 디버그용 로그
         closePopup('arrival');
     }
+ 
+ //체크인-요일
+    function getDayOfWeek(day) {
+        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+        return weekdays[day];
+    }
+
+    function getDateOptions() {
+        const select = document.getElementById('cdate');
+        const today = new Date();
+
+        // 어제부터 이틀 뒤까지의 날짜를 가져옴
+        for (var i = -1; i <= 2; i++) {
+            var optionDate = new Date();
+            optionDate.setDate(today.getDate() + i);
+
+            var year = optionDate.getFullYear();
+            var month = ('0' + (optionDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
+            var day = ('0' + optionDate.getDate()).slice(-2);
+            var dayOfWeek = getDayOfWeek(optionDate.getDay()); // 요일 구하기
+
+            // yyyy-mm-dd (요일) 형식으로 값 생성
+            var dateString = year+"-"+month+"-"+day+" ("+dayOfWeek+")";
+            var dateValue = year+"-"+month+"-"+day;
+            
+
+            // option 태그 생성
+            var option = document.createElement('option');
+            option.value = dateValue;
+            option.textContent = dateString;
+
+            select.appendChild(option);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        getDateOptions();
+    });
+
     
 
 
@@ -1844,34 +1884,62 @@ margin-right:30px;
     cursor: pointer; /* 마우스 커서가 포인터로 변경되도록 */
 }
 
+
+#daselect, #week_schedule {
+	padding: 10px 20px;
+    background-color: white;
+    color: #1f0c59;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 25px;
+    list-style-type: none;
+    transition: background-color 0.3s, color 0.3s;
+    font-size:16px;
+    border:none;
+}
+
+.s_methodbox {
+	float: left;
+	width: 240px;
+	margin-left: 10px;
+	margin-top: 0;
+	margin-right: 3.5rem;
+	margin-bottom: 1rem;
+	text-align: left;
+}
+
 						
 					</style>
+					
+
 
 						<div class="check-in_contents">
+					<form action="${pageContext.request.contextPath}/checkin/check-in" method="get">
 							<div id="check-in methods">
+
 								<div class="check-in_info_aligner">
-									<!-- 날짜 선택 버튼 -->
 									<div id="check-in_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890" required>
 									</div>
 
 									<div id="check-in_date">
 										<p>출발일&nbsp;</p>
-										<input type="text" id="cdate">
+										<select id="cdate" required>
+											</select>
 									</div>
 									
 									<div id="check-in_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="csung" >
+										<input type="text" id="csung" required>
 									</div>
 									<div id="check-in_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="cname" >
+										<input type="text" id="cname" required>
 									</div>
 									
 									<div id="check-in_selection">
-											<button type="button" id="cselect_button">
+											<button type="submit" id="cselect_button">
 												<span>조회</span>
 											</button>
 									</div>
@@ -1886,22 +1954,117 @@ margin-right:30px;
                						 </div>
 							</div>
 						</div>
+						</form>
 						</div>
 						
 						
 
 
 						<div class="schedule_contents">
-							<div id="schedule methods">
-								<input type="radio" name="t_methods" value="0"> <label>왕복</label>
-								<input type="radio" name="t_methods" value="1"> <label>편도</label>
+							<div class="schedule_methods">
+								<div class="s_methodbox">
+									<ul class="booking_types">
+										<li>
+											<button type="button" id="daselect">출도착 조회</button>
+										</li>
+										<li>
+											<button type="button" id="week_schedule" >주간 스케줄</button>
+									</ul>
+								</div>
+								
+
+
+
+
+<form action="${pageContext.request.contextPath}/select/schedule" method="get">
+
+								<!-- 출도착/편명 선택 버튼 -->
+								<div id="trip-methods" class="trip-methods">
+									<input type="radio" name="s_methods"
+										id="round-trip" checked> <label for="round-trip">출/도착지</label>
+									<input type="radio" name="s_methods" 
+										id="one-way"> <label for="one-way">편명</label>
+								</div>
+
+								<div class="quick_booking_aligner">
+									<div id="quick_booking">
+										<!-- 출발지 버튼 -->
+										<button type="button" class="quick_booking_button"
+											onclick="openPopup('departure')">
+											
+											<span id="from-text">From</span> <span id="departure-text">&nbsp;출발지</span>
+										</button>
+
+										<button type="button"
+											class="quick_booking_button circle_button">
+											<img src="../static/resources/booking_reverse.png"
+												width="40px" height="40px">
+										</button>
+
+										<!-- 도착지 버튼 -->
+										<button type="button" class="quick_booking_button"
+											onclick="openPopup('arrival')">
+											<span id="to-text">To</span> <span id="arrival-text">&nbsp;도착지</span>
+										</button>
+									</div>
+
+
+
+									<!-- 출발지 div 팝업 -->
+									<div id="popup" class="popup" style="display: none;">
+
+											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
+											<h2>출발지 선택</h2>
+											<ul id="airport-list" class="airport-list"></ul>
+											<!-- 공항 목록이 표시될 리스트 -->
+
+									</div>
+
+
+
+									<!-- 도착지 팝업 -->
+									<div id="arrival-popup" class="popup" style="display: none;">
+
+											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
+											<h2>도착지 선택</h2>
+											<ul id="arrival-list" class="airport-list"></ul>
+
+									</div>
+									
+									
+									<!-- 출발지, 도착지 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departure" id="from-hidden">
+        							<input type="hidden" name="arrival" id="to-hidden">
+        							
+        							
+
+									<!-- 날짜 선택 버튼 -->
+									<div id="date_selection">
+										<p>출발일&nbsp;</p>
+										<div class="date_wrap">
+											<i class="fa-regular fa-calendar"></i>
+											<input type="text" id="date-btn">
+										</div>
+								
+									</div>
+									
+									 <!-- 날짜 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departureDate" id="departureDate-hidden">
+        							<input type="hidden" name="arrivalDate" id="arrivalDate-hidden">
+									
+									
+
+
+							
+    								<div id="search_airline">
+        								<button type="submit" id="search_button">
+            									<span>조회</span>
+        								</button>
+    								</div>								
+								</div>
+					
+</form>
 							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>From</span> <span>$nbsp;출발지</span>
-								</button>
-							</div>
-						</div>
 
 
 					</div>
