@@ -163,11 +163,11 @@
                         <label>${reservationInfo.departureTime.substring(0, 10)}</label>  
                     </div>
                     <div class="info-row">
-                        <label>항공편명:</label> <span>${reservationInfo.airplaneId}</span>
+                        <label>항공편명:</label> <span>${reservationInfo.flightName}</span>
                     </div>
                     <div class="info-row">
                         <label>좌석 등급:</label> <span>${reservationInfo.seatClass}</span>
-                        <label>좌석 번호:</label> <span>${reservationInfo.seatNumber }</span>
+                        <label>좌석 번호:</label> <span>${reservationInfo.seatId }</span>
                     </div>
                 </div>
                 
