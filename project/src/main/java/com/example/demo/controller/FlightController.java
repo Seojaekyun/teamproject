@@ -134,6 +134,7 @@ public class FlightController {
             
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
+            HttpSession session,
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
