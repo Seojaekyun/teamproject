@@ -32,7 +32,7 @@
     }
     table th, table td {
         border: 1px solid #ddd;
-        padding: 15px;
+        padding: 8px;
         text-align: left;
         vertical-align: top;
     }
@@ -111,7 +111,7 @@
     </table>
     <div id="btn">
         <a href="gongjiList">목록</a>
-        <a href="update?id=${gdto.id}">수정</a>
+        <a href="../gongji/update?id=${gdto.id}">수정</a>
         <a href="delete?id=${gdto.id}">삭제</a>
     </div>
 

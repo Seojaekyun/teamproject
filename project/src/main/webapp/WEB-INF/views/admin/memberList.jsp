@@ -66,7 +66,7 @@
 	.badge-withdraw { background-color: #dc3545; } /* 탈퇴신청, 탈퇴회원 */
 	.badge-recover { background-color: #007bff; }  /* 복구신청 */
 
-	button, input[type="button"] {
+	section button, input[type="button"] {
 		background-color: #007BFF;
 		color: white;
 		border: none;
@@ -75,7 +75,7 @@
 		cursor: pointer;
 		font-size: 1em;
 	}
-	button:hover, input[type="button"]:hover {
+	section button:hover, input[type="button"]:hover {
 		background-color: #0056b3;
 	}
 	.pagination {

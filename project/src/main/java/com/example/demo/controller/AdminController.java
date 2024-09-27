@@ -107,12 +107,12 @@ public class AdminController {
 		return gservice.gongjiWriteOk(gdto, session);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdate")
+	@RequestMapping("/gongji/update")
 	public String gongjiUpdate(HttpServletRequest request, Model model) {
 		return gservice.update(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdateOk")
+	@RequestMapping("/gongji/updateOk")
 	public String gongjiUpdateOk(GongjiDto gdto) {
 		return gservice.updateOk(gdto);
 	}

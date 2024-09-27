@@ -2,84 +2,84 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>공지사항 작성</title>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-	<style>
-		body {
-			font-family: 'Noto Sans KR', sans-serif;
-			background-color: #f9f9f9;
-			margin: 0;
-			padding: 0;
-		}
+<meta charset="UTF-8">
+<title>공지사항 작성</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		background-color: #f9f9f9;
+		margin: 0;
+		padding: 0;
+	}
+	section {
+		width: 90%;
+		max-width: 800px;
+		margin: 40px auto;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		text-align: center;
+	}
+	h3 {
+		font-size: 24px;
+		color: #333;
+		margin-bottom: 20px;
+	}
+	section input[type=text], section textarea {
+		width: 95%;
+		max-width: 95%;
+		border: 1px solid #007BFF;
+		outline: none;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size: 16px;
+		border-radius: 8px;
+		padding: 10px;
+		margin-bottom: 15px;
+	}
+	section textarea {
+		height: 200px;
+	}
+	section input[type=submit] {
+		width: 150px;
+		height: 45px;
+		border: none;
+		background-color: #007BFF;
+		color: white;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size: 16px;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	section input[type=submit]:hover {
+		background-color: #0056b3;
+	}
+	section .radio-group {
+		margin-bottom: 20px;
+	}
+	section .radio-group input[type=radio] {
+		margin-right: 10px;
+	}
+	section .radio-group label {
+		font-size: 16px;
+		margin-right: 20px;
+	}
+	/* 반응형 디자인 */
+	@media (max-width: 768px) {
 		section {
-			width: 90%;
-			max-width: 800px;
-			margin: 40px auto;
-			background-color: #fff;
-			padding: 20px;
-			border-radius: 8px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-			text-align: center;
+			width: 95%;
+			padding: 10px;
 		}
 		h3 {
-			font-size: 24px;
-			color: #333;
-			margin-bottom: 20px;
-		}
-		section input[type=text], section textarea {
-			width: 95%;
-			max-width: 95%;
-			border: 1px solid #007BFF;
-			outline: none;
-			font-family: 'Noto Sans KR', sans-serif;
-			font-size: 16px;
-			border-radius: 8px;
-			padding: 10px;
-			margin-bottom: 15px;
-		}
-		section textarea {
-			height: 200px;
+			font-size: 20px;
 		}
 		section input[type=submit] {
-			width: 150px;
-			height: 45px;
-			border: none;
-			background-color: #007BFF;
-			color: white;
-			font-family: 'Noto Sans KR', sans-serif;
-			font-size: 16px;
-			border-radius: 8px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
+			width: 100%;
 		}
-		section input[type=submit]:hover {
-			background-color: #0056b3;
-		}
-		section .radio-group {
-			margin-bottom: 20px;
-		}
-		section .radio-group input[type=radio] {
-			margin-right: 10px;
-		}
-		section .radio-group label {
-			font-size: 16px;
-			margin-right: 20px;
-		}
-		/* 반응형 디자인 */
-		@media (max-width: 768px) {
-			section {
-				width: 95%;
-				padding: 10px;
-			}
-			h3 {
-				font-size: 20px;
-			}
-			section input[type=submit] {
-				width: 100%;
-			}
-		}
-	</style>
+	}
+</style>
 </head>
 <body>
 	<section>
