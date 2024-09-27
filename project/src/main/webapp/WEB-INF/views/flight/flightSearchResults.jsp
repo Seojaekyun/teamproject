@@ -13,6 +13,86 @@
         }
         .select-flight-btn {
             cursor: pointer;
+
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .flight-results {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .flight-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .flight-card:last-child {
+            border-bottom: none;
+        }
+        .flight-info {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 2;
+            margin-right: 20px;
+        }
+        .flight-info div {
+            text-align: center;
+        }
+        .flight-time {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .flight-airport {
+            font-size: 16px;
+            color: #555;
+        }
+        .flight-duration {
+            color: #999;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .seat-options {
+            display: flex;
+            justify-content: space-around;
+            flex-grow: 1;
+        }
+        .seat-option {
+            text-align: center;
+        }
+        .seat-option .price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .seat-option .label {
+            font-size: 14px;
+            color: #777;
+        }
+        .detail-button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .detail-button:hover {
+            background-color: #155ab2;
         }
     </style>
 </head>
@@ -56,8 +136,6 @@
                     				<input type="hidden" name="selectedGoingFlightArrivalTime" value="${flight.arrivalTime}">
                     				
                     				<input type="hidden" name="returnDate" value="${arrivalDate}"> <!-- returnDate 추가 -->
-                    				
-                    				
                     				<input type="hidden" name="seatClass" value="${seatClass}"> <!-- 추가된 숨겨진 필드 -->
                     				<input type="hidden" name="passengers" value="${passengers}"> <!-- 추가된 숨겨진 필드 -->
                     				<button type="submit" class="btn btn-primary select-flight-btn" 
@@ -117,12 +195,9 @@
                                     <input type="hidden" name="selectedReturnFlightArrival" value="${flight.arrivalAirport}">
                                     <input type="hidden" name="selectedReturnFlightTime" value="${flight.departureTime}">
                                     <input type="hidden" name="selectedReturnFlightArrivalTime" value="${flight.arrivalTime}">
-                                    
                                     <button type="submit" class="btn btn-primary select-flight-btn">오는편 선택</button>
                                 </form>
                             </td>
-                            
-                            
                         </tr>
                     </c:forEach>
                 </tbody>
