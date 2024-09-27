@@ -42,12 +42,20 @@ public class SelectServiceImpl implements SelectService {
 
             // airports 정보 가져오기
             Map<String, Object> airportInfo = selectMapper.getAirportInfo(flightId);
+            
+            //seattemplate 정보 가져오기
+            List<Map<String, Object>> seatsInfo  = selectMapper.getSeatsInfo();
+            
+            for (Map<String, Object> seatInfo : seatsInfo) {
+                String seatNumber= (String) seatInfo.get("seat_number");
+            }
+            
 
             // DTO에 데이터를 담아서 리스트에 추가
             SelectDto sdto = new SelectDto();
             sdto.setPnr(pnr);
             sdto.setSeatClass((String) reservationInfo.get("seat_class"));
-            sdto.setSeatId(seatId);
+            
 
             sdto.setFlightId(flightId);  // int 값으로 처리
 
@@ -75,6 +83,8 @@ public class SelectServiceImpl implements SelectService {
             sdto.setDepartureAirport((String) flightInfo.get("departure_airport"));
             sdto.setArrivalAirport((String) flightInfo.get("arrival_airport"));
             sdto.setFlightName((String) flightInfo.get("flight_name"));
+
+
 
 
             reservationList.add(sdto);
