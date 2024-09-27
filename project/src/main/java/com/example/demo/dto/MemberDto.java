@@ -11,5 +11,9 @@ public class MemberDto {
 	private String phone,writeday;
 	private List<ReservationDto> reservations;
 	
+	private String sung,lname;
+	
+	private int leverl;
+	
 	
 }

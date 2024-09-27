@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.demo.dto.FlightDto;
+
+import com.example.demo.dto.MemberDto;
+
 import com.example.demo.dto.SeatDto;
 import com.example.demo.mapper.FlightMapper;
 
@@ -73,9 +76,27 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<SeatDto> getAvailableSeats(int flightId, String seatClass) {
         return fmapper.getAvailableSeatsByFlightAndClass(flightId, seatClass);
+
     }
-	
-	
+    
+    
+    // LoginService.java (또는 다른 서비스 클래스)
+    @Override
+    public MemberDto getMemberInfoByUserId(String userid) {
+        return fmapper.getMemberByUserId(userid);  // mapper는 MyBatis 또는 다른 방식의 DAO
+
+    }
+    
+    @Override
+    public FlightDto getgoingFlightInfoByFlightId(String goingFlightId) {
+        return fmapper.getFlightByGoingFlightId(goingFlightId);  // mapper는 MyBatis 또는 다른 방식의 DAO
+    }
+    
+    @Override
+    public FlightDto getreturnFlightInfoByFlightId(String returnFlightId) {
+        return fmapper.getFlightByReturnFlightId(returnFlightId);  // mapper는 MyBatis 또는 다른 방식의 DAO
+    }
+
 	
 	
 }

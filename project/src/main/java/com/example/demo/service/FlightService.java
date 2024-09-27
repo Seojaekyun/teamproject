@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.MemberDto;
+
 import com.example.demo.dto.SeatDto;
 import com.example.demo.dto.FlightDto;
 
@@ -16,6 +18,17 @@ public interface FlightService {
     
     // 새로 추가된 메서드
     List<SeatDto> getSeatsByFlightId(int flightId);
+ 
     List<SeatDto> getAvailableSeats(int flightId, String seatClass);
+    
+    
+	MemberDto getMemberInfoByUserId(String userid);
+	
+	
+	
+	FlightDto getgoingFlightInfoByFlightId(String goingFlightId);
+	
+	FlightDto getreturnFlightInfoByFlightId(String returnFlightId);
+
 
 }
