@@ -1117,7 +1117,13 @@ function updatePassengerButton() {
         }
     }
 
+
     document.getElementById('passenger-btn').innerHTML = passengerText;
+    
+ 	// 숨겨진 필드에 탑승객 수 설정
+    // 형식: "성인:1,소아:0,유아:0"
+    var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
+    document.getElementById('passenger-hidden').value = passengersValue;
 
  // 버튼의 기존 내용을 비우고 다시 추가
     var passengerBtn = document.getElementById('passenger-btn');
@@ -1658,7 +1664,7 @@ function decrease(type) {
 							</div>
 						</div>
 						<div class="select_contents">
-						<form action="${pageContext.request.contextPath}/select/selection" method="get">
+						<form id="form1" action="${pageContext.request.contextPath}/select/selection" method="get">
 							<div id="select methods">
 							<div class="select_info_aligner">
 									<!-- 날짜 선택 버튼 -->

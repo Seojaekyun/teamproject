@@ -4,14 +4,14 @@
 
     <!-- 1. reservations 정보 조회 -->
     <select id="getReservationInfo" resultType="map" parameterType="map">
-        SELECT seat_class, seat_class, flight_id
+        SELECT seat_class, seat_id, flight_id
         FROM reservations
         WHERE pnr = #{pnr} AND sung = #{sung} AND name = #{name}
     </select>
 
     <!-- 2. flights 정보 조회 -->
       <select id="getFlightInfo" resultType="map">
-        SELECT f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id
+        SELECT f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id, f.flight_name
         FROM flights f
         JOIN reservations r ON r.flight_id = f.flight_id
         WHERE r.pnr = #{pnr} AND r.sung = #{sung} AND r.name = #{name}
