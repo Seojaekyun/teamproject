@@ -272,11 +272,44 @@ public class FlightController {
     
 
     @PostMapping("/booking")
-    public String booking(@RequestParam String goingFlightId, @RequestParam String returnFlightId, Model model) {
-        // 예약을 위한 로직 추가 (아직 구현되지 않음)
-        
-        // 예약 성공 페이지로 이동
-        return "bookingPage";  // 빈 페이지로 설정
+    public String booking(
+            @RequestParam String goingFlightId, 
+            @RequestParam String returnFlightId, 
+            HttpSession session,
+            Model model) {
+
+        // 세션에서 로그인된 사용자 정보 확인
+        String userId = (String) session.getAttribute("userid");
+
+        if (userId == null) {
+            // 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
+            return "redirect:/login/login";
+        }
+
+     // 세션에서 필요한 정보를 가져옴
+        String selectedGoingFlightId = (String) session.getAttribute("selectedGoingFlightId");
+        String selectedReturnFlightId = (String) session.getAttribute("selectedReturnFlightId");
+        String goingSeats = (String) session.getAttribute("goingFlightSelectedSeats");
+        String returnSeats = (String) session.getAttribute("returnFlightSelectedSeats");
+        Integer passengers = (Integer) session.getAttribute("passengers");  // Integer로 처리
+        String seatClass = (String) session.getAttribute("seatClass");
+
+        // Null 체크 후 기본값 설정
+        if (passengers == null) {
+            passengers = 1;  // 기본값 설정
+        }
+
+        // 모델에 데이터 추가
+        model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
+        model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
+        model.addAttribute("goingSeats", goingSeats);
+        model.addAttribute("returnSeats", returnSeats);
+        model.addAttribute("passengers", passengers);
+        model.addAttribute("seatClass", seatClass);
+        model.addAttribute("userId", userId);
+
+        // 예약 페이지로 이동
+        return "flight/bookingPage";  // 예약 페이지 JSP 파일 경로
     }
 
     
