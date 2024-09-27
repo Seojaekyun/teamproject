@@ -144,12 +144,20 @@
     #clsd {
         background: #000A8E;
         color: white;
-        border-radius: 5px;
+        border-radius: 10px;
         padding: 10px 15px;
         border: none;
         cursor: pointer;
         margin-bottom: 10px;
-        width: 150px;
+        width: 120px;
+    }
+    section a {
+    	text-decoration: none;
+    	color: #0d0582;
+    }
+    section a:hover {
+    	font-weight: bold;
+    	text-decoration: none;
     }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -183,7 +191,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
-						<td>${rsv.flightName}</td>
+						<td><a href="rsvdList?flightName=${rsv.flightName }&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
 						<td>${rsv.reservationCount}</td>
 					</tr>
@@ -248,7 +256,7 @@
 				</tr>
 				<c:forEach var="grsv" items="${gmpRsv}">
 					<tr>
-						<td>${grsv.flightName}</td>
+						<td><a href="rsvdList?flightName=${grsv.flightName }&departureTime=${grsv.departureTime}">${grsv.flightName}</a></td>
 						<td>${grsv.departureTime}</td>
 						<td>${grsv.reservationCount}</td>
 					</tr>
@@ -308,7 +316,7 @@
 				</tr>
 				<c:forEach var="irsv" items="${icnRsv}">
 					<tr>
-						<td>${irsv.flightName}</td>
+						<td><a href="rsvdList?flightName=${irsv.flightName }&departureTime=${irsv.departureTime}">${irsv.flightName}</a></td>
 						<td>${irsv.departureTime}</td>
 						<td>${irsv.reservationCount}</td>
 					</tr>
@@ -368,7 +376,7 @@
 				</tr>
 				<c:forEach var="orsv" items="${otherRsv}">
 					<tr>
-						<td>${orsv.flightName}</td>
+						<td><a href="rsvdList?flightName=${orsv.flightName }&departureTime=${orsv.departureTime}">${orsv.flightName}</a></td>
 						<td>${orsv.departureTime}</td>
 						<td>${orsv.reservationCount}</td>
 					</tr>
@@ -418,8 +426,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	
 </section>
 <script>

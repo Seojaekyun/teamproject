@@ -107,8 +107,6 @@ public class FlightController {
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
-        
-        
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
@@ -116,10 +114,6 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
-    
-    
-    
-    
     @PostMapping("/confirmSelection")
     public String confirmSelection(
             @RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
@@ -139,6 +133,7 @@ public class FlightController {
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
             HttpSession session,
+
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
@@ -163,8 +158,7 @@ public class FlightController {
      // 세션에 가는편과 오는편 비행기 ID를 저장합니다.
         session.setAttribute("selectedGoingFlightId", selectedGoingFlightId);
         session.setAttribute("selectedReturnFlightId", selectedReturnFlightId);
-        
-        
+
         // 선택 확인 페이지로 이동
         return "flight/flightConfirmation";
     }
@@ -175,6 +169,7 @@ public class FlightController {
     		@RequestParam("flightId") int flightId, 
             @RequestParam("seatClass") String seatClass,
             @RequestParam("passengers") int passengers,  // 추가된 부분
+
             Model model) {
     	
         List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
@@ -269,7 +264,6 @@ public class FlightController {
         // 예약 페이지로 이동 또는 다음 단계 진행
         return "redirect:/flights/booking";
     }
-    
 
     @PostMapping("/booking")
     public String booking(@RequestParam String goingFlightId, @RequestParam String returnFlightId, Model model) {
@@ -279,8 +273,5 @@ public class FlightController {
         return "bookingPage";  // 빈 페이지로 설정
     }
 
-    
-    
-    
 }  
 

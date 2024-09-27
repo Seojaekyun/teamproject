@@ -10,20 +10,88 @@
 		UPDATE Seats SET is_available = #{isAvailable} WHERE
 		flight_id = #{flightId} AND seat_number = #{seatNumber}
 	</update>
-	<select id="getRsvanow" resultType="com.example.demo.dto.ReservationDto">
+<select id="getRsvanow" resultType="com.example.demo.dto.ReservationDto">
+    SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,  <!-- CONCAT 대신 flight_name을 사용 -->
+           f.departure_time, COUNT(r.reservation_id) AS reservationCount
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    GROUP BY r.flight_id
+    ORDER BY f.departure_time
+</select>
+<select id="getRsvByDate" resultType="com.example.demo.dto.ReservationDto">
+    SELECT r.*, f.flight_name AS flightName,  <!-- CONCAT 대신 flight_name을 사용 -->
+           f.departure_time, COUNT(r.reservation_id) AS reservationCount
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE DATE(f.departure_time) = #{selectedDate}
+    GROUP BY r.flight_id
+    ORDER BY f.departure_time
+</select>
+
+	<select id="getRsvdetail" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
-		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
-		JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW()
+		f.departure_time FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE f.departure_time = #{departureTime} AND CONCAT(f.departure_airport, '-', f.arrival_airport) = #{flightName}  <!-- 전달받은 flightName과 비교 -->
+		GROUP BY r.seat_class, r.userid ORDER BY f.departure_time LIMIT #{start}, #{itemsPerPage}
+	</select>
+	<select id="getRsvdfn" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		f.departure_time FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE f.departure_time = #{departureTime} AND CONCAT(f.departure_airport, '-', f.arrival_airport) = #{flightName}  <!-- 전달받은 flightName과 비교 -->
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
-	<select id="getRsvByDate" resultType="com.example.demo.dto.ReservationDto">
-		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
-		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
-		JOIN flights f ON r.flight_id = f.flight_id WHERE DATE(f.departure_time) = #{selectedDate}
-		GROUP BY r.flight_id ORDER BY f.departure_time
+	<select id="getTotalReservations" resultType="int">
+		SELECT COUNT(*) FROM (SELECT r.reservation_id FROM reservations r
+		JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time = #{departureTime}
+		AND CONCAT(f.departure_airport, '-', f.arrival_airport) = #{flightName}
+		GROUP BY r.seat_class, r.userid) AS grouped_reservations
 	</select>
-	
-	
+	<select id="getMyrsv" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.userid, r.flight_id, r.reservation_date AS reservationDate
+		FROM reservations r WHERE r.userid = #{userid}
+		ORDER BY r.reservation_date DESC LIMIT 1
+	</select>
+	<select id="getRsvcfac" resultType="map">
+		SELECT CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time,  <!-- 포맷팅 추가 -->
+		r.seat_class, COUNT(*) AS reservation_count,
+		MIN(DATE_FORMAT(r.reservation_date, '%Y-%m-%d')) AS reservationDate
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE r.userid = #{userid} GROUP BY flightName, f.departure_time, r.seat_class
+		ORDER BY f.departure_time desc LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<select id="getTotalRsvc" resultType="int">
+		SELECT COUNT(DISTINCT CONCAT(f.departure_airport, '-', f.arrival_airport), f.departure_time, r.seat_class)
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+	</select>
+	<select id="getSumOfCharges" resultType="map">
+		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay
+		FROM reservations r WHERE r.userid = #{userid}
+	</select>
+<select id="getRsvcfacByDate" resultType="map">
+    SELECT CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+           DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time,  <!-- 날짜 포맷 -->
+           r.seat_class, COUNT(*) AS reservation_count,
+           DATE_FORMAT(MIN(r.reservation_date), '%Y-%m-%d') AS reservationDate  <!-- 날짜 포맷 -->
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    AND DATE(r.reservation_date) = #{selectedDate}  <!-- 날짜 필터링 -->
+    GROUP BY flightName, f.departure_time, r.seat_class
+    ORDER BY f.departure_time
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+<select id="getTotalRsvcByDate" resultType="int">
+    SELECT COUNT(DISTINCT CONCAT(f.departure_airport, '-', f.arrival_airport), 
+                 DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s'), r.seat_class)
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    AND DATE(r.reservation_date) = #{selectedDate}  <!-- 날짜 필터링 -->
+</select>
+	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
+		SELECT * FROM reservations WHERE userid = #{userid} ORDER BY reservation_date DESC
+	</select>
 	
 	
 </mapper>

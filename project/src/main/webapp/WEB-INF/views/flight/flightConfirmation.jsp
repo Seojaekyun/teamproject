@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>항공편 선택 확인 - eLT항공</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    
-    
     <style>
         /* 좌석선택 버튼 스타일 */
         .btn-seat-select {
@@ -28,6 +26,7 @@
     </style>
     
     <script>
+
 function openSeatSelection() {
     var seatClass = '${seatClass}';
     var flightId = '${selectedGoingFlightId}';
@@ -84,6 +83,7 @@ window.addEventListener('message', function(event) {
 
 </head>
     
+
 </head>
 <body>
     <div class="container">
@@ -100,7 +100,7 @@ window.addEventListener('message', function(event) {
                     <th>출발 시간</th>
                     <th>도착 시간</th>
                     <th>좌석</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
@@ -156,7 +156,6 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
-
 		<!-- 추가 정보 -->
         <h4>선택한 항공편 정보</h4>
         <table class="table table-bordered">
@@ -173,11 +172,6 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
-        
-        
-     
-
-
             <!-- 예약하기 버튼 -->
             <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;">
                 <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
@@ -188,7 +182,5 @@ window.addEventListener('message', function(event) {
             </form>
         </div>
     </div>
-
-    
 </body>
 </html>

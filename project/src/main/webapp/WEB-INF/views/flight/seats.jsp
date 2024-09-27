@@ -19,6 +19,7 @@
             cursor: pointer;
         }
         .available {
+
             background-color: #28a745; /* 녹색 */
         }
         .unavailable {
@@ -28,6 +29,7 @@
         .selected {
             background-color: #ffc107; /* 노란색 */
         }
+
     </style>
 </head>
 <body>
