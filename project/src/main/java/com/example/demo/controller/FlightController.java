@@ -215,8 +215,6 @@ public class FlightController {
 
      // 선택한 좌석과 탑승객 수 세션에 저장
         model.addAttribute("goingSelectedSeats", selectedSeats);  // 가는편 좌석
-        session.setAttribute("passengers", passengers);  // 승객 수
-        session.setAttribute("seatClass", seatClass);  // 좌석 등급
 
         // 오는편 좌석 선택을 위해 필요한 데이터 전달
         // 예를 들어, 오는편 flightId 등을 세션 또는 모델에 저장
