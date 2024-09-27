@@ -78,7 +78,6 @@ public class FlightController {
     
     @GetMapping("/searchReturn")
     public String searchReturnFlights(
-
     		@RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
     	    @RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
     	    @RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
@@ -90,7 +89,6 @@ public class FlightController {
             Model model
     ) {
     	// 오는날 비행기 조회: seatClass와 passengers가 제공된 경우 필터링
-
     	// 오는날 비행기 조회
         List<FlightDto> returnFlights = service.findFlights(selectedGoingFlightArrival, selectedGoingFlightDeparture, null, returnDate, seatClass, passengers);
 
@@ -104,7 +102,6 @@ public class FlightController {
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
-        
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
@@ -112,8 +109,6 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
-
-    
     @PostMapping("/confirmSelection")
     public String confirmSelection(
             @RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
@@ -135,22 +130,18 @@ public class FlightController {
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
-
         model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
         model.addAttribute("selectedGoingFlightDeparture", selectedGoingFlightDeparture);
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
-
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime);
         
 
         // 오는편 항공편 정보를 모델에 추가
-
         model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
         model.addAttribute("selectedReturnFlightDeparture", selectedReturnFlightDeparture);
         model.addAttribute("selectedReturnFlightArrival", selectedReturnFlightArrival);
         model.addAttribute("selectedReturnFlightTime", selectedReturnFlightTime);
-
         model.addAttribute("selectedReturnFlightArrivalTime", selectedReturnFlightArrivalTime);
 
         // 좌석 등급과 인원 정보 모델에 추가
@@ -162,9 +153,24 @@ public class FlightController {
     }
 
     
-    
-    
+    @GetMapping("/seats")
+    public String showSeatSelection(
+    		@RequestParam("flightId") int flightId, 
+            @RequestParam("seatClass") String seatClass, 
+            Model model) {
+    	
+        List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
+        
+     // 좌석 데이터의 크기를 출력하여 데이터가 조회되는지 확인
+        System.out.println("Available seats count: " + availableSeats.size());
+        
+        
+        model.addAttribute("seats", availableSeats);
+        model.addAttribute("seatClass", seatClass);
+        model.addAttribute("flightId", flightId);
 
+        return "flight/seats";  // 이 경로에 JSP가 있어야 함
+    }
     @PostMapping("/booking")
     public String booking(@RequestParam String goingFlightId, @RequestParam String returnFlightId, Model model) {
         // 예약을 위한 로직 추가 (아직 구현되지 않음)
@@ -172,7 +178,6 @@ public class FlightController {
         // 예약 성공 페이지로 이동
         return "bookingPage";  // 빈 페이지로 설정
     }
-
 
 }  
 

@@ -140,7 +140,21 @@
       AND seat_class = #{seatClass}
       AND is_available = 1
 </select>
-    
+	<select id="getAvailableSeatsByFlightAndClass" resultType="com.example.demo.dto.SeatDto">
+    SELECT
+        st.seat_id AS seatId,
+        st.seat_number AS seatNumber,
+        st.seat_class AS seatClass,
+        fs.is_available AS available  <!-- 여기서 별칭 사용 -->
+    FROM
+        seattemplate st
+    JOIN
+        flightseats fs ON st.seat_id = fs.seat_id
+    WHERE
+        fs.flight_id = #{flightId}
+        AND st.seat_class = #{seatClass}
+</select>
+
 
 	
 </mapper>

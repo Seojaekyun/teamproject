@@ -68,6 +68,12 @@ public class FlightServiceImpl implements FlightService {
     public List<SeatDto> getSeatsByFlightId(int flightId) {
         return fmapper.getSeatsByFlightId(flightId);
     }
+    
+    
+    @Override
+    public List<SeatDto> getAvailableSeats(int flightId, String seatClass) {
+        return fmapper.getAvailableSeatsByFlightAndClass(flightId, seatClass);
+    }
 	
 	
 	

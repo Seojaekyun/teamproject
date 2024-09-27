@@ -10,7 +10,6 @@
         /* 간단한 스타일 추가 */
         .flight-table {
             margin-top: 30px;
-
         }
         .select-flight-btn {
             cursor: pointer;
@@ -137,8 +136,6 @@
                     				<input type="hidden" name="selectedGoingFlightArrivalTime" value="${flight.arrivalTime}">
                     				
                     				<input type="hidden" name="returnDate" value="${arrivalDate}"> <!-- returnDate 추가 -->
-                    				
-
                     				<input type="hidden" name="seatClass" value="${seatClass}"> <!-- 추가된 숨겨진 필드 -->
                     				<input type="hidden" name="passengers" value="${passengers}"> <!-- 추가된 숨겨진 필드 -->
                     				<button type="submit" class="btn btn-primary select-flight-btn" 
@@ -184,7 +181,6 @@
                             <td>
                             <!-- 선택된 가는편과 오는편 정보를 모두 확인 페이지로 전달 -->
                                 <form action="${pageContext.request.contextPath}/flights/confirmSelection" method="post">
-
                                     <input type="hidden" name="selectedGoingFlightId" value="${selectedGoingFlightId}">
                                     <input type="hidden" name="selectedGoingFlightDeparture" value="${selectedGoingFlightDeparture}">
                                     <input type="hidden" name="selectedGoingFlightArrival" value="${selectedGoingFlightArrival}">
@@ -199,13 +195,9 @@
                                     <input type="hidden" name="selectedReturnFlightArrival" value="${flight.arrivalAirport}">
                                     <input type="hidden" name="selectedReturnFlightTime" value="${flight.departureTime}">
                                     <input type="hidden" name="selectedReturnFlightArrivalTime" value="${flight.arrivalTime}">
-                                    <input type="hidden" name="seatClass" value="${seatClass}"> <!-- 추가된 숨겨진 필드 -->
-                    				<input type="hidden" name="passengers" value="${passengers}"> <!-- 추가된 숨겨진 필드 -->
-                                    
                                     <button type="submit" class="btn btn-primary select-flight-btn">오는편 선택</button>
                                 </form>
                             </td>
-
                         </tr>
                     </c:forEach>
                 </tbody>
