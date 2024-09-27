@@ -155,6 +155,4 @@
         AND st.seat_class = #{seatClass}
 </select>
 
-
-	
 </mapper>

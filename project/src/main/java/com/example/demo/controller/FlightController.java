@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/flights")
@@ -128,6 +132,8 @@ public class FlightController {
             
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
+            HttpSession session,
+
             Model model
     ) {
         // 가는편 항공편 정보를 모델에 추가
@@ -149,6 +155,10 @@ public class FlightController {
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
 
+     // 세션에 가는편과 오는편 비행기 ID를 저장합니다.
+        session.setAttribute("selectedGoingFlightId", selectedGoingFlightId);
+        session.setAttribute("selectedReturnFlightId", selectedReturnFlightId);
+
         // 선택 확인 페이지로 이동
         return "flight/flightConfirmation";
     }
@@ -157,7 +167,9 @@ public class FlightController {
     @GetMapping("/seats")
     public String showSeatSelection(
     		@RequestParam("flightId") int flightId, 
-            @RequestParam("seatClass") String seatClass, 
+            @RequestParam("seatClass") String seatClass,
+            @RequestParam("passengers") int passengers,  // 추가된 부분
+
             Model model) {
     	
         List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
@@ -169,9 +181,90 @@ public class FlightController {
         model.addAttribute("seats", availableSeats);
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("flightId", flightId);
+        model.addAttribute("passengers", passengers);  // 추가된 부분
 
         return "flight/seats";  // 이 경로에 JSP가 있어야 함
     }
+    
+    
+    @PostMapping("/confirmSeats")
+    public String confirmSeats(
+        @RequestParam("flightId") int flightId,
+        @RequestParam("seatClass") String seatClass,
+        @RequestParam("selectedSeats") String selectedSeats,
+        @RequestParam("passengers") int passengers,  // 추가된 부분
+        HttpSession session,
+        Model model
+    )throws IOException {
+        // 선택한 좌석 수와 탑승객 수 일치 여부 확인
+        String[] seatArray = selectedSeats.split(",");
+        if (seatArray.length != passengers) {
+            model.addAttribute("errorMessage", "선택한 좌석 수가 탑승객 수와 일치하지 않습니다.");
+            return "flight/seats"; // 에러 메시지를 표시하고 좌석 선택 페이지로 돌아갑니다.
+        }
+
+        // 선택한 좌석 정보를 세션에 저장 (가는편 좌석)
+        session.setAttribute("goingFlightSelectedSeats", selectedSeats);
+        session.setAttribute("passengers", passengers);  // 추가된 부분
+
+        // 오는편 좌석 선택을 위해 필요한 데이터 전달
+        // 예를 들어, 오는편 flightId 등을 세션 또는 모델에 저장
+
+     // 오는편 좌석 선택 페이지로 리다이렉트
+        return "redirect:/flights/seatsReturn?seatClass=" + seatClass + "&passengers=" + passengers;
+    }
+
+    
+    @GetMapping("/seatsReturn")
+    public String showReturnSeatSelection(
+        @RequestParam("seatClass") String seatClass,
+        @RequestParam("passengers") int passengers,
+        HttpSession session,
+        Model model
+    ) {
+        String selectedReturnFlightId = (String) session.getAttribute("selectedReturnFlightId");
+
+        if (selectedReturnFlightId == null) {
+            model.addAttribute("errorMessage", "오는편 비행기가 선택되지 않았습니다.");
+            return "errorPage";
+        }
+
+        int returnFlightId = Integer.parseInt(selectedReturnFlightId);
+
+        List<SeatDto> availableSeats = service.getAvailableSeats(returnFlightId, seatClass);
+
+        model.addAttribute("seats", availableSeats);
+        model.addAttribute("seatClass", seatClass);
+        model.addAttribute("flightId", returnFlightId);
+        model.addAttribute("passengers", passengers);
+
+        return "flight/seatsReturn";
+    }
+    
+    @PostMapping("/confirmReturnSeats")
+    public String confirmReturnSeats(
+        @RequestParam("flightId") int flightId,
+        @RequestParam("seatClass") String seatClass,
+        @RequestParam("selectedSeats") String selectedSeats,
+        @RequestParam("passengers") int passengers,
+        HttpSession session,
+        HttpServletResponse response,
+        Model model
+    )throws IOException {
+    	// 선택한 좌석 수와 탑승객 수 일치 여부 확인
+        String[] seatArray = selectedSeats.split(",");
+        if (seatArray.length != passengers) {
+            model.addAttribute("errorMessage", "선택한 좌석 수가 탑승객 수와 일치하지 않습니다.");
+            return "flight/seats"; // 에러 메시지를 표시하고 좌석 선택 페이지로 돌아갑니다.
+        }
+
+        // 선택한 좌석 정보를 세션에 저장
+        session.setAttribute("returnFlightSelectedSeats", selectedSeats);
+
+        // 예약 페이지로 이동 또는 다음 단계 진행
+        return "redirect:/flights/booking";
+    }
+
     @PostMapping("/booking")
     public String booking(@RequestParam String goingFlightId, @RequestParam String returnFlightId, Model model) {
         // 예약을 위한 로직 추가 (아직 구현되지 않음)
