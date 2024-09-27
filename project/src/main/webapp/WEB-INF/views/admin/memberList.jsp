@@ -21,7 +21,7 @@
 	}
 	section {
 		width: 90%;
-		max-width: 1200px;
+		max-width: 900px;
 		margin: auto;
 		padding-bottom: 40px;
 		background-color: #fff;
@@ -81,15 +81,16 @@
 	.pagination {
 		display: flex;
 		justify-content: center;
-		margin-top: 20px;
+		margin-top: 10px;
 	}
 	.pagination a, .pagination span {
 		margin: 0 5px;
-		padding: 10px 15px;
+		padding: 5px 10px;
 		border: 1px solid #ddd;
 		border-radius: 5px;
 		text-decoration: none;
 		color: #007BFF;
+		font-size: 10px;
 	}
 	.pagination a:hover {
 		background-color: #f4f4f4;

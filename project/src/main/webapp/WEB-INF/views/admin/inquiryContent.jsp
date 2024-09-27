@@ -60,12 +60,13 @@
 	#btn a {
 		display: inline-block;
 		text-decoration: none;
-		padding: 10px 20px;
+		padding: 5px 10px;
 		border: 1px solid #4CAF50;
 		color: #4CAF50;
 		margin-left: 10px;
 		border-radius: 4px;
 		transition: all 0.3s ease;
+		font-size: 12px;
 	}
 	#btn a:hover {
 		background-color: #4CAF50;
@@ -80,7 +81,7 @@
 		display: block;
 	}
 	#answerForm textarea {
-		width: 100%;
+		width: 96%;
 		height: 150px;
 		padding: 10px;
 		font-size: 14px;
@@ -90,7 +91,7 @@
 	}
 	#answerForm input[type="submit"] {
 		display: inline-block;
-		padding: 10px 20px;
+		padding: 5px 10px;
 		background-color: #4CAF50;
 		color: white;
 		border: none;
@@ -112,8 +113,8 @@
 			font-size: 14px;
 		}
 		#btn a {
-			padding: 8px 16px;
-			font-size: 14px;
+			padding: 5px 10px;
+			font-size: 12px;
 		}
 	}
 </style>

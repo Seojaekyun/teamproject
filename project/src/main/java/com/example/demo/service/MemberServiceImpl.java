@@ -77,14 +77,17 @@ public class MemberServiceImpl implements MemberService {
 	    Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
 
 	    // chargeSums에서 BigDecimal을 int로 변환하여 사용
-	    int totalCharge = chargeSums != null && chargeSums.get("totalCharge") != null
-	        ? ((BigDecimal) chargeSums.get("totalCharge")).intValue()
-	        : 0;  // 기본 값 0 설정
-	    int totalChargePay = chargeSums != null && chargeSums.get("totalChargePay") != null
-	        ? ((BigDecimal) chargeSums.get("totalChargePay")).intValue()
-	        : 0;  // 기본 값 0 설정
+	    BigDecimal totalChargeValue = chargeSums != null && chargeSums.get("totalCharge") != null 
+	        ? (BigDecimal) chargeSums.get("totalCharge") 
+	        : BigDecimal.ZERO;
+	    BigDecimal totalChargePayValue = chargeSums != null && chargeSums.get("totalChargePay") != null 
+	        ? (BigDecimal) chargeSums.get("totalChargePay") 
+	        : BigDecimal.ZERO;
 
-	    // 전체 예약 수 가져오기
+	    int totalCharge = totalChargeValue.intValue();
+	    int totalChargePay = totalChargePayValue.intValue();
+
+	    // 전체 예약 수 가져오기 (수정된 부분)
 	    int totalReservations;
 	    if (selectedDate != null && !selectedDate.isEmpty()) {
 	        totalReservations = rmapper.getTotalRsvcByDate(userid, selectedDate);  // 날짜에 따른 총 예약 수
@@ -92,7 +95,8 @@ public class MemberServiceImpl implements MemberService {
 	        totalReservations = rmapper.getTotalRsvc(userid);  // 모든 예약의 총 수
 	    }
 
-	    int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);  // 전체 페이지 수 계산
+	    // 총 페이지 수 계산
+	    int totalPages = totalReservations > 0 ? (int) Math.ceil((double) totalReservations / itemsPerPage) : 1;
 
 	    // JSP로 데이터 전달
 	    model.addAttribute("rsvClist", rsvClist);
@@ -106,5 +110,4 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	
 }

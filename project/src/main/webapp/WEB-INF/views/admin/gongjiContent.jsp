@@ -64,12 +64,13 @@
     #btn a {
         display: inline-block;
         text-decoration: none;
-        padding: 10px 20px;
+        padding: 5px 10px;
         border: 1px solid #4CAF50;
         color: #4CAF50;
         margin-left: 10px;
         border-radius: 4px;
         transition: all 0.3s ease;
+        font-size: 12px;
     }
     #btn a:hover {
         background-color: #4CAF50;

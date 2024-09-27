@@ -21,7 +21,7 @@
         text-align: center;
     }
     section {
-        max-width: 1000px;
+        max-width: 800px;
         margin: 30px auto;
         padding: 20px;
         background-color: #fff;
@@ -80,13 +80,13 @@
         display: inline-block;
         background-color: #004EA2;
         color: white;
-        padding: 10px 20px;
+        padding: 5px 10px;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 12px;
         text-align: center;
         text-decoration: none;
         font-weight: 500;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     #write:hover {
         background-color: #003580;
@@ -96,10 +96,11 @@
         display: flex;
         justify-content: center;
         gap: 5px;
-        margin-top: 20px;
+        margin-top: 10px;
+        font-size: 10px;
     }
     .pagination a, .pagination span {
-        padding: 10px 15px;
+        padding: 5px 10px;
         text-decoration: none;
         border: 1px solid #ddd;
         border-radius: 5px;

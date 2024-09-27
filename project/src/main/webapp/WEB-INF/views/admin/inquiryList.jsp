@@ -23,7 +23,7 @@
         color: #333;
     }
     section {
-        max-width: 1000px;
+        max-width: 800px;
         margin: 30px auto;
         padding: 20px;
         background-color: #fff;
@@ -82,10 +82,11 @@
         display: flex;
         justify-content: center;
         gap: 5px;
-        margin-top: 20px;
+        margin-top: 10px;
+        font-size: 10px;
     }
     .pagination a, .pagination span {
-        padding: 10px 15px;
+        padding: 5px 10px;
         text-decoration: none;
         border: 1px solid #ddd;
         border-radius: 5px;
