@@ -43,7 +43,7 @@
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		margin-right: 60px;
 	}
@@ -121,7 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-weight: 900;
+		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}

@@ -23,22 +23,25 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		height: 640px;
+		height: 650px;
 	}
 	#sec1 .table-container {
 		width: 100%;
+		padding: 10px;
 		background-color: white;
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 		overflow: hidden;
 		margin-bottom: 20px;
-		height: 620px;
+		height: 630px;
 	}
 	table {
 		width: 100%;
 		border-collapse: collapse;
+		border: 1px solid gray;
 		margin: 0;
 		font-size: 14px;
+		border-radius: 5px;
 	}
 	th, td {
 		border: 1px solid #ddd;
@@ -137,15 +140,14 @@ $(function() {
 </head>
 
 <body>
-<div width="100%" style="text-align: center"><h2>예약관리</h2></div>
+
 
 <!-- Section 1: 예약 내역 (날짜 선택 포함) -->
 <section id="sec1">
 	<div id="tables">
-		
-
 		<!-- 예약 테이블 -->
 		<div class="table-container" id="allFlights">
+		<div width="100%" style="text-align: center"><h2>예약관리</h2></div>
 		<!-- 날짜 선택 필드 -->
 		<div id="cal">
 			<input type="text" id="datepicker" placeholder="날짜를 선택하세요" readonly/>
