@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.dto.FlightDto;
 
@@ -19,5 +20,14 @@ public interface FlightService {
     
     
     List<SeatDto> getAvailableSeats(int flightId, String seatClass);
+    
+    
+	MemberDto getMemberInfoByUserId(String userid);
+	
+	
+	
+	FlightDto getgoingFlightInfoByFlightId(String goingFlightId);
+	
+	FlightDto getreturnFlightInfoByFlightId(String returnFlightId);
 
 }

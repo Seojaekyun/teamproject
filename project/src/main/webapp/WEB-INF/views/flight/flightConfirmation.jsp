@@ -180,10 +180,18 @@ window.addEventListener('message', function(event) {
 
             <!-- 예약하기 버튼 -->
             <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;">
+            
                 <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
                 <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
+                
                 <input type="hidden" name="seatClass" value="${seatClass}">
                 <input type="hidden" name="passengers" value="${passengers}">
+          
+    			
+    			<input type="hidden" name="goingSelectedSeats" value="${goingSelectedSeats}">
+    			<input type="hidden" name="returnSelectedSeats" value="${returnSelectedSeats}">
+    			
+    			
                 <button type="submit" class="btn btn-success btn-reservation">예약하기</button>
             </form>
         </div>

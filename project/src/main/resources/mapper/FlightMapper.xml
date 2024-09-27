@@ -159,8 +159,18 @@
 </select>
 
 
+
+	<select id="getMemberByUserId" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+    	SELECT * FROM member WHERE userid = #{userid}
+	</select>
+
+	<select id="getFlightByGoingFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+    	SELECT * FROM flights WHERE flight_id = #{goingFlightId}
+	</select>
 	
-    
+    <select id="getFlightByReturnFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+    	SELECT * FROM flights WHERE flight_id = #{returnFlightId}
+	</select>
 
 	
 </mapper>
