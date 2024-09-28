@@ -17,6 +17,7 @@ public interface MemberMapper {
 	}
 	public int getTotalMemberCount();
 	public ArrayList<MemberDto> getMemberList(int offset, int itemsPerPage);
-	
+	public MemberDto getMemberById(String userId);
+
 	
 }

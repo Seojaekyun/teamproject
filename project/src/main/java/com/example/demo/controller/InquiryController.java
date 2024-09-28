@@ -22,8 +22,8 @@ public class InquiryController {
     private InquiryService service;
 
     @RequestMapping("/inquiry/list")
-    public String list(HttpServletRequest request, Model model) {
-        return service.list(request, model);
+    public String list(HttpServletRequest request, Model model, Integer page) {
+        return service.list(request, model, page);
     }
 
     @RequestMapping("/inquiry/write")

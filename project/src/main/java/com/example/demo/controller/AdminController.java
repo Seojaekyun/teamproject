@@ -30,35 +30,31 @@ public class AdminController {
 	private GongjiService gservice;
 	
 	@RequestMapping("/admin/index")
-	public String adminI(HttpServletRequest request, Model model) {
-		return service.adminI(request, model);
+	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
+		return service.adminI(session, request, model);
 	}
 	
 	@RequestMapping("/admin/reserveList")
 	public String reserveList(
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate,
-	    @RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
-	    @RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
-	    @RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
-	    Model model) {
-	    
-	    // 선택한 날짜를 모델에 추가해 JSP로 전달
-	    model.addAttribute("selectedDate", selectedDate);
-	    
-	    return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, model);
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "gmpPage", required = false, defaultValue = "1") Integer gmpPage,
+			@RequestParam(value = "icnPage", required = false, defaultValue = "1") Integer icnPage,
+			@RequestParam(value = "otherPage", required = false, defaultValue = "1") Integer otherPage,
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			Model model) {
+		
+		// 서비스로 전달
+		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
-	
+		
 	@RequestMapping("/admin/flightsList")
 	public String flightsList(
-	    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-	    @RequestParam(value = "selectedDate", required = false) String selectedDate, // 추가
-	    Model model) {
-	    
-	    // 선택된 날짜가 잘 전달되었는지 확인
-	    System.out.println("Selected Date: " + selectedDate);
-
-	    // 서비스로 선택된 날짜와 함께 페이지 정보를 전달
-	    return service.flightList(page, selectedDate, model);
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "flightType", required = false, defaultValue = "all") String flightType,
+			Model model) {
+		
+		return service.flightList(page, selectedDate, flightType, model);
 	}
 	
 	@RequestMapping("/admin/memberList")
@@ -66,9 +62,14 @@ public class AdminController {
 		return service.memberList(request, model);
 	}
 	
+	@RequestMapping("/admin/oneMeminfo")
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+		return service.oneMeminfo(request, model);
+	}
+	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
-    public String inquiryList(HttpServletRequest request, Model model) {
-        return iservice.inquiryList(request, model);
+    public String inquiryList(Model model, Integer page) {
+        return service.inquiryList(model, page);
     }
 	
 	@RequestMapping("/admin/inquiryContent")
@@ -88,7 +89,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/gongjiList")
 	public String gongjiList(HttpServletRequest request, Model model) {
-		return gservice.gongjiList(request, model);
+		return service.gongjiList(request, model);
 	}
 	
 	@RequestMapping("/admin/gongjiContent")
@@ -106,12 +107,12 @@ public class AdminController {
 		return gservice.gongjiWriteOk(gdto, session);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdate")
+	@RequestMapping("/gongji/update")
 	public String gongjiUpdate(HttpServletRequest request, Model model) {
 		return gservice.update(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdateOk")
+	@RequestMapping("/gongji/updateOk")
 	public String gongjiUpdateOk(GongjiDto gdto) {
 		return gservice.updateOk(gdto);
 	}
@@ -121,5 +122,9 @@ public class AdminController {
 		return gservice.delete(request);
 	}
 	
+	@RequestMapping("/admin/rsvdList")
+	public String rsvdList(HttpServletRequest request, Model model) {
+		return service.rsvdList(request, model);
+	}
 	
 }

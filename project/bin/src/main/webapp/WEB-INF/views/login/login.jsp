@@ -10,7 +10,7 @@
 <title>Insert title here</title>
   <style>
 .accountbox {
-    width: 400px;
+    width: 500px;
     height: 400px;
     margin: auto;
     text-align: center;
@@ -56,6 +56,7 @@
    }
    
    h2 {
+   padding-top:20px;
    padding-bottom: 30px;
    }
    
@@ -80,7 +81,7 @@
     border: 1px solid black;
     font-size: 16px;
     border-radius: .4rem;
-    margin-top: -6px;
+    margin-top: 20px;
     margin-left: -1px;
    }
   </style>
@@ -183,8 +184,7 @@
 
 </head>
 <body>
-  
-	<div class="accountbox">
+   <div class="accountbox"> 
     <form method="post" action="loginOk" onsubmit="return check(this)">
 
      <h2> 로그인 </h2>
@@ -200,11 +200,8 @@
      <p> 아이디찾기 | 비밀번호 찾기 </p>
     
     
+     </form> 
+    </div>
     
-   
-    
-    </form> 
-    
-    </div> 
 </body>
 </html>

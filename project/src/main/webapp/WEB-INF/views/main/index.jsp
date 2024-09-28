@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +178,7 @@ position: relative;
     text-align: center;
 }
 /* 기본 스타일 */
-#general, #mileage {
+#general, #mileage{
 	padding: 10px 20px;
     background-color: white;
     color: #1f0c59;
@@ -306,14 +307,14 @@ display:block;}
     gap: 0px;
     width: 100%;
     max-width: 1300px;
-margin-left: -10px;
-    margin-top: 50px;
+	margin-left: -15px;
+    margin-top: 35px;
+    
 }
 .flatpickr-calendar {
 	position: absolute !important;
-	left: 10% !important; top : 560px !important;
-	width: 80% !important; /* 달력 전체 너비 */
-	max-width: 100% !important;
+	left: 35% !important; 
+	top : 560px !important;
 	border-radius: 10px !important;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 	font-size: 16px !important;
@@ -326,7 +327,7 @@ p {
 margin-right:40px;
 }
 
-#date_selection button, #passenger_selection button, #seats_selection button
+#date_selection input, #passenger_selection button, #seats_selection button
 	{
 	padding-top: 20px;
 	padding-bottom: 5px;
@@ -339,11 +340,13 @@ margin-right:40px;
 	text-align: left;
 	outline: none;
 }
-
-
-#date_selection button {
+#date_selection .date_wrap {position:relative; width: 310px;}
+#date_selection .date_wrap i {position:absolute; top:18px; left:0; font-size:18px; color:#333;}
+#date_selection .date_wrap input {width:100%; padding-left:30px;}
+/* 
+#date_selection input {
 	width: 310px;
-}
+} */
 
 #date-btn {
     display: flex;
@@ -368,10 +371,12 @@ margin-right:40px;
 
 }
 
-#passenger-btn i {
+#passenger-btn i
+{    position: absolute;
+    top: 169px;
+    right: 470px;
     font-size: 18px;
-    color: #333; /* 아이콘 색상 */
-    
+    color: #333;   
 }
 
 
@@ -493,14 +498,34 @@ input[name="t_methods"]:checked + label::after {
 }
 
 #search_button {
-padding: 10px 20px;
-border-radius: 15px;
-color: white;
-font-size:16px;
-cursor:pointer;
-background-color:#1f0c59;
-
+	width: 150px;
+    background-color: #1f0c59;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 50px;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-bottom:5px;
 }
+
+#search_airline {
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-end;
+    align-items: center;
+}
+
+#search_airline {
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-end;
+    align-items: center;
+}
+
+
 
 /* 출발지 리스트의 기본 스타일 */
 
@@ -814,6 +839,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     window.selectSeat = function(seatType) {
         document.querySelector('#seats-btn span').innerText = seatType;
+        
+     // 숨겨진 필드에 좌석 클래스 설정
+        document.getElementById('seatClass-hidden').value = seatType;
+        
         seatPopup.style.display = 'none';
     }
 });
@@ -837,9 +866,8 @@ function loadDeparture() {
 
             document.getElementById('from-text').textContent = defaultAirport.airportCode;
             document.getElementById('departure-text').textContent = defaultAirport.city + '/' + defaultAirport.detailedCity
+              
       
-        
-        
         // 공항 목록을 HTML에 추가하기
         data.forEach(function(airport) {
             var li = document.createElement('li');
@@ -938,6 +966,7 @@ function loadArrival() {
 }
 document.addEventListener('DOMContentLoaded', function () {
     const bookingButton = document.getElementById('booking');
+   
     
     // 기본 콘텐츠를 '항공권예매'로 설정
     showContent('booking');
@@ -963,18 +992,19 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', activateMenu);
     });
     
-    <!-- 달력 함수 관련-->
+    // 달력 함수 관련
     // Flatpickr 설정
     var tripMethod = "round"; // 기본값: 왕복
     var calendar = flatpickr("#date-btn", {
     	locale: "ko", // 한국어 설정
     	mode: "range", // 두 날짜 선택을 위한 range 모드 (왕복일 때)
         dateFormat: "Y-m-d", // 날짜 형식
+        //minDate: "today",
         showMonths: 2, // 두 달치 달력 표시
         onChange: function(selectedDates, dateStr, instance) {
             if (tripMethod === "round" && selectedDates.length === 2) {
                 // 왕복일 경우: 두 날짜가 선택되면 버튼에 표시
-                document.getElementById('date-btn').innerHTML = 
+                document.getElementById('date-btn').value = 
                     selectedDates[0].toLocaleDateString() + 
                     " ~ " + selectedDates[1].toLocaleDateString();
              // 날짜 필드에 형식에 맞춰 값을 저장
@@ -984,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function () {
           
             } else if (tripMethod === "one-way" && selectedDates.length === 1) {
                 // 편도일 경우: 하루만 선택되면 버튼에 표시
-                document.getElementById('date-btn').innerHTML = 
+                document.getElementById('date-btn').value = 
                     "가는 날: " + selectedDates[0].toLocaleDateString();
                 // 편도의 경우 출발일만 저장
                 document.getElementById('departureDate-hidden').value = instance.formatDate(selectedDates[0], "Y-m-d");
@@ -996,18 +1026,35 @@ document.addEventListener('DOMContentLoaded', function () {
     var tripMethods = document.querySelectorAll('input[name="t_methods"]');
     tripMethods.forEach(function (radio) {
         radio.addEventListener('change', function () {
+            var dateInput = document.getElementById('date-btn'); // input 요소를 선택
             if (this.value === "round") {
                 tripMethod = "round";
                 calendar.set("mode", "range"); // 왕복일 때는 두 날짜 선택
-                document.getElementById('date-btn').innerHTML = "가는 날 ~ 오는 날"; // 텍스트 변경
+                dateInput.placeholder = "가는 날 ~ 오는 날"; // placeholder 변경
             } else if (this.value === "one-way") {
                 tripMethod = "one-way";
                 calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
-                document.getElementById('date-btn').innerHTML = "가는 날"; // 텍스트 변경
+                dateInput.placeholder = "가는 날"; // placeholder 변경
             }
         });
     });
+
 });
+
+//예약조회 달력
+document.addEventListener('DOMContentLoaded', function() {
+    // #date 입력 필드에 flatpickr 달력을 추가
+    flatpickr("#date", {
+        locale: "ko",  // 한국어 설정
+        dateFormat: "Y-m-d",  // 날짜 형식
+        allowInput: true,  // 사용자가 직접 입력할 수 있도록 허용
+        showMonths: 2,
+        //minDate: "today",  // 오늘 날짜부터 선택 가능
+        maxDate: new Date().fp_incr(365)  // 1년 뒤까지 선택 가능
+    });
+});
+
+
 function showContent(type) {
     // 모든 콘텐츠 숨기기
     document.querySelectorAll('.booking_contents, .select_contents, .check-in_contents, .schedule_contents').forEach(function(el) {
@@ -1045,9 +1092,12 @@ function updateButtonTextWithIcon(buttonId, newText) {
 }
 <!-- 탑승객 관련 함수 -->
 function updatePassengerButton() {
-    var adultCount = document.getElementById('adult-count').textContent;
-    var childCount = document.getElementById('child-count').textContent;
-    var infantCount = document.getElementById('infant-count').textContent;
+	var adultCount = parseInt(document.getElementById('adult-count').textContent, 10) || 0;
+    var childCount = parseInt(document.getElementById('child-count').textContent, 10) || 0;
+    var infantCount = parseInt(document.getElementById('infant-count').textContent, 10) || 0;
+    
+ 
+    
     var passengerText = '성인 ' + adultCount + '명';
     var additionalPassengers = [];
     // 추가 승객 정보를 배열에 저장
@@ -1067,7 +1117,31 @@ function updatePassengerButton() {
             passengerText += ', ' + additionalPassengers[0] + '···';
         }
     }
+
     document.getElementById('passenger-btn').innerHTML = passengerText;
+
+ // 버튼의 기존 내용을 비우고 다시 추가
+    var passengerBtn = document.getElementById('passenger-btn');
+    passengerBtn.innerHTML = ''; // 기존 내용을 비움
+    
+    // 아이콘 추가
+    var icon = document.createElement('i');
+    icon.className = 'fa-regular fa-user';
+    passengerBtn.appendChild(icon);
+
+    // 텍스트 추가
+    passengerBtn.append(' ' + passengerText); 
+ 	// 숨겨진 필드에 탑승객 수 설정
+    // 형식: "성인:1,소아:0,유아:0"
+    //var passengersValue = '성인:' + adultCount + ',소아:' + childCount + ',유아:' + infantCount;
+    //document.getElementById('passenger-hidden').value = passengersValue;
+    
+ 	// 숨겨진 필드에 총 승객 수 설정 (성인 + 소아)
+ 	var passengersValue = adultCount + childCount;
+    document.getElementById('passenger-hidden').value = passengersValue;
+    document.getElementById('adult-hidden').value = adultCount;
+    document.getElementById('child-hidden').value = childCount;
+    document.getElementById('infant-hidden').value = infantCount;
 }
 document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 기본값 설정
@@ -1105,9 +1179,6 @@ function decrease(type) {
     }
     updatePassengerButton(); // 승객 수가 변경될 때마다 바로 반영
 }
-    
-    
-    
     
 
     // 섹션들이 뷰포트에 들어오면 'visible' 클래스를 추가하는 함수
@@ -1329,9 +1400,47 @@ function decrease(type) {
         console.log("도착지 설정: " + airportCode); // 디버그용 로그
         closePopup('arrival');
     }
+ 
+ //체크인-요일
+    function getDayOfWeek(day) {
+        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+        return weekdays[day];
+    }
+
+    function getDateOptions() {
+        const select = document.getElementById('cdate');
+        const today = new Date();
+
+        // 어제부터 이틀 뒤까지의 날짜를 가져옴
+        for (var i = -1; i <= 2; i++) {
+            var optionDate = new Date();
+            optionDate.setDate(today.getDate() + i);
+
+            var year = optionDate.getFullYear();
+            var month = ('0' + (optionDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
+            var day = ('0' + optionDate.getDate()).slice(-2);
+            var dayOfWeek = getDayOfWeek(optionDate.getDay()); // 요일 구하기
+
+            // yyyy-mm-dd (요일) 형식으로 값 생성
+            var dateString = year+"-"+month+"-"+day+" ("+dayOfWeek+")";
+            var dateValue = year+"-"+month+"-"+day;
+            
+
+            // option 태그 생성
+            var option = document.createElement('option');
+            option.value = dateValue;
+            option.textContent = dateString;
+
+            select.appendChild(option);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        getDateOptions();
+    });
+
     
-    
-   
+
 
 </script>
 </head>
@@ -1487,11 +1596,16 @@ function decrease(type) {
 									<!-- 날짜 선택 버튼 -->
 									<div id="date_selection">
 										<p>출발일&nbsp;</p>
-										<button type="button" id="date-btn">
+										<!-- <button type="button" id="date-btn">
 											<i class="fa-regular fa-calendar"></i>
 											<span>가는 날 ~ 오는 날</span>
 											
-										</button>
+										</button> -->
+										<div class="date_wrap">
+											<i class="fa-regular fa-calendar"></i>
+											<input type="text" id="date-btn" placeholder="가는 날 ~ 오는 날">
+										</div>
+								
 									</div>
 									
 									 <!-- 날짜 값 전달을 위한 숨겨진 필드 -->
@@ -1515,6 +1629,10 @@ function decrease(type) {
 									
 									<!-- 탑승객 수 전달을 위한 숨겨진 필드 -->
         							<input type="hidden" name="passengers" id="passenger-hidden">
+        							<!-- 추가 승객 수 전달을 위한 숨겨진 필드 -->
+									<input type="hidden" name="adultCount" id="adult-hidden" value="1">
+									<input type="hidden" name="childCount" id="child-hidden" value="0">
+									<input type="hidden" name="infantCount" id="infant-hidden" value="0">
 
 									<!-- 승객 선택 팝업 -->
 									<div id="passenger-selection-popup" class="passenger-popup"
@@ -1524,21 +1642,21 @@ function decrease(type) {
 										<div class="passenger-counter">
 											<div class="passenger-type">
 												<h4>성인</h4>
-												<button class="decrease-btn" onclick="decrease('adult')">-</button>
+												<button type="button" class="decrease-btn" onclick="decrease('adult')">-</button>
 												<span id="adult-count">1</span>
-												<button class="increase-btn" onclick="increase('adult')">+</button>
+												<button type="button"class="increase-btn" onclick="increase('adult')">+</button>
 											</div>
 											<div class="passenger-type">
 												<h4>소아</h4>
-												<button class="decrease-btn" onclick="decrease('child')">-</button>
+												<button type="button" class="decrease-btn" onclick="decrease('child')">-</button>
 												<span id="child-count">0</span>
-												<button class="increase-btn" onclick="increase('child')">+</button>
+												<button type="button" class="increase-btn" onclick="increase('child')">+</button>
 											</div>
 											<div class="passenger-type">
 												<h4>유아</h4>
-												<button class="decrease-btn" onclick="decrease('infant')">-</button>
+												<button type="button" class="decrease-btn" onclick="decrease('infant')">-</button>
 												<span id="infant-count">0</span>
-												<button class="increase-btn" onclick="increase('infant')">+</button>
+												<button type="button" class="increase-btn" onclick="increase('infant')">+</button>
 											</div>
 										</div>
 									</div>
@@ -1563,75 +1681,49 @@ function decrease(type) {
 										<span class="close-btn" onclick="closePopup('seats')">&times;</span>
 										<h2>좌석 등급 선택</h2>
 										<div class="seat-options">
-											<button onclick="selectSeat('일반석')">일반석</button>
-											<button onclick="selectSeat('프레스티지석')">프레스티지석</button>
-											<button onclick="selectSeat('일등석')">일등석</button>
+											<button type="button" onclick="selectSeat('일반석')">일반석</button>
+											<button type="button" onclick="selectSeat('프레스티지석')">프레스티지석</button>
+											<button type="button" onclick="selectSeat('일등석')">일등석</button>
 										</div>
 									</div>
-
-
-
-
-									<!-- 항공편 선택 버튼 -->
-									<!--  
-									<div id="search_airline">
-										<a href="/flight/flightSearchResults">
-											<button type="button" id="search_button">
-												<span>항공편 검색</span>
-											</button>
-										</a>
-									</div>
-									
-									-->
-									
-									
-									
+							
     								<div id="search_airline">
         								<button type="submit" id="search_button">
             									<span>항공편 검색</span>
         								</button>
-    								</div>
-    								
-    								
-    								
-
-
-
-
-									
-
-
+    								</div>								
 								</div>
 					
 </form>
 							</div>
 						</div>
 						<div class="select_contents">
+						<form id="form1" action="${pageContext.request.contextPath}/select/selection" method="get">
 							<div id="select methods">
 							<div class="select_info_aligner">
 									<!-- 날짜 선택 버튼 -->
 									<div id="select_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="select_num" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890">
 									</div>
 
 									<div id="select_date">
 										<p>출발일&nbsp;</p>
-										<button type="button" id="date">
-										</button>
+										<input type="text" id="date" name="date">
+
 									</div>
 									
 									<div id="select_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="sung" >
+										<input type="text" id="sung" name="sung">
 									</div>
 									<div id="select_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="name" >
+										<input type="text" id="name" name="name">
 									</div>
 									
 									<div id="select_selection">
-											<button type="button" id="select_button">
+											<button type="submit" id="select_button">
 												<span>조회</span>
 											</button>
 									</div>
@@ -1642,9 +1734,13 @@ function decrease(type) {
 									<input type="checkbox" id="agree-contents" required> 
 									<label for="agree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
 									</div>
-									
+									 <div class="agree_contents_error_message" style="color: red; display: none;">
+               						 필수 동의 항목입니다.
+               						 </div>
 							</div>
+						</form>
 						</div>
+
 						
 <style>
 .select_contents, .check-in_contents {
@@ -1739,7 +1835,7 @@ width:85%}
 width: 100%;
 border: none;
 border-bottom: 1px solid black;
-padding: 18px;
+padding: 10px;
 margin-top:15px;
 background-color: white;
 cursor: pointer;
@@ -1788,35 +1884,62 @@ margin-right:30px;
     cursor: pointer; /* 마우스 커서가 포인터로 변경되도록 */
 }
 
+
+#daselect, #week_schedule {
+	padding: 10px 20px;
+    background-color: white;
+    color: #1f0c59;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 25px;
+    list-style-type: none;
+    transition: background-color 0.3s, color 0.3s;
+    font-size:16px;
+    border:none;
+}
+
+.s_methodbox {
+	float: left;
+	width: 240px;
+	margin-left: 10px;
+	margin-top: 0;
+	margin-right: 3.5rem;
+	margin-bottom: 1rem;
+	text-align: left;
+}
+
 						
 					</style>
+					
+
 
 						<div class="check-in_contents">
+					<form action="${pageContext.request.contextPath}/checkin/check-in" method="get">
 							<div id="check-in methods">
+
 								<div class="check-in_info_aligner">
-									<!-- 날짜 선택 버튼 -->
 									<div id="check-in_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890" required>
 									</div>
 
 									<div id="check-in_date">
 										<p>출발일&nbsp;</p>
-										<button type="button" id="cdate">
-										</button>
+										<select id="cdate" required>
+											</select>
 									</div>
 									
 									<div id="check-in_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="csung" >
+										<input type="text" id="csung" required>
 									</div>
 									<div id="check-in_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="cname" >
+										<input type="text" id="cname" required>
 									</div>
 									
 									<div id="check-in_selection">
-											<button type="button" id="cselect_button">
+											<button type="submit" id="cselect_button">
 												<span>조회</span>
 											</button>
 									</div>
@@ -1826,24 +1949,122 @@ margin-right:30px;
 									<div id="check-in_agree_contents">
 									<input type="checkbox" id="cagree-contents" required> 
 									<label for="cagree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
-									</div>
+									<div class="agree_contents_error_message" style="color: red; display: none;">
+               						 필수 동의 항목입니다.
+               						 </div>
 							</div>
+						</div>
+						</form>
 						</div>
 						
 						
 
 
 						<div class="schedule_contents">
-							<div id="schedule methods">
-								<input type="radio" name="t_methods" value="0"> <label>왕복</label>
-								<input type="radio" name="t_methods" value="1"> <label>편도</label>
+							<div class="schedule_methods">
+								<div class="s_methodbox">
+									<ul class="booking_types">
+										<li>
+											<button type="button" id="daselect">출도착 조회</button>
+										</li>
+										<li>
+											<button type="button" id="week_schedule" >주간 스케줄</button>
+									</ul>
+								</div>
+								
+
+
+
+
+<form action="${pageContext.request.contextPath}/select/schedule" method="get">
+
+								<!-- 출도착/편명 선택 버튼 -->
+								<div id="trip-methods" class="trip-methods">
+									<input type="radio" name="s_methods"
+										id="round-trip" checked> <label for="round-trip">출/도착지</label>
+									<input type="radio" name="s_methods" 
+										id="one-way"> <label for="one-way">편명</label>
+								</div>
+
+								<div class="quick_booking_aligner">
+									<div id="quick_booking">
+										<!-- 출발지 버튼 -->
+										<button type="button" class="quick_booking_button"
+											onclick="openPopup('departure')">
+											
+											<span id="from-text">From</span> <span id="departure-text">&nbsp;출발지</span>
+										</button>
+
+										<button type="button"
+											class="quick_booking_button circle_button">
+											<img src="../static/resources/booking_reverse.png"
+												width="40px" height="40px">
+										</button>
+
+										<!-- 도착지 버튼 -->
+										<button type="button" class="quick_booking_button"
+											onclick="openPopup('arrival')">
+											<span id="to-text">To</span> <span id="arrival-text">&nbsp;도착지</span>
+										</button>
+									</div>
+
+
+
+									<!-- 출발지 div 팝업 -->
+									<div id="popup" class="popup" style="display: none;">
+
+											<span class="close-btn" onclick="closePopup('departure')">&times;</span>
+											<h2>출발지 선택</h2>
+											<ul id="airport-list" class="airport-list"></ul>
+											<!-- 공항 목록이 표시될 리스트 -->
+
+									</div>
+
+
+
+									<!-- 도착지 팝업 -->
+									<div id="arrival-popup" class="popup" style="display: none;">
+
+											<span class="close-btn" onclick="closePopup('arrival')">&times;</span>
+											<h2>도착지 선택</h2>
+											<ul id="arrival-list" class="airport-list"></ul>
+
+									</div>
+									
+									
+									<!-- 출발지, 도착지 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departure" id="from-hidden">
+        							<input type="hidden" name="arrival" id="to-hidden">
+        							
+        							
+
+									<!-- 날짜 선택 버튼 -->
+									<div id="date_selection">
+										<p>출발일&nbsp;</p>
+										<div class="date_wrap">
+											<i class="fa-regular fa-calendar"></i>
+											<input type="text" id="date-btn">
+										</div>
+								
+									</div>
+									
+									 <!-- 날짜 값 전달을 위한 숨겨진 필드 -->
+        							<input type="hidden" name="departureDate" id="departureDate-hidden">
+        							<input type="hidden" name="arrivalDate" id="arrivalDate-hidden">
+									
+									
+
+
+							
+    								<div id="search_airline">
+        								<button type="submit" id="search_button">
+            									<span>조회</span>
+        								</button>
+    								</div>								
+								</div>
+					
+</form>
 							</div>
-							<div id="quick_booking">
-								<button type="button">
-									<span>From</span> <span>$nbsp;출발지</span>
-								</button>
-							</div>
-						</div>
 
 
 					</div>

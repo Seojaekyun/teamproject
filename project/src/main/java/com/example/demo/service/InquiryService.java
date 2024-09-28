@@ -9,7 +9,7 @@ import com.example.demo.dto.InquiryDto;
 import java.util.List;
 
 public interface InquiryService {
-    String list(HttpServletRequest request, Model model);
+    String list(HttpServletRequest request, Model model, Integer page);
     String write();
     String writeOk(InquiryDto idto, HttpSession session);
     String readnum(HttpServletRequest request);
@@ -17,7 +17,6 @@ public interface InquiryService {
     String update(HttpServletRequest request, Model model);
     String updateOk(InquiryDto idto);
     String delete(HttpServletRequest request);
-    String inquiryList(HttpServletRequest request, Model model);
 	String inquiryContent(HttpServletRequest request, Model model);
 	String answer(int inquiryId, String answerText);
 	String updateAnswer(int inquiryId, String answerText);

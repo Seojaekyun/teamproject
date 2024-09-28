@@ -21,7 +21,7 @@
 		height: 30px;
 		align-items: right;
 		justify-content: flex-end;
-		background-color: gray;
+		background-color: #001160;
 		padding: 10px 20px;
 		box-sizing: border-box;
 		color: white;
@@ -31,7 +31,7 @@
 		height: 50px;
 		align-items: center;
 		justify-content: space-between;
-		background-color: gray;
+		background-color: #001160;
 		padding: 10px 20px;
 		box-sizing: border-box;
 		color: white;
@@ -50,7 +50,8 @@
 	header #logo {
 		width: 200px;
 		flex-shrink: 0;
-		line-height: 45px;
+		line-height: 70px;
+		margin-left: 10px;
 	}
 	header #two {
 		display: flex;
@@ -63,6 +64,7 @@
 		margin: 0 10px;
 		font-size: 17px;
 		cursor: pointer;
+		position: relative;
 	}
 	header #two button a {
 		text-decoration: none;
@@ -71,16 +73,50 @@
 	header #two button:hover a {
 		font-weight: bold;
 	}
+	#chatAlert {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        background-color: #00FF00; /* 연두색 */
+        border-radius: 50%;
+        display: hidden;
+    }
+    #chatbot {
+		width: 95%;
+		height: 95%;
+	}
+    #chatToggleBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #23297A;
+        color: white;
+        
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 50%;
+        display: flex; /* 알림 아이콘 위치를 위해 flex로 설정 */
+        align-items: center; /* 버튼과 알림 아이콘 정렬 */
+        height:50px;
+        width:50px;
+    }
+	#chatToggleBtn:hover {
+		background-color: #2DD1C5;
+	}
+
 	/* 채팅 상담 UI 스타일 */
 	#chat-console {
 		width: 300px;
 		height: 400px;
 		border: 2px solid #2DD1C5;
 		position: fixed;
-		bottom: 20px;
+		bottom: 70px; /* 버튼 위로 올리기 */
 		right: 20px;
 		background-color: #fff;
-		display: flex; /* 기본적으로 채팅 창을 표시 */
+		display: none; /* 기본적으로 채팅 창을 숨김 */
 		flex-direction: column;
 	}
 	#chat-header {
@@ -158,7 +194,7 @@
 		<div id="second">
 			<div id="logo">
 				<a href="../admin/index">
-					<img src="../static/resources/eltlogo.png" height="60px" alt="로고">
+					<img src="../static/resources/1234.png" height="60px" alt="로고">
 				</a>
 			</div>
 			<div id="two">    
@@ -171,14 +207,19 @@
 			</div>
 		</div>
 	</header>
-<section>
 
-</section>
+	<!-- 채팅 상담 버튼 -->
+	<div>
+	<button id="chatToggleBtn">
+		<img src="../static/resources/cb.png" id="chatbot">
+		<div id="chatAlert"></div>
+	</button>
+	</div>
 	<!-- 관리자 채팅 상담 UI -->
 	<div id="chat-console">
 		<div id="chat-header">
 			채팅 상담
-			<button onclick="adendChat()">끝내기</button>
+			<button onclick="closeChat()">끝내기</button>
 		</div>
 		<div id="chat-body"></div>
 		<div id="chat-input">
@@ -186,11 +227,16 @@
 			<button onclick="sendMessage()">보내기</button>
 		</div>
 	</div>
-
 <script>
-    // 채팅 종료 시 "상담이 종료되었습니다." 메시지 전송
-    function adendChat() {
-        sendMessage("상담이 종료되었습니다.");
+    // 채팅 창 열기/닫기
+    document.getElementById('chatToggleBtn').addEventListener('click', function() {
+        var chatConsole = document.getElementById('chat-console');
+        chatConsole.style.display = chatConsole.style.display === 'none' ? 'flex' : 'none';
+        document.getElementById('chatAlert').style.display = 'none'; // 새로운 메시지 알림 숨기기
+    });
+
+    function closeChat() {
+        document.getElementById('chat-console').style.display = 'none'; // 채팅 창 닫기
     }
 
     // 메시지 전송 함수 (관리자 페이지)
@@ -230,7 +276,19 @@
         }
     });
 
- // 메시지 갱신
+    // 새 메시지가 왔을 때 알림을 표시하는 함수
+    function showNewMessageAlert() {
+        var chatConsole = document.getElementById('chat-console');
+        console.log('새 메시지 알림 표시'); // 디버깅용 로그
+        // 채팅창이 열려 있지 않은 경우에만 알림을 표시
+        if (chatConsole.style.display === 'none') {
+            document.getElementById('chatAlert').style.display = 'block'; // 알림 표시
+        }
+    }
+
+    // 기존 메시지와 새 메시지를 비교하여 새 메시지가 있을 때 알림을 표시
+    var previousMessages = [];  // 이전 메시지 저장
+
 	function pollMessages() {
 	    var xhr = new XMLHttpRequest();
 	    xhr.open("GET", "/main/getMessages", true);
@@ -246,16 +304,25 @@
 	                    newMessage.textContent = msg.replace(/^팅커벨:\s*/, '');
 	                } else {
 	                    newMessage.className = 'user-message';
-	                    // "손님: " 접두사를 제거하고 메시지만 출력
-	                    newMessage.textContent = '🚶'+ msg.replace(/^손님:\s*/, '');
+	                    newMessage.textContent = '🚶' + msg.replace(/^손님:\s*/, '');
 	                }
 	                chatBody.appendChild(newMessage);
 	            });
-	            pollMessages();
+
+	            // 새 메시지가 이전 메시지와 다른 경우 알림을 표시
+	            if (JSON.stringify(previousMessages) !== JSON.stringify(messages)) {
+	                console.log('새 메시지가 감지되었습니다.'); // 디버깅용 로그
+	                showNewMessageAlert();  // 새로운 메시지 알림 표시
+	                previousMessages = messages;  // 이전 메시지 업데이트
+	            }
+
+	            // 일정 주기로 메시지를 갱신
+	            setTimeout(pollMessages, 5000);  // 5초마다 새 메시지를 확인
 	        }
 	    };
 	    xhr.send();
 	}
+
 	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
 </script>
