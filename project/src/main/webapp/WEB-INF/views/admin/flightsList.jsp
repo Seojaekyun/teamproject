@@ -101,12 +101,6 @@
 		font-size: 12px;
 		cursor: default;
 	}
-<<<<<<< HEAD
-	/* 날짜 선택 달력 스타일 */
-	.date-picker-container {
-		text-align: center;
-		margin-bottom: 20px;
-=======
 	#clsd {
 		background: #000A8E;
 		color: white;
@@ -132,18 +126,10 @@
 		font-weight: bold;
 		color: #333;
 		margin-top: 10px;
->>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
 	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<<<<<<< HEAD
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-=======
-</head>
->>>>>>> branch 'master' of https://github.com/Seojaekyun/teamproject.git
-
 </head>
 <body>
 <div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>

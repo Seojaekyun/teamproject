@@ -47,7 +47,13 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
-		String userid=session.getAttribute("userid").toString();
+		Object useridObj = session.getAttribute("userid");
+		// userid가 null인지 체크
+		if(useridObj == null) {
+			return "redirect:/main/index";  // userid가 null이면 메인 페이지로 리다이렉트
+		}
+		
+		String userid=useridObj.toString();
 		if("admin".equals(userid)) {
 		// 현재 날짜 구하기
 		String currentDate = LocalDate.now().toString();
@@ -97,7 +103,7 @@ public class AdminServiceImpl implements AdminService{
 		return "/admin/index";
 		}
 		else {
-			return "redirect:/login/loginAd";
+			return "redirect:/main/index";
 		}
 	}
 	

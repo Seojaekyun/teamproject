@@ -113,7 +113,7 @@
 		height: 400px;
 		border: 2px solid #2DD1C5;
 		position: fixed;
-		bottom: 70px; /* 버튼 위로 올리기 */
+		bottom: 20px; /* 버튼 위로 올리기 */
 		right: 20px;
 		background-color: #fff;
 		display: none; /* 기본적으로 채팅 창을 숨김 */
@@ -317,7 +317,8 @@
 	            }
 
 	            // 일정 주기로 메시지를 갱신
-	            setTimeout(pollMessages, 5000);  // 5초마다 새 메시지를 확인
+	            pollMessages();
+	            /* setTimeout(pollMessages, 5000); */
 	        }
 	    };
 	    xhr.send();
