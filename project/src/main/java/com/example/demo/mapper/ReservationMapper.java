@@ -32,4 +32,5 @@ public interface ReservationMapper {
     
     Map<String, Object> getSumOfCharges(String userid);
 	List<ReservationDto> getRsvUserid(String userId);
+	List<Map<String, Object>> getRsvChart();
 }
