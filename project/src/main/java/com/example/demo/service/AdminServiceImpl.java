@@ -157,14 +157,23 @@ public class AdminServiceImpl implements AdminService{
     }
 	
 	@Override
-	public String flightList(Integer page, Model model) {
+	public String flightList(Integer page, String selectedDate, Model model) {
 	    int itemsPerPage = 10;  // 페이지당 항목 수를 고정
 
 	    // 시작 인덱스 계산
 	    int start = (page - 1) * itemsPerPage;
 
-	    // 전체 항공편 리스트 가져오기
-	    List<FlightDto> flightList = fmapper.getAllFlights();
+	    // 전체 항공편 리스트 가져오기 (필터가 없는 경우)
+	    List<FlightDto> flightList;
+
+	    // selectedDate가 전달되었는지 확인하고 필터 적용
+	    if (selectedDate != null && !selectedDate.isEmpty()) {
+	        // 선택된 날짜로 항공편 필터링
+	        flightList = fmapper.getFlightsByDate(selectedDate);
+	    } else {
+	        // 전체 리스트를 가져옴 (필터가 없는 경우)
+	        flightList = fmapper.getAllFlights();
+	    }
 
 	    // 페이징 적용
 	    List<FlightDto> pagedFlights = (start >= flightList.size()) ? Collections.emptyList() :
@@ -180,7 +189,7 @@ public class AdminServiceImpl implements AdminService{
 
 	    return "/admin/flightsList";  // flightsList.jsp로 이동
 	}
-
+	
 	@Override
 	public String memberList(HttpServletRequest request, Model model) {
 	    // 페이지 값 받기 (기본값 1)

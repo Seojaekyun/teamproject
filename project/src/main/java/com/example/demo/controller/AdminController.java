@@ -51,12 +51,16 @@ public class AdminController {
 	@RequestMapping("/admin/flightsList")
 	public String flightsList(
 	    @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+	    @RequestParam(value = "selectedDate", required = false) String selectedDate, // 추가
 	    Model model) {
 	    
-	    // 서비스에서 항공편 리스트와 페이징 정보를 가져옴
-	    return service.flightList(page, model);
-	}
+	    // 선택된 날짜가 잘 전달되었는지 확인
+	    System.out.println("Selected Date: " + selectedDate);
 
+	    // 서비스로 선택된 날짜와 함께 페이지 정보를 전달
+	    return service.flightList(page, selectedDate, model);
+	}
+	
 	@RequestMapping("/admin/memberList")
 	public String memberList(HttpServletRequest request, Model model) {
 		return service.memberList(request, model);

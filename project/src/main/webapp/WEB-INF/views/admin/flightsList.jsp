@@ -84,85 +84,78 @@
 		font-size: 12px;
 		cursor: default;
 	}
+	/* 날짜 선택 달력 스타일 */
+	.date-picker-container {
+		text-align: center;
+		margin-bottom: 20px;
+	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-</head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+</head>
 <body>
 <div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 
+<!-- 날짜 선택을 위한 달력 추가 -->
+<div style="text-align: center; margin-bottom: 20px;">
+    <input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
+    <button onclick="filterByDate();">조회</button>
+</div>
+
 <section id="sec1">
-	<div class="table-container" id="flightTable">
-		<table>
-			<caption>항공편 리스트</caption>
-			<tr>
-				<th>항공편명</th>
-				<th>출발 공항</th>
-				<th>도착 공항</th>
-				<th>출발 시간</th>
-				<th>도착 시간</th>
-				<th>좌석 수</th>
-			</tr>
-			<!-- Flights Data -->
-			<c:forEach var="flight" items="${flightList}">
-				<tr>
-					<td>${flight.flightNumber}</td>
-					<td>${flight.departureAirport}</td>
-					<td>${flight.arrivalAirport}</td>
-					<td>${flight.departureTime}</td>
-					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
-				</tr>
-			</c:forEach>
-			<c:if test="${empty flightList}">
-				<tr>
-					<td colspan="6">항공편 데이터가 없습니다.</td>
-				</tr>
-			</c:if>
-		</table>
-		<!-- Pagination -->
-		<div class="pagination">
-			<c:if test="${totalPages > 1}">
-				<!-- 이전 5페이지 -->
-				<c:if test="${currentPage > 10}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 10});">이전 10</a>
-				</c:if>
-
-				<!-- 이전 페이지 -->
-				<c:if test="${currentPage > 1}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 1});">이전</a>
-				</c:if>
-
-				<!-- 페이지 번호 (최대 10개 표시) -->
-				<c:set var="startPage" value="${(currentPage - 5 > 1) ? currentPage - 5 : 1}" />
-				<c:set var="endPage" value="${(currentPage + 4 > totalPages) ? totalPages : currentPage + 4}" />
-
-				<c:forEach begin="${startPage}" end="${endPage}" var="i">
-					<c:choose>
-						<c:when test="${i == currentPage}">
-							<span class="active">${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="javascript:void(0);" onclick="loadPage(${i});">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-
-				<!-- 다음 페이지 -->
-				<c:if test="${currentPage < totalPages}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 1});">다음</a>
-				</c:if>
-
-				<!-- 다음 5페이지 -->
-				<c:if test="${currentPage + 10 <= totalPages}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 10});">다음 10</a>
-				</c:if>
-			</c:if>
-		</div>
-	</div>
+    <div class="table-container" id="flightTable">
+        <table>
+            <caption>항공편 리스트</caption>
+            <tr>
+                <th>항공편명</th>
+                <th>출발 공항</th>
+                <th>도착 공항</th>
+                <th>출발 시간</th>
+                <th>도착 시간</th>
+                <th>좌석 수</th>
+            </tr>
+            <!-- Flights Data -->
+            <c:forEach var="flight" items="${flightList}">
+                <tr>
+                    <td>${flight.flightNumber}</td>
+                    <td>${flight.departureAirport}</td>
+                    <td>${flight.arrivalAirport}</td>
+                    <td>${flight.departureTime}</td>
+                    <td>${flight.arrivalTime}</td>
+                    <td>${flight.availableSeats}</td>
+                </tr>
+            </c:forEach>
+            <c:if test="${empty flightList}">
+                <tr>
+                    <td colspan="6">항공편 데이터가 없습니다.</td>
+                </tr>
+            </c:if>
+        </table>
+        <!-- Pagination -->
+        <div class="pagination">
+            <!-- 페이징 버튼 추가 -->
+        </div>
+    </div>
 </section>
 
 <script>
+$(function() {
+    $("#selectedDate").datepicker({
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText) {
+            sessionStorage.setItem("selectedDate", dateText);
+        }
+    });
+});
+
+function filterByDate() {
+    var selectedDate = $("#selectedDate").val();
+    loadPage(1, selectedDate);
+}
+
 function loadPage(page, selectedDate = null) {
     if (!selectedDate) {
         selectedDate = sessionStorage.getItem("selectedDate");
@@ -170,17 +163,20 @@ function loadPage(page, selectedDate = null) {
         sessionStorage.setItem("selectedDate", selectedDate);
     }
 
+    console.log("Page: " + page + ", Selected Date: " + selectedDate);  // 로그 추가
+
     // 서버에 요청 보내서 페이지 로드
     $.ajax({
         url: "/admin/flightsList",
         type: "GET",
         data: {
             page: page,  // 페이지 번호 전달
-            selectedDate: selectedDate  // 선택된 날짜 (현재 생략)
+            selectedDate: selectedDate  // 선택된 날짜
         },
         success: function(data) {
             // 서버에서 받은 데이터를 테이블에 렌더링
             $("#flightTable").html($(data).find("#flightTable").html());
+            console.log("Data loaded successfully");  // 데이터 성공 로드 확인
         },
         error: function(error) {
             console.log("데이터 가져오기 실패:", error);
