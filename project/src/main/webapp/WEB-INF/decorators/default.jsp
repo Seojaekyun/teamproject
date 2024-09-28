@@ -70,7 +70,7 @@
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 28px;
+		top: 25px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
