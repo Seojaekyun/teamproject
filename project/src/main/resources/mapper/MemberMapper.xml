@@ -30,11 +30,9 @@
         WHERE name = #{name} AND email = #{email}
     </select>
 
-     <select id="pwdSearch" parameterType="com.example.demo.dto.MemberDto" resultType="String">
-        SELECT pwd 
-        FROM member 
-        WHERE userid = #{userid} AND email = #{email}
-    </select>
+ <select id="pwdSearch" parameterType="com.example.demo.dto.MemberDto" resultType="com.example.demo.dto.MemberDto">
+    SELECT * FROM member WHERE userid = #{userid} AND email = #{email}
+</select>
     
     <update id="updatePassword" parameterType="com.example.demo.dto.MemberDto">
     UPDATE member

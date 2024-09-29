@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-   ${name}님의 비밀번호가 이메일로 전송되었습니다.
+    <c:if test="${not empty message}">
+        <p>${message}</p>
+    </c:if>
 </body>
 </html>

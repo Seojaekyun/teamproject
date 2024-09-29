@@ -128,12 +128,19 @@ public class MemberServiceImpl implements MemberService {
 	public void pwdSearch(MemberDto mdto, Model model) throws Exception {
 	    String userid = mdto.getUserid();
 	    String email = mdto.getEmail();
-	    String name = mdto.getName(); // 이름 가져오기
+	    String name1 = mdto.getName(); 
 
-	    // 사용자가 입력한 정보로 DB에서 사용자 검색
-	    String result = mapper.pwdSearch(mdto);
+	    MemberDto resultDto = mapper.pwdSearch(mdto);
 	    
-	    if (result != null) {
+	    // resultDto가 null이 아니고 모든 정보가 일치하는지 확인
+	    if (resultDto != null && 
+	        resultDto.getUserid().equals(userid) && 
+	        resultDto.getName().equals(name1) && 
+	        resultDto.getEmail().equals(email)) {
+
+	        // DB에서 가져온 이름으로 처리
+	        String name = resultDto.getName(); // DB에서 가져온 이름
+	        
 	        // 임시 비밀번호 생성
 	        String temporaryPassword = generateTemporaryPassword();
 	        
@@ -143,17 +150,19 @@ public class MemberServiceImpl implements MemberService {
 	        Mailsend.setEmail(email, subject, body);
 	        
 	        // 사용자의 비밀번호를 임시 비밀번호로 업데이트
-	        mdto.setPwd(temporaryPassword); // 새로운 비밀번호로 설정
-	        mapper.updatePassword(mdto); // DB에 업데이트하는 메서드 호출
+	        resultDto.setPwd(temporaryPassword); // DB에서 가져온 사용자의 정보에 업데이트
+	        mapper.updatePassword(resultDto); // DB에 업데이트하는 메서드 호출
 
-	        // 모델에 추가
-	        model.addAttribute("name", name); // 이름 추가
-	        model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다."); // 성공 메시지 추가
+	        // 모델에 추가 (DB에서 가져온 이름을 사용)
+	        model.addAttribute("name", name); // DB에서 가져온 이름 추가
+	        model.addAttribute("message", name+"님의 임시 비밀번호가 이메일로 전송되었습니다."); // 성공 메시지 추가
 	    } else {
-	        model.addAttribute("name", name); // 이름 추가
-	        model.addAttribute("message", "사용자 정보를 찾을 수 없습니다."); // 실패 메시지 추가
+	        // 사용자 정보를 찾을 수 없거나 정보가 일치하지 않을 때
+	        model.addAttribute("message", "사용자 정보를 찾을 수 없거나 정보가 일치하지 않습니다."); // 실패 메시지 추가
 	    }
 	}
+
+
 
 	public String generateTemporaryPassword() {
         // 임시 비밀번호를 생성하기 위한 문자열
