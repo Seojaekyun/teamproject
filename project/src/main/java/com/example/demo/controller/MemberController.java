@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.MemberService;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -20,6 +21,7 @@ public class MemberController {
 	@Autowired
 	@Qualifier("ms2")
 	private MemberService service;
+	
 	
 	@RequestMapping("/member/member")
 	public String member() {
@@ -53,7 +55,6 @@ public class MemberController {
             String err = request.getParameter("err");
             String userid = session.getAttribute("userid").toString();
 
-            // Service 계층을 통해 회원 정보 가져오기
             MemberDto mdto = service.getMemberDetails(userid);
 
             model.addAttribute("mdto", mdto);
@@ -61,6 +62,37 @@ public class MemberController {
             return "/member/memberView";
         }
     }
-	
-	
+
+    @RequestMapping("/member/useridSearch")
+    public String useridSearch(MemberDto mdto, Model model) {
+        String userid = service.searchUserId(mdto);
+
+        if (userid == null) {
+            return "redirect:/member/usForm?err=1";
+        } else {
+            model.addAttribute("userid", userid);
+            return "/member/useridSearch";
+        }
+    }
+    
+    @RequestMapping("/member/usForm")
+    public String usForm(Model model) {
+        return "/member/usForm"; // 반환할 JSP 뷰 이름
+    }
+
+    @RequestMapping("/member/psForm")
+    public String psForm(HttpServletRequest request, Model model) {
+        String err = request.getParameter("err");
+        model.addAttribute("err", err);
+        return "/member/psForm";
+    }
+
+    @RequestMapping("/member/pwdSearch")
+    public String pwdSearch(MemberDto mdto, Model model) throws Exception {
+        String result = service.pwdSearch(mdto);
+        model.addAttribute("message", result);
+        return "/member/pwdSearch"; 
+    }
+    
+    
 }

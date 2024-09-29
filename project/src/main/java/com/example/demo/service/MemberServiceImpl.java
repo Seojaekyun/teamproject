@@ -13,9 +13,12 @@ import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
+import com.example.demo.util.MailSend;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.security.SecureRandom;
+
 
 @Service
 @Qualifier("ms2")
@@ -25,6 +28,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper mapper;
 	@Autowired
 	private ReservationMapper rmapper;
+	@Autowired
+	private MailSend Mailsend;
 	
 	@Override
 	public String member() {
@@ -112,6 +117,53 @@ public class MemberServiceImpl implements MemberService {
 	@Override
     public MemberDto getMemberDetails(String userid) {
 		return mapper.getMemberById(userid);
+    }
+	
+	@Override
+    public String searchUserId(MemberDto mdto) {
+        return mapper.useridSearch(mdto);
+    }
+
+	@Override
+	public String pwdSearch(MemberDto mdto) throws Exception {
+	    String userid = mdto.getUserid();
+	    String email = mdto.getEmail();
+	    String name = mdto.getName();
+
+	    // 사용자가 입력한 정보로 DB에서 사용자 검색
+	    String result = mapper.pwdSearch(mdto);
+	    
+	    if (result != null) {
+	        // 임시 비밀번호 생성
+	        String temporaryPassword = generateTemporaryPassword();
+	        
+	        // 이메일로 임시 비밀번호 전송
+	        String subject = "임시 비밀번호 발송";
+	        String body = "임시 비밀번호는 다음과 같습니다: " + temporaryPassword;
+	        Mailsend.setEmail(email, subject, body);
+	        
+	        // 사용자의 비밀번호를 임시 비밀번호로 업데이트
+	        mdto.setPwd(temporaryPassword); // 새로운 비밀번호로 설정
+	        mapper.updatePassword(mdto); // DB에 업데이트하는 메서드 호출
+	        
+	        return "임시 비밀번호가 이메일로 전송되었습니다.";
+	    } else {
+	        return "사용자 정보를 찾을 수 없습니다.";
+	    }
+	}
+
+	public String generateTemporaryPassword() {
+        // 임시 비밀번호를 생성하기 위한 문자열
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < 8; i++) { // 8자리 임시 비밀번호
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+        
+        return sb.toString();
     }
 
 

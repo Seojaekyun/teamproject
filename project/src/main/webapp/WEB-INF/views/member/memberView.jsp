@@ -33,19 +33,31 @@ section {
 }
 
 .profile-info {
-    display: flex;
-    justify-content: space-between; /* 성명과 아이디를 가로로 배치 */
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.profile-item {
-    width: 45%; /* 성명과 아이디의 가로 공간 설정 */
-    padding: 10px;
+ 	display: flex;
+    align-items: center;
     background-color: white;
     border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-divider {
+    width: 2px; /* 세로선 너비 */
+    height: 50px; /* 세로선 높이 */
+    background-color: #ccc; /* 세로선 색상 */
+    margin: 0 10px; /* 세로선 좌우 여백 */
+}
+
+
+.profile-item {
+	width: 50%;
+    padding: 10px;
+    /* background-color: white; */
+    /* border-radius: 10px; */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     text-align: center;
+    margin-bottom: 12px;
 }
 
 .profile-divider {
@@ -155,16 +167,19 @@ section {
  <section>
     <!-- 상단 회원 정보 -->
     <div class="profile-header">
-        <div class="profile-info">
-            <div class="profile-item">
-                <h2>성명</h2>
-                <span>${mdto.name}</span>
-            </div>
-            <div class="profile-item profile-divider">
-                <h2>아이디</h2>
-                <span>${mdto.userid}</span>
-            </div>
-        </div>
+ <div class="profile-info">
+    <div class="profile-item">
+        <h2>성명</h2>
+        <span>${mdto.name}</span>
+    </div>
+    <div class="profile-divider"></div>
+    <div class="profile-item">
+        <h2>아이디</h2>
+        <span>${mdto.userid}</span>
+    </div>
+</div>
+
+
         
         <!-- 비밀번호 변경 -->
         <div class="section-box">

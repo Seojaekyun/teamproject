@@ -18,6 +18,9 @@ public interface MemberMapper {
 	public int getTotalMemberCount();
 	public ArrayList<MemberDto> getMemberList(int offset, int itemsPerPage);
 	public MemberDto getMemberById(String userId);
+    public String useridSearch(MemberDto mdto);
+    public String pwdSearch(MemberDto mdto);
+    public void updatePassword(MemberDto mdto);
 
 	
 }

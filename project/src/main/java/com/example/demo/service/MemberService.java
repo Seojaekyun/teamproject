@@ -16,5 +16,7 @@ public interface MemberService {
 	public List<MemberDto> getAllMembers();
 	public String rlist(HttpSession session, HttpServletRequest request, Model model);
 	public MemberDto getMemberDetails(String userid);
+	public String searchUserId(MemberDto mdto);
+    String pwdSearch(MemberDto mdto) throws Exception; // 비밀번호 검색 메서드 정의
+    }
 	
-}
