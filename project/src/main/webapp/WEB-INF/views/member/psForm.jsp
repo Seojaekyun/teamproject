@@ -37,7 +37,6 @@
      <div> <input type="text" name="name" placeholder="이 름"> </div>
      <div> <input type="text" name="email" placeholder="이메일"> </div>
      <div> <input type="submit" value="비밀번호찾기"> </div>
-     <div> <input type="password" name="naverPwd" placeholder="네이버비밀번호"> </div>
      <c:if test="${err!=null}">
      <div style="font-size:12px;color:red;"> 입력하신 정보가 일치하지 않습니다. </div>
     </c:if>

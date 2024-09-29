@@ -89,8 +89,7 @@ public class MemberController {
 
     @RequestMapping("/member/pwdSearch")
     public String pwdSearch(MemberDto mdto, Model model) throws Exception {
-        String result = service.pwdSearch(mdto);
-        model.addAttribute("message", result);
+        service.pwdSearch(mdto, model); // 모델을 서비스에서 처리
         return "/member/pwdSearch"; 
     }
     

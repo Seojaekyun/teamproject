@@ -125,10 +125,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
 	@Override
-	public String pwdSearch(MemberDto mdto) throws Exception {
+	public void pwdSearch(MemberDto mdto, Model model) throws Exception {
 	    String userid = mdto.getUserid();
 	    String email = mdto.getEmail();
-	    String name = mdto.getName();
+	    String name = mdto.getName(); // 이름 가져오기
 
 	    // 사용자가 입력한 정보로 DB에서 사용자 검색
 	    String result = mapper.pwdSearch(mdto);
@@ -145,10 +145,13 @@ public class MemberServiceImpl implements MemberService {
 	        // 사용자의 비밀번호를 임시 비밀번호로 업데이트
 	        mdto.setPwd(temporaryPassword); // 새로운 비밀번호로 설정
 	        mapper.updatePassword(mdto); // DB에 업데이트하는 메서드 호출
-	        
-	        return "임시 비밀번호가 이메일로 전송되었습니다.";
+
+	        // 모델에 추가
+	        model.addAttribute("name", name); // 이름 추가
+	        model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다."); // 성공 메시지 추가
 	    } else {
-	        return "사용자 정보를 찾을 수 없습니다.";
+	        model.addAttribute("name", name); // 이름 추가
+	        model.addAttribute("message", "사용자 정보를 찾을 수 없습니다."); // 실패 메시지 추가
 	    }
 	}
 
