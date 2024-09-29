@@ -39,7 +39,22 @@
     SET pwd = #{pwd}
     WHERE userid = #{userid}
 </update>
-    
+
+ <update id="updateMemberLevelByUserid" parameterType="String">
+        update member 
+        set level=3
+        where userid=#{userid}
+    </update>
+
+<update id="updateMemberLevel" parameterType="map">
+    UPDATE member
+    SET level = #{newLevel}
+    WHERE userid = #{userid}
+</update>
+
+<select id="getPasswordByUserid" parameterType="String" resultType="String">
+    SELECT pwd FROM member WHERE userid = #{userid}
+</select>
 		
 		
  </mapper>

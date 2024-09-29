@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public interface MemberService {
+	public String id_verification();
 	public String member();
 	public String useridCheck(String userid);
 	public String memberOk(MemberDto mdto);
@@ -18,6 +19,11 @@ public interface MemberService {
 	public MemberDto getMemberDetails(String userid);
 	public String searchUserId(MemberDto mdto);
 	void pwdSearch(MemberDto mdto, Model model) throws Exception; // 변경된 메서드 시그니처
+	String id_verification(HttpSession session, Model model);
  // 비밀번호 검색 메서드 정의
+	public boolean id_delete(String userid, String password);
+	String showRecoveryRequestPage(HttpSession session, Model model);
+	public void updateMemberLevel(String userid, int i);
+	public boolean checkPassword(String userid, String password);
     }
 	

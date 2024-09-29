@@ -18,7 +18,7 @@
    function loginMove()
    {
 	   // 부모창의 문서를 login으로
-	   opener.location="../member/login";
+	   opener.location="../login/login";
 	   close();
    }
    function pwdMove()

@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.MemberDto;
@@ -77,7 +80,7 @@ public class MemberController {
     
     @RequestMapping("/member/usForm")
     public String usForm(Model model) {
-        return "/member/usForm"; // 반환할 JSP 뷰 이름
+        return "/member/usForm"; 
     }
 
     @RequestMapping("/member/psForm")
@@ -93,5 +96,55 @@ public class MemberController {
         return "/member/pwdSearch"; 
     }
     
+    @GetMapping("/member/id_verification")
+    public String idVerification(HttpSession session, Model model) {      
+        return service.id_verification(session, model);
+    }
     
+    @RequestMapping("/member/id_delete")
+    public String id_deletle(@RequestParam("userid") String userid, 
+            @RequestParam("password") String password, 
+            Model model) {
+    	// 비밀번호 확인 로직 수행
+        boolean isPasswordCorrect = service.id_delete(userid, password);
+
+        if (isPasswordCorrect) {
+            // level 3으로 업데이트
+            service.updateMemberLevel(userid, 3);
+
+            // 팝업과 함께 페이지 리다이렉트
+            model.addAttribute("popupMessage", "탈퇴 신청이 완료되었습니다.");
+            return "redirect:/member/memberView";  // 확인 후 memberView로 리다이렉트
+        } else {
+            // 비밀번호 오류 시 처리 로직
+            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
+        }
+    }
+    
+    @GetMapping("/member/recovery_request")
+    public String showRecoveryRequestPage(HttpSession session, Model model) {
+    	return service.showRecoveryRequestPage(session, model);
+    }
+    
+    @PostMapping("/member/pwdCheck")
+    public String pwdCheck(@RequestParam("userid") String userid, 
+                           @RequestParam("password") String password, 
+                           Model model) {
+        // 비밀번호 확인 로직 수행
+        boolean isPasswordCorrect = service.checkPassword(userid, password);
+
+        if (isPasswordCorrect) {
+            // level 4로 업데이트
+            service.updateMemberLevel(userid, 5);
+
+            // 팝업과 함께 페이지 리다이렉트
+            model.addAttribute("popupMessage", "복구 신청이 완료되었습니다.");
+            return "redirect:/member/memberView";  // 확인 후 memberView로 리다이렉트
+        } else {
+            // 비밀번호 오류 시 처리 로직
+            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
+        }
+    }
 }

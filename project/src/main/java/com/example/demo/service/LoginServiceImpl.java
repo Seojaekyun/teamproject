@@ -43,6 +43,7 @@ public class LoginServiceImpl implements LoginService{
 			// 로그인 성공 시 세션에 사용자 정보 저장
 			session.setAttribute("userid", mdto.getUserid());
 			session.setAttribute("name", name);
+			session.setAttribute("loggedInUser", mdto.getUserid());
 			
 			// 메인 페이지로 리다이렉트
 			return "redirect:/main/index";

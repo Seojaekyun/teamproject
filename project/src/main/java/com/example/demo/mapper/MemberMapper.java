@@ -21,6 +21,9 @@ public interface MemberMapper {
     public String useridSearch(MemberDto mdto);
     public MemberDto pwdSearch(MemberDto mdto);
     public void updatePassword(MemberDto mdto);
+    public void updateMemberLevelByUserid(String userid);
+	public String getPasswordByUserid(String userid);
+	public void updateMemberLevel(String userid, int newLevel);
 
 	
 }

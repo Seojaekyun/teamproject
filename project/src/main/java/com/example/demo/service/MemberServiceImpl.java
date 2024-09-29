@@ -15,9 +15,12 @@ import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.util.MailSend;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import java.security.SecureRandom;
+
 
 
 @Service
@@ -177,6 +180,48 @@ public class MemberServiceImpl implements MemberService {
         
         return sb.toString();
     }
+	
+	@Override
+	public String id_verification(HttpSession session, Model model) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+	    model.addAttribute("userid", loggedInUser);
+		return "/member/id_verification";
+	}
+
+	@Override
+	public String id_verification() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean id_delete(String userid, String password) {
+		String storedPassword = mapper.getPasswordByUserid(userid);
+        return storedPassword.equals(password);
+		
+	}
+	
+	@Override
+	public String showRecoveryRequestPage(HttpSession session, Model model) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+	    model.addAttribute("userid", loggedInUser);
+		return "/member/recovery_request";
+	}
+	
+
+	public boolean checkPassword(String userid, String password) {
+        // DB에서 비밀번호 조회 및 확인
+        String storedPassword = mapper.getPasswordByUserid(userid);
+        return storedPassword.equals(password);
+    }
+
+    public void updateMemberLevel(String userid, int newLevel) {
+        // level 값을 4로 업데이트
+        mapper.updateMemberLevel(userid, newLevel);
+    }
+
 
 
 }
