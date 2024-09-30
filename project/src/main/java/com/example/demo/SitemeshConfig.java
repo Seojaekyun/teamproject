@@ -10,7 +10,7 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 		// 제외할 폴더와 문서
 		builder.addExcludedPath("/login/loginAd");
 		builder.addExcludedPath("/flights/seats");
-		
+		builder.addExcludedPath("/flights/seatsReturn");
 		builder.addDecoratorPath("*", "/default.jsp");
 		builder.addDecoratorPath("/admin/*", "/addefault.jsp");
 		

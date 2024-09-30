@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +19,7 @@ public class SelectServiceImpl implements SelectService {
 
     @Override
     public List<SelectDto> getReservationDetails(String pnr, String sung, String name) {
-        // reservations 정보 가져오기
+        // reservations 정보 가져오기 (좌석번호 포함)
         List<Map<String, Object>> reservationInfos = selectMapper.getReservationInfo(pnr, sung, name);
 
         // reservationInfos가 null이거나 비어 있는 경우 처리
@@ -34,29 +32,18 @@ public class SelectServiceImpl implements SelectService {
 
         for (Map<String, Object> reservationInfo : reservationInfos) {
             int flightId = (Integer) reservationInfo.get("flight_id");
-            int seatId = (Integer) reservationInfo.get("seat_id");
-
 
             // flights 정보 가져오기
             Map<String, Object> flightInfo = selectMapper.getFlightInfo(pnr, sung, name);
 
             // airports 정보 가져오기
             Map<String, Object> airportInfo = selectMapper.getAirportInfo(flightId);
-            
-            //seattemplate 정보 가져오기
-            List<Map<String, Object>> seatsInfo  = selectMapper.getSeatsInfo();
-            
-            for (Map<String, Object> seatInfo : seatsInfo) {
-                String seatNumber= (String) seatInfo.get("seat_number");
-            }
-            
 
             // DTO에 데이터를 담아서 리스트에 추가
             SelectDto sdto = new SelectDto();
             sdto.setPnr(pnr);
             sdto.setSeatClass((String) reservationInfo.get("seat_class"));
-            
-
+            sdto.setSeatNumber((String) reservationInfo.get("seat_number")); // seatNumber 가져오기
             sdto.setFlightId(flightId);  // int 값으로 처리
 
             // airplane_id를 int로 처리
@@ -74,7 +61,7 @@ public class SelectServiceImpl implements SelectService {
             if (arrivalTime != null) {
                 sdto.setArrivalTime(arrivalTime.toString());
             }
-            
+
             // 기타 항목 설정
             sdto.setDepartureAirportName((String) airportInfo.get("departure_airport_name"));
             sdto.setDepartureCity((String) airportInfo.get("departure_city"));
@@ -84,9 +71,7 @@ public class SelectServiceImpl implements SelectService {
             sdto.setArrivalAirport((String) flightInfo.get("arrival_airport"));
             sdto.setFlightName((String) flightInfo.get("flight_name"));
 
-
-
-
+            // 리스트에 추가
             reservationList.add(sdto);
         }
 
