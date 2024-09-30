@@ -189,7 +189,6 @@
 		<div id="first">
 			<div id="one">
 				<a href="../main/index">홈페이지</a>&nbsp;&nbsp;|&nbsp;&nbsp;    
-				${name}&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="../login/logout">로그아웃</a>
 			</div>
 		</div>
