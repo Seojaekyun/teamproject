@@ -189,7 +189,6 @@ $(function() {
 					</tr>
 				</c:if>
 			</table>
-
 			<!-- 페이지네이션 -->
 			<div class="pagination">
 				<c:if test="${totalPages > 1}">
