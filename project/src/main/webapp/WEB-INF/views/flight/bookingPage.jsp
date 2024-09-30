@@ -31,7 +31,6 @@ function checkFormSubmission() {
 
 document.querySelector('form').addEventListener('submit', checkFormSubmission);
 </script>
-    
 </head>
 <body>
     <div class="container">
@@ -185,12 +184,7 @@ document.querySelector('form').addEventListener('submit', checkFormSubmission);
         	<input type="hidden" name="returnDepartureTime" value="${returnDepartureTime}">
         	<input type="hidden" name="returnArrivalTime" value="${returnArrivalTime}">
         	<input type="hidden" name="returnFlightDuration" value="${returnFlightDuration}">
-        	
-        	
-        	
-        	
-    		
-    		
+
                 <button type="submit" class="btn btn-success">예약하기</button>
             </form>
             <button class="btn btn-secondary" onclick="history.back()">이전으로</button>

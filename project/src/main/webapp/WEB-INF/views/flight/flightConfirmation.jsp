@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>항공편 선택 확인 - eLT항공</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    
-    
+
     <style>
         /* 좌석선택 버튼 스타일 */
         .btn-seat-select {
@@ -86,8 +86,6 @@ window.addEventListener('message', function(event) {
 </script>
 
 </head>
-    
-</head>
 <body>
     <div class="container">
         <h2 class="mt-4">선택한 항공편 확인</h2>
@@ -103,7 +101,6 @@ window.addEventListener('message', function(event) {
                     <th>출발 시간</th>
                     <th>도착 시간</th>
                     <th>좌석</th>
-                    
                 </tr>
             </thead>
             <tbody>
@@ -176,32 +173,19 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
-        
-        
-     
-
-
             <!-- 예약하기 버튼 -->
             <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;"
             	onsubmit="console.log(document.getElementById('goingSelectedSeats').value, document.getElementById('returnSelectedSeats').value);">
-            
                 <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
                 <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
-                
                 <input type="hidden" name="seatClass" value="${seatClass}">
                 <input type="hidden" name="passengers" value="${passengers}">
-          
-    			
     			<input type="hidden" name="goingSelectedSeats" id="goingSelectedSeats">
     			<input type="hidden" name="returnSelectedSeats" id="returnSelectedSeats">
-
-    			
-    			
                 <button type="submit" class="btn btn-success btn-reservation">예약하기</button>
             </form>
         </div>
     </div>
 
-    
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
+
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
@@ -110,8 +112,7 @@ public class FlightController {
         model.addAttribute("selectedGoingFlightArrival", selectedGoingFlightArrival);
         model.addAttribute("selectedGoingFlightTime", selectedGoingFlightTime);
         model.addAttribute("selectedGoingFlightArrivalTime", selectedGoingFlightArrivalTime); // 가는편 도착 시간 추가
-        
-        
+
         // seatClass와 passengers를 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
@@ -119,10 +120,7 @@ public class FlightController {
         // 같은 JSP 페이지로 이동하여 결과를 함께 표시
         return "flight/flightSearchResults";
     }
-    
-    
-    
-    
+
     @PostMapping("/confirmSelection")
     public String confirmSelection(
             @RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
@@ -137,18 +135,11 @@ public class FlightController {
             @RequestParam("selectedReturnFlightArrival") String selectedReturnFlightArrival,
             @RequestParam("selectedReturnFlightTime") String selectedReturnFlightTime,
             @RequestParam("selectedReturnFlightArrivalTime") String selectedReturnFlightArrivalTime,
-            
-            
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
-            
-            
             @RequestParam(required = false, defaultValue = "") String[] goingSelectedSeats,  // 가는편 좌석 배열 기본값
             @RequestParam(required = false, defaultValue = "") String[] returnSelectedSeats, // 오는편 좌석 배열 기본값
-            
-            
-           
-            
+
             HttpSession session,
             Model model
     ) {
@@ -170,17 +161,13 @@ public class FlightController {
         // 좌석 등급과 인원 정보 모델에 추가
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
-        
 
      // 세션에 가는편과 오는편 비행기 ID를 저장합니다.
         session.setAttribute("selectedGoingFlightId", selectedGoingFlightId);
         session.setAttribute("selectedReturnFlightId", selectedReturnFlightId);
-        
-        
         model.addAttribute("goingSelectedSeats", goingSelectedSeats);
         model.addAttribute("returnSelectedSeats", returnSelectedSeats);
-        
-        
+
         // 선택 확인 페이지로 이동
         return "flight/flightConfirmation";
     }
@@ -217,9 +204,6 @@ public class FlightController {
         HttpSession session,
         Model model
     ){
-        
-    	
-   
         String[] seatArray = selectedSeats.split(",");
         if (seatArray.length != passengers) {
             model.addAttribute("errorMessage", "선택한 좌석 수가 탑승객 수와 일치하지 않습니다.");
@@ -231,6 +215,7 @@ public class FlightController {
         // 오는편 좌석 선택을 위해 필요한 데이터 전달
         // 예를 들어, 오는편 flightId 등을 세션 또는 모델에 저장
         System.out.println("가는편 선택한 좌석: " + selectedSeats);
+
      // 오는편 좌석 선택 페이지로 리다이렉트
         return "redirect:/flights/seatsReturn?seatClass=" + seatClass + "&passengers=" + passengers;
     }
@@ -285,29 +270,21 @@ public class FlightController {
         // 예약 페이지로 이동 또는 다음 단계 진행
         return "redirect:/flights/booking";
     }
-    
 
     @PostMapping("/booking")
     public String booking(
             @RequestParam String goingFlightId, 
             @RequestParam String returnFlightId,
-            
             @RequestParam String seatClass, // 좌석 등급
             @RequestParam Integer passengers, // 선택된 인원
-            
             @RequestParam String goingSelectedSeats,  // 선택한 가는편 좌석
             @RequestParam String returnSelectedSeats, // 선택한 오는편 좌석
-            
-            
             HttpSession session,
             Model model) {
-
-    	
-    	// 로그 추가: 전달받은 좌석 정보 확인
+     	// 로그 추가: 전달받은 좌석 정보 확인
         System.out.println("가는편 좌석: " + goingSelectedSeats);
         System.out.println("오는편 좌석: " + returnSelectedSeats);
-    	
-    	
+
         // 세션에서 로그인된 사용자 정보 확인
         String userId = (String) session.getAttribute("userid");
 
@@ -316,8 +293,7 @@ public class FlightController {
             // 로그인되어 있지 않으면 로그인 페이지로 리다이렉트
             return "redirect:/login/login";
         }
-        
-        
+
         // 유저 정보를 가져옴
         MemberDto user = service.getMemberInfoByUserId(userId);  // 회원 정보 조회
         
@@ -330,15 +306,9 @@ public class FlightController {
             return "redirect:/errorPage"; // 유저 정보가 없을 경우 처리
         }
         
-
      // 세션에서 필요한 정보를 가져옴
         String selectedGoingFlightId = (String) session.getAttribute("selectedGoingFlightId");
         String selectedReturnFlightId = (String) session.getAttribute("selectedReturnFlightId");
-        
-       
-        
-        
-       
 
         // Null 체크 후 기본값 설정
         if (passengers == null) {
@@ -375,12 +345,10 @@ public class FlightController {
         model.addAttribute("returnDepartureTime", returnflight.getDepartureTime());
         model.addAttribute("returnArrivalTime", returnflight.getArrivalTime());
         model.addAttribute("returnFlightDruation", returnflight.getFlightDuration());
-       
-        
+
         // 선택한 좌석 정보를 배열로 변환
         String[] goingSeatsArray = goingSelectedSeats.split(",");
         String[] returnSeatsArray = returnSelectedSeats.split(",");
-        
         
         model.addAttribute("goingSeats", String.join(", ", goingSeatsArray));
         model.addAttribute("returnSeats", String.join(", ", returnSeatsArray));
@@ -514,11 +482,5 @@ public class FlightController {
         return "flight/reservationConfirmationPage";  // 예약 완료 페이지
     }
 
-
-
-    
-
-    
-    
 }  
 

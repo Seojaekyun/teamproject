@@ -145,7 +145,7 @@
             <h2>공지사항</h2>
             <table class="notice-table">
                 <tr>
-                    <th>제 목</th>
+                    <th colspan="2">제 목</th>
                     <th>작성자</th>
                     <th>조회수</th>
                     <th>작성일</th>
@@ -159,6 +159,8 @@
                         <c:if test="${gdto.state == 1}">
                             <span class="badge badge-notice">공지</span>
                         </c:if>
+                    </td>
+                    <td style="text-align: left">
                         <a href="readnum?id=${gdto.id}">${gdto.title}</a>
                     </td>
                     <td>${gdto.writer}</td>

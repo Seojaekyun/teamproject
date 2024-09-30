@@ -56,6 +56,7 @@ public class FlightServiceImpl implements FlightService {
         }
         
         return flights;
+
     }
     
     @Override
@@ -137,9 +138,6 @@ public class FlightServiceImpl implements FlightService {
     public void updateSeatAvailability(int flightId, int seatId) {
         fmapper.updateSeatAvailability(flightId, seatId);
     }
-
-
-	
 	
 	
 }

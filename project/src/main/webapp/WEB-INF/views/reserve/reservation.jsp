@@ -215,17 +215,22 @@
 			<!-- 고객 정보 입력 -->
 			<div class="form-group">
 				<label for="customer_id">예약자 ID</label>
-				<input type="text" id="customer_id" name="customer_id" value="${userid }" required>
+				<input type="text" id="userid" name="userid" value="${userid }" required>
 			</div>
 	
 			<div class="form-group">
-				<label for="customer_name">고객 이름</label>
-				<input type="text" id="customer_name" name="customer_name" required placeholder="이름 입력">
+				<label for="customer_sung">First Name</label>
+				<input type="text" id="sung" name="sung" value="${sung }" required>
+			</div>
+			
+			<div class="form-group">
+				<label for="customer_name">Last Name</label>
+				<input type="text" id="lname" name="lname" value="${lname }" required>
 			</div>
 	
 			<div class="form-group">
-				<label for="customer_email">고객 이메일</label>
-				<input type="email" id="customer_email" name="customer_email" required placeholder="이메일 입력">
+				<label for="customer_email">이메일</label>
+				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
 			</div>
 	
 			<input type="submit" value="예약하기">

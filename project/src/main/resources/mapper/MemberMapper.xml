@@ -20,7 +20,30 @@
 	<select id="getTotalMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member
 	</select>
+	<select id="getMemberById" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member WHERE userid = #{userid};
+	</select>
+	<select id="useridSearch" parameterType="com.example.demo.dto.MemberDto" resultType="String">
+		SELECT userid FROM member WHERE name = #{name} AND email = #{email}
+	</select>
+	<select id="pwdSearch" parameterType="com.example.demo.dto.MemberDto" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member WHERE userid = #{userid} AND email = #{email}
+	</select>
+	<update id="updatePassword" parameterType="com.example.demo.dto.MemberDto">
+		UPDATE member SET pwd = #{pwd} WHERE userid = #{userid}
+	</update>
+	<update id="updateMemberLevelByUserid" parameterType="String">
+		update member set level=3 where userid=#{userid}
+	</update>
+	<update id="updateMemberLevel" parameterType="map">
+		UPDATE member SET level = #{newLevel} WHERE userid = #{userid}
+	</update>
+	<select id="getPasswordByUserid" parameterType="String" resultType="String">
+		SELECT pwd FROM member WHERE userid = #{userid}
+	</select>
+	<update id="memberUp" parameterType="com.example.demo.dto.MemberDto">
+		update member set level=#{level} where id=#{id}
+	</update>
 	
 	
-		
  </mapper>

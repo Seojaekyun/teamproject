@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.GongjiDto;
+import com.example.demo.dto.MemberDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.GongjiService;
 import com.example.demo.service.InquiryService;
@@ -30,8 +31,8 @@ public class AdminController {
 	private GongjiService gservice;
 	
 	@RequestMapping("/admin/index")
-	public String adminI(HttpServletRequest request, Model model) {
-		return service.adminI(request, model);
+	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
+		return service.adminI(session, request, model);
 	}
 	
 	@RequestMapping("/admin/reserveList")
@@ -60,6 +61,25 @@ public class AdminController {
 	@RequestMapping("/admin/memberList")
 	public String memberList(HttpServletRequest request, Model model) {
 		return service.memberList(request, model);
+	}
+	
+	@RequestMapping("/admin/memberUp")
+	public String memberUp(@RequestParam("id") int id, @RequestParam("level") int level, Model model) {
+	    // MemberDto 객체 생성
+	    MemberDto mdto = new MemberDto();
+	    
+	    // id와 state 값을 mdto 객체에 세팅
+	    mdto.setId(id);
+	    mdto.setLevel(level);
+	    
+	    // 서비스 호출하여 회원 정보 업데이트
+	    return service.memberUp(mdto);
+	}
+
+	
+	@RequestMapping("/admin/oneMeminfo")
+	public String oneMeminfo(HttpServletRequest request, Model model) {
+		return service.oneMeminfo(request, model);
 	}
 	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
@@ -102,12 +122,12 @@ public class AdminController {
 		return gservice.gongjiWriteOk(gdto, session);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdate")
+	@RequestMapping("/gongji/update")
 	public String gongjiUpdate(HttpServletRequest request, Model model) {
 		return gservice.update(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiUpdateOk")
+	@RequestMapping("/gongji/updateOk")
 	public String gongjiUpdateOk(GongjiDto gdto) {
 		return gservice.updateOk(gdto);
 	}
@@ -117,5 +137,9 @@ public class AdminController {
 		return gservice.delete(request);
 	}
 	
+	@RequestMapping("/admin/rsvdList")
+	public String rsvdList(HttpServletRequest request, Model model) {
+		return service.rsvdList(request, model);
+	}
 	
 }

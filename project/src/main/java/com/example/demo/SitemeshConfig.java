@@ -6,21 +6,15 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 
 	@Override
-	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder)
-	{
-	 
-        builder.addDecoratorPath("*", "/default.jsp");
-		
-		//builder.addDecoratorPath("/admin/*", "/views/common/admin.jsp");
-		
+	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 		// 제외할 폴더와 문서
-        builder.addExcludedPath("flights/seats");
-        builder.addExcludedPath("/login/loginAd");
-        builder.addDecoratorPath("/admin/*", "/addefault.jsp");
-        
-        
+		builder.addExcludedPath("/login/loginAd");
+		builder.addExcludedPath("/flights/seats");
 		
-        super.applyCustomConfiguration(builder);
-        
+		builder.addDecoratorPath("*", "/default.jsp");
+		builder.addDecoratorPath("/admin/*", "/addefault.jsp");
+		
+		super.applyCustomConfiguration(builder);
+		
 	}
 }

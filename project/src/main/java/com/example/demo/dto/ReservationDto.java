@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class ReservationDto {
-	private int reservationId, reservationCount, flightId;
+	private int reservationId, reservationCount, flightId, charge, chargePay, rsvcls;
 	private String userid, flightName;
 	private String seatNumber, seatClass, reservationDate, departureTime;
 	private String sung, name, pnr;
@@ -14,7 +14,6 @@ public class ReservationDto {
 	private double chargePay;
 	private List<Integer> seatIds;
 	private String passengerType;
-		
-	
+	private String departureAirport;
 	
 }

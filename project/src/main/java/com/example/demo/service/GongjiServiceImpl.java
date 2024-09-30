@@ -87,7 +87,7 @@ public class GongjiServiceImpl implements GongjiService {
 		
 		model.addAttribute("gdto", gdto);
 		
-		return "/admin/gongjiUpdate";
+		return "/gongji/update";
 	}
 
 	@Override

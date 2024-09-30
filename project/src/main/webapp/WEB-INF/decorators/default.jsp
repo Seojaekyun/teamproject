@@ -43,7 +43,7 @@
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		margin-right: 60px;
 	}
@@ -58,32 +58,34 @@
 	#section1 #loginMenu ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 10px;;
+		padding: 10px;
 		display: flex;
 		align-items: center;
 	}
 	#section1 #loginMenu ul li {
 		position: relative;
-		margin-right: 10px;
+		/* margin-right: 10px; */
 	}
 	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 28px;
+		top: 25px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
+		border-radius:5px;
 	}
 	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
 		list-style-type: none;
-		width: 130px;
+		width: 100px;
 		height: 35px;
 		line-height: 35px;
 		text-align: center;
 		cursor: pointer;
-		border-bottom: 1px solid #ddd;
+		font-size: 17px;
+		/* border-bottom: 1px solid #ddd; */
 	}
 	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
 		text-decoration: none;
@@ -119,7 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-weight: 900;
+		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}
@@ -131,13 +133,14 @@
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius:5px;
 	}
 	header > nav #main > li > .menu > li {
 		list-style-type: none;
 		width: 200px;
-		height: 35px;
-		line-height: 35px;
-		border-bottom: 1px solid #ddd;
+		height: 40px;
+		line-height: 40px;
+		font-weight: 600;
 	}
 	footer {
 		padding: 10px 0;
@@ -223,12 +226,12 @@
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
-				<c:if test="${userid!=null}">
+				<c:if test="${userid!=null&&userid!='admin'}">
 				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 					<ul class="mmenu">
-						<li>회원정보</li>
-						<li>예약정보</li>
-						<li>나의문의</li>
+						<li><a href="../member/memberView">나의정보</a></li>
+						<li><a href="../reserve/list">예약정보</a></li>
+						<li><a href="../member/myInq">나의문의</a></li>
 					</ul>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
@@ -238,9 +241,7 @@
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-
 						<li><a href="../main/eventList"> 이벤트 </a></li>
-
 					</ul>
 				</span>
 			</div>
@@ -255,7 +256,6 @@
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
 
@@ -272,7 +272,6 @@
 						<li>3</li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
 					<a href="../guide/travel"> 여행지 </a>
 
@@ -282,7 +281,6 @@
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
 
 					<ul class="menu">
@@ -294,9 +292,7 @@
 		</nav>
 	</header>
 
-	<!-- 채팅 스타일 -->
-
-	
+<!-- 채팅 스타일 -->
 <style>
 	#chat-console {
 		width: 320px;
@@ -432,9 +428,7 @@
 	
 </style>
 <script>
-
 	// 상담 종료 시
-
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -571,6 +565,7 @@
 				<div>080-888-1234(무료)</div>
 				<div>email : Tmaster@air.co.kr</div>
 				<div>전화번호 010-1234-5678</div>
+				<div>&nbsp;</div>
 			</div>
 		</div>
 

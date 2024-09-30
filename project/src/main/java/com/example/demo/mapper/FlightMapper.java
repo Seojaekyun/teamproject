@@ -76,23 +76,13 @@ public interface FlightMapper {
 	FlightDto getFlightByGoingFlightId(String goingFlightId);
 	
 	FlightDto getFlightByReturnFlightId(String goingFlightId);
-	
-	
+
 	public void addReservation(ReservationDto reservation);
 
-	
-	
 	int getSeatIdBySeatNumber(String seatNumber);
-	
-	
-	
-	
-	    
+
 	void addSeatToReservation(@Param("reservationId") int reservationId, @Param("seatId") int seatId);
 	    void updateSeatAvailability(@Param("flightId") int flightId, @Param("seatId") int seatId);
-	
-
-
 
 
 }
