@@ -420,6 +420,7 @@ public class FlightController {
             HttpSession session,
             Model model) {
 
+    	
         // 세션에서 로그인된 사용자 정보 확인
         String userId = (String) session.getAttribute("userid");
         if (userId == null) {
@@ -428,6 +429,8 @@ public class FlightController {
 
         // 유저 정보 조회
         MemberDto user = service.getMemberInfoByUserId(userId);
+        FlightDto goingFlight = service.getgoingFlightInfoByFlightId(goingFlightId);
+        FlightDto returnFlight = service.getreturnFlightInfoByFlightId(returnFlightId);
         if (user == null) {
             return "redirect:/errorPage";  // 유저 정보가 없을 경우
         }
@@ -442,7 +445,7 @@ public class FlightController {
         String[] returnSeatsArray = returnSelectedSeats.split(",");    
 
      // 가는편 예약 저장
-        int goingReservationId = service.addReservation(userId, goingFlightId, seatClass, "가는편", goingPNR, user.getSung(), user.getName());
+        int goingReservationId = service.addReservation(userId, goingFlightId, seatClass, "가는편", goingPNR, user.getSung(), user.getLname());
 
         // 가는편 좌석 처리: 여러 좌석이 배열로 들어올 경우 하나씩 처리
         for (String seat : goingSeatsArray) {
@@ -458,7 +461,7 @@ public class FlightController {
         }
 
         // 오는편 예약 저장
-        int returnReservationId = service.addReservation(userId, returnFlightId, seatClass, "오는편", returnPNR, user.getSung(), user.getName());
+        int returnReservationId = service.addReservation(userId, returnFlightId, seatClass, "오는편", returnPNR, user.getSung(), user.getLname());
 
         // 오는편 좌석 처리: 여러 좌석이 배열로 들어올 경우 하나씩 처리
         for (String seat : returnSeatsArray) {
@@ -472,6 +475,14 @@ public class FlightController {
                 return "errorPage";
             }
         }
+        
+        
+        // 유저 정보 모델에 추가
+        model.addAttribute("userName", user.getName()); // 이름
+        model.addAttribute("userSung", user.getSung());  // 성
+        model.addAttribute("userLname", user.getLname());  // 이름
+        model.addAttribute("userEmail", user.getEmail());  // 이메일
+        model.addAttribute("userPhone", user.getPhone());  // 전화번호
 
         // 예약 완료 페이지로 이동
         model.addAttribute("goingPNR", goingPNR);  // 가는편 PNR
@@ -482,7 +493,24 @@ public class FlightController {
         model.addAttribute("returnSelectedSeats", returnSelectedSeats);
         model.addAttribute("seatClass", seatClass);
         model.addAttribute("passengers", passengers);
-
+        
+        
+        
+        model.addAttribute("goingFlightName", goingFlight.getFlightName());
+        model.addAttribute("goingFlightDeparture", goingFlight.getDepartureAirport());
+        model.addAttribute("goingFlightArrival", goingFlight.getArrivalAirport());
+        model.addAttribute("goingDepartureTime", goingFlight.getDepartureTime());
+        model.addAttribute("goingArrivalTime", goingFlight.getArrivalTime());
+        model.addAttribute("goingFlightDuration", goingFlight.getFlightDuration());
+        
+        model.addAttribute("returnFlightName", returnFlight.getFlightName());
+        model.addAttribute("returnFlightDeparture", returnFlight.getDepartureAirport());
+        model.addAttribute("returnFlightArrival", returnFlight.getArrivalAirport());
+        model.addAttribute("returnDepartureTime", returnFlight.getDepartureTime());
+        model.addAttribute("returnArrivalTime", returnFlight.getArrivalTime());
+        model.addAttribute("returnFlightDuration", returnFlight.getFlightDuration());
+        
+        
         return "flight/reservationConfirmationPage";  // 예약 완료 페이지
     }
 

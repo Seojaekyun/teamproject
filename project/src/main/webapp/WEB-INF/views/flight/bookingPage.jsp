@@ -173,6 +173,24 @@ document.querySelector('form').addEventListener('submit', checkFormSubmission);
     		<input type="hidden" name="returnSelectedSeats" value="${returnSeats}">
     		<input type="hidden" name="seatClass" value="${seatClass}">
     		<input type="hidden" name="passengers" value="${passengers}">
+    	
+    		<input type="hidden" name="goingFlightDeparture" value="${goingFlightDeparture}">
+        	<input type="hidden" name="goingFlightArrival" value="${goingFlightArrival}">
+        	<input type="hidden" name="goingDepartureTime" value="${goingDepartureTime}">
+        	<input type="hidden" name="goingArrivalTime" value="${goingArrivalTime}">
+        	<input type="hidden" name="goingFlightDuration" value="${goingFlightDuration}">
+        	
+        	<input type="hidden" name="returnFlightDeparture" value="${returnFlightDeparture}">
+        	<input type="hidden" name="returnFlightArrival" value="${returnFlightArrival}">
+        	<input type="hidden" name="returnDepartureTime" value="${returnDepartureTime}">
+        	<input type="hidden" name="returnArrivalTime" value="${returnArrivalTime}">
+        	<input type="hidden" name="returnFlightDuration" value="${returnFlightDuration}">
+        	
+        	
+        	
+        	
+    		
+    		
                 <button type="submit" class="btn btn-success">예약하기</button>
             </form>
             <button class="btn btn-secondary" onclick="history.back()">이전으로</button>
