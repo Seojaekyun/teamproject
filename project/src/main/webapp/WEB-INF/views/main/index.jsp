@@ -1523,8 +1523,8 @@ function decrease(type) {
         </form>
 
         <div class="login-options">
-            <a href="#">아이디 찾기</a> | 
-            <a href="#">비밀번호 찾기</a>
+            <a href="../member/usForm">아이디 찾기</a> | 
+            <a href="../member/psForm">비밀번호 찾기</a>
         </div>    
     </div>
 </div>

@@ -197,10 +197,13 @@
        <input type="password" name="pwd" value="123" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
      </div>
      <p align="center"> <input type="submit" value="로그인" id="sub"> </p>
-     <p> 아이디찾기 | 비밀번호 찾기 </p>
-    
-    
+        
      </form> 
+             <div class="login-options">
+            <a href="../member/usForm">아이디 찾기</a> | 
+            <a href="../member/psForm">비밀번호 찾기</a>
+        </div>
+
     </div>
     
 </body>
