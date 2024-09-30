@@ -82,6 +82,7 @@
         background-color: #00FF00; /* 연두색 */
         border-radius: 50%;
         display: hidden;
+        z-index: 900;
     }
     #chatbot {
 		width: 95%;
@@ -101,6 +102,7 @@
         align-items: center; /* 버튼과 알림 아이콘 정렬 */
         height:50px;
         width:50px;
+        z-index: 1000;
     }
 	#chatToggleBtn:hover {
 		background-color: #2DD1C5;
@@ -117,6 +119,7 @@
 		background-color: #fff;
 		display: none; /* 기본적으로 채팅 창을 숨김 */
 		flex-direction: column;
+		z-index: 1100;
 	}
 	#chat-header {
 		background-color: #2DD1C5;

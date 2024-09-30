@@ -73,7 +73,7 @@
 		padding: 5px 8px;
 		border-radius: 5px;
 		cursor: pointer;
-		font-size: 1em;
+		font-size: 10px;
 	}
 	section button:hover, input[type="button"]:hover {
 		background-color: #0056b3;
@@ -132,13 +132,13 @@
 				<td><a href="oneMeminfo?userid=${mdto.userid}">${mdto.userid}</a></td>
 				<td>${mdto.writeday}</td> <!-- 예시로 writeday 추가 -->
 				<td>
-					<c:if test="${mdto.level == 0}"> Silver </c:if>
-					<c:if test="${mdto.level == 1}"> Gold </c:if>
-					<c:if test="${mdto.level == 2}"> VIP </c:if>
+					<c:if test="${mdto.level == 0}"><input type="button" value="Silver" style="background: silver"></c:if>
+					<c:if test="${mdto.level == 1}"><input type="button" value="Gold" style="background: gold"></c:if>
+					<c:if test="${mdto.level == 2}"><input type="button" value="VIP" style="background:#3b00ff"></c:if>
 					<c:if test="${mdto.level == 3}"> 탈퇴신청 </c:if>
 					<c:if test="${mdto.level == 4}"> 탈퇴회원 </c:if>
 					<c:if test="${mdto.level == 5}"> 복구요청 </c:if>
-					<c:if test="${mdto.level == 6}"> Black </c:if>
+					<c:if test="${mdto.level == 6}"><input type="button" value="Black" style="background: black"></c:if>
 				</td>
 				<td>
 					<c:forEach items="${mdto.reservations}" var="rsv">
@@ -147,22 +147,22 @@
 				</td>
 				<td>
 					<c:if test="${mdto.level == 0}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold"></a>
-						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold" style="background: gold"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black"  style="background: black"></a>
 					</c:if>
 					<c:if test="${mdto.level == 1}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver"></a>
-						<a href="../admin/memberUp?id=${mdto.id}&level=2"><input type="button" value="VIP"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=2"><input type="button" value="VIP" style="background:#3b00ff"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver" style="background: silver"></a>
 					</c:if>
 					<c:if test="${mdto.level == 2}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold" style="background: gold"></a>
 					</c:if>
 					<c:if test="${mdto.level == 6}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver"></a>
-						<a href="../admin/memberUp?id=${mdto.id}&level=7"><input type="button" value="OUT"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver" style="background: silver"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=7"><input type="button" value="OUT" style="background: #635e5e"></a>
 					</c:if>
 					<c:if test="${mdto.level == 7}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black" style="background: black"></a>
 					</c:if>
 				</td>
 				<td>
