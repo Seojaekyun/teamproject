@@ -156,7 +156,7 @@ $(function() {
 				<caption>전체 예약</caption>
 				<tr>
 					<th>예약번호</th>
-					<th>예약일</th>
+					<th>예약일시</th>
 					<th>항공편명</th>
 					<th>출항시간</th>
 					<th>좌석등급</th>

@@ -42,28 +42,34 @@
 		SELECT r.userid, r.flight_id, r.reservation_date AS reservationDate
 		FROM reservations r WHERE r.userid = #{userid} ORDER BY r.reservation_date DESC LIMIT 1
 	</select>
-	<select id="getRsvcfac" resultType="map">
-		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
-		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
-		COUNT(*) AS reservation_count, MIN(DATE_FORMAT(r.reservation_date, '%Y-%m-%d')) AS reservationDate
-		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
-		WHERE r.userid = #{userid} GROUP BY flightName, f.departure_time, r.seat_class
-		ORDER BY f.departure_time desc LIMIT #{itemsPerPage} OFFSET #{offset}
-	</select>
-	
+<select id="getRsvcfac" resultType="map">
+    SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+    DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+    DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate
+    FROM reservations r 
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    ORDER BY r.reservation_date DESC
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+
 	<select id="getSumOfCharges" resultType="map">
 		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay
 		FROM reservations r WHERE r.userid = #{userid}
 	</select>
-	<select id="getRsvcfacByDate" resultType="map">
-		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
-		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time,
-		r.seat_class, COUNT(*) AS reservation_count,
-		DATE_FORMAT(MIN(r.reservation_date), '%Y-%m-%d') AS reservationDate FROM reservations r
-		JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
-		AND DATE(r.reservation_date) = #{selectedDate} GROUP BY flightName, f.departure_time, r.seat_class
-		ORDER BY f.departure_time LIMIT #{itemsPerPage} OFFSET #{offset}
-	</select>
+	
+<select id="getRsvcfacByDate" resultType="map">
+    SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+    DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+    DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate
+    FROM reservations r
+    JOIN flights f ON r.flight_id = f.flight_id
+    WHERE r.userid = #{userid}
+    AND DATE(r.reservation_date) = #{selectedDate}
+    ORDER BY r.reservation_date DESC
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+
 	
 	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
 		SELECT * FROM reservations WHERE userid = #{userid} ORDER BY reservation_date DESC
