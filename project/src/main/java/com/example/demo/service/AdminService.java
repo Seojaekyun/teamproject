@@ -18,4 +18,5 @@ public interface AdminService {
 	String oneMeminfo(HttpServletRequest request, Model model);
 	String memberUp(MemberDto mdto);
 	
+	
 }
