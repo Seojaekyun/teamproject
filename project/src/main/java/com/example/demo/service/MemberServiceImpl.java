@@ -218,8 +218,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public void updateMemberLevel(String userid, int newLevel) {
-        // level 값을 4로 업데이트
         mapper.updateMemberLevel(userid, newLevel);
+    }
+
+
+	@Override
+    public int getCurrentLevel(String userid) {
+        return mapper.getCurrentLevel(userid);  
+    }
+
+    @Override
+    public void updatePreviousLevel(String userid, int previousLevel) {
+        mapper.updatePreviousLevel(userid, previousLevel); 
     }
 
 

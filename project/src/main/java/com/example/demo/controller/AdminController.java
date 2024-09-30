@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.GongjiDto;
+import com.example.demo.dto.MemberDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.GongjiService;
 import com.example.demo.service.InquiryService;
@@ -127,4 +130,6 @@ public class AdminController {
 		return service.rsvdList(request, model);
 	}
 	
+
+
 }

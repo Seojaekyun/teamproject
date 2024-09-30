@@ -1440,7 +1440,10 @@ function decrease(type) {
     });
 
     
-
+    function enforceUppercase(element) {
+	    element.value = element.value.toUpperCase();  // 대문자로 변환
+	    element.value = element.value.replace(/[^A-Z]/g, '');  // A-Z가 아닌 문자는 제거
+	  }
 
 </script>
 </head>
@@ -1704,22 +1707,22 @@ function decrease(type) {
 									<!-- 날짜 선택 버튼 -->
 									<div id="select_number">
 										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890">
+										<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890" required>
 									</div>
 
 									<div id="select_date">
 										<p>출발일&nbsp;</p>
-										<input type="text" id="date" name="date">
+										<input type="text" id="date" name="date" required>
 
 									</div>
 									
 									<div id="select_sung">
 										<p>승객 성&nbsp;</p>
-										<input type="text" id="sung" name="sung">
+										<input type="text" id="sung" name="sung" required oninput="enforceUppercase(this)">
 									</div>
 									<div id="select_name">
 										<p>승객 이름&nbsp;</p>
-										<input type="text" id="name" name="name">
+										<input type="text" id="name" name="name" required oninput="enforceUppercase(this)">
 									</div>
 									
 									<div id="select_selection">

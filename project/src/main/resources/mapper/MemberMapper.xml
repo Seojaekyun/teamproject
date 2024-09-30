@@ -5,8 +5,8 @@
 		select count(*) from member where userid=#{userid}
 	</select>
 	<insert id="memberOk" parameterType="com.example.demo.dto.MemberDto">
-		insert into member(userid,pwd,name,email,phone,writeday)
-		values(#{userid},#{pwd},#{name},#{email},#{phone},now())
+		insert into member(userid,pwd,name,email,phone,sung,lname,writeday)
+		values(#{userid},#{pwd},#{name},#{email},#{phone},#{sung},#{lname},now())
 	</insert>
 	<select id="list" resultType="com.example.demo.dto.MemberDto">
 		select * from member
@@ -46,15 +46,42 @@
         where userid=#{userid}
     </update>
 
-<update id="updateMemberLevel" parameterType="map">
-    UPDATE member
-    SET level = #{newLevel}
-    WHERE userid = #{userid}
-</update>
 
 <select id="getPasswordByUserid" parameterType="String" resultType="String">
     SELECT pwd FROM member WHERE userid = #{userid}
 </select>
+		
+	<select id="getPreviousLevel" parameterType="String" resultType="int">
+    SELECT previous_level 
+    FROM member 
+    WHERE userid = #{userid}
+</select>
+
+<select id="selectMembers" resultType="com.example.demo.dto.MemberDto">
+    SELECT userid, name, level, previous_level
+    FROM member
+</select>
+
+<!-- 현재 level 가져오기 -->
+<select id="getCurrentLevel" resultType="int" parameterType="String">
+    SELECT level
+    FROM member
+    WHERE userid = #{userid}
+</select>
+
+
+<update id="updatePreviousLevel">
+    UPDATE member
+    SET previous_level = #{previousLevel}
+    WHERE userid = #{userid}
+</update>
+
+
+<update id="updateMemberLevel">
+    UPDATE member
+    SET level = #{level}
+    WHERE userid = #{userid}
+</update>
 		
 		
  </mapper>

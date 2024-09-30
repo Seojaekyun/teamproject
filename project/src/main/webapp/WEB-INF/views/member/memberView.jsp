@@ -34,7 +34,7 @@ section {
 
 .profile-info {
  	display: flex;
-    align-items: center;
+    align-items: flex-start;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -42,11 +42,30 @@ section {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.etc_aligner {
+ 	display: flex;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 10px;
+
+    
+}
+
 .profile-divider {
-    width: 2px; /* 세로선 너비 */
-    height: 50px; /* 세로선 높이 */
+    width: 1px;
+    height: 121px;
     background-color: #ccc; /* 세로선 색상 */
     margin: 0 10px; /* 세로선 좌우 여백 */
+}
+
+
+
+.txt-divider {
+    width: 98%;
+    height: 1px;
+    background-color: #ccc; /* 세로선 색상 */
+    margin: 0 10px; /* 세로선 좌우 여백 */
+    margin-bottom:10px;
 }
 
 
@@ -56,13 +75,42 @@ section {
     /* background-color: white; */
     /* border-radius: 10px; */
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-    text-align: center;
+    text-align: left;
     margin-bottom: 12px;
 }
 
 .profile-divider {
     border-left: 2px solid #ccc; /* 두 블럭 사이에 세로선 추가 */
 }
+
+.email{
+width: 50%;
+    margin-right: 10px;
+}
+
+.email_aligner{
+
+ display: flex;
+ justify-content: space-between;
+        align-items: center;
+}
+
+
+.phone{
+
+width: 50%;
+    margin-right: 10px;
+
+}
+
+.phone_aligner{
+
+ display: flex;
+ justify-content: space-between;
+        align-items: center;
+}
+
+
 
 .profile-header h2 {
     font-size: 20px;
@@ -171,8 +219,9 @@ section {
     <div class="profile-item">
         <h2>성명</h2>
         <span>${mdto.name}</span>
+       <span style="font-weight: bold; margin-top: 5px;">${mdto.sung} ${mdto.lname}</span>
     </div>
-    <div class="profile-divider"></div>
+       <div class=profile-divider></div>
     <div class="profile-item">
         <h2>아이디</h2>
         <span>${mdto.userid}</span>
@@ -205,21 +254,36 @@ section {
         <!-- 기본정보 수정 -->
         <div class="section-box">
             <h3>기본정보</h3>
-            <div id="emailOne">
-              ${mdto.email} <button onclick="viewForm()">수정</button>
+            <p>성명, 연락처 정보를 변경할 수 있습니다.</p>
+            <div class=txt-divider></div>
+            <div class="etc_aligner">
+            <div class="email">
+            <div id="emailOne" class="email_aligner">
+             <span>${mdto.email}</span>  
+             <button onclick="viewForm()">수정</button>
             </div>
-            <div id="emailTwo" style="display:none;">
+            <div id="emailTwo" class="email_aligner" style="display:none;">
               <form method="post" action="emailEdit">
                 <input type="text" name="email" value="${mdto.email}">
                 <input type="submit" value="수정">
                 <button type="button" onclick="cancelForm()">취소</button>
               </form>
+              </div>
             </div>
 
+            <div class="phone">
+			<div id="phoneOne" class="phone_aligner">
+              <span>${mdto.phone}</span> 
+              <button onclick="viewForm()">수정</button>
+            </div>
+            <div id="phoneTwo" class="phone_aligner" style="display:none;">
             <form method="post" action="phoneEdit">
               <input type="text" name="phone" value="${mdto.phone}">
               <input type="submit" value="수정">
             </form>
+            </div>
+            </div>
+            </div>
         </div>
        <div class="delete_id">
     <c:choose>

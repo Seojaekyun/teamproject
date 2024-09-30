@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
-import org.springframework.ui.Model;
+import java.util.List;
 
+import org.springframework.ui.Model; 
+import com.example.demo.dto.MemberDto;  
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -14,6 +16,8 @@ public interface AdminService {
 	String gongjiList(HttpServletRequest request, Model model);
 	String rsvdList(HttpServletRequest request, Model model);
 	String oneMeminfo(HttpServletRequest request, Model model);
+
+
 	
 	
 }

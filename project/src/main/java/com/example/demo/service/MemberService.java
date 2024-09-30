@@ -25,5 +25,7 @@ public interface MemberService {
 	String showRecoveryRequestPage(HttpSession session, Model model);
 	public void updateMemberLevel(String userid, int i);
 	public boolean checkPassword(String userid, String password);
+	int getCurrentLevel(String userid);
+	void updatePreviousLevel(String userid, int currentLevel);
     }
 	

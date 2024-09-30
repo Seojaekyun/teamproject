@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
-	private int id, level;
-	private String userid,pwd,name,email;
+	private int id, level, previousLevel;
+	private String userid,pwd,name,sung,lname,email;
 	private String phone,writeday;
 	private List<ReservationDto> reservations;
 	

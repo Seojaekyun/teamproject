@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -102,26 +104,33 @@ public class MemberController {
     }
     
     @RequestMapping("/member/id_delete")
-    public String id_deletle(@RequestParam("userid") String userid, 
-            @RequestParam("password") String password, 
-            Model model) {
-    	// 비밀번호 확인 로직 수행
+    public String idDelete(@RequestParam("userid") String userid, 
+                           @RequestParam("password") String password, 
+                           Model model) {
+        // 비밀번호 확인 로직 수행
         boolean isPasswordCorrect = service.id_delete(userid, password);
 
         if (isPasswordCorrect) {
-            // level 3으로 업데이트
-            service.updateMemberLevel(userid, 3);
+            // 현재 회원의 level을 가져옴
+            int currentLevel = service.getCurrentLevel(userid);
+            
+
+            System.out.println("Updating previous_level for user: " + userid + " with level: " + currentLevel);
+            service.updatePreviousLevel(userid, currentLevel);  // previous_level 업데이트
+
+
+            service.updateMemberLevel(userid, 3);  // level을 3으로 업데이트 (탈퇴 신청)
 
             // 팝업과 함께 페이지 리다이렉트
             model.addAttribute("popupMessage", "탈퇴 신청이 완료되었습니다.");
-            return "redirect:/member/memberView";  // 확인 후 memberView로 리다이렉트
+            return "redirect:/member/memberView";  // 탈퇴 후 memberView로 리다이렉트
         } else {
             // 비밀번호 오류 시 처리 로직
             model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
-    
+
     @GetMapping("/member/recovery_request")
     public String showRecoveryRequestPage(HttpSession session, Model model) {
     	return service.showRecoveryRequestPage(session, model);
@@ -135,7 +144,7 @@ public class MemberController {
         boolean isPasswordCorrect = service.checkPassword(userid, password);
 
         if (isPasswordCorrect) {
-            // level 4로 업데이트
+            // level 5로 업데이트
             service.updateMemberLevel(userid, 5);
 
             // 팝업과 함께 페이지 리다이렉트
@@ -147,4 +156,6 @@ public class MemberController {
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
+    
+
 }

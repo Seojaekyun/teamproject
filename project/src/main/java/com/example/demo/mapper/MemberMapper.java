@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.demo.dto.MemberDto;
 
@@ -23,7 +24,10 @@ public interface MemberMapper {
     public void updatePassword(MemberDto mdto);
     public void updateMemberLevelByUserid(String userid);
 	public String getPasswordByUserid(String userid);
-	public void updateMemberLevel(String userid, int newLevel);
+	List<MemberDto> selectMembers();
+	int getCurrentLevel(String userid); 
+    void updatePreviousLevel(@Param("userid") String userid, @Param("previousLevel") int previousLevel);
+    void updateMemberLevel(@Param("userid") String userid, @Param("level") int level);
 
 	
 }
