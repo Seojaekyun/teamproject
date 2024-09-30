@@ -231,7 +231,7 @@
 					<ul class="mmenu">
 						<li><a href="../member/memberView">나의정보</a></li>
 						<li><a href="../reserve/list">예약정보</a></li>
-						<li>나의문의</li>
+						<li><a href="../member/myInq">나의문의</a></li>
 					</ul>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;

@@ -113,12 +113,16 @@
 			<tr>
 				<th>고객명</th>
 				<th>ID</th>
+				<th>FirstName</th>
+				<th>LastName</th>
 				<th>회원등급</th>
 				<th>요청사항</th>
 			</tr>
 			<tr>
 				<td>${member.name}</td>
 				<td>${member.userid}</td>
+				<td>${member.sung}</td>
+				<td>${member.lname}</td>
 				<td>
 					<c:choose>
 						<c:when test="${member.level == 0}">일반회원</c:when>

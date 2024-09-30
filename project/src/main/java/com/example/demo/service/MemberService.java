@@ -16,5 +16,6 @@ public interface MemberService {
 	public List<MemberDto> getAllMembers();
 	public String rlist(HttpSession session, HttpServletRequest request, Model model);
 	public MemberDto getMemberDetails(String userid);
+	public String myInq(HttpSession session, HttpServletRequest request, Model model);
 	
 }

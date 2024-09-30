@@ -42,6 +42,11 @@ public class MemberController {
 		return service.rlist(session, request, model);
 	}
 	
+	@RequestMapping("/member/myInq")
+	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
+		return service.myInq(session, request, model);
+	}
+	
 
     @RequestMapping("/member/memberView")
     public String memberView(HttpServletRequest request,

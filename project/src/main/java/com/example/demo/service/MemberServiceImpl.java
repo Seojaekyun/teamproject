@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
+import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
 
@@ -23,6 +25,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
+	@Autowired
+	private InquiryMapper imapper;
 	@Autowired
 	private ReservationMapper rmapper;
 	
@@ -114,5 +118,23 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.getMemberById(userid);
     }
 
-
+	@Override
+	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
+		if (session.getAttribute("userid") != null) {
+			String userid = session.getAttribute("userid").toString();
+			
+			// 해당 유저의 문의 데이터를 가져옴
+			List<InquiryDto> inquiries = imapper.getMyInq(userid);
+			
+			// 가져온 데이터를 모델에 추가하여 JSP에서 사용할 수 있도록 함
+			model.addAttribute("ilist", inquiries);
+			
+			return "/member/myInq";
+		}
+		else {
+			return "redirect:/member/login";
+		}
+	}
+	
+	
 }
