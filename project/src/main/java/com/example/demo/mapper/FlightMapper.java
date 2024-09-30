@@ -4,6 +4,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -75,5 +76,24 @@ public interface FlightMapper {
 	FlightDto getFlightByGoingFlightId(String goingFlightId);
 	
 	FlightDto getFlightByReturnFlightId(String goingFlightId);
+	
+	
+	public void addReservation(ReservationDto reservation);
+
+	
+	
+	int getSeatIdBySeatNumber(String seatNumber);
+	
+	
+	
+	
+	    
+	void addSeatToReservation(@Param("reservationId") int reservationId, @Param("seatId") int seatId);
+	void updateSeatAvailability(@Param("flightId") int flightId, @Param("seatId") int seatId);
+	
+
+
+
+
 }
 
