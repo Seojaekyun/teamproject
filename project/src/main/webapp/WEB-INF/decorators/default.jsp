@@ -43,7 +43,7 @@
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		margin-right: 60px;
 	}
@@ -70,7 +70,7 @@
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 28px;
+		top: 25px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-weight: 900;
+		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}
@@ -231,7 +231,7 @@
 					<ul class="mmenu">
 						<li><a href="../member/memberView">나의정보</a></li>
 						<li><a href="../reserve/list">예약정보</a></li>
-						<li>나의문의</li>
+						<li><a href="../member/myInq">나의문의</a></li>
 					</ul>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;

@@ -73,7 +73,7 @@
 	}
 	.cta-button {
 		display: inline-block;
-		padding: 10px 20px;
+		padding: 10px 15px;
 		background-color: #00467F;
 		color: white;
 		text-decoration: none;
@@ -173,7 +173,7 @@
 			<h2>Q & A</h2>
 			<table class="qna-table">
 				<tr>
-					<th>문의사항</th>
+					<th colspan="2">문의사항</th>
 					<th>작성자</th>
 					<th>조회수</th>
 					<th>작성일</th>
@@ -187,6 +187,8 @@
 							<c:if test="${idto.answer == 1}">
 								<span id="badge2">답변완료</span>
 							</c:if>
+						</td>
+						<td style="text-align: left">
 							<a href="readnum?id=${idto.id}">
 								${idto.title}
 							</a>

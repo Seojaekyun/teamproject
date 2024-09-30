@@ -17,7 +17,7 @@ public interface MemberService {
 	public List<MemberDto> getAllMembers();
 	public String rlist(HttpSession session, HttpServletRequest request, Model model);
 	public MemberDto getMemberDetails(String userid);
-	public String searchUserId(MemberDto mdto);
+  public String searchUserId(MemberDto mdto);
 	void pwdSearch(MemberDto mdto, Model model) throws Exception; // 변경된 메서드 시그니처
 	String id_verification(HttpSession session, Model model);
  // 비밀번호 검색 메서드 정의
@@ -27,3 +27,8 @@ public interface MemberService {
 	public boolean checkPassword(String userid, String password);
     }
 	
+
+	public String myInq(HttpSession session, HttpServletRequest request, Model model);
+	
+}
+

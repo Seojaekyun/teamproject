@@ -3,6 +3,9 @@ package com.example.demo.mapper;
 
 
 import com.example.demo.dto.FlightDto;
+
+import com.example.demo.dto.MemberDto;
+
 import com.example.demo.dto.SeatDto;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -66,6 +69,14 @@ public interface FlightMapper {
 	List<FlightDto> getArrivalFlights();
 	List<FlightDto> getFlightsByDate(@Param("date") LocalDate date);
 	
-	 List<SeatDto> getAvailableSeatsByFlightAndClass(@Param("flightId") int flightId, @Param("seatClass") String seatClass);
+	List<SeatDto> getAvailableSeatsByFlightAndClass(@Param("flightId") int flightId, @Param("seatClass") String seatClass);
+	 
+	 
+	MemberDto getMemberByUserId(String userid);
+	
+	FlightDto getFlightByGoingFlightId(String goingFlightId);
+	
+	FlightDto getFlightByReturnFlightId(String goingFlightId);
+
 }
 

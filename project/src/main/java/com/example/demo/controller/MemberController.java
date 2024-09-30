@@ -46,9 +46,13 @@ public class MemberController {
 	public String rlist(HttpSession session, HttpServletRequest request, Model model) {
 		return service.rlist(session, request, model);
 	}
-	
 
-    @RequestMapping("/member/memberView")
+	@RequestMapping("/member/myInq")
+	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
+		return service.myInq(session, request, model);
+	}
+  
+  @RequestMapping("/member/memberView")
     public String memberView(HttpServletRequest request,
                              HttpSession session,
                              Model model) {
@@ -57,7 +61,7 @@ public class MemberController {
         } else {
             String err = request.getParameter("err");
             String userid = session.getAttribute("userid").toString();
-
+            // Service 계층을 통해 회원 정보 가져오기
             MemberDto mdto = service.getMemberDetails(userid);
 
             model.addAttribute("mdto", mdto);
@@ -147,4 +151,5 @@ public class MemberController {
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
+
 }

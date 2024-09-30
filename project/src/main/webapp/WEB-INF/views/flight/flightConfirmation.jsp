@@ -81,6 +81,7 @@ window.addEventListener('message', function(event) {
 </script>
 
 </head>
+
 <body>
     <div class="container">
         <h2 class="mt-4">선택한 항공편 확인</h2>
@@ -96,6 +97,7 @@ window.addEventListener('message', function(event) {
                     <th>출발 시간</th>
                     <th>도착 시간</th>
                     <th>좌석</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -151,6 +153,7 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
+
 		<!-- 추가 정보 -->
         <h4>선택한 항공편 정보</h4>
         <table class="table table-bordered">
@@ -167,15 +170,27 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
+
+
             <!-- 예약하기 버튼 -->
             <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;">
+            
                 <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
                 <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
+                
                 <input type="hidden" name="seatClass" value="${seatClass}">
                 <input type="hidden" name="passengers" value="${passengers}">
+          
+    			
+    			<input type="hidden" name="goingSelectedSeats" value="${goingSelectedSeats}">
+    			<input type="hidden" name="returnSelectedSeats" value="${returnSelectedSeats}">
+    			
+    			
+
                 <button type="submit" class="btn btn-success btn-reservation">예약하기</button>
             </form>
         </div>
     </div>
+
 </body>
 </html>

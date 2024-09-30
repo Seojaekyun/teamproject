@@ -22,5 +22,6 @@ public interface InquiryMapper {
 	void updateAnswer(int inquiryId, String answerText);
 	void answer(int inquiryId, String answerText);
 	int getInquiryCount();
+	List<InquiryDto> getMyInq(String userid);
 	
 }

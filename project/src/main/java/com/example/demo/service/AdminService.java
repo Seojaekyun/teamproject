@@ -13,7 +13,6 @@ public interface AdminService {
 	String inquiryList(Model model, Integer page);
 	String gongjiList(HttpServletRequest request, Model model);
 	String rsvdList(HttpServletRequest request, Model model);
-	String oneMeminfo(HttpServletRequest request, Model model);
-	
+	String oneMeminfo(HttpServletRequest request, Model model);	
 	
 }

@@ -48,8 +48,6 @@ section {
     background-color: #ccc; /* 세로선 색상 */
     margin: 0 10px; /* 세로선 좌우 여백 */
 }
-
-
 .profile-item {
 	width: 50%;
     padding: 10px;
@@ -167,6 +165,7 @@ section {
  <section>
     <!-- 상단 회원 정보 -->
     <div class="profile-header">
+
  <div class="profile-info">
     <div class="profile-item">
         <h2>성명</h2>
@@ -236,8 +235,6 @@ section {
 </div>
     </div>
 </section>
-
-
 
 </body>
 </html>
