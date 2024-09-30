@@ -10,10 +10,8 @@ public class MemberDto {
 	private String userid,pwd,name,email;
 	private String phone,writeday;
 	private List<ReservationDto> reservations;
-	
 	private String sung,lname;
-	
 	private int leverl;
-	
+
 	
 }

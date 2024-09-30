@@ -226,10 +226,10 @@ section {
             <a href="../member/id_verification">탈퇴신청 ></a>
         </c:when>
         <c:when test="${mdto.level == 3}">
-            <span>탈퇴승인중 | <a href="../member/recovery_request">복구 신청 ></a></span>
+            <span>탈퇴신청중 | <a href="../member/recovery_request">복구 신청 ></a></span>
         </c:when>
                 <c:when test="${mdto.level == 5}">
-            <span>복구승인중 | <a href="../member/id_verification">탈퇴 신청 ></a></span>
+            <span>복구요청중 | <a href="../member/id_verification">탈퇴 신청 ></a></span>
         </c:when>
     </c:choose>
 </div>

@@ -229,8 +229,8 @@
 			</div>
 	
 			<div class="form-group">
-				<label for="customer_email">고객 이메일</label>
-				<input type="email" id="customer_email" name="customer_email" required placeholder="이메일 입력">
+				<label for="customer_email">이메일</label>
+				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
 			</div>
 	
 			<input type="submit" value="예약하기">

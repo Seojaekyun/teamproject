@@ -70,7 +70,7 @@
 		background-color: #007BFF;
 		color: white;
 		border: none;
-		padding: 10px 20px;
+		padding: 5px 8px;
 		border-radius: 5px;
 		cursor: pointer;
 		font-size: 1em;
@@ -119,35 +119,26 @@
 		<tr>
 			<th>고객명</th>
 			<th>ID</th>
+			<th>가입일</th>
 			<th>회원등급</th>
 			<th>최근예약현황</th>
+			<th>등급조정</th>
+			
 			<th>요청사항</th>
 		</tr>
 		<c:forEach items="${mlist}" var="mdto">
 			<tr>
 				<td>${mdto.name}</td>
 				<td><a href="oneMeminfo?userid=${mdto.userid}">${mdto.userid}</a></td>
+				<td>${mdto.writeday}</td> <!-- 예시로 writeday 추가 -->
 				<td>
-					<c:choose>
-						<c:when test="${mdto.level == 0}">
-							<span class="badge badge-normal">일반회원</span>
-						</c:when>
-						<c:when test="${mdto.level == 1}">
-							<span class="badge badge-premium">우수회원</span>
-						</c:when>
-						<c:when test="${mdto.level == 2}">
-							<span class="badge badge-vip">VIP</span>
-						</c:when>
-						<c:when test="${mdto.level == 3}">
-							<span class="badge badge-withdraw">탈퇴신청</span>
-						</c:when>
-						<c:when test="${mdto.level == 4}">
-							<span class="badge badge-withdraw">탈퇴회원</span>
-						</c:when>
-						<c:when test="${mdto.level == 5}">
-							<span class="badge badge-recover">복구신청</span>
-						</c:when>
-					</c:choose>
+					<c:if test="${mdto.level == 0}"> Silver </c:if>
+					<c:if test="${mdto.level == 1}"> Gold </c:if>
+					<c:if test="${mdto.level == 2}"> VIP </c:if>
+					<c:if test="${mdto.level == 3}"> 탈퇴신청 </c:if>
+					<c:if test="${mdto.level == 4}"> 탈퇴회원 </c:if>
+					<c:if test="${mdto.level == 5}"> 복구요청 </c:if>
+					<c:if test="${mdto.level == 6}"> Black </c:if>
 				</td>
 				<td>
 					<c:forEach items="${mdto.reservations}" var="rsv">
@@ -155,10 +146,32 @@
 					</c:forEach>
 				</td>
 				<td>
-					<c:choose>
-						<c:when test="${mdto.level == 3}">탈퇴신청</c:when>
-						<c:when test="${mdto.level == 5}">복구신청</c:when>
-					</c:choose>
+					<c:if test="${mdto.level == 0}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black"></a>
+					</c:if>
+					<c:if test="${mdto.level == 1}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=2"><input type="button" value="VIP"></a>
+					</c:if>
+					<c:if test="${mdto.level == 2}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=1"><input type="button" value="Gold"></a>
+					</c:if>
+					<c:if test="${mdto.level == 6}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="Silver"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=7"><input type="button" value="OUT"></a>
+					</c:if>
+					<c:if test="${mdto.level == 7}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=6"><input type="button" value="Black"></a>
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${mdto.level == 3}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=4"><input type="button" value="탈퇴승인"></a>
+					</c:if>
+					<c:if test="${mdto.level == 5}">
+						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="복구승인"></a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -181,6 +194,7 @@
 			<a href="?page=${currentPage + 1}">다음</a>
 		</c:if>
 	</div>
+	
 </section>
 </body>
 </html>

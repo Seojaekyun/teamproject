@@ -303,6 +303,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
+    public String memberUp(MemberDto mdto) {
+
+        mmapper.memberUp(mdto);
+
+        return "redirect:/admin/memberList";
+    }
+	
+	@Override
 	public String oneMeminfo(HttpServletRequest request, Model model) {
 	    String userId = request.getParameter("userid");
 

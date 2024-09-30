@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.GongjiDto;
+import com.example.demo.dto.MemberDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.GongjiService;
 import com.example.demo.service.InquiryService;
@@ -61,6 +62,20 @@ public class AdminController {
 	public String memberList(HttpServletRequest request, Model model) {
 		return service.memberList(request, model);
 	}
+	
+	@RequestMapping("/admin/memberUp")
+	public String memberUp(@RequestParam("id") int id, @RequestParam("level") int level, Model model) {
+	    // MemberDto 객체 생성
+	    MemberDto mdto = new MemberDto();
+	    
+	    // id와 state 값을 mdto 객체에 세팅
+	    mdto.setId(id);
+	    mdto.setLevel(level);
+	    
+	    // 서비스 호출하여 회원 정보 업데이트
+	    return service.memberUp(mdto);
+	}
+
 	
 	@RequestMapping("/admin/oneMeminfo")
 	public String oneMeminfo(HttpServletRequest request, Model model) {

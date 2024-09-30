@@ -168,31 +168,28 @@ public class MemberServiceImpl implements MemberService {
 	        model.addAttribute("message", "사용자 정보를 찾을 수 없거나 정보가 일치하지 않습니다."); // 실패 메시지 추가
 	    }
 	}
-
-
-
+	
 	public String generateTemporaryPassword() {
-        // 임시 비밀번호를 생성하기 위한 문자열
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-        SecureRandom random = new SecureRandom();
-        StringBuilder sb = new StringBuilder();
-        
-        for (int i = 0; i < 8; i++) { // 8자리 임시 비밀번호
-            int index = random.nextInt(chars.length());
-            sb.append(chars.charAt(index));
-        }
-        
-        return sb.toString();
-    }
+		// 임시 비밀번호를 생성하기 위한 문자열
+		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+		SecureRandom random = new SecureRandom();
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < 8; i++) { // 8자리 임시 비밀번호
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		
+		return sb.toString();
+	}
 	
 	@Override
 	public String id_verification(HttpSession session, Model model) {
-		
 		String loggedInUser = (String) session.getAttribute("loggedInUser");
-	    model.addAttribute("userid", loggedInUser);
+		model.addAttribute("userid", loggedInUser);
 		return "/member/id_verification";
 	}
-
+	
 	@Override
 	public String id_verification() {
 		// TODO Auto-generated method stub
@@ -202,30 +199,27 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean id_delete(String userid, String password) {
 		String storedPassword = mapper.getPasswordByUserid(userid);
-        return storedPassword.equals(password);
-		
+        return storedPassword.equals(password);	
 	}
 	
 	@Override
 	public String showRecoveryRequestPage(HttpSession session, Model model) {
-		
 		String loggedInUser = (String) session.getAttribute("loggedInUser");
-	    model.addAttribute("userid", loggedInUser);
+		model.addAttribute("userid", loggedInUser);
 		return "/member/recovery_request";
 	}
 	
-
 	public boolean checkPassword(String userid, String password) {
-        // DB에서 비밀번호 조회 및 확인
-        String storedPassword = mapper.getPasswordByUserid(userid);
-        return storedPassword.equals(password);
-    }
-
-    public void updateMemberLevel(String userid, int newLevel) {
-        // level 값을 4로 업데이트
-        mapper.updateMemberLevel(userid, newLevel);
-    }
-
+		// DB에서 비밀번호 조회 및 확인
+		String storedPassword = mapper.getPasswordByUserid(userid);
+		return storedPassword.equals(password);
+	}
+	
+	public void updateMemberLevel(String userid, int newLevel) {
+		// level 값을 4로 업데이트
+		mapper.updateMemberLevel(userid, newLevel);
+	}
+	
 	@Override
 	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
 		if (session.getAttribute("userid") != null) {
