@@ -231,6 +231,26 @@ public class MemberServiceImpl implements MemberService {
     public void updatePreviousLevel(String userid, int previousLevel) {
         mapper.updatePreviousLevel(userid, previousLevel); 
     }
+    
+    @Override
+    public boolean changePassword(String userid, String oldPwd, String newPwd) {
+        String currentPwd = mapper.getPasswordByUserid(userid);
+        if (currentPwd.equals(oldPwd)) {
+            mapper.updatePasswords(userid, newPwd);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void editEmail(String userid, String email) {
+        mapper.updateEmail(userid, email);
+    }
+
+    @Override
+    public void editPhone(String userid, String phone) {
+        mapper.updatePhone(userid, phone);
+    }
 
 
 

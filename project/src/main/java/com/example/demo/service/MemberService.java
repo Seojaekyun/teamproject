@@ -27,5 +27,8 @@ public interface MemberService {
 	public boolean checkPassword(String userid, String password);
 	int getCurrentLevel(String userid);
 	void updatePreviousLevel(String userid, int currentLevel);
+	 boolean changePassword(String userid, String oldPwd, String newPwd);
+	    void editEmail(String userid, String email);
+	    void editPhone(String userid, String phone);
     }
 	

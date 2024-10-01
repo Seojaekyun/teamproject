@@ -156,7 +156,19 @@ width: 50%;
 }
 
 .section-box input[type=submit] {
-    width: 100%;
+    width: 95%;
+    padding: 12px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#submit {
+    width: 98%;
     padding: 12px;
     background-color: #0078D7;
     color: white;
@@ -190,26 +202,86 @@ width: 50%;
 </style>
 
   <script>
-   function viewForm() {
-	   document.getElementById("emailOne").style.display="none";
-	   document.getElementById("emailTwo").style.display="block";
-   }
-   function cancelForm() {
-	   document.getElementById("emailOne").style.display="block";
-	   document.getElementById("emailTwo").style.display="none";
-   }
-   var mychk=0;
-   function pwdChg(my) {
-	   if(mychk % 2 == 0) {	   
-	       document.getElementById("pwdChg").style.display="block";
-	       my.innerText="비밀번호 변경취소";
+ /* function viewForm(type) {
+      if (type === 'email') {
+          document.getElementById("emailOne").style.display = "none";
+          document.getElementById("emailTwo").style.display = "block";
+      } else if (type === 'phone') {
+          document.getElementById("phoneOne").style.display = "none";
+          document.getElementById("phoneTwo").style.display = "block";
+      }
+  }
+
+  function cancelForm(type) {
+      if (type === 'email') {
+          document.getElementById("emailOne").style.display = "block";
+          document.getElementById("emailTwo").style.display = "none";
+      } else if (type === 'phone') {
+          document.getElementById("phoneOne").style.display = "block";
+          document.getElementById("phoneTwo").style.display = "none";
+      }
+  } */
+  var mychk = 0;
+  function pwdChg(my) {
+      if (mychk % 2 == 0) {
+          document.getElementById("pwdChg").style.display = "block";
+          my.innerHTML = "<b>비밀번호 변경취소</b>";  // 텍스트를 굵게
+      } else {
+          document.getElementById("pwdChg").style.display = "none";
+          my.innerHTML = "<b>비밀번호 변경</b>";  // 텍스트를 굵게
+      }
+      mychk++;
+  }
+   
+   var mychk2=0;
+   function emailTwo(my) {
+	   if(mychk2 % 2 == 0) {	   
+	       document.getElementById("emailTwo").style.display="block";
+	       my.innerHTML = "<b>이메일 수정취소</b>";
 	   } else {
-		   document.getElementById("pwdChg").style.display="none";
-		   my.innerText="비밀번호 변경";
+		   document.getElementById("emailTwo").style.display="none";
+		   my.innerHTML = "<b>이메일 수정</b>";
 	   }	   
-	   mychk++;
+	   mychk2++;
    }
+   
+   var mychk3=0;
+   function phoneTwo(my) {
+	   if(mychk3 % 2 == 0) {	   
+	       document.getElementById("phoneTwo").style.display="block";
+	       my.innerHTML = "<b>연락처 수정취소</b>";
+	   } else {
+		   document.getElementById("phoneTwo").style.display="none";
+		   my.innerHTML = "<b>연락처 수정</b>";
+	   }	   
+	   mychk3++;
+   }
+   
+   function pwdCheck() {
+		  var pwd = document.mform.pwd.value;
+		  var pwd2 = document.mform.pwd2.value;
+		 
+		  if (pwd == pwd2) {
+			   document.getElementById("pmsg").innerText = "비밀번호가 일치합니다";
+			   document.getElementById("pmsg").style.color = "blue";
+			   document.getElementById("pmsg").style.fontSize="12px";
+			   pchk = 1;
+		  } else {
+			   document.getElementById("pmsg").innerText = "비밀번호가 일치하지 않습니다";
+			   document.getElementById("pmsg").style.color = "red";
+			   document.getElementById("pmsg").style.fontSize="12px";
+			   pchk = 0;
+		  }
+	  }
   </script>
+  <script type="text/javascript">
+    window.onload = function() {
+        var message = "${message}";  // FlashAttribute로 전달된 메시지 확인
+        if (message) {
+            alert(message);  // 팝업 메시지 출력
+        }
+    }
+</script>
 </head>
 <body> 
  <section>
@@ -235,38 +307,38 @@ width: 50%;
             <h3>비밀번호</h3>
             <p>회원님의 소중한 개인정보 보호를 위해 비밀번호를 주기적으로 변경해 주세요.</p>
             <span style="font-size:14px;cursor:pointer;" onclick="pwdChg(this)">
-              <c:if test="${err == null}">비밀번호 변경</c:if>
-              <c:if test="${err == 1}">비밀번호 변경취소</c:if>
+              <c:if test="${err == null}"><b>비밀번호 변경</b></c:if>
+              <c:if test="${err == 1}"><b>비밀번호 변경취소</b></c:if>
             </span>
-            <div id="pwdChg" style="display:none;">
-              <form method="post" action="pwdChg">
+            <div id="pwdChg" style="display:none; margin-top:10px;">
+              <form name="mform" method="post" action="pwdChg">
                 <input type="password" name="oldPwd" placeholder="기존 비밀번호"><br>
-                <input type="password" name="pwd" placeholder="새 비밀번호"><br>
-                <input type="password" name="pwd2" placeholder="새 비밀번호 확인"><br>
-                <input type="submit" value="비밀번호 변경">
+                <input type="password" name="pwd" placeholder="새 비밀번호" onkeyup="pwdCheck()"><br>
+                <input type="password" name="pwd2" placeholder="새 비밀번호 확인" onkeyup="pwdCheck()"><br>
+                <br> <span style="margin-bottom: 15px; margin-top: -25px;" id="pmsg"></span>
+                <input id="submit" type="submit" value="비밀번호 변경">
               </form>
-              <c:if test="${err != null}">
-                <div style="color:red;font-size:11px;">기존 비밀번호가 틀립니다</div>
-              </c:if>
             </div>
         </div>
         
         <!-- 기본정보 수정 -->
         <div class="section-box">
             <h3>기본정보</h3>
-            <p>성명, 연락처 정보를 변경할 수 있습니다.</p>
+            <p>이메일, 연락처 정보를 변경할 수 있습니다.</p>
             <div class=txt-divider></div>
             <div class="etc_aligner">
             <div class="email">
             <div id="emailOne" class="email_aligner">
              <span>${mdto.email}</span>  
-             <button onclick="viewForm()">수정</button>
+             <span style="font-size:14px;cursor:pointer;" onclick="emailTwo(this)">
+              <c:if test="${err == null}"><b>이메일 수정</b></c:if>
+              <c:if test="${err == 1}"><b>이메일 수정취소</b></c:if>
+            </span>
             </div>
-            <div id="emailTwo" class="email_aligner" style="display:none;">
+            <div id="emailTwo" class="email_aligner" style="display:none;margin-top:10px;">
               <form method="post" action="emailEdit">
                 <input type="text" name="email" value="${mdto.email}">
                 <input type="submit" value="수정">
-                <button type="button" onclick="cancelForm()">취소</button>
               </form>
               </div>
             </div>
@@ -274,9 +346,12 @@ width: 50%;
             <div class="phone">
 			<div id="phoneOne" class="phone_aligner">
               <span>${mdto.phone}</span> 
-              <button onclick="viewForm()">수정</button>
+              <span style="font-size:14px;cursor:pointer;" onclick="phoneTwo(this)">
+              <c:if test="${err == null}"><b>연락처 수정</b></c:if>
+              <c:if test="${err == 1}"><b>연락처 수정취소</b></c:if>
+            </span>
             </div>
-            <div id="phoneTwo" class="phone_aligner" style="display:none;">
+            <div id="phoneTwo" class="phone_aligner" style="display:none;margin-top:10px;">
             <form method="post" action="phoneEdit">
               <input type="text" name="phone" value="${mdto.phone}">
               <input type="submit" value="수정">

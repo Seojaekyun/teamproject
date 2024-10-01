@@ -28,6 +28,10 @@ public interface MemberMapper {
 	int getCurrentLevel(String userid); 
     void updatePreviousLevel(@Param("userid") String userid, @Param("previousLevel") int previousLevel);
     void updateMemberLevel(@Param("userid") String userid, @Param("level") int level);
+    void updatePasswords(String userid, String newPwd);
+    
+    void updateEmail(String userid, String email);
+    void updatePhone(String userid, String phone);
 
 	
 }

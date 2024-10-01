@@ -50,6 +50,7 @@
 <select id="getPasswordByUserid" parameterType="String" resultType="String">
     SELECT pwd FROM member WHERE userid = #{userid}
 </select>
+
 		
 	<select id="getPreviousLevel" parameterType="String" resultType="int">
     SELECT previous_level 
@@ -82,6 +83,26 @@
     SET level = #{level}
     WHERE userid = #{userid}
 </update>
+
+
+    <update id="updatePasswords">
+        UPDATE member
+        SET pwd = #{newPwd}
+        WHERE userid = #{userid}
+    </update>
+
+    <update id="updateEmail">
+        UPDATE member
+        SET email = #{email}
+        WHERE userid = #{userid}
+    </update>
+
+    <update id="updatePhone">
+        UPDATE member
+        SET phone = #{phone}
+        WHERE userid = #{userid}
+    </update>
+
 		
 		
  </mapper>

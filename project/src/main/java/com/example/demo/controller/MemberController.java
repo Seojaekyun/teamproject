@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.MemberService;
@@ -155,6 +156,35 @@ public class MemberController {
             model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
+    }
+    
+    @PostMapping("/member/pwdChg")
+    public String changePassword(HttpSession session, @RequestParam String oldPwd, @RequestParam String pwd, Model model, RedirectAttributes redirectAttributes) {
+        String userid = (String) session.getAttribute("userid");
+        boolean isChanged = service.changePassword(userid, oldPwd, pwd);
+        if (!isChanged) {
+            redirectAttributes.addFlashAttribute("message", "기존 비밀번호가 일치하지 않습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "새 비밀번호로 변경이 완료되었습니다.");
+        }
+
+        // 리다이렉트 후 쿼리 파라미터로 메시지 전달
+        return "redirect:/member/memberView";
+
+    }
+
+    @PostMapping("/member/emailEdit")
+    public String editEmail(HttpSession session, @RequestParam String email) {
+        String userid = (String) session.getAttribute("userid");
+        service.editEmail(userid, email);
+        return "redirect:/member/memberView";
+    }
+
+    @PostMapping("/member/phoneEdit")
+    public String editPhone(HttpSession session, @RequestParam String phone) {
+        String userid = (String) session.getAttribute("userid");
+        service.editPhone(userid, phone);
+        return "redirect:/member/memberView";
     }
     
 
