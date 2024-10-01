@@ -178,6 +178,10 @@
     	son=open("psForm","","width=400,height=370");
     	son.moveTo(200,200);
     }
+    function reMember() {
+		son=open("../member/reForm","","width=300,height=300");
+		son.moveTo(800,200);
+  	}
   </script>
 
 
@@ -201,7 +205,8 @@
      </form> 
              <div class="login-options">
             <a href="../member/usForm">아이디 찾기</a> | 
-            <a href="../member/psForm">비밀번호 찾기</a>
+            <a href="../member/psForm">비밀번호 찾기</a> | 
+            <span id="btn" onclick="reMember()"> 복구신청 </span>
         </div>
 
     </div>

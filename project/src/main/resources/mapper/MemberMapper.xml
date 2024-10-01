@@ -110,6 +110,9 @@
 	<update id="memberUp" parameterType="com.example.demo.dto.MemberDto">
 		update member set level=#{level} where id=#{id}
 	</update>
+	<update id="reMember" parameterType="com.example.demo.dto.MemberDto">
+		UPDATE member SET level=#{previousLevel} WHERE userid = #{userid} 
+	</update>
 	
 	
 

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.MemberDto;
+import com.example.demo.mapper.MemberMapper;
 import com.example.demo.service.MemberService;
 
 
@@ -27,6 +29,8 @@ public class MemberController {
 	@Autowired
 	@Qualifier("ms2")
 	private MemberService service;
+	@Autowired
+	private MemberMapper mapper;
 	
 	
 	@RequestMapping("/member/member")
@@ -194,6 +198,19 @@ public class MemberController {
         service.editPhone(userid, phone);
         return "redirect:/member/memberView";
     }
-    
+       
+    @RequestMapping("/member/reForm")
+	public String reForm() {
+		return "/member/reForm";
+	}
+	
+    @RequestMapping("/member/reMember")
+    public String reMember(MemberDto mdto, Model model) {
+        // Mapper를 직접 호출하여 데이터 처리
+        mapper.reMember(mdto);  // 예시: updateMember는 Mapper에 정의된 메서드
+
+        // 데이터 처리 후 다시 뷰로 이동
+        return "/member/reMember";  // 작업 완료 후 리다이렉트 처리
+    }
 
 }

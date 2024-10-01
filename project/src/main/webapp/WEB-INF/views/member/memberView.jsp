@@ -363,7 +363,7 @@ width: 50%;
             <a href="../member/id_verification">탈퇴신청 ></a>
         </c:when>
         <c:when test="${mdto.level == 3}">
-            <span>탈퇴승인중 | <a href="../member/recovery_request">복구 신청 ></a></span>
+            <span>탈퇴승인중 | <a href="../member/recovery_request">탈퇴 취소 ></a></span>
         </c:when>
                 <c:when test="${mdto.level == 5}">
             <span>복구승인중 | <a href="../member/id_verification">탈퇴 신청 ></a></span>

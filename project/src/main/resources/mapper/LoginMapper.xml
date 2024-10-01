@@ -7,6 +7,10 @@
 	<select id="loginAdmin" resultType="String">
 		select name from admin where userid=#{userid} and pwd=#{pwd}
 	</select>
+	<select id="getMemberByUserId" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member WHERE userid = #{userid}
+	</select>
+	
 	
 	
 </mapper>

@@ -170,7 +170,7 @@
 						<a href="../admin/memberUp?id=${mdto.id}&level=4"><input type="button" value="탈퇴승인"></a>
 					</c:if>
 					<c:if test="${mdto.level == 5}">
-						<a href="../admin/memberUp?id=${mdto.id}&level=0"><input type="button" value="복구승인"></a>
+						<a href="../admin/memberUp?id=${mdto.id}&level=${mdto.previousLevel}"><input type="button" value="복구승인"></a>
 					</c:if>
 				</td>
 			</tr>

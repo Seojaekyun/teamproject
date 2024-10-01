@@ -11,6 +11,7 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 		builder.addExcludedPath("/login/loginAd");
 		builder.addExcludedPath("/flights/seats");
 		builder.addExcludedPath("/flights/seatsReturn");
+		builder.addExcludedPath("/member/reForm");
 		builder.addDecoratorPath("*", "/default.jsp");
 		builder.addDecoratorPath("/admin/*", "/addefault.jsp");
 		

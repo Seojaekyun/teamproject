@@ -34,6 +34,7 @@ public interface MemberMapper {
     void updateEmail(String userid, String email);
     void updatePhone(String userid, String phone);
 	public void memberUp(MemberDto mdto);
-
+	public void reMember(MemberDto mdto);
+	
 	
 }
