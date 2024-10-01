@@ -38,5 +38,35 @@ public class ReservationServiceImpl implements ReservationService {
 		return false;
 	}
 	
+	@Override
+    public List<String> getMonthlyLabels() {
+        return rmapper.getMonthlyLabels();
+    }
+
+    @Override
+    public List<Integer> getMonthlyReservations() {
+        return rmapper.getMonthlyReservations();
+    }
+
+    @Override
+    public List<String> getFlightLabels() {
+        return rmapper.getFlightLabels();
+    }
+
+    @Override
+    public List<Integer> getFlightReservations() {
+        return rmapper.getFlightReservations();
+    }
+
+    @Override
+    public List<String> getSeatClassLabels() {
+        return rmapper.getSeatClassLabels();
+    }
+
+    @Override
+    public List<Integer> getSeatClassReservations() {
+        return rmapper.getSeatClassReservations();
+    }
+	
 	
 }

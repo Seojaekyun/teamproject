@@ -73,17 +73,6 @@
 	header #two button:hover a {
 		font-weight: bold;
 	}
-	#chatAlert {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 12px;
-        height: 12px;
-        background-color: #00FF00; /* 연두색 */
-        border-radius: 50%;
-        display: hidden;
-        z-index: 900;
-    }
     #chatbot {
 		width: 95%;
 		height: 95%;
@@ -102,11 +91,22 @@
         align-items: center; /* 버튼과 알림 아이콘 정렬 */
         height:50px;
         width:50px;
-        z-index: 1000;
+        z-index: 2000;
     }
 	#chatToggleBtn:hover {
 		background-color: #2DD1C5;
 	}
+	#chatAlert {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        background-color: #00FF00; /* 연두색 */
+        border-radius: 50%;
+        display: hidden;
+        z-index: 10;
+    }
 
 	/* 채팅 상담 UI 스타일 */
 	#chat-console {

@@ -206,9 +206,7 @@ public class MemberController {
 	
     @RequestMapping("/member/reMember")
     public String reMember(MemberDto mdto, Model model) {
-        // Mapper를 직접 호출하여 데이터 처리
         mapper.reMember(mdto);  // 예시: updateMember는 Mapper에 정의된 메서드
-
         // 데이터 처리 후 다시 뷰로 이동
         return "/member/reMember";  // 작업 완료 후 리다이렉트 처리
     }

@@ -121,6 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
+		font-size: 24px;
 		font-weight: 750;
 		position: relative;
 		z-index: 5;
@@ -140,6 +141,7 @@
 		width: 200px;
 		height: 40px;
 		line-height: 40px;
+		font-size: 20px;
 		font-weight: 600;
 	}
 	footer {
@@ -182,6 +184,54 @@
 			text-align: center;
 		}
 	}
+	#main1 .icona {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#main1:hover .icona {
+	    opacity: 1;
+	}
+	#main2 .iconb {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#main2:hover .iconb {
+	    opacity: 1;
+	}
+	#main3 .iconc {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#main3:hover .iconc {
+	    opacity: 1;
+	}
+	#main4 .icond {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#main4:hover .icond {
+	    opacity: 1;
+	}
+	#main5 .icone {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#main5:hover .icone {
+	    opacity: 1;
+	}
+	.iconmem {
+	    margin-right: 8px;
+	    opacity: 0;
+	    transition: opacity 0.3s;
+	}
+	#into:hover .iconmem {
+	    opacity: 1;
+	}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -223,7 +273,7 @@
 					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid==null}">
-					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
+					<a href="../member/member" id="into"> <span class="iconmem">✈️</span>회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid!=null&&userid!='admin'}">
@@ -248,7 +298,7 @@
 		</div>
 		<nav>
 			<ul id="main">
-				<li onmouseover="viewMenu(0)" onmouseout="hideMenu(0)">예약
+				<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
 					<ul class="menu">
 						<li><a href="../reserve/reservation">항공권 예약</a></li>
 						<li><a href="">예약 조회</a></li>
@@ -256,8 +306,8 @@
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
-					<a href="../guide/checkinGuide">여행준비</a>
+				<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
+					<a href="../guide/checkinGuide"><span class="iconb">✈️</span>여행준비</a>
 
 					<ul class="menu">
 						<li><a href="../guide/checkinGuide">체크인 안내</a></li>
@@ -265,15 +315,15 @@
 						<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(2)" onmouseout="hideMenu(2)">최저가
+				<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"><span class="iconc">✈️</span>최저가
 					<ul class="menu">
 						<li>1</li>
 						<li>2</li>
 						<li>3</li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
-					<a href="../guide/travel"> 여행지 </a>
+				<li id="main4" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
+					<a href="../guide/travel"> <span class="icond">✈️</span>여행지 </a>
 
 					<ul class="menu">
 						<li><a href="">국내 여행</a></li>
@@ -281,7 +331,7 @@
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
-				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
+				<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> <span class="icone">✈️</span>호텔/렌터카
 
 					<ul class="menu">
 						<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
@@ -291,6 +341,7 @@
 			</ul>
 		</nav>
 	</header>
+	<hr>
 
 <!-- 채팅 스타일 -->
 <style>

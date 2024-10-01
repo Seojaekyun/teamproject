@@ -3,13 +3,17 @@ package com.example.demo.controller;
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
+import com.example.demo.service.ReservationService;
 import com.example.demo.service.SeatService;
+import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +28,9 @@ public class ReservationController {
 
     @Autowired
     private SeatService seatService;
+    
+    @Autowired
+    private ReservationService reservationService;
     
     @GetMapping("/reserve/reservation")
     public String showReservation(Model model) {
@@ -55,5 +62,30 @@ public class ReservationController {
     ) {
         // 예약 처리 로직 추가
         return "/reserve/success";
+    }
+    
+    @GetMapping("/admin/rsvChart")
+    public String showReservationChart(Model model) {
+        // 월별 예약 통계 데이터
+        List<String> monthlyLabels = reservationService.getMonthlyLabels();
+        List<Integer> monthlyReservations = reservationService.getMonthlyReservations();
+
+        // 항공편별 예약 통계 데이터
+        List<String> flightLabels = reservationService.getFlightLabels();
+        List<Integer> flightReservations = reservationService.getFlightReservations();
+
+        // 좌석 등급별 예약 통계 데이터
+        List<String> seatClassLabels = reservationService.getSeatClassLabels();
+        List<Integer> seatClassReservations = reservationService.getSeatClassReservations();
+
+        // 모델에 데이터 추가
+        model.addAttribute("monthlyLabels", new Gson().toJson(monthlyLabels));
+        model.addAttribute("monthlyReservations", new Gson().toJson(monthlyReservations));
+        model.addAttribute("flightLabels", new Gson().toJson(flightLabels));
+        model.addAttribute("flightReservations", new Gson().toJson(flightReservations));
+        model.addAttribute("seatClassLabels", new Gson().toJson(seatClassLabels));
+        model.addAttribute("seatClassReservations", new Gson().toJson(seatClassReservations));
+
+        return "admin/rsvChart";  // JSP 파일로 이동
     }
 }

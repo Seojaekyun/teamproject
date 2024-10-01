@@ -36,5 +36,11 @@ public interface ReservationMapper {
 	List<Map<String, Object>> getScrsvid(List<Integer> reservationIds);
 	List<Map<String, Object>> getAvailableSeatCountByFlightId();
 	int getSeatCountByReservationId(int reservationId);
+	List<String> getMonthlyLabels();
+	List<Integer> getMonthlyReservations();
+	List<String> getFlightLabels();
+	List<Integer> getFlightReservations();
+	List<String> getSeatClassLabels();
+	List<Integer> getSeatClassReservations();
 
 }

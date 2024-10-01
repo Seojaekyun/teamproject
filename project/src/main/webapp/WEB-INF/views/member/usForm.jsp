@@ -48,7 +48,6 @@
      <div style="font-size:12px;color:red;"> 입력하신 정보가 일치하지 않습니다. </div>
     </c:if>
     </form>
-    <div><a href="../member/outcls"><input type="button" id="cls" value="탈퇴복구신청"></a></div>
    </div>
 </body>
 </html>

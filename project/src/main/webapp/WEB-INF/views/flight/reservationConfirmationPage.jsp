@@ -150,7 +150,7 @@
         </div>
     </div>
 
-    <button onclick="window.location.href='/flights';">홈으로 돌아가기</button>
+    <button onclick="window.location.href='../main/index';">홈으로</button>
 
     <script>
         function toggleDetails(id) {

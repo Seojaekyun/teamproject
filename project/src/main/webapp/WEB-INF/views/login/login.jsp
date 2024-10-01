@@ -84,6 +84,9 @@
     margin-top: 20px;
     margin-left: -1px;
    }
+   #btn:hover {
+   	cursor: pointer;
+   }
   </style>
   <script>
     function check(my) // my=document.form
@@ -170,12 +173,12 @@
     }
     function useridSearch()
     {
-    	son=open("usForm","","width=400,height=300");
+    	son=open("../member/usForm","","width=400,height=300");
     	son.moveTo(200,200);
     }
     function pwdSearch()
     {
-    	son=open("psForm","","width=400,height=370");
+    	son=open("../member/psForm","","width=400,height=370");
     	son.moveTo(200,200);
     }
     function reMember() {
@@ -188,26 +191,25 @@
 
 </head>
 <body>
-   <div class="accountbox"> 
-    <form method="post" action="loginOk" onsubmit="return check(this)">
-
-     <h2> 로그인 </h2>
-     <div> 
-       <div class="inner">아이디</div>
-       <input type="text" name="userid" value="superman" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)">
-     </div>
-     <div> 
-       <div class="inner">비밀번호</div>
-       <input type="password" name="pwd" value="123" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)"> 
-     </div>
-     <p align="center"> <input type="submit" value="로그인" id="sub"> </p>
-        
-     </form> 
-             <div class="login-options">
-            <a href="../member/usForm">아이디 찾기</a> | 
-            <a href="../member/psForm">비밀번호 찾기</a> | 
-            <span id="btn" onclick="reMember()"> 복구신청 </span>
-        </div>
+	<div class="accountbox">
+	<form method="post" action="loginOk" onsubmit="return check(this)">
+		<h2> 로그인 </h2>
+		<div>
+			<div class="inner">아이디</div>
+			<input type="text" name="userid" value="" id="txt"  onfocus="sizedown(0)" onblur="init(this,0)">
+		</div>
+		<div>
+			<div class="inner">비밀번호</div>
+			<input type="password" name="pwd" value="" id="pwd"  onfocus="sizedown(1)" onblur="init(this,1)">
+		</div>
+		<p align="center"> <input type="submit" value="로그인" id="sub"> </p>
+	</form>
+	<br>
+	<div class="login-options">
+		<span id="btn" onclick="useridSearch()">아이디 찾기</span> | 
+		<span id="btn" onclick="pwdSearch()">비밀번호 찾기</span> | 
+		<span id="btn" onclick="reMember()"> 복구신청 </span>
+	</div>
 
     </div>
     

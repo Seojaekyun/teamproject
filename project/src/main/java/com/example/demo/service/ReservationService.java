@@ -11,6 +11,12 @@ import jakarta.servlet.http.HttpSession;
 public interface ReservationService {
 	List<SeatDto> getAvailableSeats(int flightId);
 	boolean reserveFlight(String userId, int flightId, String seatNumber, String seatClass);
+	List<String> getMonthlyLabels();
+	List<Integer> getMonthlyReservations();
+	List<String> getFlightLabels();
+	List<Integer> getFlightReservations();
+	List<Integer> getSeatClassReservations();
+	List<String> getSeatClassLabels();
 	
 	
 }

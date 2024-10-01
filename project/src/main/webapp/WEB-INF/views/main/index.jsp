@@ -684,9 +684,13 @@ margin-top:20px;
 
 
     /* 추가된 섹션 스타일 */
+    h3 {
+    	margin-bottom: 20px;
+    	font-size: 22px;
+    	font-weight: 800;
+    }
     .fade-in-section {
-        width: 1000px;
-        max-width: 90%;
+        width: 100%;
         margin: auto;
         padding: 50px 0;
         opacity: 0;
@@ -732,7 +736,7 @@ margin-top:20px;
     .customer-review-section {
 	position: relative;
     z-index: -1;
-    background-color: #f9f9f9;
+    background-color: #D0E7F6;
     padding: 50px 0;
     }
     .review-container {
@@ -2077,7 +2081,7 @@ margin-right:30px;
 	</div>
     <!-- sec2: 프로모션 -->
     <section id="sec2" class="sec2 promotion-section fade-in-section">
-        <h2 style="text-align: center;">특가 프로모션</h2>
+        <h3 style="text-align: center;">특가 프로모션</h3>
         <div class="promotion-container">
             <div class="promotion-item">
                 <img src="../static/resources/promotion1.jpeg" alt="프로모션 1">
@@ -2098,7 +2102,7 @@ margin-right:30px;
     </section>
     <!-- sec3: 후기 -->
     <section id="sec3" class="sec3 customer-review-section fade-in-section">
-        <h2 style="text-align: center;">고객 후기</h2>
+        <h3 style="text-align: center;">고객 후기</h3>
         <div class="review-container">
             <div class="review">
                 <h4>김철수 님</h4>

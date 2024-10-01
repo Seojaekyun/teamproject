@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-   ${name}님의 복구 신청이 완료 되었습니다.
+   복구 신청이 완료 되었습니다.
 </body>
 </html>
