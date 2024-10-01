@@ -8,7 +8,8 @@
  	
  	form{
     width: 400px;
-    height: 615px;
+    height:100%;
+    max-height: 740px;
     border: 1px solid #D2D2D2;
     border-radius: .4rem;
     margin: auto;
@@ -54,6 +55,22 @@
     margin-bottom:10px;
 }
 
+
+
+ #sung, #lname {
+        border: 1px solid #D2D2D2;
+        border-radius: .4rem;
+        width: 170px; /* 넓이를 더 작게 조정해서 가로로 나란히 배치 가능 */
+        height: 36px;
+        margin-bottom: 10px;
+    }
+
+    .enamebox {
+        display: flex;
+        justify-content: space-between; /* 요소 사이의 간격을 고르게 분배 */
+        gap: 10px; /* 간격 조정 */
+        align-items: center; /* 세로 중앙 정렬 */
+    }
 #userid {
 
  	border: 1px solid #D2D2D2;
@@ -114,9 +131,7 @@
   align-items: center; /* 수직 중앙 정렬 */
 }
 
-.age, .sex {
-  margin-right: 20px; /* 필요한 여백 조정 */
-}
+
 
 .generation{
 	padding-bottom: 8px;
@@ -142,7 +157,8 @@
     background-color: black;
     color: white;
     cursor:pointer;
-    margin-top:50px;
+    margin-top:70px;
+    position: absolute;
     
 	}
 	
@@ -193,10 +209,15 @@
 			  if(chk.responseText == "0") {
 				  document.getElementById("umsg").innerText = "사용 가능한 아이디 입니다";
 				  document.getElementById("umsg").style.color = "blue";
+				  document.getElementById("umsg").style.fontSize="12px";
+
 				  uchk = 1;
 			  } else {
 				  document.getElementById("umsg").innerText = "사용불가능한 아이디 입니다";
 				  document.getElementById("umsg").style.color = "red";
+
+				  document.getElementById("umsg").style.fontSize="12px";
+
 				  uchk = 0;
 			  }	  
 		  }
@@ -205,6 +226,9 @@
 	  } else {
 		  document.getElementById("umsg").innerText = "아이디를 다시 입력하고 체크하세요";
 		  document.getElementById("umsg").style.color = "red";
+
+		  document.getElementById("umsg").style.fontSize="12px";
+
 		  uchk = 0;
 	  }	  
   }
@@ -222,10 +246,15 @@
 	  if (pwd == pwd2) {
 		   document.getElementById("pmsg").innerText = "비밀번호가 일치합니다";
 		   document.getElementById("pmsg").style.color = "blue";
+		   document.getElementById("pmsg").style.fontSize="12px";
+
 		   pchk = 1;
 	  } else {
 		   document.getElementById("pmsg").innerText = "비밀번호가 일치하지 않습니다";
 		   document.getElementById("pmsg").style.color = "red";
+
+		   document.getElementById("pmsg").style.fontSize="12px";
+
 		   pchk = 0;
 	  }
   }
@@ -243,7 +272,7 @@
   // 제출 전 체크 함수
   function check() {
 	  formatPhone(); // 전화번호 형식화
-	  
+  
 	  var email = document.mform.e1.value + "@" + document.mform.e2.value;
 	  document.mform.email.value = email;
 	  
@@ -260,6 +289,11 @@
 		  return true;
 	  }
   }
+  
+  function enforceUppercase(element) {
+	    element.value = element.value.toUpperCase();  // 대문자로 변환
+	    element.value = element.value.replace(/[^A-Z]/g, '');  // A-Z가 아닌 문자는 제거
+	  }
  </script>
 </head>
 <body> 
@@ -271,6 +305,19 @@
      <div class="namebox">
      <h6>이름*</h6>
    	 <input type="text" name="name" id="name" placeholder="이 름"> 
+     </div>
+     </li>
+     
+      <li>
+     <div class="enamebox">
+     <div class="sung">
+     <h6>영문 성*</h6>
+     <input type="text" name="sung" id="sung" placeholder="HONG" required oninput="enforceUppercase(this)" > 
+     </div>
+     <div class="lname">
+     <h6>영문 이름*</h6>
+     <input type="text" name="lname" id="lname" placeholder="GILDONG" required oninput="enforceUppercase(this)" > 
+     </div>
      </div>
      </li>
      

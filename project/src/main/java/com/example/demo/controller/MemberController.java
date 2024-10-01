@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.MemberService;
@@ -47,6 +50,7 @@ public class MemberController {
 		return service.rlist(session, request, model);
 	}
 
+
 	@RequestMapping("/member/myInq")
 	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
 		return service.myInq(session, request, model);
@@ -62,6 +66,7 @@ public class MemberController {
             String err = request.getParameter("err");
             String userid = session.getAttribute("userid").toString();
             // Service 계층을 통해 회원 정보 가져오기
+
             MemberDto mdto = service.getMemberDetails(userid);
 
             model.addAttribute("mdto", mdto);
@@ -106,26 +111,35 @@ public class MemberController {
     }
     
     @RequestMapping("/member/id_delete")
-    public String id_deletle(@RequestParam("userid") String userid, 
-            @RequestParam("password") String password, 
-            Model model) {
-    	// 비밀번호 확인 로직 수행
+
+    public String idDelete(@RequestParam("userid") String userid, 
+                           @RequestParam("password") String password, 
+                           Model model) {
+        // 비밀번호 확인 로직 수행
         boolean isPasswordCorrect = service.id_delete(userid, password);
 
         if (isPasswordCorrect) {
-            // level 3으로 업데이트
-            service.updateMemberLevel(userid, 3);
+            // 현재 회원의 level을 가져옴
+            int currentLevel = service.getCurrentLevel(userid);
+            
+
+            System.out.println("Updating previous_level for user: " + userid + " with level: " + currentLevel);
+            service.updatePreviousLevel(userid, currentLevel);  // previous_level 업데이트
+
+
+            service.updateMemberLevel(userid, 3);  // level을 3으로 업데이트 (탈퇴 신청)
 
             // 팝업과 함께 페이지 리다이렉트
             model.addAttribute("popupMessage", "탈퇴 신청이 완료되었습니다.");
-            return "redirect:/member/memberView";  // 확인 후 memberView로 리다이렉트
+            return "redirect:/member/memberView";  // 탈퇴 후 memberView로 리다이렉트
+
         } else {
             // 비밀번호 오류 시 처리 로직
             model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
-    
+
     @GetMapping("/member/recovery_request")
     public String showRecoveryRequestPage(HttpSession session, Model model) {
     	return service.showRecoveryRequestPage(session, model);
@@ -139,7 +153,6 @@ public class MemberController {
         boolean isPasswordCorrect = service.checkPassword(userid, password);
 
         if (isPasswordCorrect) {
-            // level 4로 업데이트
             service.updateMemberLevel(userid, 5);
 
             // 팝업과 함께 페이지 리다이렉트
@@ -151,5 +164,36 @@ public class MemberController {
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
+
+    
+    @PostMapping("/member/pwdChg")
+    public String changePassword(HttpSession session, @RequestParam String oldPwd, @RequestParam String pwd, Model model, RedirectAttributes redirectAttributes) {
+        String userid = (String) session.getAttribute("userid");
+        boolean isChanged = service.changePassword(userid, oldPwd, pwd);
+        if (!isChanged) {
+            redirectAttributes.addFlashAttribute("message", "기존 비밀번호가 일치하지 않습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "새 비밀번호로 변경이 완료되었습니다.");
+        }
+
+        // 리다이렉트 후 쿼리 파라미터로 메시지 전달
+        return "redirect:/member/memberView";
+
+    }
+
+    @PostMapping("/member/emailEdit")
+    public String editEmail(HttpSession session, @RequestParam String email) {
+        String userid = (String) session.getAttribute("userid");
+        service.editEmail(userid, email);
+        return "redirect:/member/memberView";
+    }
+
+    @PostMapping("/member/phoneEdit")
+    public String editPhone(HttpSession session, @RequestParam String phone) {
+        String userid = (String) session.getAttribute("userid");
+        service.editPhone(userid, phone);
+        return "redirect:/member/memberView";
+    }
+    
 
 }

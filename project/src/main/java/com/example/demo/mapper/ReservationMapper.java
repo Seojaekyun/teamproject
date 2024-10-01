@@ -36,6 +36,5 @@ public interface ReservationMapper {
 	List<Map<String, Object>> getScrsvid(List<Integer> reservationIds);
 	List<Map<String, Object>> getAvailableSeatCountByFlightId();
 	int getSeatCountByReservationId(int reservationId);
-	
 
 }

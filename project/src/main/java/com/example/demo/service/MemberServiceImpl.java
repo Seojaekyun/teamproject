@@ -138,6 +138,142 @@ public class MemberServiceImpl implements MemberService {
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
 	}
+	
+	@Override
+    public MemberDto getMemberDetails(String userid) {
+		return mapper.getMemberById(userid);
+    }
+	
+	@Override
+    public String searchUserId(MemberDto mdto) {
+        return mapper.useridSearch(mdto);
+    }
+
+	@Override
+	public void pwdSearch(MemberDto mdto, Model model) throws Exception {
+	    String userid = mdto.getUserid();
+	    String email = mdto.getEmail();
+	    String name1 = mdto.getName(); 
+
+	    MemberDto resultDto = mapper.pwdSearch(mdto);
+	    
+	    // resultDto가 null이 아니고 모든 정보가 일치하는지 확인
+	    if (resultDto != null && 
+	        resultDto.getUserid().equals(userid) && 
+	        resultDto.getName().equals(name1) && 
+	        resultDto.getEmail().equals(email)) {
+
+	        // DB에서 가져온 이름으로 처리
+	        String name = resultDto.getName(); // DB에서 가져온 이름
+	        
+	        // 임시 비밀번호 생성
+	        String temporaryPassword = generateTemporaryPassword();
+	        
+	        // 이메일로 임시 비밀번호 전송
+	        String subject = "임시 비밀번호 발송";
+	        String body = "임시 비밀번호는 다음과 같습니다: " + temporaryPassword;
+	        Mailsend.setEmail(email, subject, body);
+	        
+	        // 사용자의 비밀번호를 임시 비밀번호로 업데이트
+	        resultDto.setPwd(temporaryPassword); // DB에서 가져온 사용자의 정보에 업데이트
+	        mapper.updatePassword(resultDto); // DB에 업데이트하는 메서드 호출
+
+	        // 모델에 추가 (DB에서 가져온 이름을 사용)
+	        model.addAttribute("name", name); // DB에서 가져온 이름 추가
+	        model.addAttribute("message", name+"님의 임시 비밀번호가 이메일로 전송되었습니다."); // 성공 메시지 추가
+	    } else {
+	        // 사용자 정보를 찾을 수 없거나 정보가 일치하지 않을 때
+	        model.addAttribute("message", "사용자 정보를 찾을 수 없거나 정보가 일치하지 않습니다."); // 실패 메시지 추가
+	    }
+	}
+
+
+
+	public String generateTemporaryPassword() {
+        // 임시 비밀번호를 생성하기 위한 문자열
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < 8; i++) { // 8자리 임시 비밀번호
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+        
+        return sb.toString();
+    }
+	
+	@Override
+	public String id_verification(HttpSession session, Model model) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+	    model.addAttribute("userid", loggedInUser);
+		return "/member/id_verification";
+	}
+
+	@Override
+	public String id_verification() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean id_delete(String userid, String password) {
+		String storedPassword = mapper.getPasswordByUserid(userid);
+        return storedPassword.equals(password);
+		
+	}
+	
+	@Override
+	public String showRecoveryRequestPage(HttpSession session, Model model) {
+		
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+	    model.addAttribute("userid", loggedInUser);
+		return "/member/recovery_request";
+	}
+	
+
+	public boolean checkPassword(String userid, String password) {
+        // DB에서 비밀번호 조회 및 확인
+        String storedPassword = mapper.getPasswordByUserid(userid);
+        return storedPassword.equals(password);
+    }
+
+    public void updateMemberLevel(String userid, int newLevel) {
+        mapper.updateMemberLevel(userid, newLevel);
+    }
+
+
+	@Override
+    public int getCurrentLevel(String userid) {
+        return mapper.getCurrentLevel(userid);  
+    }
+
+    @Override
+    public void updatePreviousLevel(String userid, int previousLevel) {
+        mapper.updatePreviousLevel(userid, previousLevel); 
+    }
+    
+    @Override
+    public boolean changePassword(String userid, String oldPwd, String newPwd) {
+        String currentPwd = mapper.getPasswordByUserid(userid);
+        if (currentPwd.equals(oldPwd)) {
+            mapper.updatePasswords(userid, newPwd);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void editEmail(String userid, String email) {
+        mapper.updateEmail(userid, email);
+    }
+
+    @Override
+    public void editPhone(String userid, String phone) {
+        mapper.updatePhone(userid, phone);
+    }
+
 
 	
 	@Override
