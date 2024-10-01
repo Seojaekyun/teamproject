@@ -184,10 +184,6 @@
 			<a class="cta-button" href="onlineCheckin.html">지금 체크인하기</a>
 		</div>
 	</div>
-
-	<div>
-		<p>© 2024 eLTA항공. 모든 권리 보유.</p>
-	</div>
 	
 </section>
 

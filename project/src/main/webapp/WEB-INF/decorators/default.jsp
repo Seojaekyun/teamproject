@@ -425,6 +425,13 @@
 	#chat-toggle:hover {
 		background-color: #1A9987;
 	}
+	.footer {
+		background-color: #00467F;
+		color: white;
+		text-align: center;
+		padding: 15px 0;
+		margin-top: 40px;
+	}
 	
 </style>
 <script>
@@ -547,6 +554,9 @@
 	
 	<sitemesh:write property="body" />
 	
+	<div class="footer">
+		<p>© 2024 여행사. 모든 권리 보유.</p>
+	</div>
 	<footer>
 
 		<div class="footer-container">

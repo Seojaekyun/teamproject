@@ -115,7 +115,7 @@
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
-	                <td>예약석</td>
+	                <td>예약</td>
 	            </tr>
 	            <c:forEach items="${gmpRsv}" var="grsv">
 	                <tr>
@@ -137,7 +137,7 @@
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
-	                <td>예약석</td>
+	                <td>예약</td>
 	            </tr>
 	            <c:forEach items="${icnRsv}" var="irsv">
 	                <tr>
@@ -159,7 +159,7 @@
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
-	                <td>예약석</td>
+	                <td>예약</td>
 	            </tr>
 	            <c:forEach items="${otherRsv}" var="orsv">
 	                <tr>

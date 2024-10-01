@@ -138,11 +138,28 @@
         .info-row span {
             font-size: 14px;
         }
+        
+        #menu {
+            background-color: #0066cc;
+            color: white;
+            padding: 5px 8px;
+            margin: 2px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #menu:hover {
+            background-color: #004da8;
+        }
     </style>
 </head>
 <body>
 
 <div class="reservation-container">
+<a href="../main/index"><input type="button" id="menu" value="홈으로"></a>
+<a href="../reserve/list"><input type="button" id="menu" value="목록으로"></a>
     <!-- 예약 상단 정보 -->
     <div class="reservation-header">
         <h2>예약번호: <span>${reservationList[0].pnr}</span></h2>
