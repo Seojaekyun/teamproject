@@ -392,17 +392,26 @@ public class AdminServiceImpl implements AdminService{
 	    List<ReservationDto> rsvfn = rmapper.getRsvdfn(flightName, departureTime);
 
 	    // 필터링된 데이터에 맞는 총 예약 수 가져오기
-	    int totalReservations = rmapper.getTotalReservations(flightName, departureTime); // 필터링된 데이터 기반
+	    int totalReservations = rmapper.getTotalReservations(flightName, departureTime);
 	    int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);
+
+	    // 각 예약번호별 좌석 수 계산
+	    Map<Integer, Integer> seatCounts = new HashMap<>();
+	    for (ReservationDto reservation : rsvList) {
+	        int seatCount = rmapper.getSeatCountByReservationId(reservation.getReservationId());
+	        seatCounts.put(reservation.getReservationId(), seatCount);
+	    }
 
 	    // 모델에 추가
 	    model.addAttribute("rsvList", rsvList);
 	    model.addAttribute("rsvfn", rsvfn);
+	    model.addAttribute("seatCounts", seatCounts);  // 좌석 수 맵 추가
 	    model.addAttribute("currentPage", currentPage);
 	    model.addAttribute("totalPages", totalPages);
 
 	    return "/admin/rsvdList";
 	}
+
 	
 		
 }

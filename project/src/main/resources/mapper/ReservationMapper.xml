@@ -36,7 +36,12 @@
     WHERE is_available = 1
     GROUP BY flight_id
 </select>
-	
+<select id="getSeatCountByReservationId" resultType="int" parameterType="int">
+    SELECT COUNT(*) 
+    FROM reservation_seats 
+    WHERE reservation_id = #{reservationId}
+</select>
+
 	
 	<select id="getRsvdetail" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,

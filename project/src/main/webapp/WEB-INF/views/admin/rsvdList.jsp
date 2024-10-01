@@ -168,6 +168,7 @@
 				<tr>
 					<th>고객ID</th>
 					<th>좌석등급</th>
+					<th>예약인원</th>
 					<th>요금</th>
 					<th>결제여부</th>
 					<th>비고</th>
@@ -176,6 +177,7 @@
 					<tr>
 						<td>${rsv.userid}</td>
 						<td>${rsv.seatClass}</td>
+						<td>${seatCounts[rsv.reservationId]}</td>
 						<td>${rsv.charge} 원</td>
 						<td>
 						<c:if test="${rsv.chargePay == 0}">
