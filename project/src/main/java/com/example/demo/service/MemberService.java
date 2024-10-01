@@ -33,7 +33,7 @@ public interface MemberService {
 	 boolean changePassword(String userid, String oldPwd, String newPwd);
 	    void editEmail(String userid, String email);
 	    void editPhone(String userid, String phone);
-    }
+    
 	
 
 	public String myInq(HttpSession session, HttpServletRequest request, Model model);
