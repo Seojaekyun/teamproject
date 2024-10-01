@@ -1,16 +1,20 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
+import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.util.MailSend;
@@ -29,6 +33,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
+	@Autowired
+	private InquiryMapper imapper;
 	@Autowired
 	private ReservationMapper rmapper;
 	@Autowired
@@ -81,6 +87,20 @@ public class MemberServiceImpl implements MemberService {
 	        rsvClist = rmapper.getRsvcfac(userid, itemsPerPage, offset);  // 모든 예약 리스트
 	    }
 
+	    // 예약 ID 리스트 추출
+	    List<Integer> reservationIds = rsvClist.stream()
+	        .map(reservation -> (Integer) reservation.get("reservation_id"))
+	        .collect(Collectors.toList());
+
+	    // 좌석 수 가져오기
+	    Map<Integer, Integer> seatCounts = new HashMap<>();
+	    if (!reservationIds.isEmpty()) {
+	        List<Map<String, Object>> seatCountList = rmapper.getScrsvid(reservationIds);
+	        for (Map<String, Object> seatCount : seatCountList) {
+	            seatCounts.put((Integer) seatCount.get("reservation_id"), ((Long) seatCount.get("seat_count")).intValue());
+	        }
+	    }
+
 	    // charge 정보 가져오기
 	    Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
 
@@ -95,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 	    int totalCharge = totalChargeValue.intValue();
 	    int totalChargePay = totalChargePayValue.intValue();
 
-	    // 전체 예약 수 가져오기 (수정된 부분)
+	    // 전체 예약 수 가져오기
 	    int totalReservations;
 	    if (selectedDate != null && !selectedDate.isEmpty()) {
 	        totalReservations = rmapper.getTotalRsvcByDate(userid, selectedDate);  // 날짜에 따른 총 예약 수
@@ -108,10 +128,12 @@ public class MemberServiceImpl implements MemberService {
 
 	    // JSP로 데이터 전달
 	    model.addAttribute("rsvClist", rsvClist);
+	    model.addAttribute("seatCounts", seatCounts);  // 좌석 수 전달
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
 	    model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
 	    model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
+	    model.addAttribute("totalReservations", totalReservations);  // 전체 예약 수 전달
 	    model.addAttribute("selectedDate", selectedDate);  // 선택한 날짜를 모델에 추가
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
@@ -253,5 +275,123 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+	
+	@Override
+    public MemberDto getMemberDetails(String userid) {
+		return mapper.getMemberById(userid);
+    }
+	
+	@Override
+    public String searchUserId(MemberDto mdto) {
+        return mapper.useridSearch(mdto);
+    }
 
+	@Override
+	public void pwdSearch(MemberDto mdto, Model model) throws Exception {
+	    String userid = mdto.getUserid();
+	    String email = mdto.getEmail();
+	    String name1 = mdto.getName(); 
+
+	    MemberDto resultDto = mapper.pwdSearch(mdto);
+	    
+	    // resultDto가 null이 아니고 모든 정보가 일치하는지 확인
+	    if (resultDto != null && 
+	        resultDto.getUserid().equals(userid) && 
+	        resultDto.getName().equals(name1) && 
+	        resultDto.getEmail().equals(email)) {
+
+	        // DB에서 가져온 이름으로 처리
+	        String name = resultDto.getName(); // DB에서 가져온 이름
+	        
+	        // 임시 비밀번호 생성
+	        String temporaryPassword = generateTemporaryPassword();
+	        
+	        // 이메일로 임시 비밀번호 전송
+	        String subject = "임시 비밀번호 발송";
+	        String body = "임시 비밀번호는 다음과 같습니다: " + temporaryPassword;
+	        Mailsend.setEmail(email, subject, body);
+	        
+	        // 사용자의 비밀번호를 임시 비밀번호로 업데이트
+	        resultDto.setPwd(temporaryPassword); // DB에서 가져온 사용자의 정보에 업데이트
+	        mapper.updatePassword(resultDto); // DB에 업데이트하는 메서드 호출
+
+	        // 모델에 추가 (DB에서 가져온 이름을 사용)
+	        model.addAttribute("name", name); // DB에서 가져온 이름 추가
+	        model.addAttribute("message", name+"님의 임시 비밀번호가 이메일로 전송되었습니다."); // 성공 메시지 추가
+	    } else {
+	        // 사용자 정보를 찾을 수 없거나 정보가 일치하지 않을 때
+	        model.addAttribute("message", "사용자 정보를 찾을 수 없거나 정보가 일치하지 않습니다."); // 실패 메시지 추가
+	    }
+	}
+	
+	public String generateTemporaryPassword() {
+		// 임시 비밀번호를 생성하기 위한 문자열
+		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+		SecureRandom random = new SecureRandom();
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < 8; i++) { // 8자리 임시 비밀번호
+			int index = random.nextInt(chars.length());
+			sb.append(chars.charAt(index));
+		}
+		
+		return sb.toString();
+	}
+	
+	@Override
+	public String id_verification(HttpSession session, Model model) {
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+		model.addAttribute("userid", loggedInUser);
+		return "/member/id_verification";
+	}
+	
+	@Override
+	public String id_verification() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean id_delete(String userid, String password) {
+		String storedPassword = mapper.getPasswordByUserid(userid);
+        return storedPassword.equals(password);	
+	}
+	
+	@Override
+	public String showRecoveryRequestPage(HttpSession session, Model model) {
+		String loggedInUser = (String) session.getAttribute("loggedInUser");
+		model.addAttribute("userid", loggedInUser);
+		return "/member/recovery_request";
+	}
+	
+	public boolean checkPassword(String userid, String password) {
+		// DB에서 비밀번호 조회 및 확인
+		String storedPassword = mapper.getPasswordByUserid(userid);
+		return storedPassword.equals(password);
+	}
+	
+	public void updateMemberLevel(String userid, int newLevel) {
+		// level 값을 4로 업데이트
+		mapper.updateMemberLevel(userid, newLevel);
+	}
+	
+	@Override
+	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
+		if (session.getAttribute("userid") != null) {
+			String userid = session.getAttribute("userid").toString();
+			
+			// 해당 유저의 문의 데이터를 가져옴
+			List<InquiryDto> inquiries = imapper.getMyInq(userid);
+			
+			// 가져온 데이터를 모델에 추가하여 JSP에서 사용할 수 있도록 함
+			model.addAttribute("ilist", inquiries);
+			
+			return "/member/myInq";
+		}
+		else {
+			return "redirect:/member/login";
+		}
+	}
+	
+	
 }

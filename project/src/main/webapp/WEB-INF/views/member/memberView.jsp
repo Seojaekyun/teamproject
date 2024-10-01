@@ -68,7 +68,6 @@ section {
     margin-bottom:10px;
 }
 
-
 .profile-item {
 	width: 50%;
     padding: 10px;
@@ -109,8 +108,6 @@ width: 50%;
  justify-content: space-between;
         align-items: center;
 }
-
-
 
 .profile-header h2 {
     font-size: 20px;
@@ -375,8 +372,6 @@ width: 50%;
 </div>
     </div>
 </section>
-
-
 
 </body>
 </html>

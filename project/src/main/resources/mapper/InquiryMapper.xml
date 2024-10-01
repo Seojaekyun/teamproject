@@ -44,6 +44,10 @@
     <update id="updateAnswer">
     	UPDATE inquiry SET answertext = #{answerText} WHERE id = #{inquiryId}
     </update>
+    <select id="getMyInq" parameterType="String" resultType="com.example.demo.dto.InquiryDto">
+    	SELECT * FROM inquiry WHERE userid = #{userid}
+    </select>
+    
 
     
 </mapper>

@@ -21,7 +21,7 @@
 	}
 	#sec2 {
 		display: flex;
-		flex-direction: column; /* 테이블을 수직으로 배치 */
+		/* flex-direction: column; */ /* 테이블을 수직으로 배치 */
 		/* gap: 20px; */ /* 테이블 사이에 간격 추가 */
 	}
 	.table-container {
@@ -41,6 +41,14 @@
 	}
 	.table-container {
 		width: 68%; /* 테이블 컨테이너 너비 */
+		height: 340px;
+	}
+	#sec2 .table-container {
+		width: 49.5%; /* 테이블 컨테이너 너비 */
+		height: 340px;
+	}
+	#sec3 .table-container {
+		width: 100%; /* 테이블 컨테이너 너비 */
 		height: 340px;
 	}
 	table {
@@ -131,9 +139,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
-
 <body>
-
 <div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 <section id="sec1">
 	<!-- 날짜 선택 기능 -->
@@ -146,10 +152,9 @@
 			</c:if>
 		</div>
 	</div>
-
 	<div class="table-container">
-		<table id="flightTable">
-			<caption>항공편</caption>
+		<table id="otherTable">
+			<caption>해외 항공편</caption>
 			<tr>
 				<th>항공편명</th>
 				<th>출발 공항</th>
@@ -158,59 +163,61 @@
 				<th>도착 시간</th>
 				<th>좌석 수</th>
 			</tr>
-			<c:forEach var="flight" items="${flightList}">
+			<c:forEach var="flight" items="${pagedOtherFlights}">
 				<tr>
 					<td>${flight.flightName}</td>
 					<td>${flight.departureAirport}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
-			<c:if test="${empty flightList}">
+			<c:if test="${empty pagedOtherFlights}">
 				<tr>
-					<td colspan="6">항공편 데이터가 없습니다.</td>
+					<td colspan="6">기타 항공편 데이터가 없습니다.</td>
 				</tr>
 			</c:if>
 		</table>
-		<div id="mainPagination" class="pagination">
-			<c:if test="${totalPages > 1}">
+		<!-- 기타 페이지네이션 -->
+		<div id="otherPagination" class="pagination">
+			<c:if test="${totalOtherPages > 1}">
 				<!-- 이전 페이지 버튼 -->
-				<c:if test="${currentPage > 10}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 10}, 'all');">이전10</a>
+				<c:if test="${currentOtherPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage - 10}, 'other');">이전10</a>
 				</c:if>
 				<!-- 페이지 번호 표시 -->
-				<c:set var="startPage" value="${currentPage - 5}" />
-				<c:set var="endPage" value="${currentPage + 4}" />
+				<c:set var="startPage" value="${currentOtherPage - 5}" />
+				<c:set var="endPage" value="${currentOtherPage + 4}" />
 				<c:if test="${startPage < 1}">
 					<c:set var="startPage" value="1" />
 					<c:set var="endPage" value="10" />
 				</c:if>
-				<c:if test="${endPage > totalPages}">
-					<c:set var="endPage" value="${totalPages}" />
-					<c:set var="startPage" value="${totalPages - 9}" />
+				<c:if test="${endPage > totalOtherPages}">
+					<c:set var="endPage" value="${totalOtherPages}" />
+					<c:set var="startPage" value="${totalOtherPages - 9}" />
 					<c:if test="${startPage < 1}">
 						<c:set var="startPage" value="1" />
 					</c:if>
 				</c:if>
 				<c:forEach begin="${startPage}" end="${endPage}" var="i">
 					<c:choose>
-						<c:when test="${i == currentPage}">
+						<c:when test="${i == currentOtherPage}">
 							<span class="active">${i}</span>
 						</c:when>
 						<c:otherwise>
-							<a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 다음 페이지 버튼 -->
-				<c:if test="${currentPage + 10 < totalPages}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 10}, 'all');">다음10</a>
+				<c:if test="${currentOtherPage +10 < totalOtherPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage + 10}, 'other');">다음10</a>
 				</c:if>
 			</c:if>
 		</div>
 	</div>
+	
 </section>
 <section id="sec2">
 	<div class="table-container">
@@ -229,7 +236,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty pagedGmpFlights}">
@@ -292,7 +299,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty pagedIcnFlights}">
@@ -339,9 +346,11 @@
 			</c:if>
 		</div>
 	</div>
+</section>
+<section id="sec3">
 	<div class="table-container">
-		<table id="otherTable">
-			<caption>해외 항공편</caption>
+		<table id="flightTable">
+			<caption>항공편 전체</caption>
 			<tr>
 				<th>항공편명</th>
 				<th>출발 공항</th>
@@ -350,56 +359,55 @@
 				<th>도착 시간</th>
 				<th>좌석 수</th>
 			</tr>
-			<c:forEach var="flight" items="${pagedOtherFlights}">
+			<c:forEach var="flight" items="${flightList}">
 				<tr>
 					<td>${flight.flightName}</td>
 					<td>${flight.departureAirport}</td>
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
-			<c:if test="${empty pagedOtherFlights}">
+			<c:if test="${empty flightList}">
 				<tr>
-					<td colspan="6">기타 항공편 데이터가 없습니다.</td>
+					<td colspan="6">항공편 데이터가 없습니다.</td>
 				</tr>
 			</c:if>
 		</table>
-		<!-- 기타 페이지네이션 -->
-		<div id="otherPagination" class="pagination">
-			<c:if test="${totalOtherPages > 1}">
+		<div id="mainPagination" class="pagination">
+			<c:if test="${totalPages > 1}">
 				<!-- 이전 페이지 버튼 -->
-				<c:if test="${currentOtherPage > 10}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage - 10}, 'other');">이전10</a>
+				<c:if test="${currentPage > 10}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage - 10}, 'all');">이전10</a>
 				</c:if>
 				<!-- 페이지 번호 표시 -->
-				<c:set var="startPage" value="${currentOtherPage - 5}" />
-				<c:set var="endPage" value="${currentOtherPage + 4}" />
+				<c:set var="startPage" value="${currentPage - 5}" />
+				<c:set var="endPage" value="${currentPage + 4}" />
 				<c:if test="${startPage < 1}">
 					<c:set var="startPage" value="1" />
 					<c:set var="endPage" value="10" />
 				</c:if>
-				<c:if test="${endPage > totalOtherPages}">
-					<c:set var="endPage" value="${totalOtherPages}" />
-					<c:set var="startPage" value="${totalOtherPages - 9}" />
+				<c:if test="${endPage > totalPages}">
+					<c:set var="endPage" value="${totalPages}" />
+					<c:set var="startPage" value="${totalPages - 9}" />
 					<c:if test="${startPage < 1}">
 						<c:set var="startPage" value="1" />
 					</c:if>
 				</c:if>
 				<c:forEach begin="${startPage}" end="${endPage}" var="i">
 					<c:choose>
-						<c:when test="${i == currentOtherPage}">
+						<c:when test="${i == currentPage}">
 							<span class="active">${i}</span>
 						</c:when>
 						<c:otherwise>
-							<a href="javascript:void(0);" onclick="loadPage(${i}, 'other');">${i}</a>
+							<a href="javascript:void(0);" onclick="loadPage(${i}, 'all');">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<!-- 다음 페이지 버튼 -->
-				<c:if test="${currentOtherPage +10 < totalOtherPages}">
-					<a href="javascript:void(0);" onclick="loadPage(${currentOtherPage + 10}, 'other');">다음10</a>
+				<c:if test="${currentPage + 10 < totalPages}">
+					<a href="javascript:void(0);" onclick="loadPage(${currentPage + 10}, 'all');">다음10</a>
 				</c:if>
 			</c:if>
 		</div>

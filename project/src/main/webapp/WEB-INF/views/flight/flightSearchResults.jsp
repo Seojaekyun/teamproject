@@ -115,6 +115,7 @@
                                     <input type="hidden" name="selectedReturnFlightArrival" value="${flight.arrivalAirport}">
                                     <input type="hidden" name="selectedReturnFlightTime" value="${flight.departureTime}">
                                     <input type="hidden" name="selectedReturnFlightArrivalTime" value="${flight.arrivalTime}">
+                                    
                                     <button type="submit" class="btn btn-primary select-flight-btn">오는편 선택</button>
                                 </form>
                             </td>

@@ -1916,50 +1916,50 @@ margin-right:30px;
 					
 
 
-						<div class="check-in_contents">
-					<form action="${pageContext.request.contextPath}/checkin/check-in" method="get">
-							<div id="check-in methods">
-
-								<div class="check-in_info_aligner">
-									<div id="check-in_number">
-										<p>예약번호 또는 항공권번호&nbsp;</p>
-										<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890" required>
-									</div>
-
-									<div id="check-in_date">
-										<p>출발일&nbsp;</p>
-										<select id="cdate" required>
-											</select>
-									</div>
-									
-									<div id="check-in_sung">
-										<p>승객 성&nbsp;</p>
-										<input type="text" id="csung" required>
-									</div>
-									<div id="check-in_name">
-										<p>승객 이름&nbsp;</p>
-										<input type="text" id="cname" required>
-									</div>
-									
-									<div id="check-in_selection">
-											<button type="submit" id="cselect_button">
-												<span>조회</span>
-											</button>
-									</div>
-																		
-									</div>
-									
-									<div id="check-in_agree_contents">
-									<input type="checkbox" id="cagree-contents" required> 
-									<label for="cagree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
-									<div class="agree_contents_error_message" style="color: red; display: none;">
-               						 필수 동의 항목입니다.
-               						 </div>
+							<div class="check-in_contents">
+						<form action="${pageContext.request.contextPath}/checkin/check-in" method="get">
+								<div id="check-in methods">
+	
+									<div class="check-in_info_aligner">
+										<div id="check-in_number">
+											<p>예약번호 또는 항공권번호&nbsp;</p>
+											<input type="text" id="cselect_num" placeholder="예) A1B2C3 또는 1801234567890" required>
+										</div>
+	
+										<div id="check-in_date">
+											<p>출발일&nbsp;</p>
+											<select id="cdate" required>
+												</select>
+										</div>
+										
+										<div id="check-in_sung">
+											<p>승객 성&nbsp;</p>
+											<input type="text" id="csung" required>
+										</div>
+										<div id="check-in_name">
+											<p>승객 이름&nbsp;</p>
+											<input type="text" id="cname" required>
+										</div>
+										
+										<div id="check-in_selection">
+												<button type="submit" id="cselect_button">
+													<span>조회</span>
+												</button>
+										</div>
+																			
+										</div>
+										
+										<div id="check-in_agree_contents">
+										<input type="checkbox" id="cagree-contents" required> 
+										<label for="cagree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
+										<div class="agree_contents_error_message" style="color: red; display: none;">
+	               						 필수 동의 항목입니다.
+	               						 </div>
+								</div>
 							</div>
-						</div>
-						</form>
-						</div>
-						
+							</form>
+							</div>
+							
 						
 
 

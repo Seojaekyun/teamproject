@@ -65,6 +65,20 @@ public class AdminController {
 		return service.memberList(request, model);
 	}
 	
+	@RequestMapping("/admin/memberUp")
+	public String memberUp(@RequestParam("id") int id, @RequestParam("level") int level, Model model) {
+	    // MemberDto 객체 생성
+	    MemberDto mdto = new MemberDto();
+	    
+	    // id와 state 값을 mdto 객체에 세팅
+	    mdto.setId(id);
+	    mdto.setLevel(level);
+	    
+	    // 서비스 호출하여 회원 정보 업데이트
+	    return service.memberUp(mdto);
+	}
+
+	
 	@RequestMapping("/admin/oneMeminfo")
 	public String oneMeminfo(HttpServletRequest request, Model model) {
 		return service.oneMeminfo(request, model);

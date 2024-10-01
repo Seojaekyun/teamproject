@@ -24,6 +24,7 @@
 		SELECT * FROM member WHERE userid = #{userid};
 	</select>
 
+
     <select id="useridSearch" parameterType="com.example.demo.dto.MemberDto" resultType="String">
         SELECT userid 
         FROM member 
@@ -105,4 +106,11 @@
 
 		
 		
+
+	<update id="memberUp" parameterType="com.example.demo.dto.MemberDto">
+		update member set level=#{level} where id=#{id}
+	</update>
+	
+	
+
  </mapper>

@@ -44,6 +44,13 @@
 	<select id="getFlightsByDate" parameterType="String" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
 	</select>
+<select id="getTotalSeatsByFlightId" resultType="map">
+    SELECT flight_id, CAST(COUNT(*) AS SIGNED) AS totalSeats
+    FROM flightseats
+    GROUP BY flight_id
+</select>
+
+	
 
 
 
@@ -55,6 +62,42 @@
       AND is_available = 1
 	</select>
 	
+	<select id="getMemberByUserId" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+    	SELECT * FROM member WHERE userid = #{userid}
+	</select>
+
+	<select id="getFlightByGoingFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+    	SELECT * FROM flights WHERE flight_id = #{goingFlightId}
+	</select>
+	
+	<insert id="addReservation" parameterType="com.example.demo.dto.ReservationDto" useGeneratedKeys="true" keyProperty="reservationId">
+    INSERT INTO reservations (userid, flight_id, reservation_date, seat_class, passenger_type, sung, pnr, name, charge, charge_pay)
+    VALUES (#{userid}, #{flightId}, NOW(), #{seatClass}, #{passengerType}, #{sung}, #{pnr}, #{name}, #{charge}, #{chargePay})
+</insert>
+
+
+<select id="getSeatIdBySeatNumber" parameterType="string" resultType="int">
+    SELECT seat_id FROM seattemplate WHERE seat_number = #{seatNumber}
+</select>
+
+<insert id="addSeatToReservation">
+    INSERT INTO reservation_seats (reservation_id, seat_id) 
+    VALUES (#{reservationId}, #{seatId})
+</insert>
+
+<update id="updateSeatAvailability">
+    UPDATE flightseats 
+    SET is_available = 0
+    WHERE flight_id = #{flightId} AND seat_id = #{seatId}
+</update>
+
+
+	
+	
+    <select id="getFlightByReturnFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+    	SELECT * FROM flights WHERE flight_id = #{returnFlightId}
+	</select>
+
 	
 	 <!-- 기존 findFlights 쿼리 유지 -->
     <select id="findFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">

@@ -19,6 +19,7 @@ public interface MemberMapper {
 	public int getTotalMemberCount();
 	public ArrayList<MemberDto> getMemberList(int offset, int itemsPerPage);
 	public MemberDto getMemberById(String userId);
+
     public String useridSearch(MemberDto mdto);
     public MemberDto pwdSearch(MemberDto mdto);
     public void updatePassword(MemberDto mdto);
@@ -32,6 +33,7 @@ public interface MemberMapper {
     
     void updateEmail(String userid, String email);
     void updatePhone(String userid, String phone);
+	public void memberUp(MemberDto mdto);
 
 	
 }

@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>항공편 선택 확인 - eLT항공</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+
     <style>
         /* 좌석선택 버튼 스타일 */
         .btn-seat-select {
@@ -37,6 +40,7 @@ function openSeatSelection() {
 //선택된 좌석 정보를 업데이트하는 함수
 function updateSelectedSeats(seatNumbers) {
     // 좌석 번호 표시 영역 업데이트
+    document.getElementById('goingSelectedSeats').value = seatNumbers.join(',');
     document.getElementById('goingSeatsDisplay').innerText = seatNumbers.join(', ');
 
     // '가는편 좌석 선택' 버튼을 '좌석 변경' 버튼으로 대체
@@ -58,6 +62,7 @@ function openReturnSeatSelection() {
 //오는편 선택된 좌석 정보를 업데이트하는 함수
 function updateReturnSelectedSeats(seatNumbers) {
     // 좌석 번호 표시 영역 업데이트
+    document.getElementById('returnSelectedSeats').value = seatNumbers.join(',');
     document.getElementById('returnSeatsDisplay').innerText = seatNumbers.join(', ');
 
     // '오는편 좌석 선택' 버튼을 '좌석 변경' 버튼으로 대체
@@ -151,6 +156,7 @@ window.addEventListener('message', function(event) {
                 </tr>
             </tbody>
         </table>
+
 		<!-- 추가 정보 -->
         <h4>선택한 항공편 정보</h4>
         <table class="table table-bordered">
@@ -168,14 +174,18 @@ window.addEventListener('message', function(event) {
             </tbody>
         </table>
             <!-- 예약하기 버튼 -->
-            <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;">
+            <form action="${pageContext.request.contextPath}/flights/booking" method="post" style="display:inline;"
+            	onsubmit="console.log(document.getElementById('goingSelectedSeats').value, document.getElementById('returnSelectedSeats').value);">
                 <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
                 <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
                 <input type="hidden" name="seatClass" value="${seatClass}">
                 <input type="hidden" name="passengers" value="${passengers}">
+    			<input type="hidden" name="goingSelectedSeats" id="goingSelectedSeats">
+    			<input type="hidden" name="returnSelectedSeats" id="returnSelectedSeats">
                 <button type="submit" class="btn btn-success btn-reservation">예약하기</button>
             </form>
         </div>
     </div>
+
 </body>
 </html>

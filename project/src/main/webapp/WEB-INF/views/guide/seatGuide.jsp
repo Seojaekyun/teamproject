@@ -191,10 +191,6 @@
 			<a class="cta-button" href="#">좌석 배정하기</a>
 		</div>
 	</div>
-
-	<div>
-		<p>© 2024 eLTA항공. 모든 권리 보유.</p>
-	</div>
 	
 </section>
 

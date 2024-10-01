@@ -43,7 +43,7 @@
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 600;
 		margin-right: 60px;
 	}
@@ -70,7 +70,7 @@
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 28px;
+		top: 25px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,7 @@
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-weight: 900;
+		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}
@@ -226,12 +226,12 @@
 					<a href="../member/member"> 회원가입 </a>&nbsp;|&nbsp;
 					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
 				</c:if>
-				<c:if test="${userid!=null}">
+				<c:if test="${userid!=null&&userid!='admin'}">
 				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
 					<ul class="mmenu">
 						<li><a href="../member/memberView">나의정보</a></li>
 						<li><a href="../reserve/list">예약정보</a></li>
-						<li>나의문의</li>
+						<li><a href="../member/myInq">나의문의</a></li>
 					</ul>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
@@ -241,9 +241,7 @@
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-
 						<li><a href="../main/eventList"> 이벤트 </a></li>
-
 					</ul>
 				</span>
 			</div>
@@ -258,7 +256,6 @@
 						<li><a href="">운항정보</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 					<a href="../guide/checkinGuide">여행준비</a>
 
@@ -275,7 +272,6 @@
 						<li>3</li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
 					<a href="../guide/travel"> 여행지 </a>
 
@@ -285,7 +281,6 @@
 						<li><a href="">테마 여행</a></li>
 					</ul>
 				</li>
-
 				<li onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> 호텔/렌터카
 
 					<ul class="menu">
@@ -297,9 +292,7 @@
 		</nav>
 	</header>
 
-	<!-- 채팅 스타일 -->
-
-	
+<!-- 채팅 스타일 -->
 <style>
 	#chat-console {
 		width: 320px;
@@ -432,12 +425,17 @@
 	#chat-toggle:hover {
 		background-color: #1A9987;
 	}
+	.footer {
+		background-color: #00467F;
+		color: white;
+		text-align: center;
+		padding: 15px 0;
+		margin-top: 40px;
+	}
 	
 </style>
 <script>
-
 	// 상담 종료 시
-
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -556,6 +554,9 @@
 	
 	<sitemesh:write property="body" />
 	
+	<div class="footer">
+		<p>© 2024 여행사. 모든 권리 보유.</p>
+	</div>
 	<footer>
 
 		<div class="footer-container">
@@ -574,6 +575,7 @@
 				<div>080-888-1234(무료)</div>
 				<div>email : Tmaster@air.co.kr</div>
 				<div>전화번호 010-1234-5678</div>
+				<div>&nbsp;</div>
 			</div>
 		</div>
 

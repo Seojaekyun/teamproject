@@ -49,9 +49,14 @@ public class MemberController {
 	public String rlist(HttpSession session, HttpServletRequest request, Model model) {
 		return service.rlist(session, request, model);
 	}
-	
 
-    @RequestMapping("/member/memberView")
+
+	@RequestMapping("/member/myInq")
+	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
+		return service.myInq(session, request, model);
+	}
+  
+  @RequestMapping("/member/memberView")
     public String memberView(HttpServletRequest request,
                              HttpSession session,
                              Model model) {
@@ -60,6 +65,7 @@ public class MemberController {
         } else {
             String err = request.getParameter("err");
             String userid = session.getAttribute("userid").toString();
+            // Service 계층을 통해 회원 정보 가져오기
 
             MemberDto mdto = service.getMemberDetails(userid);
 
@@ -105,6 +111,7 @@ public class MemberController {
     }
     
     @RequestMapping("/member/id_delete")
+
     public String idDelete(@RequestParam("userid") String userid, 
                            @RequestParam("password") String password, 
                            Model model) {
@@ -125,6 +132,7 @@ public class MemberController {
             // 팝업과 함께 페이지 리다이렉트
             model.addAttribute("popupMessage", "탈퇴 신청이 완료되었습니다.");
             return "redirect:/member/memberView";  // 탈퇴 후 memberView로 리다이렉트
+
         } else {
             // 비밀번호 오류 시 처리 로직
             model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
@@ -145,7 +153,6 @@ public class MemberController {
         boolean isPasswordCorrect = service.checkPassword(userid, password);
 
         if (isPasswordCorrect) {
-            // level 5로 업데이트
             service.updateMemberLevel(userid, 5);
 
             // 팝업과 함께 페이지 리다이렉트
@@ -157,6 +164,7 @@ public class MemberController {
             return "/member/recovery_request";  // 다시 비밀번호 확인 페이지로 돌아감
         }
     }
+
     
     @PostMapping("/member/pwdChg")
     public String changePassword(HttpSession session, @RequestParam String oldPwd, @RequestParam String pwd, Model model, RedirectAttributes redirectAttributes) {

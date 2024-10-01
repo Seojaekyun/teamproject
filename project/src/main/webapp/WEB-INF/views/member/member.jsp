@@ -210,11 +210,14 @@
 				  document.getElementById("umsg").innerText = "사용 가능한 아이디 입니다";
 				  document.getElementById("umsg").style.color = "blue";
 				  document.getElementById("umsg").style.fontSize="12px";
+
 				  uchk = 1;
 			  } else {
 				  document.getElementById("umsg").innerText = "사용불가능한 아이디 입니다";
 				  document.getElementById("umsg").style.color = "red";
+
 				  document.getElementById("umsg").style.fontSize="12px";
+
 				  uchk = 0;
 			  }	  
 		  }
@@ -223,7 +226,9 @@
 	  } else {
 		  document.getElementById("umsg").innerText = "아이디를 다시 입력하고 체크하세요";
 		  document.getElementById("umsg").style.color = "red";
+
 		  document.getElementById("umsg").style.fontSize="12px";
+
 		  uchk = 0;
 	  }	  
   }
@@ -242,11 +247,14 @@
 		   document.getElementById("pmsg").innerText = "비밀번호가 일치합니다";
 		   document.getElementById("pmsg").style.color = "blue";
 		   document.getElementById("pmsg").style.fontSize="12px";
+
 		   pchk = 1;
 	  } else {
 		   document.getElementById("pmsg").innerText = "비밀번호가 일치하지 않습니다";
 		   document.getElementById("pmsg").style.color = "red";
+
 		   document.getElementById("pmsg").style.fontSize="12px";
+
 		   pchk = 0;
 	  }
   }
@@ -264,7 +272,7 @@
   // 제출 전 체크 함수
   function check() {
 	  formatPhone(); // 전화번호 형식화
-	  
+  
 	  var email = document.mform.e1.value + "@" + document.mform.e2.value;
 	  document.mform.email.value = email;
 	  
