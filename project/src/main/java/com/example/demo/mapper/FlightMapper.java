@@ -83,6 +83,8 @@ public interface FlightMapper {
 
 	void addSeatToReservation(@Param("reservationId") int reservationId, @Param("seatId") int seatId);
 	    void updateSeatAvailability(@Param("flightId") int flightId, @Param("seatId") int seatId);
+		List<Map<String, Object>> getTotalSeatsByFlightId();
+		
 
 
 }

@@ -187,13 +187,13 @@
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
 						<td><a href="rsvdList?flightName=${rsv.flightName }&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
-						<td>${rsv.reservationCount}</td>
+						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty rsvList}">
@@ -252,13 +252,13 @@
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
 				<c:forEach var="grsv" items="${gmpRsv}">
 					<tr>
 						<td><a href="rsvdList?flightName=${grsv.flightName }&departureTime=${grsv.departureTime}">${grsv.flightName}</a></td>
 						<td>${grsv.departureTime}</td>
-						<td>${grsv.reservationCount}</td>
+						<td>${availableSeatsMap[grsv.flightId] != null ? availableSeatsMap[grsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty gmpRsv}">
@@ -312,13 +312,13 @@
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
 				<c:forEach var="irsv" items="${icnRsv}">
 					<tr>
 						<td><a href="rsvdList?flightName=${irsv.flightName }&departureTime=${irsv.departureTime}">${irsv.flightName}</a></td>
 						<td>${irsv.departureTime}</td>
-						<td>${irsv.reservationCount}</td>
+						<td>${availableSeatsMap[irsv.flightId] != null ? availableSeatsMap[irsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty icnRsv}">
@@ -372,13 +372,13 @@
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
 				<c:forEach var="orsv" items="${otherRsv}">
 					<tr>
 						<td><a href="rsvdList?flightName=${orsv.flightName }&departureTime=${orsv.departureTime}">${orsv.flightName}</a></td>
 						<td>${orsv.departureTime}</td>
-						<td>${orsv.reservationCount}</td>
+						<td>${availableSeatsMap[orsv.flightId] != null ? availableSeatsMap[orsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty otherRsv}">

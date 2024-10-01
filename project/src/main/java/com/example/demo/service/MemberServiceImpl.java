@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -85,6 +87,20 @@ public class MemberServiceImpl implements MemberService {
 	        rsvClist = rmapper.getRsvcfac(userid, itemsPerPage, offset);  // 모든 예약 리스트
 	    }
 
+	    // 예약 ID 리스트 추출
+	    List<Integer> reservationIds = rsvClist.stream()
+	        .map(reservation -> (Integer) reservation.get("reservation_id"))
+	        .collect(Collectors.toList());
+
+	    // 좌석 수 가져오기
+	    Map<Integer, Integer> seatCounts = new HashMap<>();
+	    if (!reservationIds.isEmpty()) {
+	        List<Map<String, Object>> seatCountList = rmapper.getScrsvid(reservationIds);
+	        for (Map<String, Object> seatCount : seatCountList) {
+	            seatCounts.put((Integer) seatCount.get("reservation_id"), ((Long) seatCount.get("seat_count")).intValue());
+	        }
+	    }
+
 	    // charge 정보 가져오기
 	    Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
 
@@ -99,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 	    int totalCharge = totalChargeValue.intValue();
 	    int totalChargePay = totalChargePayValue.intValue();
 
-	    // 전체 예약 수 가져오기 (수정된 부분)
+	    // 전체 예약 수 가져오기
 	    int totalReservations;
 	    if (selectedDate != null && !selectedDate.isEmpty()) {
 	        totalReservations = rmapper.getTotalRsvcByDate(userid, selectedDate);  // 날짜에 따른 총 예약 수
@@ -112,14 +128,17 @@ public class MemberServiceImpl implements MemberService {
 
 	    // JSP로 데이터 전달
 	    model.addAttribute("rsvClist", rsvClist);
+	    model.addAttribute("seatCounts", seatCounts);  // 좌석 수 전달
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
 	    model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
 	    model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
+	    model.addAttribute("totalReservations", totalReservations);  // 전체 예약 수 전달
 	    model.addAttribute("selectedDate", selectedDate);  // 선택한 날짜를 모델에 추가
 
 	    return "/reserve/list";  // 예약 리스트 JSP 페이지로 이동
 	}
+
 	
 	@Override
     public MemberDto getMemberDetails(String userid) {

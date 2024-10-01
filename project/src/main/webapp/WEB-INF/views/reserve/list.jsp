@@ -171,7 +171,7 @@ $(function() {
 						<td>${res.flightName}</td>
 						<td>${res.departure_time}</td>
 						<td>${res.seat_class}</td>
-						<td>${res.reservation_count}</td>
+						<td>${seatCounts[res.reservation_id]}</td>
 						<td>${totalCharge} 원</td>
 						<td>
 							<c:if test="${totalChargePay == 0}">

@@ -20,5 +20,6 @@ public class FlightDto {
     private int passengerCount;
     private SeatClass seatClass;
     private List<SeatDto> seatOptions;      // SeatOption -> SeatDto로 변경
+    private int totalSeats;
 	
 }

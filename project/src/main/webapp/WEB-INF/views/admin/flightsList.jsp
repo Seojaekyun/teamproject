@@ -170,7 +170,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty pagedOtherFlights}">
@@ -236,7 +236,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty pagedGmpFlights}">
@@ -299,7 +299,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty pagedIcnFlights}">
@@ -366,7 +366,7 @@
 					<td>${flight.arrivalAirport}</td>
 					<td>${flight.departureTime}</td>
 					<td>${flight.arrivalTime}</td>
-					<td>${flight.availableSeats}</td>
+					<td>${flight.totalSeats}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${empty flightList}">
