@@ -119,7 +119,7 @@
 		background-color: #fff;
 		display: none; /* 기본적으로 채팅 창을 숨김 */
 		flex-direction: column;
-		z-index: 1100;
+		z-index: 2100;
 	}
 	#chat-header {
 		background-color: #2DD1C5;

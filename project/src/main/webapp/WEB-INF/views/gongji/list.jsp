@@ -197,11 +197,7 @@
 			<a href="?page=${nextPage}">다음10 &raquo;</a>
 		</div>
     </div>
-
-    <div>
-        <p>© 2024 eLTA항공. 모든 권리 보유.</p>
-    </div>
-    
+   
 </section>
 
 </body>

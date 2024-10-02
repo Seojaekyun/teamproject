@@ -55,19 +55,19 @@
         <div class="chart-wrapper">
             <!-- 월별 예약 차트 -->
             <div class="chart-container">
-                <h2>월별 예약 통계</h2>
+                <h2>월별 예약</h2>
                 <canvas id="monthlyChart"></canvas>
             </div>
 
             <!-- 항공편별 예약 차트 -->
             <div class="chart-container">
-                <h2>목적지별 예약 통계</h2>
+                <h2>행선지별 예약</h2>
                 <canvas id="flightChart"></canvas>
             </div>
 
             <!-- 좌석 등급별 예약 차트 -->
             <div class="chart-container">
-                <h2>좌석 등급별 예약 통계</h2>
+                <h2>좌석 등급별 예약</h2>
                 <canvas id="seatClassChart"></canvas>
             </div>
         </div>
@@ -81,7 +81,7 @@
             data: {
                 labels: ${monthlyLabels},  // JSON 형태로 전달된 데이터를 받음
                 datasets: [{
-                    label: '월별 예약 수',
+                    label: '월별 예약',
                     data: ${monthlyReservations},
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -113,7 +113,7 @@
             data: {
                 labels: ${flightLabels},  // JSON 형태로 전달된 데이터를 받음
                 datasets: [{
-                    label: '목적지별 예약 수',
+                    label: '행선지별 예약',
                     data: ${flightReservations},
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
                     borderColor: 'rgba(153, 102, 255, 1)',
@@ -145,7 +145,7 @@
             data: {
                 labels: ${seatClassLabels},  // JSON 형태로 전달된 데이터를 받음
                 datasets: [{
-                    label: '좌석 등급별 예약 수',
+                    label: '좌석 등급별 예약',
                     data: ${seatClassReservations},
                     backgroundColor: 'rgba(255, 159, 64, 0.2)',
                     borderColor: 'rgba(255, 159, 64, 1)',

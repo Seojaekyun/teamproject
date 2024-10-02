@@ -198,48 +198,38 @@
 						<td>${idto.writeday}</td>
 					</tr>
 				</c:forEach>
-				
-				
 			</table>
-			
 		</div>
 		<!-- 페이징 처리 -->
-						<div class="pagination">
-							<c:if test="${currentPage > 10}">
-								<a href="?page=${currentPage - 10}">&laquo; 이전 10</a>
-							</c:if>
-							
-							<c:set var="startPage" value="${currentPage - 5}" />
-							<c:set var="endPage" value="${currentPage + 4}" />
-							<c:if test="${startPage < 1}">
-								<c:set var="startPage" value="1" />
-							</c:if>
-							<c:if test="${endPage > totalPages}">
-								<c:set var="endPage" value="${totalPages}" />
-							</c:if>
-				
-							<c:forEach begin="${startPage}" end="${endPage}" var="i">
-								<c:choose>
-									<c:when test="${i == currentPage}">
-										<span class="active">${i}</span>
-									</c:when>
-									<c:otherwise>
-										<a href="?page=${i}">${i}</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							
-							<c:if test="${currentPage + 10 <= totalPages}">
-								<a href="?page=${currentPage + 10}">다음 10 &raquo;</a>
-							</c:if>
-						</div>
-					<div align="right">
-						<a href="write" id="write" style='align: right'>문의하기</a>
-					</div>
-	</div>
-
-	<div>
-		<p>© 2024 eLTA항공. 모든 권리 보유.</p>
+		<div class="pagination">
+			<c:if test="${currentPage > 10}">
+				<a href="?page=${currentPage - 10}">&laquo; 이전 10</a>
+			</c:if>
+			<c:set var="startPage" value="${currentPage - 5}" />
+			<c:set var="endPage" value="${currentPage + 4}" />
+			<c:if test="${startPage < 1}">
+				<c:set var="startPage" value="1" />
+			</c:if>
+			<c:if test="${endPage > totalPages}">
+				<c:set var="endPage" value="${totalPages}" />
+			</c:if>
+			<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:choose>
+					<c:when test="${i == currentPage}">
+						<span class="active">${i}</span>
+					</c:when>
+					<c:otherwise>
+						<a href="?page=${i}">${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${currentPage + 10 <= totalPages}">
+				<a href="?page=${currentPage + 10}">다음 10 &raquo;</a>
+			</c:if>
+		</div>
+		<div align="right">
+			<a href="write" id="write" style='align: right'>문의하기</a>
+		</div>
 	</div>
 	
 </section>

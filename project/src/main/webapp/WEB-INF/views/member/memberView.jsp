@@ -360,10 +360,10 @@ width: 50%;
        <div class="delete_id">
     <c:choose>
         <c:when test="${mdto.level == 0 || mdto.level == 1 || mdto.level == 2}">
-            <a href="../member/id_verification">탈퇴신청 ></a>
+            <a href="../member/id_verification"><input type="button" value="탈퇴신청" id="outbtn"></a>
         </c:when>
         <c:when test="${mdto.level == 3}">
-            <span>탈퇴승인중 | <a href="../member/recovery_request">탈퇴 취소 ></a></span>
+            <span>탈퇴승인중 | <a href="../member/recovery_request"><input type="button" value="탈퇴취소" id="outbtn"></a></span>
         </c:when>
                 <c:when test="${mdto.level == 5}">
             <span>복구승인중 | <a href="../member/id_verification">탈퇴 신청 ></a></span>

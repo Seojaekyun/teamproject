@@ -12,15 +12,15 @@
    #section input[type=text], [type=password] {
      width:230px;
      height:30px;
-     border:1px solid green;
+     border:1px solid #000f9b;
      border-radius: 5px;
      outline:none;
    }
    #section input[type=submit] {
      width:236px;
      height:34px;
-     border:1px solid green;
-     background:green;
+     border:1px solid #000f9b;
+     background:#000f9b;
      color:white;
      font-size:15px;
      border-radius: 5px;

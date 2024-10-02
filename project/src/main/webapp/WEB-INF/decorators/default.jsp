@@ -478,7 +478,7 @@
 	}
 	.footer {
 		background-color: #00467F;
-		color: white;
+		color: white !important;
 		text-align: center;
 		padding: 15px 0;
 		margin-top: 40px;
@@ -605,8 +605,8 @@
 	
 	<sitemesh:write property="body" />
 	
-	<div class="footer">
-		<p>© 2024 여행사. 모든 권리 보유.</p>
+	<div class="footer" style="color: white">
+		<span>© 2024 여행사. 모든 권리 보유.</span>
 	</div>
 	<footer>
 
