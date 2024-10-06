@@ -24,4 +24,6 @@ public class FlightApiController {
     public List<AirportsDto> getAllAirports() {
         return service.getAllAirports();
     }
+    
+    
 }

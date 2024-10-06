@@ -82,15 +82,16 @@ public class MainController {
 	}
 	
 	@GetMapping("/checkLoginStatus")
-    @ResponseBody
-    public boolean checkLoginStatus(HttpSession session) {
-
-        return service. checkLoginStatus(session);
-    }
-
-    // 로그인 처리를 담당하는 컨트롤러
-    @PostMapping("/login")
-    public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	public boolean checkLoginStatus(HttpSession session) {
+		return service. checkLoginStatus(session);
+	}
+	
+	// 로그인 처리를 담당하는 컨트롤러
+	@PostMapping("/login")
+	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		return service.loginOk(mdto,session,request,response);
-    }
+	}
+	
+	
 }

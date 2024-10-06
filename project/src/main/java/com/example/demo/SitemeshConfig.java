@@ -23,4 +23,6 @@ public class SitemeshConfig extends ConfigurableSiteMeshFilter{
 		super.applyCustomConfiguration(builder);
 		
 	}
+	
+	
 }

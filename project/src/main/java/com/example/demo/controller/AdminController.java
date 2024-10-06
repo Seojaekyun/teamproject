@@ -144,6 +144,5 @@ public class AdminController {
 		return service.rsvdList(request, model);
 	}
 	
-
-
+	
 }

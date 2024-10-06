@@ -13,11 +13,11 @@ public class ProjectApplication {
 	}
 	
 	@Bean
-	public FilterRegistrationBean<SitemeshConfig> sitemeshbean()
-	{
+	public FilterRegistrationBean<SitemeshConfig> sitemeshbean() {
 		FilterRegistrationBean<SitemeshConfig> bean=new FilterRegistrationBean<SitemeshConfig>();
 		bean.setFilter(new SitemeshConfig());
 		return bean;
 	}
-
+	
+	
 }
