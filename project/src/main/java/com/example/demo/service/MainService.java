@@ -19,7 +19,9 @@ public interface MainService {
 	public String eventList();
 	public String travel();
 	public boolean checkLoginStatus(HttpSession session);
-	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response);
+	public String loginOk(
+			MemberDto mdto, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response);
 	
 	
 }

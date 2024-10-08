@@ -10,5 +10,5 @@ import java.util.List;
 public interface SeatMapper {
 	List<SeatDto> getAvailableSeats(@Param("flightId") int flightId);
 	
-	
+		
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class StateCountDto {
-    private int state, count, rank;
-    
+	private int state, count, rank;
+	
+	
 }

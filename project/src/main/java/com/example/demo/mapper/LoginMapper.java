@@ -11,5 +11,4 @@ public interface LoginMapper {
 	public MemberDto getMemberByUserId(String userid);
 	
 	
-	
 }
