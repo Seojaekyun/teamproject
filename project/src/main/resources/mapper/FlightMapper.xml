@@ -44,7 +44,8 @@
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
 	</select>
 	<select id="getTotalSeatsByFlightId" resultType="map">
-		SELECT flight_id, CAST(COUNT(*) AS SIGNED) AS totalSeats FROM flightseats GROUP BY flight_id
+		SELECT flight_id, CAST(SUM(CASE WHEN is_available = 1 THEN 1 ELSE 0 END) AS SIGNED)
+		AS totalSeats FROM flightseats GROUP BY flight_id;
 	</select>
 	<!-- countAvailableSeats 매핑 추가 -->
 	<select id="countAvailableSeats" parameterType="int" resultType="int">

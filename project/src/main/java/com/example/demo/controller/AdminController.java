@@ -162,24 +162,37 @@ public class AdminController {
         return "admin/addFlight";
     }
 
-    @PostMapping("/admin/addFlight")
-    public String addFlight(
-            @RequestParam("departureAirport") String departureAirport,
-            @RequestParam("arrivalAirport") String arrivalAirport,
-            @RequestParam("departureTime") String departureTime,
-            @RequestParam("arrivalTime") String arrivalTime,
-            @RequestParam("airplaneId") int airplaneId,
-            Model model) {
-        
-        try {
-            fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, airplaneId);
-            model.addAttribute("message", "항공편이 성공적으로 추가되었습니다.");
-        } catch (Exception e) {
-            model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
-        }
-        
-        return "admin/addFlightResult";
-    }
+	@PostMapping("/admin/addFlights")
+	public String addFlights(
+	        @RequestParam("departureAirport") String departureAirport,
+	        @RequestParam("arrivalAirport") String arrivalAirport,
+	        @RequestParam("departureTime") String departureTime,
+	        @RequestParam("arrivalTime") String arrivalTime,
+	        @RequestParam("airplaneId") int airplaneId,
+	        
+	        @RequestParam("returnDepartureAirport") String returnDepartureAirport,
+	        @RequestParam("returnArrivalAirport") String returnArrivalAirport,
+	        @RequestParam("returnDepartureTime") String returnDepartureTime,
+	        @RequestParam("returnArrivalTime") String returnArrivalTime,
+	        @RequestParam("returnAirplaneId") int returnAirplaneId,
+	        
+	        Model model) {
+
+	    try {
+	        // 출발편 추가
+	        fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, airplaneId);
+	        // 귀국편 추가
+	        fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnAirplaneId);
+
+	        model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
+	    } catch (Exception e) {
+	        model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
+	        return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
+	    }
+
+	    // 성공적으로 항공편이 추가된 경우 항공편 목록 페이지로 리다이렉트
+	    return "redirect:/admin/flightsList";
+	}
     
     @PostMapping("/admin/addSeats")
     public String addSeats(Model model) {
@@ -189,7 +202,7 @@ public class AdminController {
         } catch (Exception e) {
             model.addAttribute("message", "좌석 추가 중 오류가 발생했습니다: " + e.getMessage());
         }
-        return "admin/addSeatsResult";
+        return "redirect:/admin/flightsList";
     }
 	
 	

@@ -141,13 +141,13 @@
 		background-color: #000A8E;
 		color: white;
 		border: none;
-		padding: 10px 20px;
+		padding: 10px 15px;
 		font-size: 16px;
-		border-radius: 8px;
+		border-radius: 10px;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 		cursor: pointer;
 		transition: background-color 0.3s ease, transform 0.3s ease;
-		margin: 0 10px;
+		margin: 5px 10px 0 0;
 	}
 	.button:hover {
 		background-color: #333;
@@ -195,7 +195,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedOtherFlights}">
 				<tr>
@@ -261,7 +261,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedGmpFlights}">
 				<tr>
@@ -324,7 +324,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedIcnFlights}">
 					<tr>
@@ -390,7 +390,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${flightList}">
 				<tr>
