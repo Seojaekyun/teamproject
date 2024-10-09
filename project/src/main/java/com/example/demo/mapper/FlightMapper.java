@@ -4,6 +4,7 @@ import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
+import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -54,6 +55,9 @@ public interface FlightMapper {
 			@Param("flightId") int flightId,
 			@Param("seatId") int seatId);
 	List<Map<String, Object>> getTotalSeatsByFlightId();
+	void addFlight(FlightDto flight);
+	List<AirplanesDto> findAllAirplanes();
+	void addSeatsForFlight();
 	
 	
 }

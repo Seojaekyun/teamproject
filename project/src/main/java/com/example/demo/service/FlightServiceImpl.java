@@ -13,6 +13,7 @@ import com.example.demo.mapper.FlightMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
 
 @Service("fs")
@@ -132,6 +133,28 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public void updateSeatAvailability(int flightId, int seatId) {
 		fmapper.updateSeatAvailability(flightId, seatId);
+	}
+	
+	@Override
+	public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, int airplaneId) {
+		FlightDto flight = new FlightDto();
+		flight.setDepartureAirport(departureAirport);
+		flight.setArrivalAirport(arrivalAirport);
+		flight.setDepartureTime(departureTime);
+		flight.setArrivalTime(arrivalTime);
+		flight.setAirplaneId(airplaneId);
+		
+		fmapper.addFlight(flight);
+	}
+	
+	@Override
+	public List<AirplanesDto> getAllAirplanes() {
+		return fmapper.findAllAirplanes();
+	}
+	
+	@Override
+	public void addSeatsForFlight() {
+		fmapper.addSeatsForFlight();
 	}
 	
 	

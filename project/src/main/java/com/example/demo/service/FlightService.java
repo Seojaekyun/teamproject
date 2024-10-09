@@ -5,6 +5,7 @@ import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.SeatDto;
 import java.util.List;
 
+import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
 
 public interface FlightService {
@@ -25,6 +26,10 @@ public interface FlightService {
 	int getSeatIdBySeatNumber(String seatNumber);
 	void addSeatToReservation(int reservationId, int seatId);
 	void updateSeatAvailability(int flightId, int seatId);
+	void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime,
+			int airplaneId);
+	List<AirplanesDto> getAllAirplanes();
+	void addSeatsForFlight();
 	
 	
 }
