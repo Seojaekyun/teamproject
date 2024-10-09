@@ -28,13 +28,11 @@
 		delete from gongji where id=#{param}
 	</delete>
 	<select id="getTotalCount" resultType="int">
-    SELECT COUNT(*) FROM gongji
-</select>
-
-<select id="listWithPaging" resultType="com.example.demo.dto.GongjiDto">
-    
-</select>
+		SELECT COUNT(*) FROM gongji
+	</select>
+	<select id="listWithPaging" resultType="com.example.demo.dto.GongjiDto">
 	
-
+	</select>
+	
 	
 </mapper>

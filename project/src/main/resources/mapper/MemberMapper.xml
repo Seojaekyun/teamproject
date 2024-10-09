@@ -16,97 +16,53 @@
 	</select>
 	<select id="getMemberList" resultType="com.example.demo.dto.MemberDto">
 		SELECT * FROM member LIMIT #{itemsPerPage} OFFSET #{offset}
-    </select>
+	</select>
 	<select id="getTotalMemberCount" resultType="int">
 		SELECT COUNT(*) FROM member
 	</select>
 	<select id="getMemberById" parameterType="String" resultType="com.example.demo.dto.MemberDto">
 		SELECT * FROM member WHERE userid = #{userid};
 	</select>
-
-
-    <select id="useridSearch" parameterType="com.example.demo.dto.MemberDto" resultType="String">
-        SELECT userid 
-        FROM member 
-        WHERE name = #{name} AND email = #{email}
-    </select>
-
- <select id="pwdSearch" parameterType="com.example.demo.dto.MemberDto" resultType="com.example.demo.dto.MemberDto">
-    SELECT * FROM member WHERE userid = #{userid} AND email = #{email}
-</select>
-    
-    <update id="updatePassword" parameterType="com.example.demo.dto.MemberDto">
-    UPDATE member
-    SET pwd = #{pwd}
-    WHERE userid = #{userid}
-</update>
-
- <update id="updateMemberLevelByUserid" parameterType="String">
-        update member 
-        set level=3
-        where userid=#{userid}
-    </update>
-
-
-<select id="getPasswordByUserid" parameterType="String" resultType="String">
-    SELECT pwd FROM member WHERE userid = #{userid}
-</select>
-
-		
+	<select id="useridSearch" parameterType="com.example.demo.dto.MemberDto" resultType="String">
+		SELECT userid FROM member WHERE name = #{name} AND email = #{email}
+	</select>
+	<select id="pwdSearch" parameterType="com.example.demo.dto.MemberDto" resultType="com.example.demo.dto.MemberDto">
+		SELECT * FROM member WHERE userid = #{userid} AND email = #{email}
+	</select>
+	<update id="updatePassword" parameterType="com.example.demo.dto.MemberDto">
+		UPDATE member SET pwd = #{pwd} WHERE userid = #{userid}
+	</update>
+	<update id="updateMemberLevelByUserid" parameterType="String">
+		update member set level=3 where userid=#{userid}
+	</update>
+	<select id="getPasswordByUserid" parameterType="String" resultType="String">
+		SELECT pwd FROM member WHERE userid = #{userid}
+	</select>
 	<select id="getPreviousLevel" parameterType="String" resultType="int">
-    SELECT previous_level 
-    FROM member 
-    WHERE userid = #{userid}
-</select>
-
-<select id="selectMembers" resultType="com.example.demo.dto.MemberDto">
-    SELECT userid, name, level, previous_level
-    FROM member
-</select>
-
-<!-- 현재 level 가져오기 -->
-<select id="getCurrentLevel" resultType="int" parameterType="String">
-    SELECT level
-    FROM member
-    WHERE userid = #{userid}
-</select>
-
-
-<update id="updatePreviousLevel">
-    UPDATE member
-    SET previous_level = #{previousLevel}
-    WHERE userid = #{userid}
-</update>
-
-
-<update id="updateMemberLevel">
-    UPDATE member
-    SET level = #{level}
-    WHERE userid = #{userid}
-</update>
-
-
-    <update id="updatePasswords">
-        UPDATE member
-        SET pwd = #{newPwd}
-        WHERE userid = #{userid}
-    </update>
-
-    <update id="updateEmail">
-        UPDATE member
-        SET email = #{email}
-        WHERE userid = #{userid}
-    </update>
-
-    <update id="updatePhone">
-        UPDATE member
-        SET phone = #{phone}
-        WHERE userid = #{userid}
-    </update>
-
-		
-		
-
+		SELECT previous_level FROM member WHERE userid = #{userid}
+	</select>
+	<select id="selectMembers" resultType="com.example.demo.dto.MemberDto">
+		SELECT userid, name, level, previous_level FROM member
+	</select>
+	<!-- 현재 level 가져오기 -->
+	<select id="getCurrentLevel" resultType="int" parameterType="String">
+		SELECT level FROM member WHERE userid = #{userid}
+	</select>
+	<update id="updatePreviousLevel">
+		UPDATE member SET previous_level = #{previousLevel} WHERE userid = #{userid}
+	</update>
+	<update id="updateMemberLevel">
+		UPDATE member SET level = #{level} WHERE userid = #{userid}
+	</update>
+	<update id="updatePasswords">
+		UPDATE member SET pwd = #{newPwd} WHERE userid = #{userid}
+	</update>
+	<update id="updateEmail">
+		UPDATE member SET email = #{email} WHERE userid = #{userid}
+	</update>
+	<update id="updatePhone">
+		UPDATE member SET phone = #{phone} WHERE userid = #{userid}
+	</update>
 	<update id="memberUp" parameterType="com.example.demo.dto.MemberDto">
 		update member set level=#{level} where id=#{id}
 	</update>
@@ -115,5 +71,4 @@
 	</update>
 	
 	
-
  </mapper>
