@@ -344,40 +344,49 @@
 			loadAllPage(1, savedDate);
 		}
 	});
-	function loadPage(page, type) {
-		let url = "/admin/reserveList";
-		let params = {
-			page: page
-		};
-		if (type === 'gmp') {
-			params.gmpPage = page;
-		} else if (type === 'icn') {
-			params.icnPage = page;
-		} else if (type === 'other') {
-			params.otherPage = page;
-		}
-		$.get(url, params, function (data) {
-			// 페이지 리로드 없이 해당 영역만 업데이트
-			$("#" + type + "Flights").html($(data).find("#" + type + "Flights").html());
-		}).fail(function () {
-			alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
-		});
-	}
 	function loadAllPage(page, selectedDate) {
-		let url = "/admin/reserveList";
-		let params = {
-			page: page
-		};
-		if (selectedDate && selectedDate !== "") {
-			params.selectedDate = selectedDate;
-		}
-		$.get(url, params, function (data) {
-			// 페이지 리로드 없이 해당 영역만 업데이트
-			$("#allFlights").html($(data).find("#allFlights").html());
-		}).fail(function () {
-			alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
-		});
+	    let url = "/admin/reserveList";
+	    let params = {
+	        page: page
+	    };
+	    if (selectedDate && selectedDate !== "") {
+	        params.selectedDate = selectedDate;
+	    }
+	    // 전체 예약 업데이트
+	    $.get(url, params, function (data) {
+	        $("#allFlights").html($(data).find("#allFlights").html());
+	        $("#gmpFlights").html($(data).find("#gmpFlights").html());
+	        $("#icnFlights").html($(data).find("#icnFlights").html());
+	        $("#otherFlights").html($(data).find("#otherFlights").html());
+	    }).fail(function () {
+	        alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
+	    });
 	}
+
+	function loadPage(page, type) {
+	    let url = "/admin/reserveList";
+	    let params = {
+	        page: page
+	    };
+	    // 선택된 날짜가 있으면 포함
+	    let selectedDate = sessionStorage.getItem("selectedDate");
+	    if (selectedDate && selectedDate !== "") {
+	        params.selectedDate = selectedDate;
+	    }
+	    if (type === 'gmp') {
+	        params.gmpPage = page;
+	    } else if (type === 'icn') {
+	        params.icnPage = page;
+	    } else if (type === 'other') {
+	        params.otherPage = page;
+	    }
+	    $.get(url, params, function (data) {
+	        $("#" + type + "Flights").html($(data).find("#" + type + "Flights").html());
+	    }).fail(function () {
+	        alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
+	    });
+	}
+
 	function clearDate() {
 		sessionStorage.removeItem("selectedDate");
 		$("#selectedDate").text('');

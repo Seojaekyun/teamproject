@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,59 +48,68 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
 		Object useridObj = session.getAttribute("userid");
+		
 		// userid가 null인지 체크
-		if(useridObj == null) {
+		if (useridObj == null) {
 			return "redirect:/main/index";  // userid가 null이면 메인 페이지로 리다이렉트
 		}
 		
-		String userid=useridObj.toString();
-		if("admin".equals(userid)) {
-		// 현재 날짜 구하기
-		String currentDate = LocalDate.now().toString();
+		String userid = useridObj.toString();
 		
-		// 항공편 5개 조회
-		List<FlightDto> departureList = fmapper.getDepartureFlights();
-		List<FlightDto> arrivalList = fmapper.getArrivalFlights();
-		
-		model.addAttribute("departureList", departureList);
-		model.addAttribute("arrivalList", arrivalList);
-		
-		// 모든 문의 리스트 조회
-		ArrayList<InquiryDto> ilist = imapper.ilist();
-		model.addAttribute("ilist", ilist);
-		
-		// State별 문의 수 조회
-		List<StateCountDto> countsList = imapper.listCountsPerState();
-		countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
-		
-		for (int i = 0; i < countsList.size(); i++) {
-			countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
-		}
-		
-		model.addAttribute("countsList", countsList);
-		
-		// 현재 시간 이후의 예약 5개씩 조회
-		List<ReservationDto> rsvList = rmapper.getRsvanow();
-		
-		// GMP로 시작하는 항공편의 예약 리스트
-		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("gmpRsv", gmpRsv);
-		
-		// ICN으로 시작하는 항공편의 예약 리스트
-		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("icnRsv", icnRsv);
-		
-		// 기타 항공편의 예약 리스트
-		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("otherRsv", otherRsv);
-		
-		return "/admin/index";
+		if ("admin".equals(userid)) {
+			// 현재 날짜 및 시간 구하기
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			
+			// 항공편 5개 조회
+			List<FlightDto> departureList = fmapper.getDepartureFlights();
+			List<FlightDto> arrivalList = fmapper.getArrivalFlights();
+			
+			model.addAttribute("departureList", departureList);
+			model.addAttribute("arrivalList", arrivalList);
+			
+			// 모든 문의 리스트 조회
+			ArrayList<InquiryDto> ilist = imapper.ilist();
+			model.addAttribute("ilist", ilist);
+			
+			// State별 문의 수 조회
+			List<StateCountDto> countsList = imapper.listCountsPerState();
+			countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
+			
+			for (int i = 0; i < countsList.size(); i++) {
+				countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
+			}
+			
+			model.addAttribute("countsList", countsList);
+			
+			// 현재 시간 이후의 예약 5개씩 조회
+			List<ReservationDto> rsvList = rmapper.getRsvanow().stream()
+					.filter(rsv -> {
+						// String 타입의 departureTime을 LocalDateTime으로 변환
+						LocalDateTime departureTime = LocalDateTime.parse(rsv.getDepartureTime(), formatter);
+						return departureTime.isAfter(now);  // 현재 시간 이후인지 확인
+					})
+					.collect(Collectors.toList());
+			
+			// GMP로 시작하는 항공편의 예약 리스트
+			List<ReservationDto> gmpRsv = rsvList.stream()
+					.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("gmpRsv", gmpRsv);
+			
+			// ICN으로 시작하는 항공편의 예약 리스트
+			List<ReservationDto> icnRsv = rsvList.stream()
+					.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("icnRsv", icnRsv);
+			
+			// 기타 항공편의 예약 리스트
+			List<ReservationDto> otherRsv = rsvList.stream()
+					.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("otherRsv", otherRsv);
+			
+			return "/admin/index";
 		}
 		else {
 			return "redirect:/main/index";
