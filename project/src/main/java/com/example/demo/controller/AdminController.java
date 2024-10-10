@@ -194,15 +194,12 @@ public class AdminController {
 	    return "redirect:/admin/flightsList";
 	}
     
-    @PostMapping("/admin/addSeats")
-    public String addSeats(Model model) {
-        try {
-            fservice.addSeatsForFlight();
-            model.addAttribute("message", "좌석이 성공적으로 추가되었습니다.");
-        } catch (Exception e) {
-            model.addAttribute("message", "좌석 추가 중 오류가 발생했습니다: " + e.getMessage());
-        }
-        return "redirect:/admin/flightsList";
+	@PostMapping("/admin/addSeats")
+    public String addSeats() {
+        // flightId는 내부에서 처리되므로 전달하지 않음
+        fservice.addSeatsForFlight();
+
+        return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
     }
 	
 	

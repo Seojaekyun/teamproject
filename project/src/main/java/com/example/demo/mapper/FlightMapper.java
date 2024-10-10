@@ -57,7 +57,9 @@ public interface FlightMapper {
 	List<Map<String, Object>> getTotalSeatsByFlightId();
 	void addFlight(FlightDto flight);
 	List<AirplanesDto> findAllAirplanes();
-	void addSeatsForFlight();
+	void addSeatsForFlight(Map<String, Object> params);
+	Map<String, Object> getFlightCapacity(int flightId);
+	Integer getFlightIdForAddingSeats();
 	
 	
 }

@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
@@ -152,10 +154,30 @@ public class FlightServiceImpl implements FlightService {
 		return fmapper.findAllAirplanes();
 	}
 	
-	@Override
-	public void addSeatsForFlight() {
-		fmapper.addSeatsForFlight();
-	}
-	
-	
+	 @Override
+	    public void addSeatsForFlight() {
+	        // 아직 좌석이 없는 flightId를 조회
+	        Integer flightId = fmapper.getFlightIdForAddingSeats();
+
+	        if (flightId != null) {
+	            // flightId로부터 해당 항공기의 capacity 가져오기
+	            Map<String, Object> flightData = fmapper.getFlightCapacity(flightId);
+
+	            if (flightData != null) {
+	                int capacity = (int) flightData.get("capacity");
+
+	                // 좌석 번호 리스트 생성 (1부터 capacity까지)
+	                List<Integer> seatNumbers = IntStream.rangeClosed(1, capacity)
+	                                                     .boxed()
+	                                                     .collect(Collectors.toList());
+
+	                // MyBatis에 flightId와 seatNumbers 전달하여 좌석 추가
+	                Map<String, Object> params = new HashMap<>();
+	                params.put("flightId", flightId);
+	                params.put("seatNumbers", seatNumbers);
+
+	                fmapper.addSeatsForFlight(params);
+	            }
+	        }
+	 }
 }
