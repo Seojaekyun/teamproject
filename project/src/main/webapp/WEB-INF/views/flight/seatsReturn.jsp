@@ -7,60 +7,80 @@
     <title>좌석 선택</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <style>
-        .airplane {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .seatf {
-            width: 80px;
-            height: 60px;
-            border: 1px solid #000;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-        .seatb {
-            width: 70px;
-            height: 50px;
-            border: 1px solid #000;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-        .seat {
-            width: 50px;
-            height: 50px;
-            border: 1px solid #000;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-        }
-        .available {
-            background-color: #28a745; /* 녹색 */
-        }
-        .unavailable {
-            background-color: #6c757d; /* 회색 */
-            cursor: not-allowed;
-        }
-        .selected {
-            background-color: #ffc107; /* 노란색 */
-        }
-        .aisle {
-            width: 30px; /* 복도 공간 */
-            height: 50px;
-            background-color: transparent;
-        }
-        .row {
-            display: flex;
-            gap: 10px; /* 좌석 간의 간격 추가 */
-            justify-content: center;
-            margin-bottom: 10px; /* 행 간의 간격 */
-        }
+    .airplane {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .seat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 좌석 번호를 중앙에 배치 */
+    }
+    .seatf {
+        width: 100px;
+        height: 120px;
+        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
+        background-position: center;
+        text-align: center;
+        line-height: 80px;
+        cursor: pointer;
+        border: none; /* 테두리 제거 */
+    }
+    .seatb {
+        width: 80px;
+        height: 100px;
+        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
+        background-position: center;
+        text-align: center;
+        line-height: 80px;
+        cursor: pointer;
+        border: none; /* 테두리 제거 */
+    }
+    .seat {
+        width: 60px;
+        height: 80px;
+        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
+        background-position: center;
+        text-align: center;
+        line-height: 80px;
+        cursor: pointer;
+        border: none; /* 테두리 제거 */
+    }
+    .seat-number {
+        font-weight: bold;
+        margin-bottom: 1px; /* 좌석 이미지와 좌석 번호 사이 간격 */
+    }
+    .available {
+        /* 사용 가능한 좌석일 경우 */
+        opacity: 1;
+    }
+    .unavailable {
+        /* 사용 불가능한 좌석일 경우 */
+        opacity: 0.5; /* 투명도 조절 */
+        cursor: not-allowed;
+    }
+    .selected {
+        box-shadow: 0px 0px 15px 5px #90EE90; /* 선택된 좌석에 연두색 그림자 추가 */
+        border: 2px solid #90EE90; /* 선택된 좌석에 연두색 테두리 */
+    }
+    .aisle {
+        width: 40px; /* 복도 공간 */
+        height: 80px;
+        background-color: transparent;
+    }
+    .row {
+        display: flex;
+        gap: 10px; /* 좌석 간의 간격 추가 */
+        justify-content: center;
+        margin-bottom: 20px; /* 행 간의 간격 */
+    }
     </style>
+
 </head>
 <body>
     <div class="container">
@@ -82,61 +102,63 @@
 
                 <c:choose>
                     <c:when test="${seatRow >= 1 && seatRow <= 10}">
-                        <div class="seatf ${seat.available ? 'available' : 'unavailable'}"
-                             data-seat-number="${seat.seatNumber}"
-                             data-available="${seat.available}"
-                             onclick="selectSeat(this)">
-                             ${seat.seatNumber}
+                        <div class="seat-container">
+                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
+                            <div class="seatf ${seat.available ? 'available' : 'unavailable'}"
+                                 data-seat-number="${seat.seatNumber}"
+                                 data-available="${seat.available}"
+                                 onclick="selectSeat(this)">
+                            </div>
                         </div>
-                
                         <div class="aisle"></div>
                     </c:when>
 
                     <c:when test="${seatRow >= 11 && seatRow <= 30}">
-                        <div class="seatb ${seat.available ? 'available' : 'unavailable'}"
-                             data-seat-number="${seat.seatNumber}"
-                             data-available="${seat.available}"
-                             onclick="selectSeat(this)">
-                             ${seat.seatNumber}
+                        <div class="seat-container">
+                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
+                            <div class="seatb ${seat.available ? 'available' : 'unavailable'}"
+                                 data-seat-number="${seat.seatNumber}"
+                                 data-available="${seat.available}"
+                                 onclick="selectSeat(this)">
+                            </div>
                         </div>
-                
                         <div class="aisle"></div>
-
                     </c:when>
 
                     <c:when test="${seatRow >= 31 && seatRow <= 49}">
-                        <div class="seat ${seat.available ? 'available' : 'unavailable'}"
-                             data-seat-number="${seat.seatNumber}"
-                             data-available="${seat.available}"
-                             onclick="selectSeat(this)">
-                             ${seat.seatNumber}
+                        <div class="seat-container">
+                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
+                            <div class="seat ${seat.available ? 'available' : 'unavailable'}"
+                                 data-seat-number="${seat.seatNumber}"
+                                 data-available="${seat.available}"
+                                 onclick="selectSeat(this)">
+                            </div>
                         </div>
-                
                         <c:if test="${status.index % 3 == 2}">
                             <div class="aisle"></div>
                         </c:if>
                     </c:when>
 
                     <c:when test="${seatRow >= 50}">
-                        <div class="seat ${seat.available ? 'available' : 'unavailable'}"
-                             data-seat-number="${seat.seatNumber}"
-                             data-available="${seat.available}"
-                             onclick="selectSeat(this)">
-                             ${seat.seatNumber}
+                        <div class="seat-container">
+                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
+                            <div class="seat ${seat.available ? 'available' : 'unavailable'}"
+                                 data-seat-number="${seat.seatNumber}"
+                                 data-available="${seat.available}"
+                                 onclick="selectSeat(this)">
+                            </div>
                         </div>
-                
                         <c:if test="${status.index % 3 == 2}">
                             <div class="aisle"></div>
                         </c:if>
                     </c:when>
                 </c:choose>
 
-                
                 <c:if test="${status.last || seatRow != seats[status.index + 1].seatNumber.substring(0, seats[status.index + 1].seatNumber.length() - 1)}">
                     </div>
                 </c:if>
             </c:forEach>
-        
+        </div>
 
         <!-- 선택한 좌석 표시 -->
         <div class="mt-4">
@@ -170,11 +192,11 @@
                 }
                 // 좌석 선택
                 selectedSeats.push(seatNumber);
-                element.classList.add('selected');
+                element.classList.add('selected'); // 선택된 좌석에 'selected' 클래스 추가
             } else {
                 // 좌석 선택 해제
                 selectedSeats.splice(index, 1);
-                element.classList.remove('selected');
+                element.classList.remove('selected'); // 선택 해제된 좌석에서 'selected' 클래스 제거
             }
 
             // 선택한 좌석 표시 업데이트
@@ -223,8 +245,6 @@
             form.appendChild(selectedSeatsInput);
 
             document.body.appendChild(form);
-
-            console.log("Form data: ", selectedSeats);  // 디버깅용: 선택된 좌석 확인
 
             form.submit();  // 폼을 전송
             window.opener.postMessage({
