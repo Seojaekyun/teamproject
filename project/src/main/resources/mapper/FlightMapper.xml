@@ -138,7 +138,7 @@
 		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, SEC_TO_TIME(TIMESTAMPDIFF(SECOND, #{departureTime}, #{arrivalTime})), CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
 	</insert>
 	<select id="findAllAirplanes" resultType="com.example.demo.dto.AirplanesDto">
-		SELECT * FROM airplanes
+		SELECT * FROM airplanes<!--  order by capacity desc, airplane_id asc --> 
 	</select>
 	<!-- 아직 좌석이 없는 flightId를 조회 -->
 	<select id="getFlightIdForAddingSeats" resultType="int">

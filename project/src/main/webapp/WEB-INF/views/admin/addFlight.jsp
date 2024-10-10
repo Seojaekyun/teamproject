@@ -239,10 +239,10 @@
 				<label for="arrivalTime">도착 시간:</label>
 				<textarea id="arrivalTime" name="arrivalTime" readonly></textarea>
 				<input type="hidden" id="departureTime" name="departureTime">
-				<label for="airplaneId">비행기 ID:</label>
+				<label for="airplaneId">비행기:</label>
 				<select id="airplaneId" name="airplaneId" required>
-					<c:forEach var="airplane" items="${airplanes}">
-						<option value="${airplane.airplaneId}">${airplane.model}</option>
+					<c:forEach var="airp" items="${airplanes}">
+						<option value="${airp.airplaneId}">${airp.airplaneId}. ${airp.model} / ${airp.capacity}석</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -288,10 +288,10 @@
 				<label for="returnArrivalTime">도착 시간:</label>
 				<textarea id="returnArrivalTime" name="returnArrivalTime" readonly></textarea>
 				<input type="hidden" id="returnDepartureTime" name="returnDepartureTime">
-				<label for="returnAirplaneId">비행기 ID:</label>
+				<label for="returnAirplaneId">비행기:</label>
 				<select id="returnAirplaneId" name="returnAirplaneId" required>
-					<c:forEach var="airplane" items="${airplanes}">
-						<option value="${airplane.airplaneId}">${airplane.model}</option>
+					<c:forEach var="airp" items="${airplanes}">
+						<option value="${airp.airplaneId}">${airp.airplaneId}. ${airp.model} / ${airp.capacity}석</option>
 					</c:forEach>
 				</select>
 			</div>

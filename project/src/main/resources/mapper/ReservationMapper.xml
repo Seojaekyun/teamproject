@@ -12,8 +12,8 @@
 	</update>
 	<select id="getRsvanow" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.flight_id AS flightId, r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
-		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
-	    JOIN flights f ON r.flight_id = f.flight_id GROUP BY r.flight_id ORDER BY f.departure_time
+		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r JOIN flights f
+		ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW() GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
 	<select id="getRsvByDate" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.flight_id AS flightId, r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
