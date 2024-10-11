@@ -19,41 +19,42 @@
         align-items: center; /* 좌석 번호를 중앙에 배치 */
     }
     .seatf {
-        width: 100px;
-        height: 120px;
+        width: 30px;
+        height: 35px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 80px;
+        line-height: 35px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seatb {
-        width: 80px;
-        height: 100px;
+        width: 25px;
+        height: 30px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 80px;
+        line-height: 30px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seat {
-        width: 60px;
-        height: 80px;
+        width: 20px;
+        height: 25px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 80px;
+        line-height: 25px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seat-number {
         font-weight: bold;
         margin-bottom: 1px; /* 좌석 이미지와 좌석 번호 사이 간격 */
+        font-size: 10px;
     }
     .available {
         /* 사용 가능한 좌석일 경우 */
@@ -69,15 +70,15 @@
         border: 2px solid #90EE90; /* 선택된 좌석에 연두색 테두리 */
     }
     .aisle {
-        width: 40px; /* 복도 공간 */
-        height: 80px;
+        width: 30px; /* 복도 공간 */
+        height: 20px;
         background-color: transparent;
     }
     .row {
         display: flex;
         gap: 10px; /* 좌석 간의 간격 추가 */
         justify-content: center;
-        margin-bottom: 20px; /* 행 간의 간격 */
+        margin-bottom: 10px; /* 행 간의 간격 */
     }
     </style>
 

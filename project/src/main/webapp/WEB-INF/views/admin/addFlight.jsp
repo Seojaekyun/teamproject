@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.example.demo.dto.AirportsDto" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -69,77 +70,93 @@
 		background-color: #333;
 	}
 </style>
-
 <script type="text/javascript">
-    // Function to pad zeros
+    // 출발지와 도착지의 시간대 정보를 저장할 변수
+    var departureTimezone = "";
+    var arrivalTimezone = "";
+
+    // 패드 제로 함수
     function padZero(value) {
         return ("0" + value).slice(-2);
     }
-    
-    // Function to calculate arrival time
-    function calculateArrivalTime(departureDateId, departureHourId, departureMinuteId, flightHourId, flightMinuteId, arrivalTimeId) {
-        var departureDate = document.getElementById(departureDateId).value;
-        var departureHour = parseInt(document.getElementById(departureHourId).value);
-        var departureMinute = parseInt(document.getElementById(departureMinuteId).value);
-        var flightHour = parseInt(document.getElementById(flightHourId).value);
-        var flightMinute = parseInt(document.getElementById(flightMinuteId).value);
-        
-        if (!departureDate || isNaN(departureHour) || isNaN(departureMinute) || isNaN(flightHour) || isNaN(flightMinute)) {
-            return;
-        }
 
-        var totalFlightMinutes = (flightHour * 60) + flightMinute;
-        var totalDepartureMinutes = (departureHour * 60) + departureMinute;
-        var totalArrivalMinutes = totalDepartureMinutes + totalFlightMinutes;
-        var arrivalDays = Math.floor(totalArrivalMinutes / (24 * 60));
-        totalArrivalMinutes = totalArrivalMinutes % (24 * 60);
-        var arrivalHour = Math.floor(totalArrivalMinutes / 60);
-        var arrivalMinute = totalArrivalMinutes % 60;
-        var departureDateObj = new Date(departureDate);
-        departureDateObj.setDate(departureDateObj.getDate() + arrivalDays);
-        var arrivalDate = departureDateObj.getFullYear() + "-" + padZero(departureDateObj.getMonth() + 1) + "-" + padZero(departureDateObj.getDate());
-        document.getElementById(arrivalTimeId).value = arrivalDate + " " + padZero(arrivalHour) + ":" + padZero(arrivalMinute);
-    }
-    
-    // Function to set return flight airports
+    // 귀국편 공항 설정 함수
     function setReturnFlightAirports() {
         var departureAirport = document.getElementById("departureAirport").value;
         var arrivalAirport = document.getElementById("arrivalAirport").value;
         document.getElementById("returnDepartureAirport").value = arrivalAirport || "";
         document.getElementById("returnArrivalAirport").value = departureAirport || "";
     }
-    
-    // Function to update arrival airports
+
+    // 도착 공항 목록 갱신 함수
     function updateArrivalAirports() {
         var departureAirport = document.getElementById("departureAirport").value;
         var arrivalAirportSelect = document.getElementById("arrivalAirport");
+
+        // 기존 옵션 제거
         arrivalAirportSelect.innerHTML = "";
+
+        // 공항 데이터를 JavaScript 배열로 전달
+        var airports = [
+        <c:forEach var="airport" items="${airports}" varStatus="status">
+            { code: '${airport.airportCode}', name: '${airport.airportName}' }<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+
         if (departureAirport === "ICN" || departureAirport === "GMP") {
-            <c:forEach var="airport" items="${airports}">
-            if ("${airport.airportCode}" !== "ICN" && "${airport.airportCode}" !== "GMP") {
+            // 출발 공항이 ICN 또는 GMP인 경우
+            airports.forEach(function(airport) {
+                if (airport.code !== "ICN" && airport.code !== "GMP") {
+                    var option = document.createElement("option");
+                    option.value = airport.code;
+                    option.text = airport.name;
+                    arrivalAirportSelect.appendChild(option);
+                }
+            });
+        } else {
+            // 출발 공항이 ICN 또는 GMP가 아닌 경우
+            var options = [
+                { code: "ICN", name: "인천 국제공항" },
+                { code: "GMP", name: "김포 국제공항" }
+            ];
+            options.forEach(function(airport) {
                 var option = document.createElement("option");
-                option.value = "${airport.airportCode}";
-                option.text = "${airport.airportName}";
+                option.value = airport.code;
+                option.text = airport.name;
                 arrivalAirportSelect.appendChild(option);
-            }
-            </c:forEach>
+            });
         }
-        else {
-            var optionICN = document.createElement("option");
-            optionICN.value = "ICN";
-            optionICN.text = "인천 국제공항";
-            arrivalAirportSelect.appendChild(optionICN);
-            var optionGMP = document.createElement("option");
-            optionGMP.value = "GMP";
-            optionGMP.text = "김포 국제공항";
-            arrivalAirportSelect.appendChild(optionGMP);
-        }
+
+        // 귀국편 공항 설정 및 시간대 정보 가져오기
         setReturnFlightAirports();
-        fetchFlightTime();
-        fetchReturnFlightTime();
+        fetchTimezones();
     }
-    
-    // Function to fetch flight time for departure flight
+
+    // 시간대 정보를 가져오는 함수
+    function fetchTimezones() {
+        var departureAirport = document.getElementById("departureAirport").value;
+        var arrivalAirport = document.getElementById("arrivalAirport").value;
+
+        if (!departureAirport || !arrivalAirport) {
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/admin/getTimezones?departureAirport=" + departureAirport + "&arrivalAirport=" + arrivalAirport, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                departureTimezone = response.departureTimezone;
+                arrivalTimezone = response.arrivalTimezone;
+
+                // 비행 시간 및 도착 시간 계산
+                fetchFlightTime();
+            }
+        };
+        xhr.send();
+    }
+
+    // 비행 시간을 가져오는 함수
     function fetchFlightTime() {
         var departureAirport = document.getElementById("departureAirport").value;
         var arrivalAirport = document.getElementById("arrivalAirport").value;
@@ -151,87 +168,166 @@
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/admin/getFlightTime?departureAirport=" + departureAirport + "&arrivalAirport=" + arrivalAirport, true);
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+            if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 var flightHour = response.hour;
                 var flightMinute = response.minute;
 
+                // 출발편 비행 시간 설정
                 document.getElementById("flightHour").value = flightHour;
                 document.getElementById("flightMinute").value = flightMinute;
                 document.getElementById("flightTimeDisplay").value = padZero(flightHour) + "시간 " + padZero(flightMinute) + "분";
 
-                calculateArrivalTime("departureDate", "departureHour", "departureMinute", "flightHour", "flightMinute", "arrivalTime");
-            }
-        };
-        xhr.send();
-    }
-
-    // Function to fetch flight time for return flight
-    function fetchReturnFlightTime() {
-        var departureAirport = document.getElementById("returnDepartureAirport").value;
-        var arrivalAirport = document.getElementById("returnArrivalAirport").value;
-
-        if (!departureAirport || !arrivalAirport) {
-            return;
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/admin/getFlightTime?departureAirport=" + departureAirport + "&arrivalAirport=" + arrivalAirport, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-                var flightHour = response.hour;
-                var flightMinute = response.minute;
-
+                // 귀국편 비행 시간도 동일하게 설정
                 document.getElementById("returnFlightHour").value = flightHour;
                 document.getElementById("returnFlightMinute").value = flightMinute;
                 document.getElementById("returnFlightTimeDisplay").value = padZero(flightHour) + "시간 " + padZero(flightMinute) + "분";
 
-                calculateArrivalTime("returnDepartureDate", "returnDepartureHour", "returnDepartureMinute", "returnFlightHour", "returnFlightMinute", "returnArrivalTime");
+                // 도착 시간 계산
+                calculateDepartureArrivalTime();
+                calculateReturnArrivalTime();
             }
         };
         xhr.send();
     }
+ // 기존 코드...
 
-    // Function to combine times before submitting the form
+ // 비행 시간을 가져오는 함수
+ function fetchFlightTime() {
+     var departureAirport = document.getElementById("departureAirport").value;
+     var arrivalAirport = document.getElementById("arrivalAirport").value;
+
+     if (!departureAirport || !arrivalAirport) {
+         return;
+     }
+
+     var xhr = new XMLHttpRequest();
+     xhr.open("GET", "/admin/getFlightTime?departureAirport=" + departureAirport + "&arrivalAirport=" + arrivalAirport, true);
+     xhr.onreadystatechange = function() {
+         if (xhr.readyState === 4 && xhr.status === 200) {
+             var response = JSON.parse(xhr.responseText);
+             var flightHour = response.hour;
+             var flightMinute = response.minute;
+
+             // 출발편 비행 시간 설정
+             document.getElementById("flightHour").value = flightHour;
+             document.getElementById("flightMinute").value = flightMinute;
+             document.getElementById("flightTimeDisplay").value = padZero(flightHour) + "시간 " + padZero(flightMinute) + "분";
+
+             // 비행 시간 계산 후
+             var totalFlightMinutes = (flightHour * 60) + flightMinute;
+             var hours = Math.floor(totalFlightMinutes / 60);
+             var minutes = totalFlightMinutes % 60;
+             var flightTimeValue = padZero(hours) + ":" + padZero(minutes) + ":00";
+
+             // 숨겨진 입력 필드에 값 설정
+             document.getElementById("flightTime").value = flightTimeValue;
+
+             // 귀국편 비행 시간도 동일하게 설정
+             document.getElementById("returnFlightHour").value = flightHour;
+             document.getElementById("returnFlightMinute").value = flightMinute;
+             document.getElementById("returnFlightTimeDisplay").value = padZero(flightHour) + "시간 " + padZero(flightMinute) + "분";
+
+             // 귀국편 비행 시간 계산 후
+             var returnTotalFlightMinutes = (flightHour * 60) + flightMinute;
+             var returnHours = Math.floor(returnTotalFlightMinutes / 60);
+             var returnMinutes = returnTotalFlightMinutes % 60;
+             var returnFlightTimeValue = padZero(returnHours) + ":" + padZero(returnMinutes) + ":00";
+
+             // 숨겨진 입력 필드에 값 설정
+             document.getElementById("returnFlightTime").value = returnFlightTimeValue;
+
+             // 도착 시간 계산
+             calculateDepartureArrivalTime();
+             calculateReturnArrivalTime();
+         }
+     };
+     xhr.send();
+ }
+
+ // 나머지 기존 코드...
+
+
+    // 도착 시간을 시간대 차이를 고려하여 계산하는 함수
+    function calculateArrivalTime(departureDateId, departureHourId, departureMinuteId, flightHourId, flightMinuteId, arrivalTimeId, depTimezone, arrTimezone) {
+        var departureDate = document.getElementById(departureDateId).value;
+        var departureHour = parseInt(document.getElementById(departureHourId).value);
+        var departureMinute = parseInt(document.getElementById(departureMinuteId).value);
+        var flightHour = parseInt(document.getElementById(flightHourId).value);
+        var flightMinute = parseInt(document.getElementById(flightMinuteId).value);
+
+        if (!departureDate || isNaN(departureHour) || isNaN(departureMinute) || isNaN(flightHour) || isNaN(flightMinute) || !depTimezone || !arrTimezone) {
+            return;
+        }
+
+        var departureDateTime = departureDate + " " + padZero(departureHour) + ":" + padZero(departureMinute);
+        var departureMoment = moment.tz(departureDateTime, "YYYY-MM-DD HH:mm", depTimezone);
+
+        departureMoment.add(flightHour, 'hours').add(flightMinute, 'minutes');
+
+        var arrivalMoment = departureMoment.clone().tz(arrTimezone);
+
+        var arrivalTimeStr = arrivalMoment.format('YYYY-MM-DD HH:mm');
+        document.getElementById(arrivalTimeId).value = arrivalTimeStr;
+    }
+
+    // 출발편 도착 시간 계산 함수
+    function calculateDepartureArrivalTime() {
+        calculateArrivalTime("departureDate", "departureHour", "departureMinute", "flightHour", "flightMinute", "arrivalTime", departureTimezone, arrivalTimezone);
+    }
+
+    // 귀국편 도착 시간 계산 함수
+    function calculateReturnArrivalTime() {
+        calculateArrivalTime("returnDepartureDate", "returnDepartureHour", "returnDepartureMinute", "returnFlightHour", "returnFlightMinute", "returnArrivalTime", arrivalTimezone, departureTimezone);
+    }
+
+    // 폼 제출 전에 시간 결합
     function combineTimes() {
         var departureDate = document.getElementById("departureDate").value;
         var departureHour = padZero(document.getElementById("departureHour").value);
         var departureMinute = padZero(document.getElementById("departureMinute").value);
         document.getElementById("departureTime").value = departureDate + " " + departureHour + ":" + departureMinute + ":00";
-        
+
         var returnDepartureDate = document.getElementById("returnDepartureDate").value;
         var returnDepartureHour = padZero(document.getElementById("returnDepartureHour").value);
         var returnDepartureMinute = padZero(document.getElementById("returnDepartureMinute").value);
         document.getElementById("returnDepartureTime").value = returnDepartureDate + " " + returnDepartureHour + ":" + returnDepartureMinute + ":00";
     }
-    
-    // Event listeners
+
+    // 이벤트 리스너 등록
     window.onload = function() {
-        var departureFields = ["departureDate", "departureHour", "departureMinute"];
-        departureFields.forEach(function(field) {
-            document.getElementById(field).addEventListener("change", function() {
-                calculateArrivalTime("departureDate", "departureHour", "departureMinute", "flightHour", "flightMinute", "arrivalTime");
-            });
+        // 출발 공항 변경 시
+        document.getElementById("departureAirport").addEventListener("change", function() {
+            updateArrivalAirports();
+            fetchTimezones();
         });
-        
-        var returnFields = ["returnDepartureDate", "returnDepartureHour", "returnDepartureMinute"];
-        returnFields.forEach(function(field) {
-            document.getElementById(field).addEventListener("change", function() {
-                calculateArrivalTime("returnDepartureDate", "returnDepartureHour", "returnDepartureMinute", "returnFlightHour", "returnFlightMinute", "returnArrivalTime");
-            });
-        });
-        document.getElementById("departureAirport").addEventListener("change", updateArrivalAirports);
+
+        // 도착 공항 변경 시
         document.getElementById("arrivalAirport").addEventListener("change", function() {
             setReturnFlightAirports();
-            fetchFlightTime();
-            fetchReturnFlightTime();
+            fetchTimezones();
         });
+
+        // 출발편 날짜 및 시간 변경 시
+        var departureFields = ["departureDate", "departureHour", "departureMinute"];
+        departureFields.forEach(function(field) {
+            document.getElementById(field).addEventListener("change", calculateDepartureArrivalTime);
+        });
+
+        // 귀국편 날짜 및 시간 변경 시
+        var returnFields = ["returnDepartureDate", "returnDepartureHour", "returnDepartureMinute"];
+        returnFields.forEach(function(field) {
+            document.getElementById(field).addEventListener("change", calculateReturnArrivalTime);
+        });
+
+        // 초기화
         updateArrivalAirports();
-        fetchFlightTime();
-        fetchReturnFlightTime();
     };
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.40/moment-timezone-with-data.min.js"></script>
+</head>
 </head>
 <body>
 <section>
@@ -273,7 +369,10 @@
                 <input type="hidden" id="flightMinute" name="flightMinute">
                 <!-- Display flight time -->
                 <label for="flightTimeDisplay">비행 시간:</label>
-                <input type="text" id="flightTimeDisplay" readonly>
+                <input type="text" id="flightTimeDisplay" name="ftime" readonly>
+                <!-- 비행 시간 저장을 위한 숨겨진 필드 -->
+                <input type="hidden" id="flightTime" name="ftimeValue">
+                
                 <label for="arrivalTime">도착 시간:</label>
                 <textarea id="arrivalTime" name="arrivalTime" readonly></textarea>
                 <input type="hidden" id="departureTime" name="departureTime">
@@ -313,7 +412,10 @@
                 <input type="hidden" id="returnFlightMinute" name="returnFlightMinute">
                 <!-- Display return flight time -->
                 <label for="returnFlightTimeDisplay">비행 시간:</label>
-                <input type="text" id="returnFlightTimeDisplay" readonly>
+                <input type="text" id="returnFlightTimeDisplay" name="returnFtime" readonly>
+                <!-- 귀국편 비행 시간 저장을 위한 숨겨진 필드 -->
+                <input type="hidden" id="returnFlightTime" name="returnFtimeValue">
+                
                 <label for="returnArrivalTime">도착 시간:</label>
                 <textarea id="returnArrivalTime" name="returnArrivalTime" readonly></textarea>
                 <input type="hidden" id="returnDepartureTime" name="returnDepartureTime">

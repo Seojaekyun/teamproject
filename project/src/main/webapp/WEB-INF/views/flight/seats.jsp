@@ -19,41 +19,42 @@
         align-items: center; /* 좌석 번호를 중앙에 배치 */
     }
     .seatf {
-        width: 50px;
-        height: 60px;
+        width: 30px;
+        height: 35px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 60px;
+        line-height: 35px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seatb {
-        width: 40px;
-        height: 50px;
+        width: 25px;
+        height: 30px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 50px;
+        line-height: 30px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seat {
-        width: 30px;
-        height: 40px;
+        width: 20px;
+        height: 25px;
         background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 40px;
+        line-height: 25px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seat-number {
         font-weight: bold;
         margin-bottom: 1px; /* 좌석 이미지와 좌석 번호 사이 간격 */
+        font-size: 10px;
     }
     .available {
         /* 사용 가능한 좌석일 경우 */

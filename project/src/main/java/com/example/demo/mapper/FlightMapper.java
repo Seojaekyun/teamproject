@@ -62,6 +62,7 @@ public interface FlightMapper {
 	Map<String, Object> getFlightCapacity(int flightId);
 	Integer getFlightIdForAddingSeats();
 	FlightTimeDto getFlightTime(@Param("a") String a, @Param("b") String b);
+	String getAirportTimezone(@Param("airportCode") String airportCode);
 	
 	
 }

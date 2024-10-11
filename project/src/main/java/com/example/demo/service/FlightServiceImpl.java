@@ -140,13 +140,14 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
 	@Override
-    public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, int airplaneId) {
+    public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, String ftime, int airplaneId) {
         FlightDto flight = new FlightDto();
         flight.setDepartureAirport(departureAirport);
         flight.setArrivalAirport(arrivalAirport);
         flight.setDepartureTime(departureTime);
         flight.setArrivalTime(arrivalTime);
         flight.setAirplaneId(airplaneId);
+        flight.setFtime(ftime);
 
         fmapper.addFlight(flight);
     }
@@ -196,4 +197,10 @@ public class FlightServiceImpl implements FlightService {
 	            }
 	        }
 	 }
+
+	 @Override
+	    public String getAirportTimezone(String airportCode) {
+	        return fmapper.getAirportTimezone(airportCode);
+	 }
+	 
 }

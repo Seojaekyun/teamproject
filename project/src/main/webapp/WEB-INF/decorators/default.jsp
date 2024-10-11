@@ -36,16 +36,17 @@
 		align-items: center;
 	}
 	#section1 #logo {
-		width: 200px;
-		height: 75px;
+		width: 150px;
+		
 		margin-left: 50px;
 	}
 	#section1 #loginMenu {
 		display: flex;
 		align-items: center;
-		font-size: 18px;
+		font-size: 14px;
 		font-weight: 600;
 		margin-right: 60px;
+		padding: 10px;
 	}
 	#section1 #loginMenu a {
 		text-decoration: none;
@@ -70,7 +71,7 @@
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
-		top: 25px;
+		top: 20px;
 		background: white;
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -84,7 +85,7 @@
 		line-height: 35px;
 		text-align: center;
 		cursor: pointer;
-		font-size: 17px;
+		font-size: 14px;
 		/* border-bottom: 1px solid #ddd; */
 	}
 	#section1 #loginMenu .cmenu > li:hover,	#section1 #loginMenu .mmenu > li:hover {
@@ -94,39 +95,39 @@
 	#section1 #loginMenu #supMenu, #section1 #loginMenu #myInfo {
 		position: relative;
 	}
-	header > nav {
+	#section1 nav {
 		width: 1200px;
-		height: 70px;
+		height: 50px;
 		margin: auto;
 		line-height: 50px;
 		font-family: Arial, sans-serif;
-		font-size: 18px;
+		font-size: 16px;
 	}
-	header > nav a {
+	#section1 nav a {
 		text-decoration: none;
 		color: black;
 	}
-	header > nav a:hover {
+	#section1 nav a:hover {
 		text-decoration: none;
 		color: #00467F;
 	}
-	header > nav #main {
+	#section1 nav #main {
 		padding-left: 0px;
 		margin-left: 100px;
 	}
-	header > nav #main > li {
+	#section1 nav #main > li {
 		display: inline-block;
 		list-style-type: none;
 		width: 200px;
 		height: 50px;
 		line-height: 30px;
 		text-align: center;
-		font-size: 24px;
+		font-size: 16px;
 		font-weight: 750;
 		position: relative;
 		z-index: 5;
 	}
-	header > nav #main > li > .menu {
+	#section1 nav #main > li > .menu {
 		padding-left: 0px;
 		position: absolute;
 		left: 0px;
@@ -136,12 +137,12 @@
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		border-radius:5px;
 	}
-	header > nav #main > li > .menu > li {
+	#section1 nav #main > li > .menu > li {
 		list-style-type: none;
 		width: 200px;
 		height: 40px;
 		line-height: 40px;
-		font-size: 20px;
+		font-size: 14px;
 		font-weight: 600;
 	}
 	footer {
@@ -265,38 +266,11 @@
 	<header>
 		<div id="section1">
 			<div id="logo">
-				<a href="../main/index"> <img src="../static/resources/eltlogo.png" width="200px" height="75px"> </a>
+				<a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="60px"> </a>
 
 			</div>
-			<div id="loginMenu">
-				<c:if test="${userid!=null&&userid=='admin'}">
-					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
-				</c:if>
-				<c:if test="${userid==null}">
-					<a href="../member/member" id="into"> <span class="iconmem">✈️</span>회원가입 </a>&nbsp;|&nbsp;
-					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
-				</c:if>
-				<c:if test="${userid!=null&&userid!='admin'}">
-				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
-					<ul class="mmenu">
-						<li><a href="../member/memberView">나의정보</a></li>
-						<li><a href="../reserve/list">예약정보</a></li>
-						<li><a href="../member/myInq">나의문의</a></li>
-					</ul>
-				</span>
-				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
-				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)"
-					onmouseout="hideCmenu(0)"> 고객센터
-					<ul class="cmenu">
-						<li><a href="../gongji/list"> 공지사항 </a></li>
-						<li><a href="../inquiry/list"> Q & A </a></li>
-						<li><a href="../main/eventList"> 이벤트 </a></li>
-					</ul>
-				</span>
-			</div>
-		</div>
-		<nav>
+			
+			<nav>
 			<ul id="main">
 				<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
 					<ul class="menu">
@@ -340,6 +314,37 @@
 				</li>
 			</ul>
 		</nav>
+		
+		<div id="loginMenu">
+				<c:if test="${userid!=null&&userid=='admin'}">
+					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+				</c:if>
+				<c:if test="${userid==null}">
+					<a href="../member/member" id="into"> <span class="iconmem">✈️</span>회원가입 </a>&nbsp;|&nbsp;
+					<a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
+				</c:if>
+				<c:if test="${userid!=null&&userid!='admin'}">
+				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+					<ul class="mmenu">
+						<li><a href="../member/memberView">나의정보</a></li>
+						<li><a href="../reserve/list">예약정보</a></li>
+						<li><a href="../member/myInq">나의문의</a></li>
+					</ul>
+				</span>
+				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
+				</c:if>
+				<span id="supMenu" onmouseover="viewCmenu(0)"
+					onmouseout="hideCmenu(0)"> 고객센터
+					<ul class="cmenu">
+						<li><a href="../gongji/list"> 공지사항 </a></li>
+						<li><a href="../inquiry/list"> Q & A </a></li>
+						<li><a href="../main/eventList"> 이벤트 </a></li>
+					</ul>
+				</span>
+			</div>
+			
+		</div>
+		
 	</header>
 	<hr>
 

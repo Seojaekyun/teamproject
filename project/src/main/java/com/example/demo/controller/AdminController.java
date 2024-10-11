@@ -182,21 +182,23 @@ public class AdminController {
             @RequestParam("arrivalAirport") String arrivalAirport,
             @RequestParam("departureTime") String departureTime,
             @RequestParam("arrivalTime") String arrivalTime,
+            @RequestParam("ftimeValue") String ftime,
             @RequestParam("airplaneId") int airplaneId,
 
             @RequestParam("returnDepartureAirport") String returnDepartureAirport,
             @RequestParam("returnArrivalAirport") String returnArrivalAirport,
             @RequestParam("returnDepartureTime") String returnDepartureTime,
             @RequestParam("returnArrivalTime") String returnArrivalTime,
+            @RequestParam("returnFtimeValue") String returnFtime,
             @RequestParam("returnAirplaneId") int returnAirplaneId,
 
             Model model) {
 
         try {
             // 출발편 추가
-            fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, airplaneId);
+            fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId);
             // 귀국편 추가
-            fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnAirplaneId);
+            fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId);
 
             model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
         } catch (Exception e) {
@@ -207,6 +209,20 @@ public class AdminController {
         // 성공적으로 항공편이 추가된 경우 항공편 목록 페이지로 리다이렉트
         return "redirect:/admin/flightsList";
     }
+    
+    @GetMapping("/admin/getTimezones")
+    @ResponseBody
+    public Map<String, String> getTimezones(@RequestParam("departureAirport") String departureAirport,
+                                            @RequestParam("arrivalAirport") String arrivalAirport) {
+        String departureTimezone = fservice.getAirportTimezone(departureAirport);
+        String arrivalTimezone = fservice.getAirportTimezone(arrivalAirport);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("departureTimezone", departureTimezone);
+        response.put("arrivalTimezone", arrivalTimezone);
+        return response;
+    }
+
     
 	@PostMapping("/admin/addSeats")
     public String addSeats() {

@@ -135,7 +135,7 @@
 	</select>
 	<insert id="addFlight" parameterType="com.example.demo.dto.FlightDto">
 		INSERT INTO flights (departure_airport, arrival_airport, departure_time, arrival_time, airplane_id, flight_duration, flight_name)
-		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, SEC_TO_TIME(TIMESTAMPDIFF(SECOND, #{departureTime}, #{arrivalTime})), CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
+		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, #{ftime}, CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
 	</insert>
 	<select id="findAllAirplanes" resultType="com.example.demo.dto.AirplanesDto">
 		SELECT * FROM airplanes<!--  order by capacity desc, airplane_id asc --> 
@@ -160,6 +160,10 @@
         FROM flight_times
         WHERE (a = #{a} AND b = #{b}) OR (a = #{b} AND b = #{a})
     </select>
+    <select id="getAirportTimezone" parameterType="string" resultType="string">
+    SELECT timezone FROM airports WHERE airport_code = #{airportCode}
+</select>
+    
 	
 	
 </mapper>
