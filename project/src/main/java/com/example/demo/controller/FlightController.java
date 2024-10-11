@@ -224,7 +224,7 @@ public class FlightController {
 			@RequestParam("selectedSeats") String selectedSeats,
 			@RequestParam("passengers") int passengers,
 			HttpSession session, HttpServletResponse response, Model model)throws IOException {
-		// 선택한 좌석 수와 탑승객 수 일치 여부 확인
+		// 선택한 좌석 수와 탑승객 수 일치 여부 확인	
 		String[] seatArray = selectedSeats.split(",");
 		if (seatArray.length != passengers) {
 			model.addAttribute("errorMessage", "선택한 좌석 수가 탑승객 수와 일치하지 않습니다.");
