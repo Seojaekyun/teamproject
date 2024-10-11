@@ -155,6 +155,11 @@
 			(#{flightId}, #{seatNum}, 1, '')
 		</foreach>
 	</insert>
+	<select id="getFlightTime" parameterType="map" resultType="com.example.demo.dto.FlightTimeDto">
+        SELECT a, b, flight_time AS flightTime
+        FROM flight_times
+        WHERE (a = #{a} AND b = #{b}) OR (a = #{b} AND b = #{a})
+    </select>
 	
 	
 </mapper>

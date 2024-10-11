@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.FlightTimeDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
@@ -60,6 +61,7 @@ public interface FlightMapper {
 	void addSeatsForFlight(Map<String, Object> params);
 	Map<String, Object> getFlightCapacity(int flightId);
 	Integer getFlightIdForAddingSeats();
+	FlightTimeDto getFlightTime(@Param("a") String a, @Param("b") String b);
 	
 	
 }

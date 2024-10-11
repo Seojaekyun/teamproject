@@ -30,6 +30,7 @@ public interface FlightService {
 			int airplaneId);
 	List<AirplanesDto> getAllAirplanes();
 	void addSeatsForFlight();
+	int[] getFlightTime(String departureAirport, String arrivalAirport);
 	
 	
 }
