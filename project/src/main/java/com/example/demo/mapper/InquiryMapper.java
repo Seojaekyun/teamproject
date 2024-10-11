@@ -11,7 +11,9 @@ import com.example.demo.dto.StateCountDto;
 
 @Mapper
 public interface InquiryMapper {
-	List<InquiryDto> list(@Param("offset") int offset, @Param("itemsPerPage") int itemsPerPage);
+	List<InquiryDto> list(
+			@Param("offset") int offset,
+			@Param("itemsPerPage") int itemsPerPage);
 	void writeOk(InquiryDto idto);
 	void readnum(String id);
 	InquiryDto content(String id);
@@ -23,5 +25,6 @@ public interface InquiryMapper {
 	void answer(int inquiryId, String answerText);
 	int getInquiryCount();
 	List<InquiryDto> getMyInq(String userid);
+	
 	
 }

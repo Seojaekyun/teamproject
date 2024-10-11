@@ -7,4 +7,5 @@ public class GongjiDto {
 	private int id, state, readnum;
 	private String title, content, writeday, writer;
 	
+	
 }

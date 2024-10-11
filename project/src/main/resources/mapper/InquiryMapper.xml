@@ -11,8 +11,7 @@
 		select * from inquiry order by id desc limit 3
 	</select>
 	<insert id="writeOk" parameterType="com.example.demo.dto.InquiryDto">
-		insert into inquiry(title,content,writeday,userid,state)
-		values(#{title},#{content},now(),#{userid},#{state})
+		insert into inquiry(title,content,writeday,userid,state) values(#{title},#{content},now(),#{userid},#{state})
 	</insert>
 	<update id="readnum">
 		update inquiry set readnum=readnum+1 where id=#{param}
@@ -21,8 +20,7 @@
 		select * from inquiry where id=#{param}
 	</select>
 	<update id="updateOk" parameterType="com.example.demo.dto.InquiryDto">
-		update inquiry set title=#{title}, content=#{content}, state=#{state}
-		where id=#{id}
+		update inquiry set title=#{title}, content=#{content}, state=#{state} where id=#{id}
 	</update>
 	<delete id="delete">
 		delete from inquiry where id=#{param}
@@ -31,23 +29,21 @@
 		select * from inquiry where id=#{param}
 	</select>
 	<select id="listCountsPerState" resultType="com.example.demo.dto.StateCountDto">
-		SELECT state, COUNT(*) AS count FROM inquiry
-		GROUP BY state ORDER BY state DESC limit 3
-    </select>
-    <resultMap id="stateCountMap" type="com.example.demo.dto.StateCountDto">
-        <result property="state" column="state"/>
-        <result property="count" column="count"/>
-    </resultMap>
-    <update id="answer">
-    	UPDATE inquiry SET answer = 1, answertext = #{answerText} WHERE id = #{inquiryId}
-    </update>
-    <update id="updateAnswer">
-    	UPDATE inquiry SET answertext = #{answerText} WHERE id = #{inquiryId}
-    </update>
-    <select id="getMyInq" parameterType="String" resultType="com.example.demo.dto.InquiryDto">
-    	SELECT * FROM inquiry WHERE userid = #{userid}
-    </select>
-    
-
-    
+		SELECT state, COUNT(*) AS count FROM inquiry GROUP BY state ORDER BY state DESC limit 3
+	</select>
+	<resultMap id="stateCountMap" type="com.example.demo.dto.StateCountDto">
+		<result property="state" column="state"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	<update id="answer">
+		UPDATE inquiry SET answer = 1, answertext = #{answerText} WHERE id = #{inquiryId}
+	</update>
+	<update id="updateAnswer">
+		UPDATE inquiry SET answertext = #{answerText} WHERE id = #{inquiryId}
+	</update>
+	<select id="getMyInq" parameterType="String" resultType="com.example.demo.dto.InquiryDto">
+		SELECT * FROM inquiry WHERE userid = #{userid}
+	</select>
+	
+	    
 </mapper>

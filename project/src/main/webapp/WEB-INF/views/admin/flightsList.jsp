@@ -135,14 +135,47 @@
 		color: #333;
 		margin-top: 10px;
 	}
+
+	/* 항공편 추가 버튼과 좌석 추가 버튼 디자인 */
+	.button {
+		background-color: #000A8E;
+		color: white;
+		border: none;
+		padding: 10px 15px;
+		font-size: 16px;
+		border-radius: 10px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		transition: background-color 0.3s ease, transform 0.3s ease;
+		margin: 5px 10px 0 0;
+	}
+	.button:hover {
+		background-color: #333;
+		transform: translateY(-3px);
+	}
+	.button:active {
+		transform: translateY(1px);
+	}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
+
+<div style="text-align: right; margin-bottom: 20px;">
+    <!-- 항공편 추가 버튼 -->
+    <button class="button" onclick="location.href='/admin/addFlight'">항공편 추가</button>
+
+    <!-- 좌석 추가 버튼 -->
+    <form action="/admin/addSeats" method="post" style="display:inline;">
+        <input type="hidden" name="flightId" value="${flightId}">
+        <button type="submit" class="button">좌석 추가</button>
+    </form>
+</div>
+
+<!-- 항공편 리스트 -->
 <div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
 <section id="sec1">
-	<!-- 날짜 선택 기능 -->
 	<div class="date-container">
 		<button id="clsd" onclick="clearDate()">날짜 선택 해제</button><br>    
 		<div id="datepicker"></div>
@@ -152,6 +185,7 @@
 			</c:if>
 		</div>
 	</div>
+
 	<div class="table-container">
 		<table id="otherTable">
 			<caption>해외 항공편</caption>
@@ -161,7 +195,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedOtherFlights}">
 				<tr>
@@ -217,7 +251,6 @@
 			</c:if>
 		</div>
 	</div>
-	
 </section>
 <section id="sec2">
 	<div class="table-container">
@@ -228,7 +261,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedGmpFlights}">
 				<tr>
@@ -291,7 +324,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${pagedIcnFlights}">
 					<tr>
@@ -357,7 +390,7 @@
 				<th>도착 공항</th>
 				<th>출발 시간</th>
 				<th>도착 시간</th>
-				<th>좌석 수</th>
+				<th>잔여석</th>
 			</tr>
 			<c:forEach var="flight" items="${flightList}">
 				<tr>

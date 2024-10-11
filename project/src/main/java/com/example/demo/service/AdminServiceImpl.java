@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,9 +13,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.GongjiDto;
@@ -50,59 +48,68 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
 		Object useridObj = session.getAttribute("userid");
+		
 		// userid가 null인지 체크
-		if(useridObj == null) {
+		if (useridObj == null) {
 			return "redirect:/main/index";  // userid가 null이면 메인 페이지로 리다이렉트
 		}
 		
-		String userid=useridObj.toString();
-		if("admin".equals(userid)) {
-		// 현재 날짜 구하기
-		String currentDate = LocalDate.now().toString();
+		String userid = useridObj.toString();
 		
-		// 항공편 5개 조회
-		List<FlightDto> departureList = fmapper.getDepartureFlights();
-		List<FlightDto> arrivalList = fmapper.getArrivalFlights();
-		
-		model.addAttribute("departureList", departureList);
-		model.addAttribute("arrivalList", arrivalList);
-		
-		// 모든 문의 리스트 조회
-		ArrayList<InquiryDto> ilist = imapper.ilist();
-		model.addAttribute("ilist", ilist);
-		
-		// State별 문의 수 조회
-		List<StateCountDto> countsList = imapper.listCountsPerState();
-		countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
-		
-		for (int i = 0; i < countsList.size(); i++) {
-			countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
-		}
-		
-		model.addAttribute("countsList", countsList);
-		
-		// 현재 시간 이후의 예약 5개씩 조회
-		List<ReservationDto> rsvList = rmapper.getRsvanow();
-		
-		// GMP로 시작하는 항공편의 예약 리스트
-		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("gmpRsv", gmpRsv);
-		
-		// ICN으로 시작하는 항공편의 예약 리스트
-		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("icnRsv", icnRsv);
-		
-		// 기타 항공편의 예약 리스트
-		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
-				.limit(5).collect(Collectors.toList());
-		model.addAttribute("otherRsv", otherRsv);
-		
-		return "/admin/index";
+		if ("admin".equals(userid)) {
+			// 현재 날짜 및 시간 구하기
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			
+			// 항공편 5개 조회
+			List<FlightDto> departureList = fmapper.getDepartureFlights();
+			List<FlightDto> arrivalList = fmapper.getArrivalFlights();
+			
+			model.addAttribute("departureList", departureList);
+			model.addAttribute("arrivalList", arrivalList);
+			
+			// 모든 문의 리스트 조회
+			ArrayList<InquiryDto> ilist = imapper.ilist();
+			model.addAttribute("ilist", ilist);
+			
+			// State별 문의 수 조회
+			List<StateCountDto> countsList = imapper.listCountsPerState();
+			countsList.sort((entry1, entry2) -> Integer.compare(entry2.getCount(), entry1.getCount()));
+			
+			for (int i = 0; i < countsList.size(); i++) {
+				countsList.get(i).setRank(i + 1);  // 1위부터 순위 부여
+			}
+			
+			model.addAttribute("countsList", countsList);
+			
+			// 현재 시간 이후의 예약 5개씩 조회
+			List<ReservationDto> rsvList = rmapper.getRsvanow().stream()
+					.filter(rsv -> {
+						// String 타입의 departureTime을 LocalDateTime으로 변환
+						LocalDateTime departureTime = LocalDateTime.parse(rsv.getDepartureTime(), formatter);
+						return departureTime.isAfter(now);  // 현재 시간 이후인지 확인
+					})
+					.collect(Collectors.toList());
+			
+			// GMP로 시작하는 항공편의 예약 리스트
+			List<ReservationDto> gmpRsv = rsvList.stream()
+					.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("gmpRsv", gmpRsv);
+			
+			// ICN으로 시작하는 항공편의 예약 리스트
+			List<ReservationDto> icnRsv = rsvList.stream()
+					.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("icnRsv", icnRsv);
+			
+			// 기타 항공편의 예약 리스트
+			List<ReservationDto> otherRsv = rsvList.stream()
+					.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
+					.limit(5).collect(Collectors.toList());
+			model.addAttribute("otherRsv", otherRsv);
+			
+			return "/admin/index";
 		}
 		else {
 			return "redirect:/main/index";
@@ -110,76 +117,88 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public String reserveList(String selectedDate, Integer gmpPage, Integer icnPage, Integer otherPage, Integer page, Model model) {
-		int itemsPerPage = 5; // 페이지당 항목 수
-		
-		// 페이지 번호가 null이거나 1보다 작으면 기본값으로 설정
-		if (page == null || page < 1) {
-			page = 1;
-		}
-		if (gmpPage == null || gmpPage < 1) {
-			gmpPage = 1;
-		}
-		if (icnPage == null || icnPage < 1) {
-			icnPage = 1;
-		}
-		if (otherPage == null || otherPage < 1) {
-			otherPage = 1;
-		}
-		
-		// 선택한 날짜가 있을 경우 해당 날짜에 맞는 예약 데이터만 가져오기
-		List<ReservationDto> rsvList;
-		if (selectedDate != null && !selectedDate.isEmpty()) {
-			rsvList = rmapper.getRsvByDate(selectedDate);  // 특정 날짜의 예약 내역 가져오기
-		}
-		else {
-			rsvList = rmapper.getRsvanow();  // 선택한 날짜가 없으면 현재 이후 예약 내역 가져오기
-		}
-		
-		// 전체 예약 내역에 대한 페이징 처리
-		int totalItems = rsvList.size();
-		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-		
-		int startIndex = (page - 1) * itemsPerPage;
-		int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-		
-		List<ReservationDto> pagedRsvList = (startIndex >= totalItems) ? Collections.emptyList() : rsvList.subList(startIndex, endIndex);
-		
-		// GMP, ICN, 기타 출발 항공편 필터링
-		List<ReservationDto> gmpRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("GMP"))
-				.collect(Collectors.toList());
-		
-		List<ReservationDto> icnRsv = rsvList.stream()
-				.filter(rsv -> rsv.getDepartureAirport().equals("ICN"))
-				.collect(Collectors.toList());
-		
-		List<ReservationDto> otherRsv = rsvList.stream()
-				.filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN"))
-				.collect(Collectors.toList());
-		
-		// 각 항공편에 대해 좌석 정보를 가져오기
-		List<Map<String, Object>> availableSeatsList = rmapper.getAvailableSeatCountByFlightId();
-		Map<Integer, Integer> availableSeatsMap = new HashMap<>();
-		for (Map<String, Object> availableSeat : availableSeatsList) {
-			availableSeatsMap.put((Integer) availableSeat.get("flight_id"), ((Long) availableSeat.get("availableSeats")).intValue());
-		}
-		
-		// 모델에 좌석 수 추가
-		model.addAttribute("availableSeatsMap", availableSeatsMap);
-		
-		// 각 항공편 타입에 대한 총 페이지 수 계산 및 모델에 추가
-		model.addAttribute("rsvList", pagedRsvList);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("gmpRsv", gmpRsv);
-		model.addAttribute("icnRsv", icnRsv);
-		model.addAttribute("otherRsv", otherRsv);
-		
-		model.addAttribute("selectedDate", selectedDate);
-		
-		return "/admin/reserveList";
-	}
+    public String reserveList(String selectedDate, Integer gmpPage, Integer icnPage, Integer otherPage, Integer page, Model model) {
+        int itemsPerPage = 5; // 페이지당 항목 수
+
+        // 페이지 번호가 null이거나 1보다 작으면 기본값으로 설정
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (gmpPage == null || gmpPage < 1) {
+            gmpPage = 1;
+        }
+        if (icnPage == null || icnPage < 1) {
+            icnPage = 1;
+        }
+        if (otherPage == null || otherPage < 1) {
+            otherPage = 1;
+        }
+
+        // 선택한 날짜가 있을 경우 해당 날짜에 맞는 예약 데이터만 가져오기
+        List<ReservationDto> rsvList;
+        if (selectedDate != null && !selectedDate.isEmpty()) {
+            rsvList = rmapper.getRsvByDate(selectedDate);  // 특정 날짜의 예약 내역 가져오기
+        } else {
+            rsvList = rmapper.getRsvanow();  // 선택한 날짜가 없으면 현재 이후 예약 내역 가져오기
+        }
+
+        // 전체 예약 내역에 대한 페이징 처리
+        int totalItems = rsvList.size();
+        List<ReservationDto> pagedRsvList = paginateList(rsvList, page, itemsPerPage);
+        int totalPages = calculateTotalPages(totalItems, itemsPerPage);
+        model.addAttribute("rsvList", pagedRsvList);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+
+        // GMP, ICN, 기타 출발 항공편 필터링 및 페이징 처리
+        List<ReservationDto> gmpList = rsvList.stream().filter(rsv -> rsv.getDepartureAirport().equals("GMP")).collect(Collectors.toList());
+        int gmpTotalItems = gmpList.size();
+        List<ReservationDto> gmpRsv = paginateList(gmpList, gmpPage, itemsPerPage);
+        int gmpTotalPages = calculateTotalPages(gmpTotalItems, itemsPerPage);
+        model.addAttribute("gmpRsv", gmpRsv);
+        model.addAttribute("gmpTotalPages", gmpTotalPages);
+        model.addAttribute("gmpCurrentPage", gmpPage);
+
+        List<ReservationDto> icnList = rsvList.stream().filter(rsv -> rsv.getDepartureAirport().equals("ICN")).collect(Collectors.toList());
+        int icnTotalItems = icnList.size();
+        List<ReservationDto> icnRsv = paginateList(icnList, icnPage, itemsPerPage);
+        int icnTotalPages = calculateTotalPages(icnTotalItems, itemsPerPage);
+        model.addAttribute("icnRsv", icnRsv);
+        model.addAttribute("icnTotalPages", icnTotalPages);
+        model.addAttribute("icnCurrentPage", icnPage);
+
+        List<ReservationDto> otherList = rsvList.stream().filter(rsv -> !rsv.getDepartureAirport().equals("GMP") && !rsv.getDepartureAirport().equals("ICN")).collect(Collectors.toList());
+        int otherTotalItems = otherList.size();
+        List<ReservationDto> otherRsv = paginateList(otherList, otherPage, itemsPerPage);
+        int otherTotalPages = calculateTotalPages(otherTotalItems, itemsPerPage);
+        model.addAttribute("otherRsv", otherRsv);
+        model.addAttribute("otherTotalPages", otherTotalPages);
+        model.addAttribute("otherCurrentPage", otherPage);
+
+        // 좌석 수 정보를 추가로 가져오기
+        List<Map<String, Object>> availableSeatsList = rmapper.getAvailableSeatCountByFlightId();
+        Map<Integer, Integer> availableSeatsMap = new HashMap<>();
+        for (Map<String, Object> availableSeat : availableSeatsList) {
+            availableSeatsMap.put((Integer) availableSeat.get("flight_id"), ((Long) availableSeat.get("availableSeats")).intValue());
+        }
+        model.addAttribute("availableSeatsMap", availableSeatsMap);
+
+        model.addAttribute("selectedDate", selectedDate);
+
+        return "/admin/reserveList";
+    }
+
+    // Helper method for pagination
+    private List<ReservationDto> paginateList(List<ReservationDto> list, int page, int itemsPerPage) {
+        int startIndex = (page - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, list.size());
+        return (startIndex >= list.size()) ? Collections.emptyList() : list.subList(startIndex, endIndex);
+    }
+
+    // Helper method to calculate total pages
+    private int calculateTotalPages(int totalItems, int itemsPerPage) {
+        return (int) Math.ceil((double) totalItems / itemsPerPage);
+    }
 	
 	@Override
 	public String flightList(Integer page, String selectedDate, String flightType, Model model) {

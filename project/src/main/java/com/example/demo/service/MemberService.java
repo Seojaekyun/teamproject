@@ -20,24 +20,17 @@ public interface MemberService {
 	public String searchUserId(MemberDto mdto);
 	void pwdSearch(MemberDto mdto, Model model) throws Exception; // 변경된 메서드 시그니처
 	String id_verification(HttpSession session, Model model);
-
- // 비밀번호 검색 메서드 정의
-
+	// 비밀번호 검색 메서드 정의
 	public boolean id_delete(String userid, String password);
 	String showRecoveryRequestPage(HttpSession session, Model model);
 	public void updateMemberLevel(String userid, int i);
 	public boolean checkPassword(String userid, String password);
-
 	int getCurrentLevel(String userid);
 	void updatePreviousLevel(String userid, int currentLevel);
-	 boolean changePassword(String userid, String oldPwd, String newPwd);
-	    void editEmail(String userid, String email);
-	    void editPhone(String userid, String phone);
-    
-	
-
+	boolean changePassword(String userid, String oldPwd, String newPwd);
+	void editEmail(String userid, String email);
+	void editPhone(String userid, String phone);
 	public String myInq(HttpSession session, HttpServletRequest request, Model model);
 	
+	
 }
-
-

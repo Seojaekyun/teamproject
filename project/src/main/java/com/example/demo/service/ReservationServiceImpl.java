@@ -3,14 +3,11 @@ package com.example.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import com.example.demo.dto.FlightDto;
-import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.mapper.SeatMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

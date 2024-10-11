@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public interface GongjiService {
-
 	String list(HttpServletRequest request, Model model);
 	String readnum(HttpServletRequest request);
 	String content(HttpServletRequest request, Model model);
