@@ -37,14 +37,14 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        margin-left: 50px; /* Adjust if necessary */
+        margin-left: 10%; /* Adjust if necessary */
     }
     /* Position the loginMenu at the top right */
     #section1 #loginMenu {
         position: absolute;
         top: 0;
         right: 0;
-        margin-right: 60px; /* Adjust if necessary */
+        margin-right: 10%; /* Adjust if necessary */
         display: flex;
         align-items: center;
         font-size: 14px;
@@ -73,7 +73,7 @@
         padding-left: 0;
         position: absolute;
         left: -10px;
-        top: 20px;
+        top: 17px;
         background: white;
         display: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -106,7 +106,7 @@
     }
     #section1 nav {
         display: flex;
-        line-height: 50px;
+        line-height: 30px;
         font-family: Arial, sans-serif;
         font-size: 16px;
     }
@@ -125,11 +125,12 @@
     #section1 nav #main > li {
         display: inline-block;
         list-style-type: none;
-        width: 180px;
-        height: 50px;
+        /* width: 120px; */
+        height: 30px;
+        padding: 0 20px 0 0; 
         line-height: 30px;
-        text-align: center;
-        font-size: 16px;
+        text-align: left;
+        font-size: 18px;
         font-weight: 750;
         position: relative;
         z-index: 5;
@@ -138,7 +139,7 @@
         padding-left: 0px;
         position: absolute;
         left: 0px;
-        top: 33px;
+        top: 29px;
         background: white;
         visibility: hidden;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -147,13 +148,38 @@
     }
     #section1 nav #main > li > .menu > li {
         list-style-type: none;
-        width: 200px;
+        width: 150px;
         height: 40px;
         line-height: 40px;
+        padding-left: 30px;
         font-size: 14px;
         font-weight: 600;
         z-index: 2000;
     }
+    #login {
+    	position: absolute;
+        bottom: 0;
+        left: 0;
+        margin-left: 83%;
+        margin-bottom: 10px;
+    }
+    #loginbtn {
+    	width: 120px;
+        padding: 10px;
+        border-radius: 20px;
+        background: #1f0c59;
+        color: white;
+        font-size: 15px;
+        
+    }
+    
+    #loginbtn:hover {
+    	cursor: pointer;
+    	font-weight: bold;
+    	border: 2px solid #90EE90;
+    	
+    }
+    
     footer {
         padding: 10px 0;
         width: 100%;
@@ -328,8 +354,8 @@
                     <a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
                 </c:if>
                 <c:if test="${userid==null}">
-                    <a href="../member/member" id="into"> <span class="iconmem">✈️</span>회원가입 </a>&nbsp;|&nbsp;
-                    <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp;
+                    <a href="../member/member" id="into"> <span class="iconmem">📋</span>회원가입 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <!-- <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp; -->
                 </c:if>
                 <c:if test="${userid!=null&&userid!='admin'}">
                 <span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
@@ -349,6 +375,13 @@
                         <li><a href="../main/eventList"> 이벤트 </a></li>
                     </ul>
                 </span>
+            </div>
+            <div id="login">
+            	<c:if test="${userid==null}">
+                    <a href="../login/login">
+                    	<button type="button" id="loginbtn"><span>로그인</span></button>
+                    </a>
+                </c:if>
             </div>
         </div>
     </header>

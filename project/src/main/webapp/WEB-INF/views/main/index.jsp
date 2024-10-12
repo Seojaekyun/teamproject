@@ -771,6 +771,8 @@ margin-top:20px;
 <!-- jQuery 및 Flatpickr JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/ko.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
@@ -2040,8 +2042,8 @@ margin-right:30px;
 									
 									
 									<!-- 출발지, 도착지 값 전달을 위한 숨겨진 필드 -->
-        							<input type="hidden" name="departure" id="from-hidden">
-        							<input type="hidden" name="arrival" id="to-hidden">
+        							<!-- <input type="hidden" name="departure" id="from-hidden">
+        							<input type="hidden" name="arrival" id="to-hidden"> -->
         							
         							
 
