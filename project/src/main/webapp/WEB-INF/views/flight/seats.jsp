@@ -76,7 +76,7 @@
     }
     .row {
         display: flex;
-        gap: 10px; /* 좌석 간의 간격 추가 */
+        gap: 5px; /* 좌석 간의 간격 추가 */
         justify-content: center;
         margin-bottom: 15px; /* 행 간의 간격 */
     }
