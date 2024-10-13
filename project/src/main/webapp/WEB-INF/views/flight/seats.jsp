@@ -19,35 +19,37 @@
         align-items: center; /* 좌석 번호를 중앙에 배치 */
     }
     .seatf {
-        width: 30px;
-        height: 35px;
-        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        width: 50px;
+        height: 60px;
+        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 35px;
+        line-height: 60px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
+        font-weight: 750;
+        color: black;
     }
     .seatb {
-        width: 25px;
-        height: 30px;
-        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        width: 40px;
+        height: 50px;
+        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 30px;
+        line-height: 50px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
     .seat {
-        width: 20px;
-        height: 25px;
-        background-image: url('../static/resources/seata.png'); /* 좌석 이미지 경로 */
+        width: 30px;
+        height: 40px;
+        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
         background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
         background-position: center;
         text-align: center;
-        line-height: 25px;
+        line-height: 40px;
         cursor: pointer;
         border: none; /* 테두리 제거 */
     }
@@ -66,8 +68,8 @@
         cursor: not-allowed;
     }
     .selected {
-        box-shadow: 0px 0px 15px 5px #90EE90; /* 선택된 좌석에 연두색 그림자 추가 */
-        border: 2px solid #90EE90; /* 선택된 좌석에 연두색 테두리 */
+    	box-shadow: 0px 0px 15px 5px #90EE90; /* 선택된 좌석에 연두색 그림자 추가 */
+        /* border: 2px solid #90EE90; */ /* 선택된 좌석에 연두색 테두리 */
     }
     .aisle {
         width: 40px; /* 복도 공간 */
@@ -104,11 +106,11 @@
                 <c:choose>
                     <c:when test="${seatRow >= 1 && seatRow <= 10}">
                         <div class="seat-container">
-                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
                             <div class="seatf ${seat.available ? 'available' : 'unavailable'}"
                                  data-seat-number="${seat.seatNumber}"
                                  data-available="${seat.available}"
                                  onclick="selectSeat(this)">
+                                 ${seat.seatNumber}
                             </div>
                         </div>
                         <div class="aisle"></div>
@@ -116,11 +118,11 @@
 
                     <c:when test="${seatRow >= 11 && seatRow <= 30}">
                         <div class="seat-container">
-                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
                             <div class="seatb ${seat.available ? 'available' : 'unavailable'}"
                                  data-seat-number="${seat.seatNumber}"
                                  data-available="${seat.available}"
                                  onclick="selectSeat(this)">
+                                 ${seat.seatNumber}
                             </div>
                         </div>
                         <div class="aisle"></div>
@@ -128,11 +130,11 @@
 
                     <c:when test="${seatRow >= 31 && seatRow <= 49}">
                         <div class="seat-container">
-                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
                             <div class="seat ${seat.available ? 'available' : 'unavailable'}"
                                  data-seat-number="${seat.seatNumber}"
                                  data-available="${seat.available}"
                                  onclick="selectSeat(this)">
+                                 ${seat.seatNumber}
                             </div>
                         </div>
                         <c:if test="${status.index % 3 == 2}">
@@ -142,11 +144,11 @@
 
                     <c:when test="${seatRow >= 50}">
                         <div class="seat-container">
-                            <div class="seat-number">${seat.seatNumber}</div> <!-- 좌석 번호 -->
                             <div class="seat ${seat.available ? 'available' : 'unavailable'}"
                                  data-seat-number="${seat.seatNumber}"
                                  data-available="${seat.available}"
                                  onclick="selectSeat(this)">
+                                 ${seat.seatNumber}
                             </div>
                         </div>
                         <c:if test="${status.index % 3 == 2}">
