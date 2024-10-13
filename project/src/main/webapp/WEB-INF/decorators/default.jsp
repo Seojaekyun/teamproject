@@ -31,6 +31,7 @@
         width: 100%;
         height: 100px; /* Adjust the height as needed */
         position: relative;
+        max-width: 1600px;
     }
     /* Position the logo at the bottom left */
     #section1 #logo {
@@ -46,7 +47,7 @@
         right: 0;
         margin-right: 60px; /* Adjust if necessary */
         display: flex;
-        align-items: center;
+        text-align: right;
         font-size: 14px;
         font-weight: 600;
         padding: 10px;
@@ -64,7 +65,7 @@
         margin: 0;
         padding: 10px;
         display: flex;
-        align-items: center;
+        align-items: right;
     }
     #section1 #loginMenu ul li {
         position: relative;
@@ -103,6 +104,7 @@
         left: 40%;
         transform: translateX(-50%);
         z-index: 2000;
+        max-width: 1000px;
     }
     #section1 nav {
         display: flex;
@@ -125,10 +127,10 @@
     #section1 nav #main > li {
         display: inline-block;
         list-style-type: none;
-        width: 180px;
+        width: 120px;
         height: 50px;
         line-height: 30px;
-        text-align: center;
+        text-align: left;
         font-size: 16px;
         font-weight: 750;
         position: relative;
@@ -147,9 +149,10 @@
     }
     #section1 nav #main > li > .menu > li {
         list-style-type: none;
-        width: 200px;
+        width: 160px;
         height: 40px;
         line-height: 40px;
+        padding-left: 30px;
         font-size: 14px;
         font-weight: 600;
         z-index: 2000;
@@ -174,7 +177,7 @@
     }
     
     .footer-logo img {
-        width: 80px;
+        height: 80px;
     }
     
     .footer-info, .footer-contact {
@@ -275,7 +278,7 @@
     <header>
         <div id="section1">
             <div id="logo">
-                <a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="60px"> </a>
+                <a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="90px"> </a>
             </div>
             <div id="nav">
                 <nav>
@@ -623,7 +626,7 @@
 
         <div class="footer-container">
             <div class="footer-logo">
-                <img alt="logo" src="../static/resources/eltlogo.png" width="80" align="middle">
+                <img alt="logo" src="../static/resources/eltlogo.png"  align="middle">
             </div>
             <div class="footer-info">
                 <div>(주)eLT항공</div>
