@@ -31,14 +31,14 @@
         width: 100%;
         height: 100px; /* Adjust the height as needed */
         position: relative;
-        max-width: 1600px;
+        max-width: 1900px;
     }
     /* Position the logo at the bottom left */
     #section1 #logo {
         position: absolute;
         bottom: 0;
         left: 0;
-        margin-left: 10%; /* Adjust if necessary */
+        margin-left: 8%; /* Adjust if necessary */
     }
     /* Position the loginMenu at the top right */
     #section1 #loginMenu {
