@@ -546,9 +546,9 @@
 						<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
 							<ul class="menu">
 								<li><a href="../reserve/reservation">항공권 예약</a></li>
-								<li><a href="">예약 조회</a></li>
+								<li><a href="../reserve/reserveInfo">예약 조회</a></li>
 								<li><a href="">체크인</a></li>
-								<li><a href="">운항정보</a></li>
+								<li><a href="../flight/flightList">운항정보</a></li>
 							</ul>
 						</li>
 						<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>항공권 예약</title>
+<title>예약 조회</title>
 <!-- 디자인에 필요한 CSS 및 스크립트 추가 -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -119,47 +119,6 @@
 		});
 	});
 	
-	// 선택한 날짜에 맞는 항공편 불러오기
-	function fetchFlightsByDate(selectedDate) {
-		if (selectedDate) {
-			fetch(`/reserve/flights?date=` + selectedDate)
-			.then(response => response.json())
-			.then(data => {
-				let flightSelect = document.getElementById('flight_id');
-				flightSelect.innerHTML = '<option value="">-- 항공편 선택 --</option>';
-				data.forEach(flight => {
-					let option = document.createElement('option');
-					option.value = flight.flightId;
-					
-					let departureTime = new Date(flight.departureTime).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-					option.text = flight.departureAirport +' to '+flight.arrivalAirport+' (Departure: '+departureTime+')';
-					flightSelect.add(option);
-				});
-			})
-			.catch(error => console.error('Error fetching flights:', error));
-		}
-	}
-	
-	// 선택한 항공편에 맞는 좌석 불러오기
-	function fetchSeats(flightId) {
-		if (flightId) {
-			fetch(`/reserve/seats?flightId=` + flightId)
-			.then(response => response.json())
-			.then(data => {
-				let seatSelect = document.getElementById('seat_number');
-				seatSelect.innerHTML = '<option value="">-- 좌석 선택 --</option>';
-				data.forEach(seat => {
-					let option = document.createElement('option');
-					option.value = seat.seatNumber;
-					option.text = seat.seatNumber + ' (' + seat.seatClass + ')';
-					seatSelect.add(option);
-				});
-			})
-			.catch(error => console.error('Error fetching seats:', error));
-		} else {
-			document.getElementById('seat_number').innerHTML = '<option value="">-- 좌석 선택 --</option>';
-		}
-	}
 </script>
 
 </head>
@@ -167,7 +126,7 @@
 
 <section>
 	<header>
-		<h1>항공권 예약</h1>
+		<h1>예약 조회</h1>
 	</header>
 	
 	<nav>
@@ -178,54 +137,31 @@
 	</nav>
 	
 	<div class="container">
-		<h2>예약 정보 입력</h2>
-		
-		<!-- 날짜 선택 -->
-		<div id="cal">
-			<input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
-		</div>
-	
-		<!-- 항공편 선택 -->
+		<h2>예약 정보 조회</h2>
 		<form id="reservationForm" action="/reserve" method="post">
-			<div class="form-group">
-				<label for="flight_id">항공편 선택</label>
-				<select name="flightId" id="flight_id" required onchange="fetchSeats(this.value)">
-					<option value="">-- 항공편 선택 --</option>
-				</select>
+			<!-- 날짜 선택 -->
+			<div id="cal">
+				<input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
 			</div>
-	
-			<!-- 좌석 선택 -->
+			<!-- 예약 번호 -->
 			<div class="form-group">
-				<label for="seat_number">좌석 선택</label>
-				<select name="seat_number" id="seat_number" required>
-					<option value="">-- 좌석 선택 --</option>
-				</select>
+				<label for="flight_id">예약번호</label>
+				<input type="text" id="pnr" name="pnr" value="">
 			</div>
-	
-			<!-- 좌석 클래스 선택 -->
-			<div class="form-group">
-				<label for="seat_class">좌석 클래스</label>
-				<select name="seat_class" id="seat_class" required>
-					<option value="Economy">이코노미</option>
-					<option value="Business">비즈니스</option>
-					<option value="First">퍼스트 클래스</option>
-				</select>
-			</div>
-	
-			<!-- 고객 정보 입력 -->
+			<!-- 고객 정보 -->
 			<div class="form-group">
 				<label for="customer_id">예약자 ID</label>
-				<input type="text" id="userid" name="userid" value="${userid }" required>
+				<input type="text" id="userid" name="userid" value="${userid }">
 			</div>
 	
 			<div class="form-group">
 				<label for="customer_sung">First Name</label>
-				<input type="text" id="sung" name="sung" value="${sung }" required>
+				<input type="text" id="sung" name="sung">
 			</div>
 			
 			<div class="form-group">
 				<label for="customer_name">Last Name</label>
-				<input type="text" id="lname" name="lname" value="${lname }" required>
+				<input type="text" id="lname" name="lname">
 			</div>
 	
 			<div class="form-group">
@@ -233,7 +169,7 @@
 				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
 			</div>
 	
-			<input type="submit" value="예약하기">
+			<input type="submit" value="예약조회">
 		</form>
 	</div>
 </section>

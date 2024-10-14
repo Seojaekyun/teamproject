@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.AirportsDto;
+import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.MainMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +25,8 @@ public class MainServiceImpl implements MainService {
 	private MainMapper mapper;
 	@Qualifier("ms")
 	private List<String> chatMessages = new ArrayList<>();  // 메시지를 저장할 리스트
+	@Autowired
+	private FlightMapper fmapper;
 	
 	@Override
 	public String index() {
@@ -94,6 +101,44 @@ public class MainServiceImpl implements MainService {
 			// 로그인 실패 시 로그인 페이지로 리다이렉트 (에러 메시지 포함)
 			return "redirect:/login/login?err=1";
 		}
+	}
+	
+	@Override
+	public List<FlightDto> getFlightsByPage(int page, Model model) {
+		int itemsPerPage = 10;  // 페이지당 항목 수
+		int start = (page - 1) * itemsPerPage;
+		
+		// 항공편 리스트를 페이징 처리하여 가져오기
+		List<FlightDto> flightList = fmapper.getFlights(start, itemsPerPage);
+		int totalFlights = fmapper.countFlights();
+		
+		// 전체 페이지 수 계산
+		int totalPages = (int) Math.ceil((double) totalFlights / itemsPerPage);
+		
+		// 모델에 항공편 데이터 추가
+		model.addAttribute("flightList", flightList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		return flightList;
+	}
+	
+	@Override
+	public List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate, Integer page) {
+		// 매퍼에서 필터링된 항공편 목록 가져오기
+		int itemsPerPage = 10;  // 페이지당 항목 수
+		int offset = (page - 1) * itemsPerPage;
+		
+		return fmapper.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, itemsPerPage, offset);
+	}
+	
+	@Override
+	public List<AirportsDto> getAllAirports() {
+		return fmapper.getAllAirports();
+	}
+
+	@Override
+	public String reserveInfo() {
+		return "/reserve/reserveInfo";
 	}
 	
 	

@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
+
+import com.example.demo.dto.AirportsDto;
+import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +26,11 @@ public interface MainService {
 	public String loginOk(
 			MemberDto mdto, HttpSession session,
 			HttpServletRequest request, HttpServletResponse response);
+	List<FlightDto> getFlightsByPage(int page, Model model);
+	List<AirportsDto> getAllAirports();
+	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate,
+			Integer page);
+	public String reserveInfo();
 	
 	
 }

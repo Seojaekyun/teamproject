@@ -206,7 +206,7 @@ public class AdminController {
             return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
         }
 
-        // 성공적으로 항공편이 추가된 경우 항공편 목록 페이지로 리다이렉트
+        // 항공편 목록 페이지로 리다이렉트
         return "redirect:/admin/flightsList";
     }
     

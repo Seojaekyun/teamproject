@@ -5,9 +5,8 @@ import com.example.demo.dto.FlightTimeDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
-import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
-
+import com.example.demo.dto.AirplanesDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -63,6 +62,14 @@ public interface FlightMapper {
 	Integer getFlightIdForAddingSeats();
 	FlightTimeDto getFlightTime(@Param("a") String a, @Param("b") String b);
 	String getAirportTimezone(@Param("airportCode") String airportCode);
+	List<FlightDto> getFlights(int start, int itemsPerPage);
+	int countFlights();
+	List<FlightDto> getFlightsByFilters(String departureAirport, String arrivalAirport, String selectedDate, int start,
+			int itemsPerPage);
+	int countFlightsByFilters(String departureAirport, String arrivalAirport, String selectedDate);
+	List<AirportsDto> getAllAirports();
+	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate,
+			int itemsPerPage, int offset);
 	
 	
 }
