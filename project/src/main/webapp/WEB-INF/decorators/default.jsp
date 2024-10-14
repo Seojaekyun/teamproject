@@ -4,14 +4,16 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>eLT항공</title>
+<title>title</title>
+<!-- Flatpickr(달력 라이브러리) CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Gugi&display=swap" rel="stylesheet">
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
-	@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Hahmlet:wght@100..900&display=swap');
 	* {
 		margin: 0;
 		padding: 0;
@@ -27,21 +29,23 @@
 	}
 	#section1 {
 		width: 100%;
-		height: 100px;
+		height: 100px; /* Adjust the height as needed */
 		position: relative;
 		max-width: 1900px;
 	}
-	/* Logo Positioning */
+	/* Position the logo at the bottom left */
 	#section1 #logo {
 		position: absolute;
 		bottom: 0;
-		left: 8%;
+		left: 0;
+		margin-left: 8%; /* Adjust if necessary */
 	}
-	/* Login Menu Positioning */
+	/* Position the loginMenu at the top right */
 	#section1 #loginMenu {
 		position: absolute;
 		top: 0;
-		right: 10%;
+		right: 0;
+		margin-right: 10%; /* Adjust if necessary */
 		display: flex;
 		text-align: right;
 		font-size: 14px;
@@ -53,20 +57,20 @@
 		color: black;
 	}
 	#section1 #loginMenu a:hover {
+		text-decoration: none;
 		color: #00467F;
 	}
 	#section1 #loginMenu ul {
-		list-style: none;
+		list-style-type: none;
 		margin: 0;
 		padding: 10px;
 		display: flex;
-		align-items: center;
+		align-items: right;
 	}
 	#section1 #loginMenu ul li {
 		position: relative;
 	}
-	#section1 #loginMenu .cmenu,
-	#section1 #loginMenu .mmenu {
+	#section1 #loginMenu .cmenu, #section1 #loginMenu .mmenu {
 		padding-left: 0;
 		position: absolute;
 		left: -10px;
@@ -75,10 +79,10 @@
 		display: none;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		z-index: 10;
-		border-radius: 5px;
+		border-radius:5px;
 	}
 	#section1 #loginMenu .cmenu > li, #section1 #loginMenu .mmenu > li {
-		list-style: none;
+		list-style-type: none;
 		width: 100px;
 		height: 35px;
 		line-height: 35px;
@@ -86,13 +90,14 @@
 		cursor: pointer;
 		font-size: 14px;
 	}
-	#section1 #loginMenu .cmenu > li:hover, #section1 #loginMenu .mmenu > li:hover {
+	#section1 #loginMenu .cmenu > li:hover,  #section1 #loginMenu .mmenu > li:hover {
+		text-decoration: none;
 		color: #00467F;
 	}
 	#section1 #loginMenu #supMenu, #section1 #loginMenu #myInfo {
 		position: relative;
 	}
-	/* Navigation Styling */
+	/* Center the nav at the bottom */
 	#section1 #nav {
 		position: absolute;
 		bottom: 0;
@@ -112,17 +117,19 @@
 		color: black;
 	}
 	#section1 nav a:hover {
+		text-decoration: none;
 		color: #00467F;
 	}
 	#section1 nav #main {
-		padding-left: 0;
-		margin-left: 0;
+		padding-left: 0px;
+		margin-left: 0px; /* Adjusted to align properly */
 	}
 	#section1 nav #main > li {
 		display: inline-block;
-		list-style: none;
+		list-style-type: none;
+		/* width: 120px; */
 		height: 30px;
-		padding: 0 20px 0 0;
+		padding: 0 20px 0 0; 
 		line-height: 30px;
 		text-align: left;
 		font-size: 18px;
@@ -131,18 +138,18 @@
 		z-index: 5;
 	}
 	#section1 nav #main > li > .menu {
-		padding-left: 0;
+		padding-left: 0px;
 		position: absolute;
-		left: 0;
+		left: 0px;
 		top: 29px;
 		background: white;
 		visibility: hidden;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		border-radius: 5px;
+		border-radius:5px;
 		z-index: 2000;
 	}
 	#section1 nav #main > li > .menu > li {
-		list-style: none;
+		list-style-type: none;
 		width: 150px;
 		height: 40px;
 		line-height: 40px;
@@ -151,11 +158,12 @@
 		font-weight: 600;
 		z-index: 2000;
 	}
-	/* Login Button Styling */
 	#login {
 		position: absolute;
-		bottom: 10px;
-		left: 83%;
+		bottom: 0;
+		left: 0;
+		margin-left: 83%;
+		margin-bottom: 10px;
 	}
 	#loginbtn {
 		width: 120px;
@@ -164,22 +172,26 @@
 		background: #1f0c59;
 		color: white;
 		font-size: 15px;
+		
 	}
+	
 	#loginbtn:hover {
 		cursor: pointer;
 		font-weight: bold;
 		border: 2px solid #90EE90;
+		
 	}
-	/* Footer Styling */
+	
 	footer {
 		padding: 10px 0;
 		width: 100%;
 		background: lightgray;
 		color: white;
 		text-align: center;
-		font-family: 'Hahmlet', sans-serif;
+		font-family: 'Hahmlet';
 		font-size: 13px;
 	}
+	
 	.footer-container {
 		display: flex;
 		justify-content: space-around;
@@ -188,35 +200,76 @@
 		margin: auto;
 		flex-wrap: wrap;
 	}
+	
 	.footer-logo img {
 		height: 80px;
 	}
+	
 	.footer-info, .footer-contact {
 		text-align: left;
 	}
+	
 	.footer-info div, .footer-contact div {
 		margin-bottom: 5px;
 	}
+	
 	@media (max-width: 768px) {
 		.footer-container {
 			flex-direction: column;
 			text-align: center;
 		}
-		.footer-info,
-		.footer-contact {
+		.footer-info, .footer-contact {
 			text-align: center;
 		}
 	}
-		/* Icon Hover Effects */
-	#main1 .icona, #main2 .iconb, #main3 .iconc, #main4 .icond, #main5 .icone, #into .iconmem {
+	#main1 .icona {
 		margin-right: 8px;
 		opacity: 0;
 		transition: opacity 0.3s;
 	}
-	#main1:hover .icona, #main2:hover .iconb, #main3:hover .iconc, #main4:hover .icond, #main5:hover .icone, #into:hover .iconmem {
+	#main1:hover .icona {
 		opacity: 1;
 	}
-	/* Chat Console Styling */
+	#main2 .iconb {
+		margin-right: 8px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#main2:hover .iconb {
+		opacity: 1;
+	}
+	#main3 .iconc {
+		margin-right: 8px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#main3:hover .iconc {
+		opacity: 1;
+	}
+	#main4 .icond {
+		margin-right: 8px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#main4:hover .icond {
+		opacity: 1;
+	}
+	#main5 .icone {
+		margin-right: 8px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#main5:hover .icone {
+		opacity: 1;
+	}
+	.iconmem {
+		margin-right: 8px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#into:hover .iconmem {
+		opacity: 1;
+	}
 	#chat-console {
 		width: 320px;
 		height: 450px;
@@ -283,7 +336,8 @@
 		padding: 10px;
 		border-radius: 15px;
 		max-width: 80%;
-		align-self: flex-end;
+		display: block;
+		align-self: flex-end; /* 오른쪽 정렬 */
 		clear: both;
 	}
 	#chat-body .admin-message {
@@ -293,7 +347,8 @@
 		padding: 10px;
 		border-radius: 15px;
 		max-width: 80%;
-		align-self: flex-start;
+		display: block;
+		align-self: flex-start; /* 왼쪽 정렬 */
 		clear: both;
 	}
 	#chat-input {
@@ -346,7 +401,6 @@
 	#chat-toggle:hover {
 		background-color: #1A9987;
 	}
-	/* Additional Footer Styling */
 	.footer {
 		background-color: #00467F;
 		color: white !important;
@@ -354,10 +408,10 @@
 		padding: 15px 0;
 		margin-top: 40px;
 	}
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	// Menu Display Functions
 	function viewCmenu(n) {
 		document.getElementsByClassName("cmenu")[n].style.display = "block";
 	}
@@ -376,13 +430,14 @@
 	function hideMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
 	}
-		// Chat Functions
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
 		endButton.innerText = '닫기';
 		endButton.onclick = closeAndResetChat;
 	}
+	// 닫기 버튼
+	/* 채팅 */
 	function closeAndResetChat() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../main/resetChatHistory", true);
@@ -402,11 +457,12 @@
 		};
 		xhr.send();
 	}
+	// 메시지 전송 함수
 	function sendMessage(message) {
 		var messageInput = message || document.getElementById('chat-message').value;
 		var chatBody = document.getElementById('chat-body');
 		if (messageInput.trim() === "") return;
-		var xhr = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
 		xhr.open("POST", "../main/sendMessage", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.onreadystatechange = function() {
@@ -420,6 +476,7 @@
 		};
 		xhr.send("message=" + encodeURIComponent(messageInput) + "&isAdmin=false");
 	}
+	// Enter 키로 메시지 전송
 	document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('chat-message').addEventListener('keydown', function(event) {
 			if (event.key === "Enter") {
@@ -428,23 +485,25 @@
 			}
 		});
 	});
-
+	// 채팅 창 토글
 	function toggleChat() {
 		var chatConsole = document.getElementById('chat-console');
 		var chatToggle = document.getElementById('chat-toggle');
 		if (chatConsole.style.display === 'none' || chatConsole.style.display === '') {
 			chatConsole.style.display = 'flex';
 			chatToggle.style.display = 'none';
-		} else {
+		}
+		else {
 			chatConsole.style.display = 'none';
 			chatToggle.style.display = 'block';
 		}
 	}
+	// 메시지 갱신
 	function pollMessages() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", "/main/getMessages", true);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
 				var chatBody = document.getElementById('chat-body');
 				var messages = JSON.parse(xhr.responseText);
 				chatBody.innerHTML = '';
@@ -452,9 +511,11 @@
 					var newMessage = document.createElement('div');
 					if (msg.startsWith('팅커벨:')) {
 						newMessage.className = 'admin-message';
-						newMessage.textContent = '‍💻' + msg.replace(/^팅커벨:\s*/, '');
-					} else {
+						newMessage.textContent = '‍💻'+ msg.replace(/^팅커벨:\s*/, '');
+					}
+					else {
 						newMessage.className = 'user-message';
+						// "손님: " 접두사를 제거하고 메시지만 출력
 						newMessage.textContent = msg.replace(/^손님:\s*/, '');
 					}
 					chatBody.appendChild(newMessage);
@@ -464,77 +525,25 @@
 		};
 		xhr.send();
 	}
+	// 페이지 로드 후 메시지 요청 시작
 	pollMessages();
-	// Chat Popup Management
-	function closePopup(type) {
-		if (type === 'passenger') {
-			document.getElementById('passenger-selection-popup').style.display = 'none';
-		} else if (type === 'departure') {
-			document.getElementById('popup').style.display = 'none';
-		} else if (type === 'arrival') {
-			document.getElementById('arrival-popup').style.display = 'none';
-		} else if (type === 'seats') {
-			document.getElementById('seats-popup').style.display = 'none';
-		}
-	}
-	function openPopup(type) {	
-		closeAllPopups();
-		if (type === 'passenger') {
-			document.getElementById('passenger-selection-popup').style.display = 'block';
-		} else if (type === 'departure') {
-			document.getElementById('popup').style.display = 'block';
-		} else if (type === 'arrival') {
-			document.getElementById('arrival-popup').style.display = 'block';
-		}
-	}
-	function closeAllPopups() {
-		document.getElementById('passenger-selection-popup').style.display = 'none';
-		document.getElementById('popup').style.display = 'none';  
-		document.getElementById('arrival-popup').style.display = 'none';  
-		document.getElementById('seats-popup').style.display = 'none';
-	}
-	document.addEventListener('click', function(event) {
-		var passengerPopup = document.getElementById('passenger-selection-popup');
-		var seatPopup = document.getElementById('seats-popup');
-		var seatSelectBtn = document.getElementById('seats-btn');
-		var passengerBtn = document.getElementById('passenger-btn');
-		if (passengerPopup.style.display === 'block' && !passengerPopup.contains(event.target) && event.target !== passengerBtn) {
-			passengerPopup.style.display = 'none';
-		}
-		if (seatPopup.style.display === 'block' && !seatPopup.contains(event.target) && event.target !== seatSelectBtn) {
-			seatPopup.style.display = 'none';
-		}
-	});
-	document.addEventListener('DOMContentLoaded', function () {
-		const seatSelectBtn = document.getElementById('seats-btn');
-		const seatPopup = document.getElementById('seats-popup');
-		seatSelectBtn.addEventListener('click', function(event) {
-			event.stopPropagation();
-			seatPopup.style.display = seatPopup.style.display === 'block' ? 'none' : 'block';
-		});
-		window.selectSeat = function(seatType) {
-			document.querySelector('#seats-btn span').innerText = seatType;
-			document.getElementById('seatClass-hidden').value = seatType;
-			seatPopup.style.display = 'none';
-		}
-	});
+
 </script>
-<!-- Additional Head Content via Sitemesh -->
+
 <sitemesh:write property="head" />
+
 </head>
+
 <body>
 	<header>
 		<div id="section1">
 			<div id="logo">
-				<a href="../main/index">
-					<img src="../static/resources/eltlogo.png" height="90px" alt="eLT항공 로고">
-				</a>
+				<a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="90px"> </a>
 			</div>
 			<div id="nav">
 				<nav>
 					<ul id="main">
-						<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)">
-							<span class="icona">✈️</span>예약
+						<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
 							<ul class="menu">
 								<li><a href="../reserve/reservation">항공권 예약</a></li>
 								<li><a href="">예약 조회</a></li>
@@ -544,14 +553,14 @@
 						</li>
 						<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
 							<a href="../guide/checkinGuide"><span class="iconb">✈️</span>여행준비</a>
+
 							<ul class="menu">
 								<li><a href="../guide/checkinGuide">체크인 안내</a></li>
 								<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
 								<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 							</ul>
 						</li>
-						<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)">
-							<span class="iconc">✈️</span>최저가
+						<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"><span class="iconc">✈️</span>최저가
 							<ul class="menu">
 								<li>1</li>
 								<li>2</li>
@@ -559,47 +568,48 @@
 							</ul>
 						</li>
 						<li id="main4" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
-							<a href="../guide/travel"><span class="icond">✈️</span>여행지</a>
+							<a href="../guide/travel"> <span class="icond">✈️</span>여행지 </a>
+
 							<ul class="menu">
 								<li><a href="">국내 여행</a></li>
 								<li><a href="">해외 여행</a></li>
 								<li><a href="">테마 여행</a></li>
 							</ul>
 						</li>
-						<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)">
-							<span class="icone">✈️</span>호텔/렌터카
+						<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> <span class="icone">✈️</span>호텔/렌터카
+
 							<ul class="menu">
-								<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer">호텔</a></li>
-								<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer">렌터카</a></li>
+								<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
+								<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
 							</ul>
 						</li>
 					</ul>
 				</nav>
 			</div>
 			<div id="loginMenu">
-				<c:if test="${userid!=null && userid=='admin'}">
-					<a href="../admin/index" style="color: orange;">관리자 홈</a>&nbsp;|&nbsp;
+				<c:if test="${userid!=null&&userid=='admin'}">
+					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
 				</c:if>
 				<c:if test="${userid==null}">
-					<a href="../member/member" id="into"><span class="iconmem">📋</span>회원가입</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a href="../member/member" id="into"> <span class="iconmem">📋</span>회원가입 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<!-- <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp; -->
 				</c:if>
-				<c:if test="${userid!=null && userid!='admin'}">
-					<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">
-						${name}님&nbsp;|&nbsp;
-						<ul class="mmenu">
-							<li><a href="../member/memberView">나의정보</a></li>
-							<li><a href="../reserve/list">예약정보</a></li>
-							<li><a href="../member/myInq">나의문의</a></li>
-						</ul>
-					</span>
-					<a href="../login/logout">로그아웃</a>&nbsp;|&nbsp;
+				<c:if test="${userid!=null&&userid!='admin'}">
+				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+					<ul class="mmenu">
+						<li><a href="../member/memberView">나의정보</a></li>
+						<li><a href="../reserve/list">예약정보</a></li>
+						<li><a href="../member/myInq">나의문의</a></li>
+					</ul>
+				</span>
+				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)">
-					고객센터
+				<span id="supMenu" onmouseover="viewCmenu(0)"
+					onmouseout="hideCmenu(0)"> 고객센터
 					<ul class="cmenu">
-						<li><a href="../gongji/list">공지사항</a></li>
-						<li><a href="../inquiry/list">Q & A</a></li>
-						<li><a href="../main/eventList">이벤트</a></li>
+						<li><a href="../gongji/list"> 공지사항 </a></li>
+						<li><a href="../inquiry/list"> Q & A </a></li>
+						<li><a href="../main/eventList"> 이벤트 </a></li>
 					</ul>
 				</span>
 			</div>
@@ -612,35 +622,32 @@
 			</div>
 		</div>
 	</header>
-
+  
 	<!-- 채팅 상담 버튼 -->
-	<div id="chat-toggle" onclick="toggleChat()">
-		<img src="../static/resources/cb.png" id="chatbot" alt="채팅 상담">
-	</div>
+	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>
 	<!-- 채팅 창 -->
 	<div id="chat-console">
-		<div id="chat-header">
-			채팅 상담
-			<button id="endChatButton" onclick="endChat()">끝내기</button>
-		</div>
-		<div id="chat-body"></div>
-		<div id="chat-input">
-			<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
-			<button onclick="sendMessage()">보내기</button>
-		</div>
+	<div id="chat-header">
+		채팅 상담
+		<button id="endChatButton" onclick="endChat()">끝내기</button>
 	</div>
-
-	<!-- Sitemesh Body Content -->
+	<div id="chat-body"></div>
+	<div id="chat-input">
+		<input type="text" id="chat-message" placeholder="메시지를 입력하세요">
+		<button onclick="sendMessage()">보내기</button>
+	</div>
+	</div>
+	
 	<sitemesh:write property="body" />
-
-	<!-- Footer -->
+	
 	<div class="footer" style="color: white">
 		<span>© 2024 여행사. 모든 권리 보유.</span>
 	</div>
+	
 	<footer>
 		<div class="footer-container">
 			<div class="footer-logo">
-				<img alt="eLT항공 로고" src="../static/resources/eltlogo.png" align="middle">
+				<img alt="logo" src="../static/resources/eltlogo.png"  align="middle">
 			</div>
 			<div class="footer-info">
 				<div>(주)eLT항공</div>
