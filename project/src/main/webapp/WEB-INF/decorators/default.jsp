@@ -42,7 +42,7 @@
 	}
 	/* Position the loginMenu at the top right */
 	#section1 #loginMenu {
-		position: absolute;
+		position: absolute ;
 		top: 0;
 		right: 0;
 		margin-right: 10%; /* Adjust if necessary */
@@ -100,7 +100,7 @@
 	/* Center the nav at the bottom */
 	#section1 #nav {
 		position: absolute;
-		bottom: 0;
+		bottom: 0 !important;
 		left: 40%;
 		transform: translateX(-50%);
 		z-index: 2000;
@@ -108,7 +108,7 @@
 	}
 	#section1 nav {
 		display: flex;
-		line-height: 30px;
+		line-height: 30px !important;
 		font-family: Arial, sans-serif;
 		font-size: 16px;
 	}
@@ -128,9 +128,9 @@
 		display: inline-block;
 		list-style-type: none;
 		/* width: 120px; */
-		height: 30px;
+		height: 30px !important;
 		padding: 0 20px 0 0; 
-		line-height: 30px;
+		line-height: 30px !important;
 		text-align: left;
 		font-size: 18px;
 		font-weight: 750;

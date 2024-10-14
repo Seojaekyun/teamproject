@@ -3,20 +3,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>항공편 검색 결과 - eLT항공</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    <style>
-        /* 간단한 스타일 추가 */
-        .flight-table {
-            margin-top: 30px;
-        }
-        .select-flight-btn {
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>항공편 검색 결과 - eLT항공</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<style>
+	/* 간단한 스타일 추가 */
+	section {
+		width: 100%;
+		max-width: 1500px;
+		margin: auto;
+	}
+	section .flight-table {
+		margin-top: 30px;
+	}
+	section .select-flight-btn {
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
+<section>
     <div class="container">
         <h2 class="mt-4">항공편 검색 결과</h2>
         
@@ -130,5 +136,6 @@
             <p class="mt-4">검색 조건에 부합하는 항공편이 없습니다.</p>
         </c:if>
     </div>
+</section>
 </body>
 </html>
