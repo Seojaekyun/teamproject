@@ -160,6 +160,8 @@
 			document.getElementById('seat_number').innerHTML = '<option value="">-- 좌석 선택 --</option>';
 		}
 	}
+	
+	
 </script>
 
 </head>
@@ -193,23 +195,23 @@
 					<option value="">-- 항공편 선택 --</option>
 				</select>
 			</div>
-	
-			<!-- 좌석 선택 -->
-			<div class="form-group">
-				<label for="seat_number">좌석 선택</label>
-				<select name="seat_number" id="seat_number" required>
-					<option value="">-- 좌석 선택 --</option>
-				</select>
-			</div>
-	
+			
 			<!-- 좌석 클래스 선택 -->
 			<div class="form-group">
 				<label for="seat_class">좌석 클래스</label>
 				<select name="seat_class" id="seat_class" required>
 					<option value="Economy">이코노미</option>
-					<option value="Business">비즈니스</option>
-					<option value="First">퍼스트 클래스</option>
+					<option value="Business">프레스티지</option>
+					<option value="First">일등석</option>
 				</select>
+			</div>
+			
+			<div id="passenger_selection">
+				<p>탑승객&nbsp;</p>
+				<button type="button" id="passenger-btn" onclick="openPopup('passenger')">
+					<span>인원수</span>
+					<i class="fa-regular fa-user"></i>
+				</button>
 			</div>
 	
 			<!-- 고객 정보 입력 -->
@@ -227,7 +229,7 @@
 				<label for="customer_name">Last Name</label>
 				<input type="text" id="lname" name="lname" value="${lname }" required>
 			</div>
-	
+			
 			<div class="form-group">
 				<label for="customer_email">이메일</label>
 				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
