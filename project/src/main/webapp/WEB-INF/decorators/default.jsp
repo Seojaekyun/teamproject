@@ -32,6 +32,7 @@
 		height: 100px; /* Adjust the height as needed */
 		position: relative;
 		max-width: 1900px;
+		margin: auto;
 	}
 	/* Position the logo at the bottom left */
 	#section1 #logo {
@@ -45,7 +46,7 @@
 		position: absolute ;
 		top: 0;
 		right: 0;
-		margin-right: 10%; /* Adjust if necessary */
+		margin-right: 9%; /* Adjust if necessary */
 		display: flex;
 		text-align: right;
 		font-size: 14px;

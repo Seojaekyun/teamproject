@@ -43,7 +43,7 @@
 	position: relative;
 	top: 5.3rm;
 	left: 0;
-	width: 90%;
+	width: 1500px;
 	height: 70%;
 	display: flex;
 	flex-direction: column;
