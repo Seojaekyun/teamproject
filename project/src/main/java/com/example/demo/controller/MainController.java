@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.AirportsDto;
+import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.MainService;
 
@@ -91,6 +94,50 @@ public class MainController {
 	@PostMapping("/login")
 	public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		return service.loginOk(mdto,session,request,response);
+	}
+	
+	@RequestMapping("/flight/flightList")
+	public String flightList(
+			@RequestParam(value = "departureAirport", required = false) String departureAirport,
+			@RequestParam(value = "arrivalAirport", required = false) String arrivalAirport,
+			@RequestParam(value = "selectedDate", required = false) String selectedDate,
+			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			Model model) {
+		
+		// 전달된 파라미터를 로그로 출력 (디버깅용)
+		System.out.println("Departure Airport: " + departureAirport);
+		System.out.println("Arrival Airport: " + arrivalAirport);
+		System.out.println("Selected Date: " + selectedDate);
+		
+		// 필터 조건이 있는 경우 필터링된 항공편 데이터를 가져오고, 그렇지 않으면 전체 데이터를 가져옵니다.
+		List<FlightDto> flights;
+		if ((departureAirport != null && !departureAirport.isEmpty()) ||
+				(arrivalAirport != null && !arrivalAirport.isEmpty()) ||
+				(selectedDate != null && !selectedDate.isEmpty())) {
+			// 필터링된 항공편 데이터 가져오기
+			flights = service.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, page);
+		} else {
+			// 전체 항공편 리스트를 페이지네이션 처리하여 가져오기
+			flights = service.getFlightsByPage(page, model);
+		}
+		
+		// 공항 목록 가져오기 및 모델에 추가
+		List<AirportsDto> airports = service.getAllAirports();
+		model.addAttribute("airports", airports);
+		
+		// 모델에 필터링된 데이터 추가
+		model.addAttribute("flightList", flights);
+		model.addAttribute("departureAirport", departureAirport);
+		model.addAttribute("arrivalAirport", arrivalAirport);
+		model.addAttribute("selectedDate", selectedDate);
+		model.addAttribute("currentPage", page);
+		
+		return "/flight/flightList";  // flightList.jsp로 이동
+	}
+	
+	@RequestMapping("/reserve/reserveInfo")
+	public String reserveInfo() {
+		return service.reserveInfo();
 	}
 	
 	

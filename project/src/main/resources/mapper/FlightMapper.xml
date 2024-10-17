@@ -135,7 +135,7 @@
 	</select>
 	<insert id="addFlight" parameterType="com.example.demo.dto.FlightDto">
 		INSERT INTO flights (departure_airport, arrival_airport, departure_time, arrival_time, airplane_id, flight_duration, flight_name)
-		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, SEC_TO_TIME(TIMESTAMPDIFF(SECOND, #{departureTime}, #{arrivalTime})), CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
+		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, #{ftime}, CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
 	</insert>
 	<select id="findAllAirplanes" resultType="com.example.demo.dto.AirplanesDto">
 		SELECT * FROM airplanes<!--  order by capacity desc, airplane_id asc --> 
@@ -155,6 +155,64 @@
 			(#{flightId}, #{seatNum}, 1, '')
 		</foreach>
 	</insert>
+	<select id="getFlightTime" parameterType="map" resultType="com.example.demo.dto.FlightTimeDto">
+		SELECT a, b, flight_time AS flightTime FROM flight_times
+		WHERE (a = #{a} AND b = #{b}) OR (a = #{b} AND b = #{a})
+	</select>
+	<select id="getAirportTimezone" parameterType="string" resultType="string">
+		SELECT timezone FROM airports WHERE airport_code = #{airportCode}
+	</select>
+	<select id="getFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights LIMIT #{start}, #{itemsPerPage}
+	</select>
+	<!-- 항공편 총 개수 조회 -->
+	<select id="countFlights" resultType="int">
+		SELECT COUNT(*) FROM flights
+	</select>
+	<select id="getFlightsByFilters" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights WHERE (#{departureAirport} IS NULL OR departure_airport = #{departureAirport})
+		AND (#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport})
+		AND departure_time &gt;= #{selectedDate}  <!-- >= 는 &gt;= 으로 변경 -->
+		AND departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY)  <!-- < 는 &lt; 으로 변경 -->
+		LIMIT #{start}, #{itemsPerPage}
+	</select>
+
+<select id="countFlightsByFilters" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM flights
+    WHERE 
+        (#{departureAirport} IS NULL OR departure_airport = #{departureAirport})
+    AND 
+        (#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport})
+    AND 
+        departure_time &gt;= #{selectedDate}  <!-- >= 는 &gt;= 으로 변경 -->
+    AND 
+        departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY)  <!-- < 는 &lt; 으로 변경 -->
+</select>
+
+
+<select id="getAllAirports" resultType="com.example.demo.dto.AirportsDto">
+    SELECT * FROM airports
+</select>
+
+<select id="getFilteredFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+    SELECT * FROM flights
+    WHERE 1=1
+    <if test="departureAirport != null and departureAirport != ''">
+        AND departure_airport = #{departureAirport}
+    </if>
+    <if test="arrivalAirport != null and arrivalAirport != ''">
+        AND arrival_airport = #{arrivalAirport}
+    </if>
+    <if test="selectedDate != null and selectedDate != ''">
+        AND DATE(departure_time) = #{selectedDate}
+    </if>
+    ORDER BY departure_time
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+
+
+    
+    
 	
 	
 </mapper>

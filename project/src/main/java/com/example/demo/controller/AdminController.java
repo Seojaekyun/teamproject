@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.AirplanesDto;
@@ -162,37 +165,64 @@ public class AdminController {
         return "admin/addFlight";
     }
 
-	@PostMapping("/admin/addFlights")
-	public String addFlights(
-	        @RequestParam("departureAirport") String departureAirport,
-	        @RequestParam("arrivalAirport") String arrivalAirport,
-	        @RequestParam("departureTime") String departureTime,
-	        @RequestParam("arrivalTime") String arrivalTime,
-	        @RequestParam("airplaneId") int airplaneId,
-	        
-	        @RequestParam("returnDepartureAirport") String returnDepartureAirport,
-	        @RequestParam("returnArrivalAirport") String returnArrivalAirport,
-	        @RequestParam("returnDepartureTime") String returnDepartureTime,
-	        @RequestParam("returnArrivalTime") String returnArrivalTime,
-	        @RequestParam("returnAirplaneId") int returnAirplaneId,
-	        
-	        Model model) {
+    @GetMapping("/admin/getFlightTime")
+    @ResponseBody
+    public Map<String, Integer> getFlightTime(@RequestParam("departureAirport") String departureAirport,
+                                              @RequestParam("arrivalAirport") String arrivalAirport) {
+        int[] flightTime = fservice.getFlightTime(departureAirport, arrivalAirport);
+        Map<String, Integer> response = new HashMap<>();
+        response.put("hour", flightTime[0]);
+        response.put("minute", flightTime[1]);
+        return response;
+    }
 
-	    try {
-	        // 출발편 추가
-	        fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, airplaneId);
-	        // 귀국편 추가
-	        fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnAirplaneId);
+    @PostMapping("/admin/addFlights")
+    public String addFlights(
+            @RequestParam("departureAirport") String departureAirport,
+            @RequestParam("arrivalAirport") String arrivalAirport,
+            @RequestParam("departureTime") String departureTime,
+            @RequestParam("arrivalTime") String arrivalTime,
+            @RequestParam("ftimeValue") String ftime,
+            @RequestParam("airplaneId") int airplaneId,
 
-	        model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
-	    } catch (Exception e) {
-	        model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
-	        return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
-	    }
+            @RequestParam("returnDepartureAirport") String returnDepartureAirport,
+            @RequestParam("returnArrivalAirport") String returnArrivalAirport,
+            @RequestParam("returnDepartureTime") String returnDepartureTime,
+            @RequestParam("returnArrivalTime") String returnArrivalTime,
+            @RequestParam("returnFtimeValue") String returnFtime,
+            @RequestParam("returnAirplaneId") int returnAirplaneId,
 
-	    // 성공적으로 항공편이 추가된 경우 항공편 목록 페이지로 리다이렉트
-	    return "redirect:/admin/flightsList";
-	}
+            Model model) {
+
+        try {
+            // 출발편 추가
+            fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId);
+            // 귀국편 추가
+            fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId);
+
+            model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
+        } catch (Exception e) {
+            model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
+            return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
+        }
+
+        // 항공편 목록 페이지로 리다이렉트
+        return "redirect:/admin/flightsList";
+    }
+    
+    @GetMapping("/admin/getTimezones")
+    @ResponseBody
+    public Map<String, String> getTimezones(@RequestParam("departureAirport") String departureAirport,
+                                            @RequestParam("arrivalAirport") String arrivalAirport) {
+        String departureTimezone = fservice.getAirportTimezone(departureAirport);
+        String arrivalTimezone = fservice.getAirportTimezone(arrivalAirport);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("departureTimezone", departureTimezone);
+        response.put("arrivalTimezone", arrivalTimezone);
+        return response;
+    }
+
     
 	@PostMapping("/admin/addSeats")
     public String addSeats() {

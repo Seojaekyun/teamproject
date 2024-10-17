@@ -771,6 +771,8 @@ margin-top:20px;
 <!-- jQuery 및 Flatpickr JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/ko.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const generalButton = document.getElementById('general');
@@ -1031,13 +1033,41 @@ document.addEventListener('DOMContentLoaded', function () {
     tripMethods.forEach(function (radio) {
         radio.addEventListener('change', function () {
             var dateInput = document.getElementById('date-btn'); // input 요소를 선택
+
             if (this.value === "round") {
                 tripMethod = "round";
-                calendar.set("mode", "range"); // 왕복일 때는 두 날짜 선택
+                calendar = flatpickr("#date-btn", {
+                    locale: "ko",
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    showMonths: 2,
+                    defaultDate: "today", // 현재 날짜로 초기화
+                    onChange: function (selectedDates, dateStr, instance) {
+                        if (selectedDates.length === 2) {
+                            // 왕복일 경우 두 날짜 선택
+                            dateInput.value = selectedDates[0].toLocaleDateString() + " ~ " + selectedDates[1].toLocaleDateString();
+                            document.getElementById('departureDate-hidden').value = instance.formatDate(selectedDates[0], "Y-m-d");
+                            document.getElementById('arrivalDate-hidden').value = instance.formatDate(selectedDates[1], "Y-m-d");
+                        }
+                    }
+                });
                 dateInput.placeholder = "가는 날 ~ 오는 날"; // placeholder 변경
             } else if (this.value === "one-way") {
                 tripMethod = "one-way";
-                calendar.set("mode", "single"); // 편도일 때는 한 날짜 선택
+                calendar = flatpickr("#date-btn", {
+                    locale: "ko",
+                    mode: "single",
+                    dateFormat: "Y-m-d",
+                    showMonths: 2,
+                    defaultDate: "today", // 현재 날짜로 초기화
+                    onChange: function (selectedDates, dateStr, instance) {
+                        if (selectedDates.length === 1) {
+                            dateInput.value = "가는 날: " + selectedDates[0].toLocaleDateString();
+                            document.getElementById('departureDate-hidden').value = instance.formatDate(selectedDates[0], "Y-m-d");
+                            document.getElementById('arrivalDate-hidden').value = ""; // 편도일 경우 도착일을 비움
+                        }
+                    }
+                });
                 dateInput.placeholder = "가는 날"; // placeholder 변경
             }
         });
@@ -2040,8 +2070,8 @@ margin-right:30px;
 									
 									
 									<!-- 출발지, 도착지 값 전달을 위한 숨겨진 필드 -->
-        							<input type="hidden" name="departure" id="from-hidden">
-        							<input type="hidden" name="arrival" id="to-hidden">
+        							<!-- <input type="hidden" name="departure" id="from-hidden">
+        							<input type="hidden" name="arrival" id="to-hidden"> -->
         							
         							
 

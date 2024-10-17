@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.FlightTimeDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
@@ -138,21 +140,36 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
 	@Override
-	public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, int airplaneId) {
-		FlightDto flight = new FlightDto();
-		flight.setDepartureAirport(departureAirport);
-		flight.setArrivalAirport(arrivalAirport);
-		flight.setDepartureTime(departureTime);
-		flight.setArrivalTime(arrivalTime);
-		flight.setAirplaneId(airplaneId);
-		
-		fmapper.addFlight(flight);
-	}
-	
-	@Override
-	public List<AirplanesDto> getAllAirplanes() {
-		return fmapper.findAllAirplanes();
-	}
+    public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, String ftime, int airplaneId) {
+        FlightDto flight = new FlightDto();
+        flight.setDepartureAirport(departureAirport);
+        flight.setArrivalAirport(arrivalAirport);
+        flight.setDepartureTime(departureTime);
+        flight.setArrivalTime(arrivalTime);
+        flight.setAirplaneId(airplaneId);
+        flight.setFtime(ftime);
+
+        fmapper.addFlight(flight);
+    }
+
+    @Override
+    public List<AirplanesDto> getAllAirplanes() {
+        return fmapper.findAllAirplanes();
+    }
+
+    @Override
+    public int[] getFlightTime(String departureAirport, String arrivalAirport) {
+        FlightTimeDto flightTimeDto = fmapper.getFlightTime(departureAirport, arrivalAirport);
+        if (flightTimeDto != null && flightTimeDto.getFlightTime() != null) {
+            LocalTime flightTime = flightTimeDto.getFlightTime();
+            int hours = flightTime.getHour();
+            int minutes = flightTime.getMinute();
+            return new int[]{hours, minutes};
+        } else {
+            // Handle case where flight time is not found
+            return new int[]{0, 0};
+        }
+    }
 	
 	 @Override
 	    public void addSeatsForFlight() {
@@ -180,4 +197,10 @@ public class FlightServiceImpl implements FlightService {
 	            }
 	        }
 	 }
+
+	 @Override
+	    public String getAirportTimezone(String airportCode) {
+	        return fmapper.getAirportTimezone(airportCode);
+	 }
+	 
 }
