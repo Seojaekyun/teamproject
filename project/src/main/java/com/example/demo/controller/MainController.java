@@ -139,6 +139,6 @@ public class MainController {
 	public String reserveInfo() {
 		return service.reserveInfo();
 	}
-	
+		
 	
 }

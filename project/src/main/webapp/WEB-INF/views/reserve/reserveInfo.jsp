@@ -138,30 +138,30 @@
 	
 	<div class="container">
 		<h2>예약 정보 조회</h2>
-		<form id="reservationForm" action="/reserve" method="post">
+		<form id="reservationForm" action="/select/selection?pnr=pnr&date=selectedDate&sung=sung&name=lname" method="post">
 			<!-- 날짜 선택 -->
 			<div id="cal">
-				<input type="text" id="selectedDate" placeholder="날짜 선택" readonly>
+				<input type="text" id="selectedDate" name="selectedDate" placeholder="날짜 선택" readonly>
 			</div>
 			<!-- 예약 번호 -->
 			<div class="form-group">
-				<label for="flight_id">예약번호</label>
-				<input type="text" id="pnr" name="pnr" value="">
+				<label for="pnr">예약번호</label>
+				<input type="text" id="pnr" name="pnr">
 			</div>
 			<!-- 고객 정보 -->
 			<div class="form-group">
-				<label for="customer_id">예약자 ID</label>
+				<label for="userid">예약자 ID</label>
 				<input type="text" id="userid" name="userid" value="${userid }">
 			</div>
 	
 			<div class="form-group">
-				<label for="customer_sung">First Name</label>
-				<input type="text" id="sung" name="sung">
+				<label for="sung">First Name</label>
+				<input type="text" id="sung" name="sung" value="${sung }">
 			</div>
 			
 			<div class="form-group">
-				<label for="customer_name">Last Name</label>
-				<input type="text" id="lname" name="lname">
+				<label for="lname">Last Name</label>
+				<input type="text" id="lname" name="lname" value="${lname }">
 			</div>
 	
 			<div class="form-group">
