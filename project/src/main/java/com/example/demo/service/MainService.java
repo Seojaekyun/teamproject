@@ -23,13 +23,12 @@ public interface MainService {
 	public String eventList();
 	public String travel();
 	public boolean checkLoginStatus(HttpSession session);
-	public String loginOk(
-			MemberDto mdto, HttpSession session,
+	public String loginOk(MemberDto mdto, HttpSession session,
 			HttpServletRequest request, HttpServletResponse response);
 	List<FlightDto> getFlightsByPage(int page, Model model);
 	List<AirportsDto> getAllAirports();
-	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate,
-			Integer page);
+	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
+			String selectedDate, Integer page);
 	public String reserveInfo();
 	
 	

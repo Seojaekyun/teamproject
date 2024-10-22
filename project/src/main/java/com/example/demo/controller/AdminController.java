@@ -79,17 +79,16 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberUp")
 	public String memberUp(@RequestParam("id") int id, @RequestParam("level") int level, Model model) {
-	    // MemberDto 객체 생성
-	    MemberDto mdto = new MemberDto();
-	    
-	    // id와 state 값을 mdto 객체에 세팅
-	    mdto.setId(id);
-	    mdto.setLevel(level);
-	    
-	    // 서비스 호출하여 회원 정보 업데이트
-	    return service.memberUp(mdto);
+		// MemberDto 객체 생성
+		MemberDto mdto = new MemberDto();
+		
+		// id와 state 값을 mdto 객체에 세팅
+		mdto.setId(id);
+		mdto.setLevel(level);
+		
+		// 서비스 호출하여 회원 정보 업데이트
+		return service.memberUp(mdto);
 	}
-
 	
 	@RequestMapping("/admin/oneMeminfo")
 	public String oneMeminfo(HttpServletRequest request, Model model) {
@@ -97,24 +96,24 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
-    public String inquiryList(Model model, Integer page) {
-        return service.inquiryList(model, page);
-    }
+	public String inquiryList(Model model, Integer page) {
+		return service.inquiryList(model, page);
+	}
 	
 	@RequestMapping("/admin/inquiryContent")
-    public String inquiryContent(HttpServletRequest request, Model model) {
-        return iservice.inquiryContent(request, model);
-    }
+	public String inquiryContent(HttpServletRequest request, Model model) {
+		return iservice.inquiryContent(request, model);
+	}
 	
 	@RequestMapping("/admin/answer")
-    public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
-        return iservice.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
-    }
-
-    @RequestMapping("/admin/updateAnswer")
-    public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
-        return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
-    }
+	public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+		return iservice.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
+	}
+	
+	@RequestMapping("/admin/updateAnswer")
+	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+		return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
+	}
 	
 	@RequestMapping("/admin/gongjiList")
 	public String gongjiList(HttpServletRequest request, Model model) {
@@ -157,80 +156,80 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/addFlight")
-    public String showAddFlightForm(Model model) {
-        List<AirportsDto> airports = fservice.getAllAirports();
-        List<AirplanesDto> airplanes = fservice.getAllAirplanes();
-        model.addAttribute("airports", airports);
-        model.addAttribute("airplanes", airplanes);
-        return "admin/addFlight";
-    }
-
-    @GetMapping("/admin/getFlightTime")
-    @ResponseBody
-    public Map<String, Integer> getFlightTime(@RequestParam("departureAirport") String departureAirport,
-                                              @RequestParam("arrivalAirport") String arrivalAirport) {
-        int[] flightTime = fservice.getFlightTime(departureAirport, arrivalAirport);
-        Map<String, Integer> response = new HashMap<>();
-        response.put("hour", flightTime[0]);
-        response.put("minute", flightTime[1]);
-        return response;
-    }
-
-    @PostMapping("/admin/addFlights")
-    public String addFlights(
-            @RequestParam("departureAirport") String departureAirport,
-            @RequestParam("arrivalAirport") String arrivalAirport,
-            @RequestParam("departureTime") String departureTime,
-            @RequestParam("arrivalTime") String arrivalTime,
-            @RequestParam("ftimeValue") String ftime,
-            @RequestParam("airplaneId") int airplaneId,
-
-            @RequestParam("returnDepartureAirport") String returnDepartureAirport,
-            @RequestParam("returnArrivalAirport") String returnArrivalAirport,
-            @RequestParam("returnDepartureTime") String returnDepartureTime,
-            @RequestParam("returnArrivalTime") String returnArrivalTime,
-            @RequestParam("returnFtimeValue") String returnFtime,
-            @RequestParam("returnAirplaneId") int returnAirplaneId,
-
-            Model model) {
-
-        try {
-            // 출발편 추가
-            fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId);
-            // 귀국편 추가
-            fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId);
-
-            model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
-        } catch (Exception e) {
-            model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
-            return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
-        }
-
-        // 항공편 목록 페이지로 리다이렉트
-        return "redirect:/admin/flightsList";
-    }
-    
-    @GetMapping("/admin/getTimezones")
-    @ResponseBody
-    public Map<String, String> getTimezones(@RequestParam("departureAirport") String departureAirport,
-                                            @RequestParam("arrivalAirport") String arrivalAirport) {
-        String departureTimezone = fservice.getAirportTimezone(departureAirport);
-        String arrivalTimezone = fservice.getAirportTimezone(arrivalAirport);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("departureTimezone", departureTimezone);
-        response.put("arrivalTimezone", arrivalTimezone);
-        return response;
-    }
-
-    
+	public String showAddFlightForm(Model model) {
+		List<AirportsDto> airports = fservice.getAllAirports();
+		List<AirplanesDto> airplanes = fservice.getAllAirplanes();
+		model.addAttribute("airports", airports);
+		model.addAttribute("airplanes", airplanes);
+		return "admin/addFlight";
+	}
+	
+	@GetMapping("/admin/getFlightTime")
+	@ResponseBody
+	public Map<String, Integer> getFlightTime(@RequestParam("departureAirport") String departureAirport,
+			@RequestParam("arrivalAirport") String arrivalAirport) {
+		int[] flightTime = fservice.getFlightTime(departureAirport, arrivalAirport);
+		Map<String, Integer> response = new HashMap<>();
+		response.put("hour", flightTime[0]);
+		response.put("minute", flightTime[1]);
+		return response;
+	}
+	
+	@PostMapping("/admin/addFlights")
+	public String addFlights(
+			@RequestParam("departureAirport") String departureAirport,
+			@RequestParam("arrivalAirport") String arrivalAirport,
+			@RequestParam("departureTime") String departureTime,
+			@RequestParam("arrivalTime") String arrivalTime,
+			@RequestParam("ftimeValue") String ftime,
+			@RequestParam("airplaneId") int airplaneId,
+			
+			@RequestParam("returnDepartureAirport") String returnDepartureAirport,
+			@RequestParam("returnArrivalAirport") String returnArrivalAirport,
+			@RequestParam("returnDepartureTime") String returnDepartureTime,
+			@RequestParam("returnArrivalTime") String returnArrivalTime,
+			@RequestParam("returnFtimeValue") String returnFtime,
+			@RequestParam("returnAirplaneId") int returnAirplaneId,
+			
+			Model model) {
+		
+		try {
+			// 출발편 추가
+			fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId);
+			// 귀국편 추가
+			fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId);
+			
+			model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
+		}
+		catch (Exception e) {
+			model.addAttribute("message", "항공편 추가 중 오류가 발생했습니다: " + e.getMessage());
+			return "admin/addFlight";  // 오류 발생 시 다시 항공편 추가 페이지로
+		}
+		
+		// 항공편 목록 페이지로 리다이렉트
+		return "redirect:/admin/flightsList";
+	}
+	
+	@GetMapping("/admin/getTimezones")
+	@ResponseBody
+	public Map<String, String> getTimezones(@RequestParam("departureAirport") String departureAirport,
+			@RequestParam("arrivalAirport") String arrivalAirport) {
+		String departureTimezone = fservice.getAirportTimezone(departureAirport);
+		String arrivalTimezone = fservice.getAirportTimezone(arrivalAirport);
+		
+		Map<String, String> response = new HashMap<>();
+		response.put("departureTimezone", departureTimezone);
+		response.put("arrivalTimezone", arrivalTimezone);
+		return response;
+	}
+	
 	@PostMapping("/admin/addSeats")
-    public String addSeats() {
-        // flightId는 내부에서 처리되므로 전달하지 않음
-        fservice.addSeatsForFlight();
-
-        return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
-    }
+	public String addSeats() {
+		// flightId는 내부에서 처리되므로 전달하지 않음
+		fservice.addSeatsForFlight();
+		
+		return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
+	}
 	
 	
 }

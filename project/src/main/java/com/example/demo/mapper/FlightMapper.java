@@ -64,12 +64,12 @@ public interface FlightMapper {
 	String getAirportTimezone(@Param("airportCode") String airportCode);
 	List<FlightDto> getFlights(int start, int itemsPerPage);
 	int countFlights();
-	List<FlightDto> getFlightsByFilters(String departureAirport, String arrivalAirport, String selectedDate, int start,
-			int itemsPerPage);
+	List<FlightDto> getFlightsByFilters(String departureAirport, String arrivalAirport,
+			String selectedDate, int start,	int itemsPerPage);
 	int countFlightsByFilters(String departureAirport, String arrivalAirport, String selectedDate);
 	List<AirportsDto> getAllAirports();
-	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate,
-			int itemsPerPage, int offset);
+	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
+			String selectedDate, int itemsPerPage, int offset);
 	
 	
 }
