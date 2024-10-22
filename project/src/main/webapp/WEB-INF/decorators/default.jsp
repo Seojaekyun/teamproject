@@ -431,6 +431,103 @@
 	function hideMenu(n) {
 		document.getElementsByClassName("menu")[n].style.visibility = "hidden";
 	}
+
+</script>
+
+<sitemesh:write property="head" />
+
+</head>
+
+<body>
+	<header>
+		<div id="section1">
+			<div id="logo">
+				<a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="90px"> </a>
+			</div>
+			<div id="nav">
+				<nav>
+					<ul id="main">
+						<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
+							<ul class="menu">
+								<li><a href="../reserve/reservation">항공권 예약</a></li>
+								<li><a href="../reserve/reserveInfo">예약 조회</a></li>
+								<li><a href="">체크인</a></li>
+								<li><a href="../flight/flightList">운항정보</a></li>
+							</ul>
+						</li>
+						<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
+							<a href="../guide/checkinGuide"><span class="iconb">✈️</span>여행준비</a>
+
+							<ul class="menu">
+								<li><a href="../guide/checkinGuide">체크인 안내</a></li>
+								<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
+								<li><a href="../guide/baggageGuide">수하물 안내</a></li>
+							</ul>
+						</li>
+						<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"><span class="iconc">✈️</span>최저가
+							<ul class="menu">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+							</ul>
+						</li>
+						<li id="main4" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
+							<a href="../guide/travel"> <span class="icond">✈️</span>여행지 </a>
+
+							<ul class="menu">
+								<li><a href="">국내 여행</a></li>
+								<li><a href="">해외 여행</a></li>
+								<li><a href="">테마 여행</a></li>
+							</ul>
+						</li>
+						<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> <span class="icone">✈️</span>호텔/렌터카
+
+							<ul class="menu">
+								<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
+								<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div id="loginMenu">
+				<c:if test="${userid!=null&&userid=='admin'}">
+					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
+				</c:if>
+				<c:if test="${userid==null}">
+					<a href="../member/member" id="into"> <span class="iconmem">📋</span>회원가입 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<!-- <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp; -->
+				</c:if>
+				<c:if test="${userid!=null&&userid!='admin'}">
+				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+					<ul class="mmenu">
+						<li><a href="../member/memberView">나의정보</a></li>
+						<li><a href="../reserve/list">예약정보</a></li>
+						<li><a href="../member/myInq">나의문의</a></li>
+					</ul>
+				</span>
+				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
+				</c:if>
+				<span id="supMenu" onmouseover="viewCmenu(0)"
+					onmouseout="hideCmenu(0)"> 고객센터
+					<ul class="cmenu">
+						<li><a href="../gongji/list"> 공지사항 </a></li>
+						<li><a href="../inquiry/list"> Q & A </a></li>
+						<li><a href="../main/eventList"> 이벤트 </a></li>
+					</ul>
+				</span>
+			</div>
+			<div id="login">
+				<c:if test="${userid==null}">
+					<a href="../login/login">
+						<button type="button" id="loginbtn"><span>로그인</span></button>
+					</a>
+				</c:if>
+			</div>
+		</div>
+	</header>
+
+<script>
 	function endChat() {
 		sendMessage("상담이 종료되었습니다.");
 		var endButton = document.getElementById('endChatButton');
@@ -530,99 +627,6 @@
 	pollMessages();
 
 </script>
-
-<sitemesh:write property="head" />
-
-</head>
-
-<body>
-	<header>
-		<div id="section1">
-			<div id="logo">
-				<a href="../main/index"> <img src="../static/resources/eltlogo.png"  height="90px"> </a>
-			</div>
-			<div id="nav">
-				<nav>
-					<ul id="main">
-						<li id="main1" onmouseover="viewMenu(0)" onmouseout="hideMenu(0)"><span class="icona">✈️</span>예약
-							<ul class="menu">
-								<li><a href="../reserve/reservation">항공권 예약</a></li>
-								<li><a href="../reserve/reserveInfo">예약 조회</a></li>
-								<li><a href="">체크인</a></li>
-								<li><a href="../flight/flightList">운항정보</a></li>
-							</ul>
-						</li>
-						<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
-							<a href="../guide/checkinGuide"><span class="iconb">✈️</span>여행준비</a>
-
-							<ul class="menu">
-								<li><a href="../guide/checkinGuide">체크인 안내</a></li>
-								<li><a href="../guide/seatGuide">좌석배정 안내</a></li>
-								<li><a href="../guide/baggageGuide">수하물 안내</a></li>
-							</ul>
-						</li>
-						<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"><span class="iconc">✈️</span>최저가
-							<ul class="menu">
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-							</ul>
-						</li>
-						<li id="main4" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
-							<a href="../guide/travel"> <span class="icond">✈️</span>여행지 </a>
-
-							<ul class="menu">
-								<li><a href="">국내 여행</a></li>
-								<li><a href="">해외 여행</a></li>
-								<li><a href="">테마 여행</a></li>
-							</ul>
-						</li>
-						<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> <span class="icone">✈️</span>호텔/렌터카
-
-							<ul class="menu">
-								<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
-								<li><a href="https://www.skyscanner.co.kr/car-hire" target="_blank" rel="noopener noreferrer"> 렌터카 </a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<div id="loginMenu">
-				<c:if test="${userid!=null&&userid=='admin'}">
-					<a href="../admin/index" style="color: orange;"> 관리자 홈 </a>&nbsp;|&nbsp;
-				</c:if>
-				<c:if test="${userid==null}">
-					<a href="../member/member" id="into"> <span class="iconmem">📋</span>회원가입 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					<!-- <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp; -->
-				</c:if>
-				<c:if test="${userid!=null&&userid!='admin'}">
-				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
-					<ul class="mmenu">
-						<li><a href="../member/memberView">나의정보</a></li>
-						<li><a href="../reserve/list">예약정보</a></li>
-						<li><a href="../member/myInq">나의문의</a></li>
-					</ul>
-				</span>
-				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
-				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)"
-					onmouseout="hideCmenu(0)"> 고객센터
-					<ul class="cmenu">
-						<li><a href="../gongji/list"> 공지사항 </a></li>
-						<li><a href="../inquiry/list"> Q & A </a></li>
-						<li><a href="../main/eventList"> 이벤트 </a></li>
-					</ul>
-				</span>
-			</div>
-			<div id="login">
-				<c:if test="${userid==null}">
-					<a href="../login/login">
-						<button type="button" id="loginbtn"><span>로그인</span></button>
-					</a>
-				</c:if>
-			</div>
-		</div>
-	</header>
   
 	<!-- 채팅 상담 버튼 -->
 	<div id="chat-toggle" onclick="toggleChat()"><img src="../static/resources/cb.png" id="chatbot"></div>

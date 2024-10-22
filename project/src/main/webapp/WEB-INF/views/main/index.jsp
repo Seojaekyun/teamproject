@@ -688,13 +688,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/ko.js"></script>
 		<script>
-			document.addEventListener('DOMContentLoaded', (event) => {
-				const element = document.getElementById('yourElementId');
-				if (element) {
-					element.innerHTML = 'Your content here';
-				}
-			});
-			
 			document.addEventListener('DOMContentLoaded', function() {
 				const generalButton = document.getElementById('general');
 				const mileageButton = document.getElementById('mileage');
