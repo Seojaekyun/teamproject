@@ -83,27 +83,52 @@
 	input[type="submit"]:hover {
 		background-color: #003A66;
 	}
-	/* 달력 디자인 */
-	#cal {
-		margin: 20px auto;
-		width: 100%;
-	}
-	.ui-datepicker {
-		width: 450px !important;
-		background-color: #f9f9f9;
-		border: 1px solid #ddd;
-	}
-	.ui-datepicker .ui-datepicker-header {
-		background-color: #00467F;
-		color: white;
-		padding: 10px;
-	}
-	.ui-datepicker td a {
-		color: #00467F;
-	}
-	.ui-datepicker td a:hover {
-		background-color: #ddd;
-	}
+	.passenger-selection-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap; /* 한 줄로 강제로 배치 */
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .passenger-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        flex: 1 1 auto; /* 동일한 너비로 확장 */
+        min-width: 150px; /* 최소 너비 조정 */
+    }
+
+    .passenger-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .passenger-controls button {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        border: none;
+        background-color: #00467F;
+        color: white;
+        cursor: pointer;
+        border-radius: 50%;
+        margin: 0 5px;
+    }
+
+    .passenger-controls button:hover {
+        background-color: #003A66;
+    }
+
+    .passenger-count {
+        font-size: 18px;
+        margin: 0 10px;
+    }
 </style>
 
 <script>
@@ -161,7 +186,39 @@
 		}
 	}
 	
-	
+	// 승객 수 변경
+	let passengerCounts = {
+		adult: 1,
+		child: 0,
+		infant: 0
+	};
+
+	function changePassengerCount(type, change) {
+		passengerCounts[type] += change;
+		
+		// 성인은 최소 1명
+		if (type === 'adult' && passengerCounts[type] < 1) {
+			passengerCounts[type] = 1;
+		}
+
+		// 성인과 아동의 합은 10명을 초과할 수 없음
+		if (passengerCounts['adult'] + passengerCounts['child'] > 10) {
+			passengerCounts[type] -= change;
+			alert("성인과 아동의 합은 10명을 초과할 수 없습니다.");
+		}
+
+		// 유아는 성인 수를 초과할 수 없음
+		if (type === 'infant' && passengerCounts['infant'] > passengerCounts['adult']) {
+			passengerCounts['infant'] = passengerCounts['adult'];
+		}
+
+		// 아동 및 유아는 최소 0명
+		if (type !== 'adult' && passengerCounts[type] < 0) {
+			passengerCounts[type] = 0;
+		}
+
+		document.getElementById(type + '-count').textContent = passengerCounts[type];
+	}
 </script>
 
 </head>
@@ -206,20 +263,50 @@
 				</select>
 			</div>
 			
+			<!-- 승객 수 선택 -->
 			<div id="passenger_selection">
-				<p>탑승객&nbsp;</p>
-				<button type="button" id="passenger-btn" onclick="openPopup('passenger')">
-					<span>인원수</span>
-					<i class="fa-regular fa-user"></i>
-				</button>
-			</div>
-	
+    <h3>탑승객 선택</h3>
+    
+    <div class="passenger-selection-container">
+        <!-- 성인 승객 -->
+        <div class="passenger-box">
+            <label for="adult-count">성인:</label>
+            <div class="passenger-controls">
+                <button type="button" onclick="changePassengerCount('adult', -1)">-</button>
+                <span id="adult-count" class="passenger-count">1</span>
+                <button type="button" onclick="changePassengerCount('adult', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- 아동 승객 -->
+        <div class="passenger-box">
+            <label for="child-count">아동 (2-11세):</label>
+            <div class="passenger-controls">
+                <button type="button" onclick="changePassengerCount('child', -1)">-</button>
+                <span id="child-count" class="passenger-count">0</span>
+                <button type="button" onclick="changePassengerCount('child', 1)">+</button>
+            </div>
+        </div>
+
+        <!-- 유아 승객 -->
+        <div class="passenger-box">
+            <label for="infant-count">유아 (2세 미만):</label>
+            <div class="passenger-controls">
+                <button type="button" onclick="changePassengerCount('infant', -1)">-</button>
+                <span id="infant-count" class="passenger-count">0</span>
+                <button type="button" onclick="changePassengerCount('infant', 1)">+</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 			<!-- 고객 정보 입력 -->
 			<div class="form-group">
 				<label for="customer_id">예약자 ID</label>
 				<input type="text" id="userid" name="userid" value="${userid }" required>
 			</div>
-	
+
 			<div class="form-group">
 				<label for="customer_sung">First Name</label>
 				<input type="text" id="sung" name="sung" value="${sung }" required>
@@ -234,7 +321,7 @@
 				<label for="customer_email">이메일</label>
 				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
 			</div>
-	
+
 			<input type="submit" value="예약하기">
 		</form>
 	</div>
