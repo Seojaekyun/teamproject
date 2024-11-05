@@ -254,7 +254,7 @@
 		<p>
 			당신의 취향과 예산에 맞는 맞춤 여행을 계획해 드립니다. 전문가와 함께 완벽한 여행을 만들어 보세요.
 		</p>
-		<a class="cta-button" href="consultation.html">맞춤 여행 상담 신청하기</a>
+		<a class="cta-button" href="consultation.html"><input type="button" value="맞춤상담신청"></a>
 	</div>
 </div>
 
