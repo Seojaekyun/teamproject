@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SelectMapper">
+	<!-- 1. reservations 정보 조회 -->
+	<select id="getReservationInfo" resultType="map" parameterType="map">
+		SELECT r.seat_class, rs.seat_id, r.flight_id, st.seat_number FROM reservations r JOIN reservation_seats rs
+		ON r.reservation_id = rs.reservation_id JOIN seattemplate st ON rs.seat_id = st.seat_id
+		WHERE r.pnr = #{pnr} AND r.sung = #{sung} AND r.name = #{name}
+	</select>
+	<!-- 2. flights 정보 조회 -->
+	<select id="getFlightInfo" resultType="map">
+		SELECT f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id, f.flight_name
+		FROM flights f JOIN reservations r ON r.flight_id = f.flight_id WHERE r.pnr = #{pnr} AND r.sung = #{sung} AND r.name = #{name}
+	</select>
+	<!-- 3. airports 정보 조회 -->
+	<select id="getAirportInfo" resultType="map">
+		SELECT a1.airport_name AS departure_airport_name, a1.city AS departure_city, a2.airport_name AS arrival_airport_name,
+		a2.city AS arrival_city FROM airports a1 JOIN flights f ON f.departure_airport = a1.airport_code JOIN airports a2
+		ON f.arrival_airport = a2.airport_code WHERE f.flight_id = #{flight_id}
+	</select>
+	<!-- 4. seats 정보 조회 -->
+	<select id="getSeatsInfo" resultType="map">
+		SELECT * FROM seattemplate st JOIN reservation_seats rs ON st.seat_id = rs.seat_id JOIN reservations r
+		ON r.reservation_id = rs.reservation_id WHERE r.pnr = #{pnr} AND r.sung = #{sung} AND r.name = #{name}
+	</select>
+	
+	
+</mapper>

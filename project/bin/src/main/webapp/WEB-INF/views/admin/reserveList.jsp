@@ -5,7 +5,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>예약 관리</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
@@ -17,23 +20,35 @@
 		display: flex;
 		max-width: 1200px;
 		margin: auto;
+		justify-content: space-between;
 	}
-	#cal {
-		width: 30%;
-		margin-right: 70px;
-	}
-	#tables {
+	#sec1 #tables {
 		display: flex;
 		justify-content: space-between;
-		width: 90%;
+		width: 60%;
 	}
-	.table-container {
+	#sec2 #tables {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	#sec1 .table-container {
+		width: 100%;
+		background-color: white;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		overflow: hidden;
+		margin-bottom: 20px;
+		height: 340px;
+	}
+	#sec2 .table-container {
 		width: 33%;
 		background-color: white;
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 		overflow: hidden;
 		margin-bottom: 20px;
+		height: 340px;
 	}
 	table {
 		width: 100%;
@@ -62,14 +77,17 @@
 		color: white;
 		text-align: left;
 	}
-	#datepicker {
-		width: 100%;
+	#sec1 #cal {
+		width: 39%;
+		height: 340px;
 		background-color: white;
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 	}
 	.ui-datepicker {
-		width: 100% !important;
+		margin: auto;
+		width: 95% !important;
+		height: 95%;
 	}
 	.ui-datepicker td {
 		text-align: center;
@@ -82,7 +100,6 @@
 		color: white;
 	}
 	.ui-datepicker th {
-		padding: 10px 0;
 		background-color: #000A8E;
 		color: white;
 	}
@@ -95,7 +112,6 @@
 		font-size: 16px;
 		font-weight: bold;
 		color: #333;
-		margin-bottom: 20px;
 	}
 	.pagination {
 		text-align: center;
@@ -131,18 +147,17 @@
 	#clsd {
 		background: #000A8E;
 		color: white;
-		border-radius: 5px;
+		border-radius: 10px;
+		padding: 10px 15px;
+		border: none;
+		cursor: pointer;
+		margin-bottom: 10px;
+		width: 120px;
 	}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-
 <body>
 <div width="100%" style="text-align: center"><h2>예약관리</h2></div>
-
 <!-- Section 1: 날짜 필터링된 예약 내역 (달력 포함) -->
 <section id="sec1">
 	<div id="cal">
@@ -154,54 +169,76 @@
 			</c:if>
 		</div>
 	</div>
-
+	<div id="tables">
+		<!-- 전체 항공편 테이블 -->
+		<div class="table-container" id="allFlights">
+			<table>
+				<caption>전체 예약</caption>
+				<tr>
+					<th>항공편명</th>
+					<th>출항시간</th>
+					<th>잔여석</th>
+				</tr>
+				<c:forEach var="rsv" items="${rsvList}">
+					<tr>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td>${rsv.departureTime}</td>
+						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
+					</tr>
+				</c:forEach>
+				<c:if test="${empty rsvList}">
+					<tr>
+						<td colspan="3">예약 데이터가 없습니다.</td>
+					</tr>
+				</c:if>
+			</table>
+			<div class="pagination">
+				<c:if test="${totalPages > 1}">
+					<c:forEach begin="1" end="${totalPages}" var="i">
+						<c:choose>
+							<c:when test="${i == currentPage}">
+								<span class="active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:void(0);" onclick="loadAllPage(${i}, '${selectedDate}');">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Section 2: 전체 예약 내역 -->
+<section id="sec2">
 	<div id="tables">
 		<!-- GMP 항공편 테이블 -->
 		<div class="table-container" id="gmpFlights">
 			<table>
-				<caption>GMP 출발 항공편</caption>
+				<caption>GMP 출발 예약</caption>
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
-				<c:forEach var="grsv" items="${gmpRsv}">
+				<c:forEach var="rsv" items="${gmpRsv}">
 					<tr>
-						<td>${grsv.flightName}</td>
-						<td>${grsv.departureTime}</td>
-						<td>${grsv.reservationCount}</td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td>${rsv.departureTime}</td>
+						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty gmpRsv}">
 					<tr>
-						<td colspan="3">GMP 출발 항공편 데이터가 없습니다.</td>
+						<td colspan="3">GMP 출발 예약 데이터가 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>
-			<!-- 페이지네이션 -->
 			<div class="pagination">
-				<c:if test="${totalGmpPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${gmpPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${gmpPage - 3}, 'gmp');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${gmpPage - 1}" />
-					<c:set var="endPage" value="${gmpPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalGmpPages}">
-						<c:set var="endPage" value="${totalGmpPages}" />
-						<c:set var="startPage" value="${totalGmpPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:if test="${gmpTotalPages > 1}">
+					<c:forEach begin="1" end="${gmpTotalPages}" var="i">
 						<c:choose>
-							<c:when test="${i == gmpPage}">
+							<c:when test="${i == gmpCurrentPage}">
 								<span class="active">${i}</span>
 							</c:when>
 							<c:otherwise>
@@ -209,60 +246,36 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${gmpPage + 3 <= totalGmpPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${gmpPage + 3}, 'gmp');">다음3</a>
-					</c:if>
 				</c:if>
 			</div>
 		</div>
-
 		<!-- ICN 항공편 테이블 -->
 		<div class="table-container" id="icnFlights">
 			<table>
-				<caption>ICN 출발 항공편</caption>
+				<caption>ICN 출발 예약</caption>
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
-				<c:forEach var="irsv" items="${icnRsv}">
+				<c:forEach var="rsv" items="${icnRsv}">
 					<tr>
-						<td>${irsv.flightName}</td>
-						<td>${irsv.departureTime}</td>
-						<td>${irsv.reservationCount}</td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td>${rsv.departureTime}</td>
+						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty icnRsv}">
 					<tr>
-						<td colspan="3">ICN 출발 항공편 데이터가 없습니다.</td>
+						<td colspan="3">ICN 출발 예약 데이터가 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>
-			<!-- 페이지네이션 -->
 			<div class="pagination">
-				<c:if test="${totalIcnPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${icnPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${icnPage - 3}, 'icn');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${icnPage - 1}" />
-					<c:set var="endPage" value="${icnPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalIcnPages}">
-						<c:set var="endPage" value="${totalIcnPages}" />
-						<c:set var="startPage" value="${totalIcnPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:if test="${icnTotalPages > 1}">
+					<c:forEach begin="1" end="${icnTotalPages}" var="i">
 						<c:choose>
-							<c:when test="${i == icnPage}">
+							<c:when test="${i == icnCurrentPage}">
 								<span class="active">${i}</span>
 							</c:when>
 							<c:otherwise>
@@ -270,60 +283,36 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${icnPage + 3 <= totalIcnPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${icnPage + 3}, 'icn');">다음3</a>
-					</c:if>
 				</c:if>
 			</div>
 		</div>
-
 		<!-- 기타 항공편 테이블 -->
 		<div class="table-container" id="otherFlights">
 			<table>
-				<caption>기타 항공편</caption>
+				<caption>기타 출발 예약</caption>
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
-					<th>예약석</th>
+					<th>잔여석</th>
 				</tr>
-				<c:forEach var="orsv" items="${otherRsv}">
+				<c:forEach var="rsv" items="${otherRsv}">
 					<tr>
-						<td>${orsv.flightName}</td>
-						<td>${orsv.departureTime}</td>
-						<td>${orsv.reservationCount}</td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td>${rsv.departureTime}</td>
+						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty otherRsv}">
 					<tr>
-						<td colspan="3">기타 출발 항공편 데이터가 없습니다.</td>
+						<td colspan="3">기타 출발 예약 데이터가 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>
-			<!-- 페이지네이션 -->
 			<div class="pagination">
-				<c:if test="${totalOtherPages > 1}">
-					<!-- 이전 3페이지 버튼 -->
-					<c:if test="${otherPage > 3}">
-						<a href="javascript:void(0);" onclick="loadPage(${otherPage - 3}, 'other');">이전3</a>
-					</c:if>
-					<!-- 페이지 번호 표시 -->
-					<c:set var="startPage" value="${otherPage - 1}" />
-					<c:set var="endPage" value="${otherPage + 1}" />
-					<c:if test="${startPage < 1}">
-						<c:set var="startPage" value="1" />
-						<c:set var="endPage" value="3" />
-					</c:if>
-					<c:if test="${endPage > totalOtherPages}">
-						<c:set var="endPage" value="${totalOtherPages}" />
-						<c:set var="startPage" value="${totalOtherPages - 2}" />
-						<c:if test="${startPage < 1}">
-							<c:set var="startPage" value="1" />
-						</c:if>
-					</c:if>
-					<c:forEach begin="${startPage}" end="${endPage}" var="i">
+				<c:if test="${otherTotalPages > 1}">
+					<c:forEach begin="1" end="${otherTotalPages}" var="i">
 						<c:choose>
-							<c:when test="${i == otherPage}">
+							<c:when test="${i == otherCurrentPage}">
 								<span class="active">${i}</span>
 							</c:when>
 							<c:otherwise>
@@ -331,16 +320,11 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<!-- 다음 3페이지 버튼 -->
-					<c:if test="${otherPage + 3 <= totalOtherPages}">
-						<a href="javascript:void(0);" onclick="loadPage(${otherPage + 3}, 'other');">다음3</a>
-					</c:if>
 				</c:if>
 			</div>
 		</div>
 	</div>
 </section>
-
 <script>
 	$(function() {
 		$("#datepicker").datepicker({
@@ -350,91 +334,56 @@
 			onSelect: function(dateText) {
 				$("#selectedDate").text('선택한 날짜: ' + dateText);
 				sessionStorage.setItem("selectedDate", dateText);
-	
-				// 페이지 번호 초기화
-				gmpPage = 1;
-				icnPage = 1;
-				otherPage = 1;
-	
-				// 각 테이블의 첫 페이지 로드
-				loadPage(1, 'gmp', dateText);
-				loadPage(1, 'icn', dateText);
-				loadPage(1, 'other', dateText);
+				loadAllPage(1, dateText);
 			}
 		});
-	
 		var savedDate = sessionStorage.getItem("selectedDate");
 		if (savedDate) {
 			$("#selectedDate").text('선택한 날짜: ' + savedDate);
 			$("#datepicker").datepicker('setDate', savedDate);
-	
-			// 페이지 번호 초기화
-			gmpPage = 1;
-			icnPage = 1;
-			otherPage = 1;
-	
-			// 저장된 날짜로 데이터 로드
-			loadPage(1, 'gmp', savedDate);
-			loadPage(1, 'icn', savedDate);
-			loadPage(1, 'other', savedDate);
-		} else {
-			$("#selectedDate").text('');
-			$("#datepicker").datepicker('setDate', null);
-	
-			// 페이지 번호 초기화
-			gmpPage = 1;
-			icnPage = 1;
-			otherPage = 1;
-	
-			// 전체 데이터 로드
-			loadPage(1, 'gmp');
-			loadPage(1, 'icn');
-			loadPage(1, 'other');
+			loadAllPage(1, savedDate);
 		}
 	});
-	
-	function loadPage(page, table, selectedDate) {
-	    if (typeof selectedDate === 'undefined') {
-	        selectedDate = sessionStorage.getItem("selectedDate");
-	    }
-
-	    // 페이지 번호 업데이트
-	    if (table === 'gmp') {
-	        gmpPage = page;
-	    } else if (table === 'icn') {
-	        icnPage = page;
-	    } else if (table === 'other') {
-	        otherPage = page;
-	    }
-
-	    var data = {
-	        gmpPage: gmpPage,
-	        icnPage: icnPage,
-	        otherPage: otherPage
+	function loadAllPage(page, selectedDate) {
+	    let url = "/admin/reserveList";
+	    let params = {
+	        page: page
 	    };
-
 	    if (selectedDate && selectedDate !== "") {
-	        data.selectedDate = selectedDate;
-	    } else {
-	        sessionStorage.removeItem("selectedDate");
+	        params.selectedDate = selectedDate;
 	    }
+	    // 전체 예약 업데이트
+	    $.get(url, params, function (data) {
+	        $("#allFlights").html($(data).find("#allFlights").html());
+	        $("#gmpFlights").html($(data).find("#gmpFlights").html());
+	        $("#icnFlights").html($(data).find("#icnFlights").html());
+	        $("#otherFlights").html($(data).find("#otherFlights").html());
+	    }).fail(function () {
+	        alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
+	    });
+	}
 
-	    $.ajax({
-	        url: "/admin/reserveList",
-	        type: "GET",
-	        data: data,
-	        success: function(response) {
-	            var newGmpFlights = $(response).find("#gmpFlights").html();
-	            var newIcnFlights = $(response).find("#icnFlights").html();
-	            var newOtherFlights = $(response).find("#otherFlights").html();
-
-	            $("#gmpFlights").html(newGmpFlights);
-	            $("#icnFlights").html(newIcnFlights);
-	            $("#otherFlights").html(newOtherFlights);
-	        },
-	        error: function(error) {
-	            console.log("데이터 가져오기 실패:", error);
-	        }
+	function loadPage(page, type) {
+	    let url = "/admin/reserveList";
+	    let params = {
+	        page: page
+	    };
+	    // 선택된 날짜가 있으면 포함
+	    let selectedDate = sessionStorage.getItem("selectedDate");
+	    if (selectedDate && selectedDate !== "") {
+	        params.selectedDate = selectedDate;
+	    }
+	    if (type === 'gmp') {
+	        params.gmpPage = page;
+	    } else if (type === 'icn') {
+	        params.icnPage = page;
+	    } else if (type === 'other') {
+	        params.otherPage = page;
+	    }
+	    $.get(url, params, function (data) {
+	        $("#" + type + "Flights").html($(data).find("#" + type + "Flights").html());
+	    }).fail(function () {
+	        alert("데이터를 불러오는 데 실패했습니다. 관리자에게 문의하세요.");
 	    });
 	}
 
@@ -442,16 +391,7 @@
 		sessionStorage.removeItem("selectedDate");
 		$("#selectedDate").text('');
 		$("#datepicker").datepicker('setDate', null);
-	
-		// 페이지 번호 초기화
-		gmpPage = 1;
-		icnPage = 1;
-		otherPage = 1;
-	
-		// 전체 데이터 로드
-		loadPage(1, 'gmp');
-		loadPage(1, 'icn');
-		loadPage(1, 'other');
+		loadAllPage(1);
 	}
 </script>
 </body>

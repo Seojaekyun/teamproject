@@ -95,13 +95,6 @@
 	section .destination-card a:hover {
 		background-color: #003A66;
 	}
-	section .footer {
-		background-color: #00467F;
-		color: white;
-		text-align: center;
-		padding: 15px 0;
-		margin-top: 40px;
-	}
 	@media screen and (max-width: 768px) {
 		.destination-card {
 			width: 100%;
@@ -265,9 +258,6 @@
 	</div>
 </div>
 
-<div class="footer">
-	<p>© 2024 여행사. 모든 권리 보유.</p>
-</div>
 </section>
 </body>
 </html>

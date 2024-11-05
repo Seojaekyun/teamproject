@@ -3,27 +3,109 @@
 <mapper namespace="com.example.demo.mapper.ReservationMapper">
 	<insert id="insertReservation" parameterType="com.example.demo.dto.ReservationDto">
 		INSERT INTO Reservations
-		(customer_id, flight_id, seat_number, seat_class, reservation_date, customer_name, customer_email)
-		VALUES (#{customerId}, #{flightId}, #{seatNumber}, #{seatClass}, NOW(), #{customerName}, #{customerEmail})
+		(userid, flight_id, seat_number, seat_class, reservation_date, sung, lname, customer_email)
+		VALUES (#{userid}, #{flightId}, #{seatNumber}, #{seatClass}, NOW(), #{sung}, #{lname}, #{customerEmail})
 	</insert>
 	<update id="updateSeatAvailability" parameterType="com.example.demo.dto.ReservationDto">
 		UPDATE Seats SET is_available = #{isAvailable} WHERE
 		flight_id = #{flightId} AND seat_number = #{seatNumber}
 	</update>
 	<select id="getRsvanow" resultType="com.example.demo.dto.ReservationDto">
-		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
-		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
-		JOIN flights f ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW()
-		GROUP BY r.flight_id ORDER BY f.departure_time
+		SELECT r.flight_id AS flightId, r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r JOIN flights f
+		ON r.flight_id = f.flight_id WHERE f.departure_time >= NOW() GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
 	<select id="getRsvByDate" resultType="com.example.demo.dto.ReservationDto">
-		SELECT r.*, CONCAT(f.departure_airport, '-', f.arrival_airport) AS flightName,
+		SELECT r.flight_id AS flightId, r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
 		f.departure_time, COUNT(r.reservation_id) AS reservationCount FROM reservations r
 		JOIN flights f ON r.flight_id = f.flight_id WHERE DATE(f.departure_time) = #{selectedDate}
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
-	
-	
+	<select id="getAvailableSeatCountByFlightId" resultType="map">
+		SELECT flight_id, COUNT(*) AS availableSeats FROM flightseats WHERE is_available = 1 GROUP BY flight_id
+	</select>
+	<select id="getSeatCountByReservationId" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM reservation_seats WHERE reservation_id = #{reservationId}
+	</select>
+	<select id="getRsvdetail" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		f.departure_time FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE f.departure_time = #{departureTime} AND f.flight_name = #{flightName}
+		GROUP BY r.seat_class, r.userid ORDER BY f.departure_time LIMIT #{start}, #{itemsPerPage}
+	</select>
+	<select id="getRsvdfn" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		f.departure_time FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE f.departure_time = #{departureTime} AND f.flight_name = #{flightName}
+		GROUP BY r.flight_id ORDER BY f.departure_time
+	</select>
+	<select id="getTotalReservations" resultType="int">
+		SELECT COUNT(*) FROM (SELECT r.reservation_id FROM reservations r JOIN flights f
+		ON r.flight_id = f.flight_id WHERE f.departure_time = #{departureTime}
+		AND f.flight_name = #{flightName} GROUP BY r.seat_class, r.userid) AS grouped_reservations
+	</select>
+	<select id="getMyrsv" resultType="com.example.demo.dto.ReservationDto">
+		SELECT r.userid, r.flight_id, r.reservation_date AS reservationDate
+		FROM reservations r WHERE r.userid = #{userid} ORDER BY r.reservation_date DESC LIMIT 1
+	</select>
+	<select id="getRsvcfac" resultType="map">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+		ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<select id="getRsvcfacByDate" resultType="map">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate FROM reservations r
+		JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+		AND DATE(r.reservation_date) = #{selectedDate} ORDER BY r.reservation_date DESC
+		LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<!-- 각 예약의 좌석 수를 카운트하는 쿼리 -->
+	<select id="getScrsvid" resultType="map">
+		SELECT reservation_id, COUNT(*) AS seat_count FROM reservation_seats WHERE reservation_id IN
+		<foreach item="reservationId" collection="reservationIds" open="(" separator="," close=")">
+			#{reservationId}
+		</foreach>
+		GROUP BY reservation_id
+	</select>
+	<select id="getSumOfCharges" resultType="map">
+		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay FROM reservations r WHERE r.userid = #{userid}
+	</select>
+	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
+		SELECT * FROM reservations WHERE userid = #{userid} ORDER BY reservation_date DESC
+	</select>
+	<select id="getTotalRsvcByDate" resultType="int">
+		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE r.userid = #{userid} AND DATE(r.reservation_date) = #{selectedDate}
+	</select>
+	<select id="getTotalRsvc" resultType="int">
+		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+	</select>
+	<!-- 월별 예약 통계 쿼리 -->
+	<select id="getMonthlyLabels" resultType="String">
+		SELECT DISTINCT DATE_FORMAT(reservation_date, '%Y-%m') AS month FROM reservations ORDER BY month;
+	</select>
+	<select id="getMonthlyReservations" resultType="Integer">
+		SELECT COUNT(*) FROM reservations GROUP BY DATE_FORMAT(reservation_date, '%Y-%m') ORDER BY DATE_FORMAT(reservation_date, '%Y-%m');
+	</select>
+	<!-- 항공편별 예약 통계: 항공편의 도착 공항을 라벨로 출력 -->
+	<select id="getFlightLabels" resultType="String">
+		SELECT DISTINCT f.arrival_airport FROM reservations r JOIN flights f ON r.flight_id = f.flight_id;
+	</select>
+	<!-- 항공편별 예약 통계: 항공편별 예약 수를 출력 -->
+	<select id="getFlightReservations" resultType="Integer">
+		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id GROUP BY f.arrival_airport;
+	</select>
+	<!-- 좌석 등급별 예약 통계 쿼리 -->
+	<select id="getSeatClassLabels" resultType="String">
+		SELECT DISTINCT seat_class FROM reservations;
+	</select>
+	<select id="getSeatClassReservations" resultType="Integer">
+		SELECT COUNT(*) FROM reservations GROUP BY seat_class;
+	</select>
 	
 	
 </mapper>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.FlightMapper">
-
 	<!-- ResultMap 정의 -->
 	<resultMap id="FlightResultMap" type="com.example.demo.dto.FlightDto">
 		<id property="flightId" column="flight_id"/>
@@ -18,7 +17,7 @@
 		SELECT * FROM airports
 	</select>
 	<select id="getAvailableFlights" resultType="com.example.demo.dto.FlightDto">
-		SELECT flight_id, departure_airport, arrival_airport, departure_time FROM Flights
+		SELECT * FROM Flights
 	</select>
 	<select id="getAvailableFlightsByDate" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
@@ -44,14 +43,171 @@
 	<select id="getFlightsByDate" parameterType="String" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE DATE(departure_time) = #{date}
 	</select>
-
-	
-	<!-- findFlights 쿼리 (is_available 조건 제거) -->
-	<select id="findFlights" parameterType="map" resultMap="FlightResultMap">
-		SELECT flight_id, departure_airport, arrival_airport, departure_time, arrival_time, flight_duration, airplane_id
-		FROM flights WHERE departure_airport = #{departure} AND arrival_airport = #{arrival}
-		AND DATE(departure_time) = #{departureDate} AND DATE(arrival_time) = #{arrivalDate}
+	<select id="getTotalSeatsByFlightId" resultType="map">
+		SELECT flight_id, CAST(SUM(CASE WHEN is_available = 1 THEN 1 ELSE 0 END) AS SIGNED)
+		AS totalSeats FROM flightseats GROUP BY flight_id;
 	</select>
+	<!-- countAvailableSeats 매핑 추가 -->
+	<select id="countAvailableSeats" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM FlightSeats WHERE flight_id = #{flightId} AND is_available = 1
+	</select>
+	<select id="getMemberByUserId" parameterType="String" resultType="com.example.demo.dto.MemberDto">
+    	SELECT * FROM member WHERE userid = #{userid}
+	</select>
+	<select id="getFlightByGoingFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights WHERE flight_id = #{goingFlightId}
+	</select>
+	<insert id="addReservation" parameterType="com.example.demo.dto.ReservationDto" useGeneratedKeys="true" keyProperty="reservationId">
+		INSERT INTO reservations (userid, flight_id, reservation_date, seat_class, passenger_type, sung, pnr, name, charge, charge_pay)
+		VALUES (#{userid}, #{flightId}, NOW(), #{seatClass}, #{passengerType}, #{sung}, #{pnr}, #{name}, #{charge}, #{chargePay})
+	</insert>
+	<select id="getSeatIdBySeatNumber" parameterType="string" resultType="int">
+		SELECT seat_id FROM seattemplate WHERE seat_number = #{seatNumber}
+	</select>
+	<insert id="addSeatToReservation">
+		INSERT INTO reservation_seats (reservation_id, seat_id) VALUES (#{reservationId}, #{seatId})
+	</insert>
+	<update id="updateSeatAvailability">
+		UPDATE flightseats SET is_available = 0 WHERE flight_id = #{flightId} AND seat_id = #{seatId}
+	</update>
+	<select id="getFlightByReturnFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights WHERE flight_id = #{returnFlightId}
+	</select>
+	<!-- 기존 findFlights 쿼리 유지 -->
+	<select id="findFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT DISTINCT f.flight_id, f.flight_number, f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration,
+		f.airplane_id FROM flights f JOIN FlightSeats fs ON f.flight_id = fs.flight_id JOIN SeatTemplate st ON fs.seat_id = st.seat_id
+		WHERE f.departure_airport = #{departure} AND f.arrival_airport = #{arrival}
+		<!-- 출발일 필터링 -->
+		<if test="departureDate != null and departureDate != ''">
+			AND DATE(f.departure_time) = #{departureDate}
+		</if>
+		<!-- 도착일 필터링 -->
+		<if test="arrivalDate != null and arrivalDate != ''">
+			AND DATE(f.arrival_time) = #{arrivalDate}
+		</if>
+		<!-- 좌석 등급 필터링 -->
+		<if test="seatClass != null and seatClass != ''">
+			AND st.seat_class = #{seatClass}
+		</if>
+		<!-- 좌석 가용성 필터링 -->
+		<if test="passengers != null">
+			AND fs.is_available = 1
+		</if>
+		<!-- 그룹화 및 좌석 수 필터링 -->
+		<if test="passengers != null">
+			GROUP BY f.flight_id HAVING COUNT(fs.seat_id) >= #{passengers}
+		</if>
+	</select>
+	<!-- findFlightsWithFilters 매핑 -->
+	<select id="findFlightsWithFilters" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT DISTINCT f.flight_id, f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id,
+		COUNT(fs.seat_id) AS availableSeats FROM flights f JOIN FlightSeats fs ON f.flight_id = fs.flight_id JOIN SeatTemplate st
+		ON fs.seat_id = st.seat_id WHERE f.departure_airport = #{departure} AND f.arrival_airport = #{arrival} 
+		<!-- 출발일 필터링 -->
+		<if test="departureDate != null and departureDate != ''">
+			AND DATE_FORMAT(f.departure_time, '%Y-%m-%d') = #{departureDate}
+		</if>
+		<!-- 도착일 필터링 -->
+		<if test="arrivalDate != null and arrivalDate != '' and (departureDate == null or departureDate == '')">
+			AND DATE_FORMAT(f.departure_time, '%Y-%m-%d') = #{arrivalDate}
+		</if>
+		<!-- 좌석 등급 필터링 -->
+		<if test="seatClass != null and seatClass != ''">
+			AND st.seat_class = #{seatClass}
+		</if>
+		<!-- 좌석 가용성 필터링 -->
+		<if test="passengers != null">
+			AND fs.is_available = 1
+		</if>
+		<!-- 그룹화 및 좌석 수 필터링 -->
+		<if test="passengers != null">
+			GROUP BY f.flight_id HAVING COUNT(fs.seat_id) >= #{passengers}
+		</if>
+	</select>
+	<!-- getSeatsByFlightIdAndClass 매핑 추가 -->
+	<select id="getSeatsByFlightIdAndClass" parameterType="map" resultType="com.example.demo.dto.SeatDto">
+		SELECT * FROM FlightSeats WHERE flight_id = #{flightId} AND seat_class = #{seatClass} AND is_available = 1
+	</select>
+	<select id="getAvailableSeatsByFlightAndClass" resultType="com.example.demo.dto.SeatDto">
+		SELECT st.seat_id AS seatId, st.seat_number AS seatNumber, st.seat_class AS seatClass, fs.is_available AS available  <!-- 여기서 별칭 사용 -->
+		FROM seattemplate st JOIN flightseats fs ON st.seat_id = fs.seat_id WHERE fs.flight_id = #{flightId} AND st.seat_class = #{seatClass}
+	</select>
+	<insert id="addFlight" parameterType="com.example.demo.dto.FlightDto">
+		INSERT INTO flights (departure_airport, arrival_airport, departure_time, arrival_time, airplane_id, flight_duration, flight_name)
+		VALUES (#{departureAirport}, #{arrivalAirport}, #{departureTime}, #{arrivalTime}, #{airplaneId}, #{ftime}, CONCAT('EL', SUBSTRING(#{departureAirport}, -1), SUBSTRING(#{arrivalAirport}, -1), LPAD(FLOOR(RAND() * 100), 2, '0')))
+	</insert>
+	<select id="findAllAirplanes" resultType="com.example.demo.dto.AirplanesDto">
+		SELECT * FROM airplanes<!--  order by capacity desc, airplane_id asc --> 
+	</select>
+	<!-- 아직 좌석이 없는 flightId를 조회 -->
+	<select id="getFlightIdForAddingSeats" resultType="int">
+		SELECT flight_id FROM flights WHERE flight_id NOT IN (SELECT flight_id FROM flightseats) LIMIT 1
+	</select>
+	<!-- 해당 flightId의 capacity를 가져오는 쿼리 -->
+	<select id="getFlightCapacity" resultType="map">
+		SELECT f.flight_id, a.capacity FROM flights f JOIN airplanes a ON f.airplane_id = a.airplane_id WHERE f.flight_id = #{flightId}
+	</select>
+	<!-- 좌석을 추가하는 쿼리 -->
+	<insert id="addSeatsForFlight">
+		INSERT INTO flightseats (flight_id, seat_id, is_available, seat_class) VALUES
+		<foreach collection="seatNumbers" item="seatNum" separator=",">
+			(#{flightId}, #{seatNum}, 1, '')
+		</foreach>
+	</insert>
+	<select id="getFlightTime" parameterType="map" resultType="com.example.demo.dto.FlightTimeDto">
+		SELECT a, b, flight_time AS flightTime FROM flight_times
+		WHERE (a = #{a} AND b = #{b}) OR (a = #{b} AND b = #{a})
+	</select>
+	<select id="getAirportTimezone" parameterType="string" resultType="string">
+		SELECT timezone FROM airports WHERE airport_code = #{airportCode}
+	</select>
+	<select id="getFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights LIMIT #{start}, #{itemsPerPage}
+	</select>
+	<!-- 항공편 총 개수 조회 -->
+	<select id="countFlights" resultType="int">
+		SELECT COUNT(*) FROM flights
+	</select>
+	<select id="getFlightsByFilters" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+		SELECT * FROM flights WHERE (#{departureAirport} IS NULL OR departure_airport = #{departureAirport})
+		AND (#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport})
+		AND departure_time &gt;= #{selectedDate}  <!-- >= 는 &gt;= 으로 변경 -->
+		AND departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY)  <!-- < 는 &lt; 으로 변경 -->
+		LIMIT #{start}, #{itemsPerPage}
+	</select>
+
+<select id="countFlightsByFilters" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM flights WHERE
+    (#{departureAirport} IS NULL OR departure_airport = #{departureAirport}) AND
+    (#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport}) AND
+    departure_time &gt;= #{selectedDate} AND
+    departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY) order by departure_time desc
+</select>
+
+
+<select id="getAllAirports" resultType="com.example.demo.dto.AirportsDto">
+    SELECT * FROM airports
+</select>
+
+<select id="getFilteredFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
+    SELECT * FROM flights WHERE 1=1
+    <if test="departureAirport != null and departureAirport != ''">
+        AND departure_airport = #{departureAirport}
+    </if>
+    <if test="arrivalAirport != null and arrivalAirport != ''">
+        AND arrival_airport = #{arrivalAirport}
+    </if>
+    <if test="selectedDate != null and selectedDate != ''">
+        AND DATE(departure_time) = #{selectedDate}
+    </if>
+    ORDER BY departure_time ASC
+    LIMIT #{itemsPerPage} OFFSET #{offset}
+</select>
+
+
+    
+    
 	
 	
 </mapper>
