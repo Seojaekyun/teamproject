@@ -22,9 +22,11 @@ public class SelectController {
 	public String getReservationDetails(
 			@RequestParam("pnr") String pnr,
 			@RequestParam("sung") String sung,
-			@RequestParam("name") String name, Model model) {
+			@RequestParam("name") String name, 
+			@RequestParam("date") String date,
+			Model model) {
 		// 서비스에서 예약 상세 정보 가져오기
-		List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name);
+		List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name, date);
 		
 		// JSP로 전달할 데이터 설정
 		model.addAttribute("reservationList", reservationList);

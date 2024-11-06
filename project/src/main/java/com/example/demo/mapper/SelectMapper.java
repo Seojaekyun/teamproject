@@ -10,12 +10,8 @@ import org.apache.ibatis.annotations.Param;
 public interface SelectMapper {
 	List<Map<String, Object>> getReservationInfo(
 			@Param("pnr") String pnr,
-			@Param("sung") String sung, @Param("name") String name);
-	Map<String, Object> getFlightInfo(
-			@Param("pnr") String pnr,
-			@Param("sung") String sung, @Param("name") String name);
+			@Param("sung") String sung, @Param("name") String name, @Param("date") String date);
 	Map<String, Object> getAirportInfo(@Param("flight_id") Integer flightId);
-	List<Map<String, Object>> getSeatsInfo();
 	
 	
 }
