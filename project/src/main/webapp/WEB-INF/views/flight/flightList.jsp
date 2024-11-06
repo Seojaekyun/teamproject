@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>항공편 확인</title>
@@ -101,16 +101,49 @@
         margin-left: 10px;
         padding: 5px;
     }
+    /* 달력 스타일 */
+	.ui-datepicker {
+		font-size: 1.1em;
+		width: 320px !important;
+		background-color: #f4f4f4;
+		border: 1px solid #ddd;
+		border-radius: 10px;
+		padding: 10px;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	.ui-datepicker .ui-datepicker-header {
+		background-color: #00467F;
+		color: white;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		padding: 10px;
+	}
+	.ui-datepicker .ui-datepicker-title {
+		font-weight: bold;
+	}
+	.ui-datepicker td a {
+		color: #00467F;
+		padding: 8px;
+		border-radius: 50%;
+		transition: background-color 0.3s ease;
+	}
+	.ui-datepicker td a:hover {
+		background-color: #ddd;
+	}
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+		color: white;
+		font-size: 1.2em;
+		cursor: pointer;
+	}
 </style>
 <script>
 $(function() {
-    // 오늘 날짜 기본 설정 (기존 선택된 값이 없을 때만 설정)
+    // 기본 오늘 날짜 설정 및 jQuery UI 날짜 선택기 설정
     if ($("#selectedDate").val() === "") {
         var today = new Date().toISOString().split('T')[0];
         $("#selectedDate").val(today);
     }
 
-    // jQuery UI 날짜 선택기
     $("#selectedDate").datepicker({
         dateFormat: "yy-mm-dd",
         onSelect: function() {
@@ -118,7 +151,6 @@ $(function() {
         }
     });
 });
-
 </script>
 </head>
 <body>
@@ -135,7 +167,6 @@ $(function() {
 	
 	<div class="container">
 	<h2>항공편 목록</h2>
-	<!-- 필터 섹션: 출발지, 도착지, 날짜 선택 -->
 	<form id="filterForm" method="get" action="/flight/flightList">
 		<div class="filter-section">
 			<label for="departureAirport">출발 공항:</label>

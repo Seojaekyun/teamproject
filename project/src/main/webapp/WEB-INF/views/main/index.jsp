@@ -1610,10 +1610,10 @@
 									<div class="s_methodbox">
 										<ul class="booking_types">
 											<li>
-												<button type="button" id="daselect">출도착 조회</button>
+												<button type="button" id="daselect">출도착<br>조회</button>
 											</li>
 											<li>
-												<button type="button" id="week_schedule" >주간 스케줄</button>
+												<button type="button" id="week_schedule" >주간<br>스케줄</button>
 										</ul>
 									</div>
 									<form action="${pageContext.request.contextPath}/select/schedule" method="get">

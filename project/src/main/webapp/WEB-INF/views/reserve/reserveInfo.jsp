@@ -5,20 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약 조회</title>
-<!-- 디자인에 필요한 CSS 및 스크립트 추가 -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
 	body {
-		font-family: Arial, sans-serif;
+		font-family: 'Noto Sans KR', sans-serif;
 		background-color: #f4f4f4;
 		margin: 0;
 		padding: 0;
 	}
+	/* 헤더 디자인 */
 	section header {
 		background-color: #00467F;
 		padding: 20px;
@@ -29,6 +28,7 @@
 		margin: 0;
 		font-size: 24px;
 	}
+	/* 네비게이션 디자인 */
 	section nav {
 		background-color: #0059A3;
 		padding: 10px;
@@ -43,17 +43,20 @@
 	section nav a:hover {
 		text-decoration: underline;
 	}
+	/* 메인 컨테이너 디자인 */
 	.container {
-		max-width: 1000px;
-		margin: 20px auto;
+		max-width: 800px;
+		margin: 30px auto;
 		background-color: white;
-		padding: 20px;
+		padding: 30px;
+		border-radius: 8px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
 	h2 {
 		font-size: 22px;
 		color: #00467F;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
+		text-align: center;
 	}
 	.form-group {
 		margin-bottom: 20px;
@@ -74,51 +77,67 @@
 	input[type="submit"] {
 		background-color: #00467F;
 		color: white;
-		padding: 10px 20px;
 		border: none;
-		border-radius: 5px;
 		cursor: pointer;
 		font-size: 16px;
+		margin-top: 15px;
+		padding: 10px 20px;
+		border-radius: 5px;
 	}
 	input[type="submit"]:hover {
 		background-color: #003A66;
 	}
-	/* 달력 디자인 */
-	#cal {
-		margin: 20px auto;
-		width: 100%;
-	}
+	/* 달력 스타일 */
 	.ui-datepicker {
-		width: 450px !important;
-		background-color: #f9f9f9;
+		font-size: 1.1em;
+		width: 320px !important;
+		background-color: #f4f4f4;
 		border: 1px solid #ddd;
+		border-radius: 10px;
+		padding: 10px;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 	}
 	.ui-datepicker .ui-datepicker-header {
 		background-color: #00467F;
 		color: white;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
 		padding: 10px;
+	}
+	.ui-datepicker .ui-datepicker-title {
+		font-weight: bold;
 	}
 	.ui-datepicker td a {
 		color: #00467F;
+		padding: 8px;
+		border-radius: 50%;
+		transition: background-color 0.3s ease;
 	}
 	.ui-datepicker td a:hover {
 		background-color: #ddd;
+	}
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+		color: white;
+		font-size: 1.2em;
+		cursor: pointer;
 	}
 </style>
 
 <script>
 	$(function() {
-		// 달력 설정
+		// 날짜 선택기 설정
 		$("#selectedDate").datepicker({
-			inline: true,
 			dateFormat: "yy-mm-dd",
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			changeMonth: true,
+			changeYear: true,
 			onSelect: function(dateText) {
-				$("#selectedDate").val(dateText);  // 선택한 날짜를 화면에 표시
-				fetchFlightsByDate(dateText);  // 선택한 날짜에 맞는 항공편 불러오기
+				$("#selectedDate").val(dateText);
+				fetchFlightsByDate(dateText);
 			}
 		});
 	});
-	
 </script>
 
 </head>
@@ -140,13 +159,14 @@
 		<h2>예약 정보 조회</h2>
 		<form id="reservationForm" action="/select/selection?pnr=pnr&date=selectedDate&sung=sung&name=lname" method="post">
 			<!-- 날짜 선택 -->
-			<div id="cal">
+			<div class="form-group">
+				<label for="selectedDate">출발일 선택</label>
 				<input type="text" id="selectedDate" name="selectedDate" placeholder="날짜 선택" readonly>
 			</div>
 			<!-- 예약 번호 -->
 			<div class="form-group">
 				<label for="pnr">예약번호</label>
-				<input type="text" id="pnr" name="pnr">
+				<input type="text" id="pnr" name="pnr" required>
 			</div>
 			<!-- 고객 정보 -->
 			<div class="form-group">
@@ -169,7 +189,7 @@
 				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
 			</div>
 	
-			<input type="submit" value="예약조회">
+			<input type="submit" value="예약 조회">
 		</form>
 	</div>
 </section>

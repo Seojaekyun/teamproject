@@ -85,7 +85,58 @@
 	input[type="submit"]:hover {
 		background-color: #003A66;
 	}
+	/* 달력 스타일 */
+	.ui-datepicker {
+		font-size: 1.1em;
+		width: 320px !important;
+		background-color: #f4f4f4;
+		border: 1px solid #ddd;
+		border-radius: 10px;
+		padding: 10px;
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	.ui-datepicker .ui-datepicker-header {
+		background-color: #00467F;
+		color: white;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		padding: 10px;
+	}
+	.ui-datepicker .ui-datepicker-title {
+		font-weight: bold;
+	}
+	.ui-datepicker td a {
+		color: #00467F;
+		padding: 8px;
+		border-radius: 50%;
+		transition: background-color 0.3s ease;
+	}
+	.ui-datepicker td a:hover {
+		background-color: #ddd;
+	}
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+		color: white;
+		font-size: 1.2em;
+		cursor: pointer;
+	}
 </style>
+
+<script>
+	$(function() {
+		// 날짜 선택기 설정
+		$("#departureDate").datepicker({
+			dateFormat: "yy-mm-dd",
+			showOtherMonths: true,
+			selectOtherMonths: true,
+			changeMonth: true,
+			changeYear: true,
+			onSelect: function(dateText) {
+				$("#departureDate").val(dateText);
+				fetchFlightsByDate(dateText);
+			}
+		});
+	});
+</script>
 
 </head>
 <body>
@@ -106,6 +157,10 @@
 		<h2>체크인 정보 입력</h2>
 		<form action="checkinProcess.jsp" method="post">
 			<div class="form-group">
+				<label for="departureDate">출발일</label>
+				<input type="text" id="departureDate" name="departureDate" placeholder="날짜 선택" required>
+			</div>
+			<div class="form-group">
 				<label for="reservationNumber">예약 번호</label>
 				<input type="text" id="reservationNumber" name="reservationNumber" required>
 			</div>
@@ -116,10 +171,6 @@
 			<div class="form-group">
 				<label for="firstName">이름(First Name)</label>
 				<input type="text" id="firstName" name="firstName" required>
-			</div>
-			<div class="form-group">
-				<label for="departureDate">출발일</label>
-				<input type="date" id="departureDate" name="departureDate" required>
 			</div>
 			<input type="submit" value="체크인">
 		</form>
