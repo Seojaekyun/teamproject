@@ -139,6 +139,11 @@ public class MainController {
 	public String reserveInfo() {
 		return service.reserveInfo();
 	}
+	
+	@RequestMapping("/reserve/checkin")
+	public String checkin() {
+		return service.checkin();
+	}
 		
 	
 }

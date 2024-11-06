@@ -451,7 +451,7 @@
 							<ul class="menu">
 								<li><a href="../reserve/reservation">항공권 예약</a></li>
 								<li><a href="../reserve/reserveInfo">예약 조회</a></li>
-								<li><a href="">체크인</a></li>
+								<li><a href="../reserve/checkin">체크인</a></li>
 								<li><a href="../flight/flightList">운항정보</a></li>
 							</ul>
 						</li>

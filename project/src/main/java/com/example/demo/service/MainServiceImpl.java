@@ -140,6 +140,11 @@ public class MainServiceImpl implements MainService {
 	public String reserveInfo() {
 		return "/reserve/reserveInfo";
 	}
+
+	@Override
+	public String checkin() {
+		return "/reserve/checkin";
+	}
 	
 	
 }

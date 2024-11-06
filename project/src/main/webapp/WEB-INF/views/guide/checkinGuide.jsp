@@ -181,7 +181,7 @@
 				자주 묻는 질문(<a href="faq.html">FAQ</a>) 섹션을 방문하시거나 고객 센터로 문의해 주시면 친절하게 안내해 드리겠습니다.
 			</p>
 
-			<a class="cta-button" href="onlineCheckin.html">지금 체크인하기</a>
+			<a class="cta-button" href="../reserve/checkin">지금 체크인하기</a>
 		</div>
 	</div>
 	

@@ -30,6 +30,7 @@ public interface MainService {
 	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
 			String selectedDate, Integer page);
 	public String reserveInfo();
+	public String checkin();
 	
 	
 }
