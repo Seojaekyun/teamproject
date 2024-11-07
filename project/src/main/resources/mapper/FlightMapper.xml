@@ -209,6 +209,11 @@
         FROM flights 
         WHERE DATE(departure_time) = #{date}
 </select>
+<select id="getArrivalAirportsByDate" resultType="string" parameterType="string">
+    SELECT DISTINCT arrival_airport 
+    FROM flights 
+    WHERE DATE(departure_time) = #{date}
+</select>
 
 
     

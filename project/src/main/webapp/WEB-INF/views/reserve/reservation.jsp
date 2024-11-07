@@ -155,8 +155,8 @@
 </style>
 
 <script>
+    // 날짜 선택기 설정
     $(function() {
-        // 날짜 선택기 설정
         $("#selectedDate").datepicker({
             dateFormat: "yy-mm-dd",
             showOtherMonths: true,
@@ -173,31 +173,65 @@
     // 선택된 날짜로 출발 공항 목록을 가져오는 함수
     function fetchAirportsByDate(selectedDate) {
         if (selectedDate) {
-            console.log("Fetching airports for date:", selectedDate);
-            fetch(`/reserve/airports?date=` + selectedDate)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
+            const url = `http://localhost:8099/reserve/airports?date=` + selectedDate;
+            fetch(url)
+                .then(response => response.json())
                 .then(data => {
-                    console.log("Received data:", data);
                     const departureSelect = document.getElementById('departure');
                     const arrivalSelect = document.getElementById('arrival');
                     departureSelect.innerHTML = '<option value="">-- 출발지를 선택하세요 --</option>';
                     arrivalSelect.innerHTML = '<option value="">-- 도착지를 선택하세요 --</option>';
 
-                    data.forEach(airport => {
+                    data.departureAirports.forEach(airport => {
                         let option = document.createElement('option');
                         option.value = airport;
                         option.text = airport;
-                        departureSelect.add(option.cloneNode(true));
+                        departureSelect.add(option);
+                    });
+
+                    data.arrivalAirports.forEach(airport => {
+                        let option = document.createElement('option');
+                        option.value = airport;
+                        option.text = airport;
                         arrivalSelect.add(option);
                     });
                 })
                 .catch(error => console.error('Error fetching airports:', error));
         }
     }
+
+    // 탑승객 수 조정 함수
+    let passengerCounts = {
+        adult: 1,
+        child: 0,
+        infant: 0
+    };
+
+    function changePassengerCount(type, change) {
+        passengerCounts[type] += change;
+        
+        if (type === 'adult' && passengerCounts[type] < 1) {
+            passengerCounts[type] = 1;
+        }
+        
+        if (passengerCounts['adult'] + passengerCounts['child'] > 10) {
+            passengerCounts[type] -= change;
+            alert("성인과 아동의 합은 10명을 초과할 수 없습니다.");
+        }
+        
+        if (type === 'infant' && passengerCounts['infant'] > passengerCounts['adult']) {
+            passengerCounts['infant'] = passengerCounts['adult'];
+        }
+
+        if (type !== 'adult' && passengerCounts[type] < 0) {
+            passengerCounts[type] = 0;
+        }
+        
+        document.getElementById(type + '-count').textContent = passengerCounts[type];
+        document.getElementById(type + '-hidden').value = passengerCounts[type];
+    }
 </script>
+
 
 </head>
 <body>

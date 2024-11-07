@@ -220,5 +220,10 @@ public class FlightServiceImpl implements FlightService {
         logger.info("검색 날짜: " + date);
         return fmapper.getDepartureAirportsByDate(date);  // MyBatis XML 매퍼 사용
     }
+	@Override
+	public List<String> getArrivalAirportsByDate(String date) {
+	    return fmapper.getArrivalAirportsByDate(date);
+	}
+
 	 
 }

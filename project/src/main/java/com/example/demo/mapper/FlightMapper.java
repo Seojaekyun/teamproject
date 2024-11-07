@@ -71,6 +71,7 @@ public interface FlightMapper {
 	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
 			String selectedDate, int itemsPerPage, int offset);
 	List<String> getDepartureAirportsByDate(String date);
+	List<String> getArrivalAirportsByDate(String date);
 	
 	
 }

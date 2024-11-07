@@ -410,8 +410,4 @@ public class FlightController {
 		return "flight/reservationConfirmationPage";  // 예약 완료 페이지
 	}
 	
-	@GetMapping("/airports")
-    public List<String> getAirportsByDate(@RequestParam String date) {
-        return service.getDepartureAirportsByDate(date);
-    }
 }

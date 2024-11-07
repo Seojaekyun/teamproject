@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Qualifier("rs")
@@ -38,11 +40,19 @@ public class ReservationController {
 		return "/reserve/reservation";
 	}
 	
-	@GetMapping("/airports")
+	@GetMapping("/reserve/airports")
     @ResponseBody
-    public List<String> getAirportsByDate(@RequestParam String date) {
-        return flightService.getDepartureAirportsByDate(date);
+    public Map<String, List<String>> getAirportsByDate(@RequestParam String date) {
+        List<String> departureAirports = flightService.getDepartureAirportsByDate(date);
+        List<String> arrivalAirports = flightService.getArrivalAirportsByDate(date);
+
+        Map<String, List<String>> result = new HashMap<>();
+        result.put("departureAirports", departureAirports);
+        result.put("arrivalAirports", arrivalAirports);
+
+        return result;
     }
+	
 	
 	@GetMapping("/reserve/flights")
 	@ResponseBody
