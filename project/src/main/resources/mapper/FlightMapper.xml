@@ -204,6 +204,11 @@
     ORDER BY departure_time ASC
     LIMIT #{itemsPerPage} OFFSET #{offset}
 </select>
+<select id="getDepartureAirportsByDate" resultType="string" parameterType="string">
+        SELECT DISTINCT departure_airport 
+        FROM flights 
+        WHERE DATE(departure_time) = #{date}
+</select>
 
 
     

@@ -38,6 +38,12 @@ public class ReservationController {
 		return "/reserve/reservation";
 	}
 	
+	@GetMapping("/airports")
+    @ResponseBody
+    public List<String> getAirportsByDate(@RequestParam String date) {
+        return flightService.getDepartureAirportsByDate(date);
+    }
+	
 	@GetMapping("/reserve/flights")
 	@ResponseBody
 	public List<FlightDto> getFlightsByDate(@RequestParam("date") String date) {
