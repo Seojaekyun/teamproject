@@ -199,6 +199,34 @@
                 .catch(error => console.error('Error fetching airports:', error));
         }
     }
+    
+    document.getElementById('departure').addEventListener('change', function() {
+        const departure = this.value;
+        const selectedDate = document.getElementById('selectedDate').value;
+        fetchArrivalAirports(departure, selectedDate);
+    });
+
+    
+    function fetchArrivalAirports(departure, selectedDate) {
+        if (departure && selectedDate) {
+            const url = `http://localhost:8099/reserve/airports/arrival?departure=${departure}&date=${selectedDate}`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const arrivalSelect = document.getElementById('arrival');
+                    arrivalSelect.innerHTML = '<option value="">-- 도착지를 선택하세요 --</option>';
+
+                    data.forEach(airport => {
+                        let option = document.createElement('option');
+                        option.value = airport;
+                        option.text = airport;
+                        arrivalSelect.add(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching arrival airports:', error));
+        }
+    }
+
 
     // 탑승객 수 조정 함수
     let passengerCounts = {

@@ -44,14 +44,20 @@ public class ReservationController {
     @ResponseBody
     public Map<String, List<String>> getAirportsByDate(@RequestParam String date) {
         List<String> departureAirports = flightService.getDepartureAirportsByDate(date);
-        List<String> arrivalAirports = flightService.getArrivalAirportsByDate(date);
 
         Map<String, List<String>> result = new HashMap<>();
         result.put("departureAirports", departureAirports);
-        result.put("arrivalAirports", arrivalAirports);
 
         return result;
     }
+	
+	@GetMapping("/airports/arrival")
+	public List<String> getArrivalAirportsByDepartureAndDate(
+	        @RequestParam String departure,
+	        @RequestParam String date) {
+	    return flightService.getArrivalAirportsByDepartureAndDate(departure, date);
+	}
+
 	
 	
 	@GetMapping("/reserve/flights")

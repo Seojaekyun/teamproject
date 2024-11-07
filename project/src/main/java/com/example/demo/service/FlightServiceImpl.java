@@ -221,9 +221,13 @@ public class FlightServiceImpl implements FlightService {
         return fmapper.getDepartureAirportsByDate(date);  // MyBatis XML 매퍼 사용
     }
 	@Override
-	public List<String> getArrivalAirportsByDate(String date) {
-	    return fmapper.getArrivalAirportsByDate(date);
+	public List<String> getArrivalAirportsByDepartureAndDate(String departure, String date) {
+	    Map<String, String> params = new HashMap<>();
+	    params.put("departure", departure);
+	    params.put("date", date);
+	    return fmapper.getArrivalAirportsByDepartureAndDate(params);
 	}
+
 
 	 
 }
