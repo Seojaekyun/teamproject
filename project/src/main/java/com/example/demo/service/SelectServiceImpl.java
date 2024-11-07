@@ -19,24 +19,31 @@ public class SelectServiceImpl implements SelectService {
 	
 	@Override
 	public List<SelectDto> getReservationDetails(String pnr, String sung, String name, String date) {
+		// 쿼리 실행 전 파라미터 로깅
+		System.out.println("쿼리 파라미터 - PNR: " + pnr + ", 성: " + sung + ", 이름: " + name + ", 날짜: " + date);
+
 		// reservations 정보 가져오기 (좌석번호 포함)
 		List<Map<String, Object>> reservationInfos = selectMapper.getReservationInfo(pnr, sung, name, date);
 		
-		// reservationInfos가 null이거나 비어 있는 경우 처리
+		// 쿼리 결과 로깅
+		System.out.println("쿼리 결과 - reservationInfos: " + reservationInfos);
+
+		// reservationInfos가 null이거나 비어 있는 경우 null 반환
 		if (reservationInfos == null || reservationInfos.isEmpty()) {
-			throw new RuntimeException("예약 정보가 없습니다. PNR: " + pnr + ", 성: " + sung + ", 이름: " + name);
+			System.out.println("예약 정보가 없습니다.");
+			return null;
 		}
-		
+
 		// SelectDto 리스트 생성
 		List<SelectDto> reservationList = new ArrayList<>();
 		
 		for (Map<String, Object> reservationInfo : reservationInfos) {
 			int flightId = (Integer) reservationInfo.get("flight_id");
 			
-			
 			// airports 정보 가져오기
 			Map<String, Object> airportInfo = selectMapper.getAirportInfo(flightId);
-			
+			System.out.println("airportInfo: " + airportInfo);
+
 			// DTO에 데이터를 담아서 리스트에 추가
 			SelectDto sdto = new SelectDto();
 			sdto.setPnr(pnr);
@@ -73,12 +80,17 @@ public class SelectServiceImpl implements SelectService {
 			sdto.setDepartureAirport((String) reservationInfo.get("departure_airport"));
 			sdto.setArrivalAirport((String) reservationInfo.get("arrival_airport"));
 			sdto.setFlightName((String) reservationInfo.get("flight_name"));
+
+			// DTO 로깅
+			System.out.println("생성된 DTO: " + sdto);
+
 			// 리스트에 추가
 			reservationList.add(sdto);
 		}
+
+		// 최종 리스트 로깅
+		System.out.println("최종 예약 리스트: " + reservationList);
 		
 		return reservationList;
 	}
-	
-	
 }
