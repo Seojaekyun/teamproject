@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,12 +52,13 @@ public class ReservationController {
         return result;
     }
 	
-	@GetMapping("/airports/arrival")
-	public List<String> getArrivalAirportsByDepartureAndDate(
-	        @RequestParam String departure,
-	        @RequestParam String date) {
-	    return flightService.getArrivalAirportsByDepartureAndDate(departure, date);
-	}
+	@GetMapping("/reserve/airports/arrival")
+    public ResponseEntity<List<String>> getArrivalAirportsByDepartureAndDate(
+            @RequestParam("departure") String departure,
+            @RequestParam("date") String date) {
+        List<String> arrivalAirports = flightService.getArrivalAirportsByDepartureAndDate(departure, date);
+        return ResponseEntity.ok(arrivalAirports);
+    }
 
 	
 	
