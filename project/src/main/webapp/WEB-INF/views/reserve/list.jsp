@@ -166,7 +166,7 @@ $(function() {
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
 					<tr>
-						<td><a href="/select/selection?pnr=${res.pnr}&date=${res.reservationDate}&sung=${res.sung}&name=${res.name}">${res.pnr}</a></td>
+						<td><a href="/select/selection?pnr=${res.pnr}&date=${res.departure_time.substring(0, 10)}&sung=${res.sung}&name=${res.name}">${res.pnr}</a></td>
 						<td>${res.reservationDate}</td>
 						<td>${res.flightName}</td>
 						<td>${res.departure_time}</td>

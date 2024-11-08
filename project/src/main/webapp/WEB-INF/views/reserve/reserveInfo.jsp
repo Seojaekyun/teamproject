@@ -158,15 +158,15 @@
 	<div class="container">
 		<h2>예약 정보 조회</h2>
 		<form id="reservationForm" action="${pageContext.request.contextPath}/select/selection" method="get" method="post">
-			<!-- 날짜 선택 -->
-			<div class="form-group">
-				<label for="selectedDate">출발일 선택</label>
-				<input type="text" id="selectedDate" name="selectedDate" placeholder="날짜 선택" readonly>
-			</div>
 			<!-- 예약 번호 -->
 			<div class="form-group">
 				<label for="pnr">예약번호</label>
 				<input type="text" id="pnr" name="pnr" required>
+			</div>
+			<!-- 날짜 선택 -->
+			<div class="form-group">
+				<label for="selectedDate">출발일 선택</label>
+				<input type="text" id="selectedDate" name="date" placeholder="날짜 선택" readonly>
 			</div>
 			<!-- 고객 정보 -->
 			<div class="form-group">

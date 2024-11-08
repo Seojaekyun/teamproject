@@ -2,50 +2,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>eLT항공</title>
-		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-		<style>
-			body {
-				margin: 0;
-				font-family: Arial, sans-serif;
-				background-color: #f4f4f4;
-			}
-			.main_content {
-				display: none;
-			}
-			.air_service {
-				position: relative;
-				background-image: url('../static/resources/background.jpg');
-				background-size: cover;
-				width: 100%;
-				height: 500px;
-				background-repeat: no-repeat;
-				z-index: 0;
-			}
-			.air_align {
-				margin-left: 73px;
-				margin-right: 73px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-			.air_contentbox {
-				position: relative;
-				top: 5.3rm;
-				left: 0;
-				width: 1500px;
-				height: 70%;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				z-index: 2;
-			}
+<head>
+<meta charset="UTF-8">
+<title>eLT항공</title>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+	body {
+		margin: 0;
+		font-family: Arial, sans-serif;
+		background-color: #f4f4f4;
+	}
+	.main_content {
+		display: none;
+	}
+	.air_service {
+		position: relative;
+		background-image: url('../static/resources/background.jpg');
+		background-size: cover;
+		width: 100%;
+		height: 500px;
+		background-repeat: no-repeat;
+		z-index: 0;
+	}
+	.air_align {
+		margin-left: 73px;
+		margin-right: 73px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.air_contentbox {
+		position: relative;
+		top: 5.3rm;
+		left: 0;
+		width: 1500px;
+		height: 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+	}
 			.air_widget {
 				position: relative;
 				top: 7.4rem;
