@@ -184,7 +184,7 @@
                     </div>
                     <div class="info-row">
                         <label>좌석 등급:</label> <span>${reservationInfo.seatClass}</span>
-                        <label>좌석 번호:</label> <span>${seatInfo.seatNumber}</span>
+                        <label>좌석 번호:</label> <span>${reservationInfo.seatNumber}</span>
                     </div>
                 </div>
                 
@@ -195,7 +195,7 @@
     </div>
     
     <div class="info-row">
-        <label>소요 시간:</label> <span><span>
+        <label>소요 시간:</label> <span>${reservationInfo.flightDuration.substring(0, 5)}</span>
     </div>
     
     <div class="info-row">

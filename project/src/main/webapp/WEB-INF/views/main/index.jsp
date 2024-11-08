@@ -1230,6 +1230,80 @@
 				element.value = element.value.toUpperCase();
 				element.value = element.value.replace(/[^A-Z]/g, '');
 			}
+			function validateCheckbox() {
+			    var checkbox = document.getElementById('agree-contents');
+			    var agreeErrorMessage = document.getElementById('agreeContentsErrorMessage');
+			    var inputErrorMessages = document.getElementsByClassName('inputContentsErrorMessage');
+
+			    // 체크박스 검증
+			    if (!checkbox.checked) {
+			        agreeErrorMessage.style.visibility = 'visible';
+			    } else {
+			        agreeErrorMessage.style.visibility = 'hidden';
+			    }
+
+			    // 필수 입력 필드가 비어 있을 경우 경고 문구 표시
+			    var isValid = true;
+			    var requiredFields = document.querySelectorAll('#form1 input[required]');
+			    requiredFields.forEach(function(input, index) {
+			        if (input.value.trim() === '') {
+			            inputErrorMessages[index].style.visibility = 'visible';
+			            isValid = false;
+			        } else {
+			            inputErrorMessages[index].style.visibility = 'hidden';
+			        }
+			    });
+
+			    // 체크박스와 모든 필드가 유효한 경우 폼 제출
+			    if (isValid && checkbox.checked) {
+			        document.getElementById('form1').submit();
+			    }
+			}
+			
+			function checkSelectionDetails() {
+			    var pnr = document.getElementById("pnr").value;
+			    var sung = document.getElementById("sung").value;
+			    var name = document.getElementById("name").value;
+			    var date = document.getElementById("date").value;
+			    
+			 // 각 변수 값 출력
+			    console.log("PNR:", pnr);
+			    console.log("성:", sung);
+			    console.log("이름:", name);
+			    console.log("날짜:", date);
+
+
+			 // URL 생성 후 확인
+				const requestUrl = "/api/check-reservation?pnr=" + pnr + "&sung=" + sung + "&name=" + name + "&date=" + date;
+				console.log("Direct Request URL:", requestUrl);
+
+			    // XMLHttpRequest 객체 생성
+			    const xhr = new XMLHttpRequest();
+			    xhr.open("GET", requestUrl, true);
+
+			    xhr.onreadystatechange = function () {
+			        if (xhr.readyState === 4) {
+			            if (xhr.status === 200) {
+			                const data = JSON.parse(xhr.responseText);
+			                console.log("Response Data:", data);
+			                if (data.exists) {
+			                    document.getElementById("form1").submit();
+			                } else {
+			                    alert("조회 가능한 예약 정보가 없습니다.");
+			                }
+			            } else {
+			                console.error("Error:", xhr.statusText);
+			                alert("조회 중 오류가 발생했습니다.");
+			            }
+			        }
+			    };
+
+			    // 요청 전송
+			    xhr.send();
+
+			    return false; // 기본 폼 제출 막기
+			}
+			
 		</script>
 	</head>
 	<body>
@@ -1407,27 +1481,39 @@
 								</div>
 							</div>
 							<div class="select_contents">
-								<form id="form1" action="${pageContext.request.contextPath}/select/selection" method="get">
+								<form id="form1" action="${pageContext.request.contextPath}/select/selection" method="get" onsubmit="return checkSelectionDetails();">
 									<div id="select methods">
 										<div class="select_info_aligner">
 											<div id="select_number">
 												<p>예약번호 또는 항공권번호&nbsp;</p>
-												<input type="text" id="select_num" name="pnr" placeholder="예) A1B2C3 또는 1801234567890" required>
+												<input type="text" id="pnr" name="pnr" placeholder="예) A1B2C3 또는 1801234567890" required>
+												<div class="inputContentsErrorMessage" style="color: red; font-size: 14px; margin-top:5px; visibility: hidden; ">
+											필수 입력 항목입니다.
+										</div>
 											</div>
 											<div id="select_date">
 												<p>출발일&nbsp;</p>
 												<input type="text" id="date" name="date" required>
+												<div class="inputContentsErrorMessage" style="color: red; font-size: 14px; margin-top:5px; visibility: hidden;">
+											필수 입력 항목입니다.
+										</div>
 											</div>
 											<div id="select_sung">
 												<p>승객 성&nbsp;</p>
 												<input type="text" id="sung" name="sung" required oninput="enforceUppercase(this)">
+												<div class="inputContentsErrorMessage" style="color: red; font-size: 14px; margin-top:5px; visibility: hidden; ">
+											필수 입력 항목입니다.
+										</div>
 											</div>
 											<div id="select_name">
 												<p>승객 이름&nbsp;</p>
 												<input type="text" id="name" name="name" required oninput="enforceUppercase(this)">
+												<div class="inputContentsErrorMessage" style="color: red; font-size: 14px; margin-top:5px; visibility: hidden; ">
+											필수 입력 항목입니다.
+										</div>
 											</div>
 											<div id="select_selection">
-												<button type="submit" id="select_button">
+												<button type="submit" id="select_button" onclick="validateCheckbox()">
 													<span>조회</span>
 												</button>
 											</div>
@@ -1436,7 +1522,7 @@
 											<input type="checkbox" id="agree-contents" required> 
 											<label for="agree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
 										</div>
-										<div class="agree_contents_error_message" style="color: red; display: none;">
+										<div id="agreeContentsErrorMessage" style="color: red; font-size: 14px; margin-left:25px; margin-top:5px; visibility: hidden; ">
 											필수 동의 항목입니다.
 										</div>
 									</div>
@@ -1488,7 +1574,7 @@
 									width: 130%;
 									border: none;
 									border-bottom: 1px solid black;
-									margin-top:15px;
+									margin-top:20px;
 									padding-bottom: 10px;
 									padding-top:10px;
 									padding-right:10px;
@@ -1536,7 +1622,7 @@
 									background-color: #0055a5;
 								}
 								#select_agree_contents, #check-in_agree_contents {
-									margin-top: 30px;
+									margin-top: 10px;
 									text-align: left;
 									font-size: 14px;
 								}
@@ -1570,7 +1656,7 @@
 								}
 							</style>
 							<div class="check-in_contents">
-								<form action="${pageContext.request.contextPath}/checkin/check-in" method="get">
+								<form action="${pageContext.request.contextPath}/checkin/check-in" method="get" >
 									<div id="check-in methods">
 										<div class="check-in_info_aligner">
 											<div id="check-in_number">
@@ -1588,6 +1674,7 @@
 											<div id="check-in_name">
 												<p>승객 이름&nbsp;</p>
 												<input type="text" id="cname" required>
+												
 											</div>
 											<div id="check-in_selection">
 												<button type="submit" id="cselect_button">
@@ -1598,9 +1685,10 @@
 										<div id="check-in_agree_contents">
 											<input type="checkbox" id="cagree-contents" required> 
 											<label for="cagree-contents">[필수] 본인의 예약 정보이거나 승객으로부터 조회를 위임 받은 예약 정보 입니다.</label>
-											<div class="agree_contents_error_message" style="color: red; display: none;">
+											<div class="agreeContentsErrorMessage" style="color: red;">
 												필수 동의 항목입니다.
 											</div>
+										
 										</div>
 									</div>
 								</form>
