@@ -1,0 +1,23 @@
+package com.example.demo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.PassportDto;
+import com.example.demo.mapper.PassportMapper;
+
+@Service
+public class PassportServiceImpl implements PassportService {
+	@Autowired
+	private PassportMapper passportMapper;
+	
+	@Override
+    public List<PassportDto> getAllNationalities() {
+        List<PassportDto> nationalities = passportMapper.getAllNationalities();
+        System.out.println("Retrieved Nationalities: " + nationalities);
+        return nationalities;
+    }
+
+}
