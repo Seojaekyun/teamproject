@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <style>
+	/* 기본 스타일 */
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
 		background-color: #f4f4f4;
@@ -152,9 +152,8 @@
 		cursor: pointer;
 	}
 </style>
-
 <script>
-	$(function() {
+	document.addEventListener("DOMContentLoaded", function() {
 		// 날짜 선택기 설정
 		$("#selectedDate").datepicker({
 			dateFormat: "yy-mm-dd",
@@ -164,81 +163,117 @@
 			changeYear: true,
 			onSelect: function(dateText) {
 				$("#selectedDate").val(dateText);
-				fetchFlightsByDate(dateText);
+				$("#departureDate-hidden").val(dateText);
+				fetchAirportsByDate(dateText);
 			}
 		});
-	});
-	
-	// 항공편 로드 함수
-	function fetchFlightsByDate(selectedDate) {
-		if (selectedDate) {
-			fetch(`/reserve/flights?date=` + selectedDate)
-			.then(response => response.json())
-			.then(data => {
-				let flightSelect = document.getElementById('flight_id');
-				flightSelect.innerHTML = '<option value="">-- 항공편 선택 --</option>';
-				data.forEach(flight => {
-					let option = document.createElement('option');
-					option.value = flight.flightId;
-					let departureTime = new Date(flight.departureTime).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-					option.text = flight.departureAirport +' to '+flight.arrivalAirport+' (Departure: '+departureTime+')';
-					flightSelect.add(option);
-				});
-			})
-			.catch(error => console.error('Error fetching flights:', error));
-		}
-	}
-	
-	// 좌석 로드 함수
-	function fetchSeats(flightId) {
-		if (flightId) {
-			fetch(`/reserve/seats?flightId=` + flightId)
-			.then(response => response.json())
-			.then(data => {
-				let seatSelect = document.getElementById('seat_number');
-				seatSelect.innerHTML = '<option value="">-- 좌석 선택 --</option>';
-				data.forEach(seat => {
-					let option = document.createElement('option');
-					option.value = seat.seatNumber;
-					option.text = seat.seatNumber + ' (' + seat.seatClass + ')';
-					seatSelect.add(option);
-				});
-			})
-			.catch(error => console.error('Error fetching seats:', error));
-		} else {
-			document.getElementById('seat_number').innerHTML = '<option value="">-- 좌석 선택 --</option>';
-		}
-	}
-	
-	// 승객 수 변경 기능
-	let passengerCounts = {
-		adult: 1,
-		child: 0,
-		infant: 0
-	};
-
-	function changePassengerCount(type, change) {
-		passengerCounts[type] += change;
 		
-		if (type === 'adult' && passengerCounts[type] < 1) {
-			passengerCounts[type] = 1;
+		// 선택된 날짜로 출발 공항 목록을 가져오는 함수
+		function fetchAirportsByDate(selectedDate) {
+			if (selectedDate) {
+				const url = `http://localhost:8099/reserve/airports?date=` + selectedDate;
+				console.log("Fetching departure airports for date:", selectedDate); // 디버그용
+				fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					const departureSelect = document.getElementById('departure');
+					departureSelect.innerHTML = '<option value="">-- 출발지를 선택하세요 --</option>';
+					if (data.departureAirports) {
+						data.departureAirports.forEach(airport => {
+							let option = document.createElement('option');
+							option.value = airport;
+							option.text = airport;
+							departureSelect.add(option);
+						});
+					} else {
+						console.log("No departure airports found for the date.");
+					}
+				})
+				.catch(error => console.error('Error fetching airports:', error));
+			}
+		}
+		
+		// 출발지 선택 시 도착지 목록 업데이트
+		const departureSelect = document.getElementById('departure');
+		if (departureSelect) {
+			departureSelect.addEventListener('change', function() {
+				const departure = this.value;
+				const selectedDate = document.getElementById('selectedDate').value;
+				console.log("선택한 출발지:", departure);
+				fetchArrivalAirports(departure, selectedDate);
+			});
+		}
+		
+		// 도착 공항 목록을 가져오는 함수
+		function fetchArrivalAirports(departure, selectedDate) {
+			console.log("Request parameters - Departure:", departure, "Date:", selectedDate); // 디버그용
+			
+			if (departure && selectedDate) {
+				const url = "http://localhost:8099/reserve/airports/arrival?departure=" + departure + "&date=" + selectedDate;
+				console.log("Fetching arrival airports with URL:", url); // URL 확인
+				fetch(url)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					const arrivalSelect = document.getElementById('arrival');
+					arrivalSelect.innerHTML = '<option value="">-- 도착지를 선택하세요 --</option>';
+					if (data && data.length > 0) {
+						data.forEach(airport => {
+							let option = document.createElement('option');
+							option.value = airport;
+							option.text = airport;
+							arrivalSelect.add(option);
+						});
+					} else {
+						console.log("No arrival airports found.");
+					}
+				})
+	            .catch(error => console.error('Error fetching arrival airports:', error));
+			} else {
+				console.log("Departure and/or date are not selected.");
+			}
+		}
+		// 탑승객 수 관리
+		let passengerCounts = { adult: 1, child: 0, infant: 0 };
+
+		// 탑승객 수 변경 함수
+		function changePassengerCount(type, change) {
+			passengerCounts[type] += change;
+			
+			if (type === 'adult' && passengerCounts[type] < 1) {
+				passengerCounts[type] = 1;
+			}
+			
+			if (passengerCounts['adult'] + passengerCounts['child'] > 10) {
+				passengerCounts[type] -= change;
+				alert("성인과 아동의 합은 10명을 초과할 수 없습니다.");
+			}
+			
+			if (type === 'infant' && passengerCounts['infant'] > passengerCounts['adult']) {
+				passengerCounts['infant'] = passengerCounts['adult'];
+			}
+			
+			if (type !== 'adult' && passengerCounts[type] < 0) {
+				passengerCounts[type] = 0;
+			}
+			
+			document.getElementById(type + '-count').textContent = passengerCounts[type];
+			document.getElementById(type + '-hidden').value = passengerCounts[type];
 		}
 
-		if (passengerCounts['adult'] + passengerCounts['child'] > 10) {
-			passengerCounts[type] -= change;
-			alert("성인과 아동의 합은 10명을 초과할 수 없습니다.");
-		}
-
-		if (type === 'infant' && passengerCounts['infant'] > passengerCounts['adult']) {
-			passengerCounts['infant'] = passengerCounts['adult'];
-		}
-
-		if (type !== 'adult' && passengerCounts[type] < 0) {
-			passengerCounts[type] = 0;
-		}
-
-		document.getElementById(type + '-count').textContent = passengerCounts[type];
-	}
+		// 버튼 클릭 이벤트 연결
+		document.querySelectorAll('.passenger-controls button').forEach(button => {
+			button.addEventListener('click', function() {
+				const type = this.closest('.passenger-box').getAttribute('data-type');
+				const change = this.textContent === '+' ? 1 : -1;
+				changePassengerCount(type, change);
+			});
+		});
+	});
 </script>
 
 </head>
@@ -258,75 +293,66 @@
 	
 	<div class="container">
 		<h2>예약 정보 입력</h2>
-		
+		<form id="reservationForm" action="${pageContext.request.contextPath}/flights/search" method="get">
 		<div class="form-group">
 			<label for="selectedDate">출발일 선택</label>
 			<input type="text" id="selectedDate" name="selectedDate" placeholder="날짜 선택" readonly>
 		</div>
-	
-		<form id="reservationForm" action="/reserve" method="post">
+		
 			<div class="form-group">
-				<label for="flight_id">항공편 선택</label>
-				<select name="flightId" id="flight_id" required onchange="fetchSeats(this.value)">
-					<option value="">-- 항공편 선택 --</option>
-				</select>
-			</div>
-			
-			<div class="form-group">
-				<label for="seat_class">좌석 클래스</label>
-				<select name="seat_class" id="seat_class" required>
-					<option value="Economy">이코노미</option>
-					<option value="Business">프레스티지</option>
-					<option value="First">일등석</option>
+				<label for="departure">출발지</label>
+				<select name="departure" id="departure" required>
+					<option value="">-- 출발지를 선택하세요 --</option>
 				</select>
 			</div>
 
-			<!-- 인원 선택 -->
+			<div class="form-group">
+				<label for="arrival">도착지</label>
+				<select name="arrival" id="arrival" required>
+					<option value="">-- 도착지를 선택하세요 --</option>
+				</select>
+			</div>
+			<input type="hidden" name="departureDate" id="departureDate-hidden">
 			<div id="passenger_selection">
 				<h3>탑승객 선택</h3>
 				<div class="passenger-selection-container">
-					<div class="passenger-box">
+					<div class="passenger-box" data-type="adult">
 						<label>성인:</label>
 						<div class="passenger-controls">
-							<button type="button" onclick="changePassengerCount('adult', -1)">-</button>
+							<button type="button">-</button>
 							<span id="adult-count" class="passenger-count">1</span>
-							<button type="button" onclick="changePassengerCount('adult', 1)">+</button>
+							<button type="button">+</button>
 						</div>
+						<input type="hidden" name="adultCount" id="adult-hidden" value="1">
 					</div>
-					<div class="passenger-box">
+					<div class="passenger-box" data-type="child">
 						<label>아동 (2-11세):</label>
 						<div class="passenger-controls">
-							<button type="button" onclick="changePassengerCount('child', -1)">-</button>
+							<button type="button">-</button>
 							<span id="child-count" class="passenger-count">0</span>
-							<button type="button" onclick="changePassengerCount('child', 1)">+</button>
+							<button type="button">+</button>
 						</div>
+						<input type="hidden" name="childCount" id="child-hidden" value="0">
 					</div>
-					<div class="passenger-box">
+					<div class="passenger-box" data-type="infant">
 						<label>유아 (2세 미만):</label>
 						<div class="passenger-controls">
-							<button type="button" onclick="changePassengerCount('infant', -1)">-</button>
+							<button type="button">-</button>
 							<span id="infant-count" class="passenger-count">0</span>
-							<button type="button" onclick="changePassengerCount('infant', 1)">+</button>
+							<button type="button">+</button>
 						</div>
+						<input type="hidden" name="infantCount" id="infant-hidden" value="0">
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="customer_id">예약자 ID</label>
-				<input type="text" id="userid" name="userid" value="${userid}" required>
-			</div>
-			<div class="form-group">
-				<label for="customer_sung">First Name</label>
-				<input type="text" id="sung" name="sung" value="${sung}" required>
-			</div>
-			<div class="form-group">
-				<label for="customer_name">Last Name</label>
-				<input type="text" id="lname" name="lname" value="${lname}" required>
-			</div>
-			<div class="form-group">
-				<label for="customer_email">이메일</label>
-				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
+				<label for="seatClass">좌석 클래스</label>
+				<select name="seatClass" id="seat_class" required>
+					<option value="일반석">일반석</option>
+					<option value="프레스티지석">프레스티지석</option>
+					<option value="일등석">일등석</option>
+				</select>
 			</div>
 
 			<input type="submit" value="예약하기">

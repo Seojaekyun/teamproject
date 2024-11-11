@@ -410,5 +410,4 @@ public class FlightController {
 		return "flight/reservationConfirmationPage";  // 예약 완료 페이지
 	}
 	
-	
 }

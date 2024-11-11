@@ -157,23 +157,18 @@
 	
 	<div class="container">
 		<h2>예약 정보 조회</h2>
-		<form id="reservationForm" action="/select/selection?pnr=pnr&date=selectedDate&sung=sung&name=lname" method="post">
-			<!-- 날짜 선택 -->
-			<div class="form-group">
-				<label for="selectedDate">출발일 선택</label>
-				<input type="text" id="selectedDate" name="selectedDate" placeholder="날짜 선택" readonly>
-			</div>
+		<form id="reservationForm" action="${pageContext.request.contextPath}/select/selection" method="get" method="post">
 			<!-- 예약 번호 -->
 			<div class="form-group">
 				<label for="pnr">예약번호</label>
 				<input type="text" id="pnr" name="pnr" required>
 			</div>
-			<!-- 고객 정보 -->
+			<!-- 날짜 선택 -->
 			<div class="form-group">
-				<label for="userid">예약자 ID</label>
-				<input type="text" id="userid" name="userid" value="${userid }">
+				<label for="selectedDate">출발일 선택</label>
+				<input type="text" id="selectedDate" name="date" placeholder="날짜 선택" readonly>
 			</div>
-	
+			<!-- 고객 정보 -->
 			<div class="form-group">
 				<label for="sung">First Name</label>
 				<input type="text" id="sung" name="sung" value="${sung }">
@@ -181,14 +176,9 @@
 			
 			<div class="form-group">
 				<label for="lname">Last Name</label>
-				<input type="text" id="lname" name="lname" value="${lname }">
+				<input type="text" id="name" name="name" value="${lname }">
 			</div>
-	
-			<div class="form-group">
-				<label for="customer_email">이메일</label>
-				<input type="email" id="customer_email" name="customer_email" value="${email}" required>
-			</div>
-	
+			
 			<input type="submit" value="예약 조회">
 		</form>
 	</div>

@@ -16,15 +16,26 @@ import com.example.demo.mapper.FlightMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service("fs")
 public class FlightServiceImpl implements FlightService {
 
 	@Autowired
 	private FlightMapper fmapper;
+	public FlightServiceImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+	
+	private static final Logger logger = LoggerFactory.getLogger(FlightServiceImpl.class);
+	private final JdbcTemplate jdbcTemplate;
+
 	
 	@Override
 	public List<AirportsDto> getAllAirports() { 
@@ -171,36 +182,50 @@ public class FlightServiceImpl implements FlightService {
         }
     }
 	
-	 @Override
-	    public void addSeatsForFlight() {
-	        // 아직 좌석이 없는 flightId를 조회
-	        Integer flightId = fmapper.getFlightIdForAddingSeats();
+	@Override
+	public void addSeatsForFlight() {
+		// 아직 좌석이 없는 flightId를 조회
+		Integer flightId = fmapper.getFlightIdForAddingSeats();
+		
+		if (flightId != null) {
+			// flightId로부터 해당 항공기의 capacity 가져오기
+			Map<String, Object> flightData = fmapper.getFlightCapacity(flightId);
+			
+			if (flightData != null) {
+				int capacity = (int) flightData.get("capacity");
+				
+				// 좌석 번호 리스트 생성 (1부터 capacity까지)
+				List<Integer> seatNumbers = IntStream.rangeClosed(1, capacity)
+						.boxed()
+						.collect(Collectors.toList());
+				
+				// MyBatis에 flightId와 seatNumbers 전달하여 좌석 추가
+				Map<String, Object> params = new HashMap<>();
+				params.put("flightId", flightId);
+				params.put("seatNumbers", seatNumbers);
+				
+				fmapper.addSeatsForFlight(params);
+			}
+		}
+	}
 
-	        if (flightId != null) {
-	            // flightId로부터 해당 항공기의 capacity 가져오기
-	            Map<String, Object> flightData = fmapper.getFlightCapacity(flightId);
+	@Override
+	public String getAirportTimezone(String airportCode) {
+		return fmapper.getAirportTimezone(airportCode);
+	}
 
-	            if (flightData != null) {
-	                int capacity = (int) flightData.get("capacity");
+	@Override
+    @Transactional(readOnly = true)
+    public List<String> getDepartureAirportsByDate(String date) {
+        logger.info("검색 날짜: " + date);
+        return fmapper.getDepartureAirportsByDate(date);  // MyBatis XML 매퍼 사용
+    }
+	
+	@Override
+    public List<String> getArrivalAirportsByDepartureAndDate(String departure, String date) {
+        return fmapper.getArrivalAirportsByDepartureAndDate(departure, date);
+    }
 
-	                // 좌석 번호 리스트 생성 (1부터 capacity까지)
-	                List<Integer> seatNumbers = IntStream.rangeClosed(1, capacity)
-	                                                     .boxed()
-	                                                     .collect(Collectors.toList());
 
-	                // MyBatis에 flightId와 seatNumbers 전달하여 좌석 추가
-	                Map<String, Object> params = new HashMap<>();
-	                params.put("flightId", flightId);
-	                params.put("seatNumbers", seatNumbers);
-
-	                fmapper.addSeatsForFlight(params);
-	            }
-	        }
-	 }
-
-	 @Override
-	    public String getAirportTimezone(String airportCode) {
-	        return fmapper.getAirportTimezone(airportCode);
-	 }
 	 
 }

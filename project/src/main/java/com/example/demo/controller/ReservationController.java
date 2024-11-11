@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Qualifier("rs")
@@ -37,6 +40,27 @@ public class ReservationController {
 		model.addAttribute("flights", flights);
 		return "/reserve/reservation";
 	}
+	
+	@GetMapping("/reserve/airports")
+    @ResponseBody
+    public Map<String, List<String>> getAirportsByDate(@RequestParam String date) {
+        List<String> departureAirports = flightService.getDepartureAirportsByDate(date);
+
+        Map<String, List<String>> result = new HashMap<>();
+        result.put("departureAirports", departureAirports);
+
+        return result;
+    }
+	
+	@GetMapping("/reserve/airports/arrival")
+    public ResponseEntity<List<String>> getArrivalAirportsByDepartureAndDate(
+            @RequestParam("departure") String departure,
+            @RequestParam("date") String date) {
+        List<String> arrivalAirports = flightService.getArrivalAirportsByDepartureAndDate(departure, date);
+        return ResponseEntity.ok(arrivalAirports);
+    }
+
+	
 	
 	@GetMapping("/reserve/flights")
 	@ResponseBody
