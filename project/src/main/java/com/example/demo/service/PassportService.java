@@ -8,4 +8,10 @@ public interface PassportService {
 
 	List<PassportDto> getAllNationalities();
 
+	void submitInfos(PassportDto passportDto);
+
+	Integer getReservationIdByPnr(String pnr);
+
+	
+
 }
