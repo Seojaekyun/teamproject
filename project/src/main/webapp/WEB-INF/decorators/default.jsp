@@ -178,8 +178,8 @@
 	
 	#loginbtn:hover {
 		cursor: pointer;
-		font-weight: bold;
-		border: 2px solid #90EE90;
+		/* font-weight: bold; */
+		/* border: 2px solid #90EE90; */
 		
 	}
 	
@@ -452,7 +452,7 @@
 								<li><a href="../reserve/reservation">항공권 예약</a></li>
 								<li><a href="../reserve/reserveInfo">예약 조회</a></li>
 								<li><a href="../reserve/checkin">체크인</a></li>
-								<li><a href="../flight/flightList">운항정보</a></li>
+								<li><a href="../reserve/flightList">운항정보</a></li>
 							</ul>
 						</li>
 						<li id="main2" onmouseover="viewMenu(1)" onmouseout="hideMenu(1)">
