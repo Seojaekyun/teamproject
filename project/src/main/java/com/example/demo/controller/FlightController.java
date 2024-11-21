@@ -2,13 +2,11 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.FlightDto;
 
 import com.example.demo.dto.MemberDto;
@@ -58,9 +55,6 @@ public class FlightController {
 		if (passengers == null) {
 			passengers = (adultCount != null ? adultCount : 0) + (childCount != null ? childCount : 0);
 		}
-		
-		// passengers가 null인 경우 기본값을 1로 설정
-		int totalPassengers = (passengers != null) ? passengers : 1;
 		
 		// 가는날 항공편 검색: seatClass와 passengers가 제공된 경우 필터링
 		List<FlightDto> departingFlights = service.findFlights(departure, arrival, departureDate, arrivalDate, seatClass, passengers);
