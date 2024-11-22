@@ -226,9 +226,12 @@
         </p>
     </div>
                 <div class="service-item">
+                <a href="/passport/passport?pnr=${reservationInfo.pnr}">
                 <button type="button" onclick="movePage()">  
                     <img src="path/to/passport-icon.png" alt="여권">
                      </button>
+                     
+                     
                 </div> 
                 <div class="service-item">  
                     <img src="path/to/service-icon.png" alt="서비스">

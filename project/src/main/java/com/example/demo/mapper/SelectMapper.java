@@ -14,4 +14,5 @@ public interface SelectMapper {
 	Map<String, Object> getAirportInfo(@Param("flight_id") Integer flightId);
 	
 	
+	
 }
