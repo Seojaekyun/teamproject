@@ -683,6 +683,132 @@
 		font-weight: bold;
 	}
 	
+	.select_contents, .check-in_contents {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	#select_methods, #check-in_methods {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 80%;
+	}
+	.select_info_aligner, .check-in_info_aligner{
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 5px;
+		width: 110%;   
+		align-items: center;
+		margin-left: 0px;
+		margin-top: 36px;
+	}
+	#select_number, #select_date, #select_sung, #select_name, #check-in_number, #check-in_date. #check-in_sung, #check-int_name {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	#select_number, #check-in_number {
+		width:85%;
+	}
+	#select_date, #check-in_date {
+		margin-left: 55px;
+		width:95%;
+	}
+	#select_sung, #check-in_sung {
+		margin-left: 75px;
+		width:85%
+	}
+	#select_name, #check-in_name {
+		margin-left: 50px;
+		width:85%
+	}
+	#select_number input, #check-in_number input {
+		width: 130%;
+		border: none;
+		border-bottom: 1px solid black;
+		margin-top:20px;
+		padding-bottom: 10px;
+		padding-top:10px;
+		padding-right:10px;
+	}
+	#select_number input::placeholder, #check-in_number input::placeholder {
+		font-size: 16px;
+		padding-left: -10px;
+	}
+	#select_sung input, #select_name input, #check-in_sung input, #check-in_name input {
+		width: 90%;
+		border: none;
+		border-bottom: 1px solid black;
+		padding: 10px;
+		margin-top:15px;
+	}
+	#date, #cdate{
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid black;
+		padding: 10px;
+		margin-top:15px;
+		background-color: white;
+		cursor: pointer;
+		margin-right:30px;
+	}
+	#select_selection, #check-in_selection {
+		display: flex;
+		justify-content: flex-start;
+		align-self: flex-end;
+		align-items: center;
+	}
+	#select_button, #cselect_button {
+		width: 115px;
+		background-color: #1f0c59;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 15px;
+		cursor: pointer;
+		height: 45px;
+		font-size: 16px;
+		margin-left:25px;
+	}
+	#select_button:hover, #check-in_button:hover {
+		background-color: #0055a5;
+	}
+	#select_agree_contents, #check-in_agree_contents {
+		margin-top: 10px;
+		text-align: left;
+		font-size: 14px;
+	}
+	#select_agree_contents input, #check-in_agree_contents input {
+		margin-right: 10px;
+		width: 13px;
+		height: 13px;
+		transform: scale(1.5);
+		cursor: pointer;
+	}
+	#daselect, #week_schedule {
+		padding: 10px 20px;
+		background-color: white;
+		color: #1f0c59;
+		border: 1px solid #ccc;
+		cursor: pointer;
+		border-radius: 25px;
+		list-style-type: none;
+		transition: background-color 0.3s, color 0.3s;
+		font-size:16px;
+		border:none;
+	}
+	.s_methodbox {
+		float: left;
+		width: 240px;
+		margin-left: 10px;
+		margin-top: 0;
+		margin-right: 3.5rem;
+		margin-bottom: 1rem;
+		text-align: left;
+	}
+	
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -1538,133 +1664,6 @@
 									</div>
 								</form>
 							</div>
-							<style>
-								.select_contents, .check-in_contents {
-									display: flex;
-									justify-content: center;
-									align-items: center;
-								}
-								#select_methods, #check-in_methods {
-									display: flex;
-									flex-direction: column;
-									justify-content: center;
-									align-items: center;
-									width: 80%;
-								}
-								.select_info_aligner, .check-in_info_aligner{
-									display: grid;
-									grid-template-columns: repeat(5, 1fr);
-									gap: 5px;
-									width: 110%;   
-									align-items: center;
-									margin-left: 0px;
-									margin-top: 36px;
-								}
-								#select_number, #select_date, #select_sung, #select_name, #check-in_number, #check-in_date. #check-in_sung, #check-int_name {
-									display: flex;
-									flex-direction: column;
-									align-items: flex-start;
-								}
-								#select_number, #check-in_number {
-									width:85%;
-								}
-								#select_date, #check-in_date {
-									margin-left: 55px;
-									width:95%;
-								}
-								#select_sung, #check-in_sung {
-									margin-left: 75px;
-									width:85%
-								}
-								#select_name, #check-in_name {
-									margin-left: 50px;
-									width:85%
-								}
-								#select_number input, #check-in_number input {
-									width: 130%;
-									border: none;
-									border-bottom: 1px solid black;
-									margin-top:20px;
-									padding-bottom: 10px;
-									padding-top:10px;
-									padding-right:10px;
-								}
-								#select_number input::placeholder, #check-in_number input::placeholder {
-									font-size: 16px;
-									padding-left: -10px;
-								}
-								#select_sung input, #select_name input, #check-in_sung input, #check-in_name input {
-									width: 90%;
-									border: none;
-									border-bottom: 1px solid black;
-									padding: 10px;
-									margin-top:15px;
-								}
-								#date, #cdate{
-									width: 100%;
-									border: none;
-									border-bottom: 1px solid black;
-									padding: 10px;
-									margin-top:15px;
-									background-color: white;
-									cursor: pointer;
-									margin-right:30px;
-								}
-								#select_selection, #check-in_selection {
-									display: flex;
-									justify-content: flex-start;
-									align-self: flex-end;
-									align-items: center;
-								}
-								#select_button, #cselect_button {
-									width: 115px;
-									background-color: #1f0c59;
-									color: white;
-									padding: 10px 20px;
-									border: none;
-									border-radius: 15px;
-									cursor: pointer;
-									height: 45px;
-									font-size: 16px;
-									margin-left:25px;
-								}
-								#select_button:hover, #check-in_button:hover {
-									background-color: #0055a5;
-								}
-								#select_agree_contents, #check-in_agree_contents {
-									margin-top: 10px;
-									text-align: left;
-									font-size: 14px;
-								}
-								#select_agree_contents input, #check-in_agree_contents input {
-									margin-right: 10px;
-									width: 13px;
-									height: 13px;
-									transform: scale(1.5);
-									cursor: pointer;
-								}
-								#daselect, #week_schedule {
-									padding: 10px 20px;
-									background-color: white;
-									color: #1f0c59;
-									border: 1px solid #ccc;
-									cursor: pointer;
-									border-radius: 25px;
-									list-style-type: none;
-									transition: background-color 0.3s, color 0.3s;
-									font-size:16px;
-									border:none;
-								}
-								.s_methodbox {
-									float: left;
-									width: 240px;
-									margin-left: 10px;
-									margin-top: 0;
-									margin-right: 3.5rem;
-									margin-bottom: 1rem;
-									text-align: left;
-								}
-							</style>
 							<div class="check-in_contents">
 								<form action="${pageContext.request.contextPath}/checkin/check-in" method="get" >
 									<div id="check-in methods">
