@@ -96,7 +96,7 @@ public class MainController {
 		return service.loginOk(mdto,session,request,response);
 	}
 	
-	@RequestMapping("/flight/flightList")
+	@RequestMapping("/reserve/flightList")
 	public String flightList(
 			@RequestParam(value = "departureAirport", required = false) String departureAirport,
 			@RequestParam(value = "arrivalAirport", required = false) String arrivalAirport,
@@ -132,7 +132,7 @@ public class MainController {
 		model.addAttribute("selectedDate", selectedDate);
 		model.addAttribute("currentPage", page);
 		
-		return "/flight/flightList";  // flightList.jsp로 이동
+		return "/reserve/flightList";  // flightList.jsp로 이동
 	}
 	
 	@RequestMapping("/reserve/reserveInfo")

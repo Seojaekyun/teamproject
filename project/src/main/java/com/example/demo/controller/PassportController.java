@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import com.example.demo.dto.PassportDto;
 import com.example.demo.service.PassportService;
 
@@ -21,7 +22,6 @@ public class PassportController {
 	
 	@Autowired
 	private PassportService service;
-	
 	
 	@GetMapping("/passport/passport")
     public String getNationalityOptions(Model model, @RequestParam("pnr") String pnr) {
@@ -71,4 +71,5 @@ public class PassportController {
 	       return "/select/selection?pnr=" + pnr;
 	 }
 	 
+
 }

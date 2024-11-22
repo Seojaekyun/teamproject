@@ -13,4 +13,5 @@
     <select id="getReservationIdByPnr" resultType="Integer">
     select reservation_id from reservations where pnr=#{pnr}
     </select>
+
 </mapper>

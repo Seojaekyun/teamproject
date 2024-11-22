@@ -43,7 +43,6 @@ p{
 margin: 15px 0px;
 }
 
-
 .passport_info_details{
 padding: 20px 30px;
 
@@ -61,9 +60,6 @@ margin-bottom: 20px;
 .contents_agree {
 padding: 20px 0px;
 }
-
-
-
 
 
 
@@ -106,7 +102,6 @@ input[type=text]{
 	width:48%;
 	height:80%;
 }
-
 
 #gender {
     display: flex;
@@ -170,6 +165,7 @@ padding: 5px 30px;
 <form method="post" action="/select/selection" onsubmit="return check(this);">
 <input type="hidden" name="reservationId" value="${reservationId}" />
 <input type="hidden" name="pnr" value="${pnr}"/>
+
 <h2>사전 입국 심사 정보</h2>
 <p>항공 안전 및 출입국 절차 간소화를 위해 미리 여권 정보를 입력해 주세요. 여권 상의 정보와 동일하게 입력해주시기 바랍니다.</p>
 <p>[*은 필수항목입니다.]</p>

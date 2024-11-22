@@ -9,7 +9,6 @@ import com.example.demo.dto.PassportDto;
 @Mapper
 public interface PassportMapper {
 	List<PassportDto> getAllNationalities();
-
 	void saveInfos(PassportDto passportDto);
 
 	Integer getReservationIdByPnr(String pnr);

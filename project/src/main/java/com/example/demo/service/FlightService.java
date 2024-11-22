@@ -5,8 +5,6 @@ import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.SeatDto;
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.AirportsDto;
 
@@ -28,8 +26,8 @@ public interface FlightService {
 	int getSeatIdBySeatNumber(String seatNumber);
 	void addSeatToReservation(int reservationId, int seatId);
 	void updateSeatAvailability(int flightId, int seatId);
-	void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime,
-			String ftime, int airplaneId);
+	void addFlight(String departureAirport, String arrivalAirport, String departureTime,
+			String arrivalTime, String ftime, int airplaneId);
 	List<AirplanesDto> getAllAirplanes();
 	void addSeatsForFlight();
 	int[] getFlightTime(String departureAirport, String arrivalAirport);

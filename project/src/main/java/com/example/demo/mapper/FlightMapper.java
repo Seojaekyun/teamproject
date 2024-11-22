@@ -74,6 +74,4 @@ public interface FlightMapper {
 	List<String> getArrivalAirportsByDepartureAndDate(@Param("departure") String departure, @Param("date") String date);
 
 	
-	
-	
 }

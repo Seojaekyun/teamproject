@@ -30,13 +30,9 @@ public class FlightServiceImpl implements FlightService {
 	@Autowired
 	private FlightMapper fmapper;
 	public FlightServiceImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
     }
 	
 	private static final Logger logger = LoggerFactory.getLogger(FlightServiceImpl.class);
-	private final JdbcTemplate jdbcTemplate;
-
-	
 	@Override
 	public List<AirportsDto> getAllAirports() { 
 		return fmapper.findAllAirports();

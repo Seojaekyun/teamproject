@@ -150,7 +150,7 @@
 		<a href="../reserve/reservation">항공권 예약</a>
 		<a href="../reserve/reserveInfo">예약 조회</a>
 		<a href="../reserve/checkin">체크인</a>
-		<a href="../flight/flightList">운항 정보</a>
+		<a href="../reserve/flightList">운항 정보</a>
 	</nav>
 	
 	<div class="container">

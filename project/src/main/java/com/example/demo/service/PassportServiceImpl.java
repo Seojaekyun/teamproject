@@ -9,10 +9,12 @@ import com.example.demo.dto.PassportDto;
 import com.example.demo.mapper.PassportMapper;
 import com.example.demo.mapper.SelectMapper;
 
+
 @Service
 public class PassportServiceImpl implements PassportService {
 	@Autowired
 	private PassportMapper passportMapper;
+
 	@Autowired
 	private SelectMapper selectMapper;
 	
@@ -32,7 +34,6 @@ public class PassportServiceImpl implements PassportService {
 	public void submitInfos(PassportDto passportDto) {
 		passportMapper.saveInfos(passportDto);
 	}
-	
 	
 
 }

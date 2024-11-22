@@ -12,8 +12,6 @@ import com.example.demo.service.InquiryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import java.util.List;
-
 @Controller
 public class InquiryController {
 	
