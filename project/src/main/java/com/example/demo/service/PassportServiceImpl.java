@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.PassportDto;
 import com.example.demo.mapper.PassportMapper;
-import com.example.demo.mapper.SelectMapper;
 
 
 @Service
@@ -15,9 +14,6 @@ public class PassportServiceImpl implements PassportService {
 	@Autowired
 	private PassportMapper passportMapper;
 
-	@Autowired
-	private SelectMapper selectMapper;
-	
 	@Override
     public List<PassportDto> getAllNationalities() {
         List<PassportDto> nationalities = passportMapper.getAllNationalities();
