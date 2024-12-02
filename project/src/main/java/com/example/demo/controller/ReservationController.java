@@ -54,8 +54,8 @@ public class ReservationController {
 	
 	@GetMapping("/reserve/airports/arrival")
     public ResponseEntity<List<String>> getArrivalAirportsByDepartureAndDate(
-            @RequestParam("departure") String departure,
-            @RequestParam("date") String date) {
+            @RequestParam String departure,
+            @RequestParam String date) {
         List<String> arrivalAirports = flightService.getArrivalAirportsByDepartureAndDate(departure, date);
         return ResponseEntity.ok(arrivalAirports);
     }
@@ -64,13 +64,13 @@ public class ReservationController {
 	
 	@GetMapping("/reserve/flights")
 	@ResponseBody
-	public List<FlightDto> getFlightsByDate(@RequestParam("date") String date) {
+	public List<FlightDto> getFlightsByDate(@RequestParam String date) {
 		return flightService.getAvailableFlightsByDate(date);
 	}
 	
 	@GetMapping("/reserve/seats")
 	@ResponseBody
-	public List<SeatDto> getSeatsForFlight(@RequestParam("flightId") int flightId) {
+	public List<SeatDto> getSeatsForFlight(@RequestParam int flightId) {
 		return seatService.getAvailableSeats(flightId);
 	}
 	

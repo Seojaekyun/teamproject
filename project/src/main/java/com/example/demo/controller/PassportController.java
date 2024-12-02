@@ -22,7 +22,7 @@ public class PassportController {
 	private PassportService service;
 	
 	@GetMapping("/passport/passport")
-    public String getNationalityOptions(Model model, @RequestParam("pnr") String pnr) {
+    public String getNationalityOptions(Model model, @RequestParam String pnr) {
 		List<PassportDto> nationalities = service.getAllNationalities();
 		System.out.println("Received pnr: " + pnr);
 		Integer reservationId = service.getReservationIdByPnr(pnr);
@@ -34,17 +34,17 @@ public class PassportController {
     }
 
 	 @PostMapping("/select/selection")
-	 public String submitInfos(@RequestParam("reservationId") Integer reservationId,
-			 					@RequestParam("pnr") String pnr,
-			 					@RequestParam("nationality") String nationality, 
-			 					@RequestParam("gender") String gender,
-			 					@RequestParam("birth") String birth, 
-			 					@RequestParam("issuingCountry") String issuingCountry, 
-			 					@RequestParam("passportnum") String passportnum, 
-			 					@RequestParam("exdate")String exdate, 
-			 					@RequestParam("countryNumber")int countryNumber, 
-			 					@RequestParam("phoneNumber")String phoneNumber,
-			 					@RequestParam(value = "email", required = false) String email, HttpSession session) {
+	 public String submitInfos(@RequestParam Integer reservationId,
+			 					@RequestParam String pnr,
+			 					@RequestParam String nationality, 
+			 					@RequestParam String gender,
+			 					@RequestParam String birth, 
+			 					@RequestParam String issuingCountry, 
+			 					@RequestParam String passportnum, 
+			 					@RequestParam String exdate, 
+			 					@RequestParam int countryNumber, 
+			 					@RequestParam String phoneNumber,
+			 					@RequestParam(required = false) String email, HttpSession session) {
 
 		 PassportDto passportDto =  new PassportDto();
 		 	passportDto.setReservationId(reservationId);

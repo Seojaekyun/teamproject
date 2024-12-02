@@ -111,8 +111,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/id_delete")
-	public String idDelete(@RequestParam("userid") String userid,
-			@RequestParam("password") String password, Model model) {
+	public String idDelete(@RequestParam String userid,
+			@RequestParam String password, Model model) {
 		// 비밀번호 확인 로직 수행
 		boolean isPasswordCorrect = service.id_delete(userid, password);
 		
@@ -139,8 +139,8 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/pwdCheck")
-	public String pwdCheck(@RequestParam("userid") String userid,
-			@RequestParam("password") String password, Model model) {
+	public String pwdCheck(@RequestParam String userid,
+			@RequestParam String password, Model model) {
 		// 비밀번호 확인 로직 수행
 		boolean isPasswordCorrect = service.checkPassword(userid, password);
 		if (isPasswordCorrect) {

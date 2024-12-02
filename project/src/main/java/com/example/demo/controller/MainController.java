@@ -98,10 +98,10 @@ public class MainController {
 	
 	@RequestMapping("/reserve/flightList")
 	public String flightList(
-			@RequestParam(value = "departureAirport", required = false) String departureAirport,
-			@RequestParam(value = "arrivalAirport", required = false) String arrivalAirport,
-			@RequestParam(value = "selectedDate", required = false) String selectedDate,
-			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(required = false) String departureAirport,
+			@RequestParam(required = false) String arrivalAirport,
+			@RequestParam(required = false) String selectedDate,
+			@RequestParam(required = false, defaultValue = "1") Integer page,
 			Model model) {
 		
 		// 전달된 파라미터를 로그로 출력 (디버깅용)

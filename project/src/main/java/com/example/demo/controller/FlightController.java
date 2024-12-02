@@ -75,12 +75,12 @@ public class FlightController {
 	
 	@GetMapping("/searchReturn")
 	public String searchReturnFlights(
-			@RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
-			@RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
-			@RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
-			@RequestParam("selectedGoingFlightTime") String selectedGoingFlightTime,
-			@RequestParam("selectedGoingFlightArrivalTime") String selectedGoingFlightArrivalTime, // 가는편 도착 시간 추가
-			@RequestParam("returnDate") String returnDate,     // 오는날 날짜
+			@RequestParam String selectedGoingFlightId,
+			@RequestParam String selectedGoingFlightDeparture,
+			@RequestParam String selectedGoingFlightArrival,
+			@RequestParam String selectedGoingFlightTime,
+			@RequestParam String selectedGoingFlightArrivalTime, // 가는편 도착 시간 추가
+			@RequestParam String returnDate,     // 오는날 날짜
 			@RequestParam(required = false) String seatClass,        // 추가된 파라미터
 			@RequestParam(required = false) Integer passengers,      // 추가된 파라미터
 			Model model) {
@@ -107,16 +107,16 @@ public class FlightController {
 	
 	@PostMapping("/confirmSelection")
 	public String confirmSelection(
-			@RequestParam("selectedGoingFlightId") String selectedGoingFlightId,
-			@RequestParam("selectedGoingFlightDeparture") String selectedGoingFlightDeparture,
-			@RequestParam("selectedGoingFlightArrival") String selectedGoingFlightArrival,
-			@RequestParam("selectedGoingFlightTime") String selectedGoingFlightTime,
-			@RequestParam("selectedGoingFlightArrivalTime") String selectedGoingFlightArrivalTime,
-			@RequestParam("selectedReturnFlightId") String selectedReturnFlightId,
-			@RequestParam("selectedReturnFlightDeparture") String selectedReturnFlightDeparture,
-			@RequestParam("selectedReturnFlightArrival") String selectedReturnFlightArrival,
-			@RequestParam("selectedReturnFlightTime") String selectedReturnFlightTime,
-			@RequestParam("selectedReturnFlightArrivalTime") String selectedReturnFlightArrivalTime,
+			@RequestParam String selectedGoingFlightId,
+			@RequestParam String selectedGoingFlightDeparture,
+			@RequestParam String selectedGoingFlightArrival,
+			@RequestParam String selectedGoingFlightTime,
+			@RequestParam String selectedGoingFlightArrivalTime,
+			@RequestParam String selectedReturnFlightId,
+			@RequestParam String selectedReturnFlightDeparture,
+			@RequestParam String selectedReturnFlightArrival,
+			@RequestParam String selectedReturnFlightTime,
+			@RequestParam String selectedReturnFlightArrivalTime,
 			@RequestParam String seatClass, // 좌석 등급
 			@RequestParam Integer passengers, // 선택된 인원
 			@RequestParam(required = false, defaultValue = "") String[] goingSelectedSeats,  // 가는편 좌석 배열 기본값
@@ -149,9 +149,9 @@ public class FlightController {
 	
 	@GetMapping("/seats")
 	public String showSeatSelection(
-			@RequestParam("flightId") int flightId,
-			@RequestParam("seatClass") String seatClass,
-			@RequestParam("passengers") int passengers,  // 추가된 부분
+			@RequestParam int flightId,
+			@RequestParam String seatClass,
+			@RequestParam int passengers,  // 추가된 부분
 			Model model) {
 		List<SeatDto> availableSeats = service.getAvailableSeats(flightId, seatClass);
 		// 좌석 데이터의 크기를 출력하여 데이터가 조회되는지 확인
@@ -167,10 +167,10 @@ public class FlightController {
 	
 	@PostMapping("/confirmSeats")
 	public String confirmSeats(
-			@RequestParam("flightId") int flightId,
-			@RequestParam("seatClass") String seatClass,
-			@RequestParam("selectedSeats") String selectedSeats,
-			@RequestParam("passengers") int passengers,  // 추가된 부분
+			@RequestParam int flightId,
+			@RequestParam String seatClass,
+			@RequestParam String selectedSeats,
+			@RequestParam int passengers,  // 추가된 부분
 			HttpSession session, Model model) {
 		String[] seatArray = selectedSeats.split(",");
 		if (seatArray.length != passengers) {
@@ -189,8 +189,8 @@ public class FlightController {
 	
 	@GetMapping("/seatsReturn")
 	public String showReturnSeatSelection(
-			@RequestParam("seatClass") String seatClass,
-			@RequestParam("passengers") int passengers,
+			@RequestParam String seatClass,
+			@RequestParam int passengers,
 			HttpSession session, Model model) {
 		String selectedReturnFlightId = (String) session.getAttribute("selectedReturnFlightId");
 		
@@ -213,10 +213,10 @@ public class FlightController {
 	
 	@PostMapping("/confirmReturnSeats")
 	public String confirmReturnSeats(
-			@RequestParam("flightId") int flightId,
-			@RequestParam("seatClass") String seatClass,
-			@RequestParam("selectedSeats") String selectedSeats,
-			@RequestParam("passengers") int passengers,
+			@RequestParam int flightId,
+			@RequestParam String seatClass,
+			@RequestParam String selectedSeats,
+			@RequestParam int passengers,
 			HttpSession session, HttpServletResponse response, Model model)throws IOException {
 		// 선택한 좌석 수와 탑승객 수 일치 여부 확인
 		String[] seatArray = selectedSeats.split(",");

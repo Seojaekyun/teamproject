@@ -23,10 +23,10 @@ public class SelectController {
 
     @GetMapping("/select/selection")
     public String getReservationDetails(
-            @RequestParam("pnr") String pnr,
-            @RequestParam("sung") String sung,
-            @RequestParam("name") String name, 
-            @RequestParam("date") String date,
+            @RequestParam String pnr,
+            @RequestParam String sung,
+            @RequestParam String name, 
+            @RequestParam String date,
             Model model) {
         List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name, date);
         model.addAttribute("reservationList", reservationList);
@@ -37,10 +37,10 @@ public class SelectController {
     @ResponseBody
     @GetMapping("/api/check-reservation")
     public Map<String, Boolean> checkReservation(
-            @RequestParam("pnr") String pnr,
-            @RequestParam("sung") String sung,
-            @RequestParam("name") String name,
-            @RequestParam("date") String date) {
+            @RequestParam String pnr,
+            @RequestParam String sung,
+            @RequestParam String name,
+            @RequestParam String date) {
         
         System.out.println("Received parameters - PNR: " + pnr + ", 성: " + sung + ", 이름: " + name + ", 날짜: " + date);
 
