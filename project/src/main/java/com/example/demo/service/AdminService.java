@@ -23,7 +23,7 @@ public interface AdminService {
 	String memberUp(MemberDto mdto);
 	String promotList(HttpServletRequest request, Model model);
 	String promotAdd();
-	String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception;
+	String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception;
 	String promotContent(HttpServletRequest request, Model model);
 	
 }

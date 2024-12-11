@@ -1,10 +1,15 @@
 package com.example.demo.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.FlightDto;
@@ -28,9 +35,11 @@ import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.PromotMapper;
 import com.example.demo.mapper.ReservationMapper;
+import com.example.demo.util.MyUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 
 @Service
 @Qualifier("as")
@@ -454,7 +463,29 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception {
+	public String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception {
+		Iterator<String> imsi=multi.getFileNames();
+		
+		String pimg="";
+		
+		while(imsi.hasNext()) {
+			String name=imsi.next();
+			MultipartFile file=multi.getFile(name);
+			
+			if(!file.isEmpty()) {
+				String oname=file.getOriginalFilename();
+				String str=ResourceUtils.getFile("classpath:static/promot").toString()+"/"+oname;
+				str=MyUtils.getFileName(oname, str);
+			
+				pimg=pimg+str.substring(str.lastIndexOf("/")+1)+"/";
+								
+				Path path=Paths.get(str);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+		
+		pdto.setFname(pimg);
+		
 		pmapper.addPromot(pdto);
 		return "/admin/promotList";
 	}

@@ -79,7 +79,7 @@
 <body>
 <section>
 	<h2>프로모션 추가</h2>
-	<form action="/admin/addPromots" method="post">
+	<form action="/admin/addPromots" method="post" enctype="multipart/form-data">
 		<div class="flex-container">
 			<div class="flex-item">
 				<label for="title">제목</label>

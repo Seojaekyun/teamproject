@@ -244,8 +244,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/addPromots")
-	public String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception {
-		return service.addPromots(pdto, request, session);
+	public String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception {
+		return service.addPromots(pdto, multi);
 	}
 	
 	
