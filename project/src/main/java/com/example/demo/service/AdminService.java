@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
-import org.springframework.ui.Model; 
-import com.example.demo.dto.MemberDto;  
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.PromotDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +22,8 @@ public interface AdminService {
 	String oneMeminfo(HttpServletRequest request, Model model);
 	String memberUp(MemberDto mdto);
 	String promotList(HttpServletRequest request, Model model);
-	String promotAdd(HttpServletRequest request, Model model);
-	
+	String promotAdd();
+	String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception;
+	String promotContent(HttpServletRequest request, Model model);
 	
 }

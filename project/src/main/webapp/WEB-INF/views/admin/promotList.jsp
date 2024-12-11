@@ -143,9 +143,9 @@
             <th>조회수</th>
             <th>등록일</th>
         </tr>
-        <c:forEach items="${plist}" var="gdto">
+        <c:forEach items="${plist}" var="pdto">
             <tr>
-                <td style="text-align:left">
+                <td colspan="2" style="text-align:left">
                     <a href="promotContent?id=${pdto.id}">${pdto.title}</a>
                 </td>
                 <td>${pdto.readnum}</td>

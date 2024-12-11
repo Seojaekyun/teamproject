@@ -13,17 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.PromotDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.StateCountDto;
 import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.GongjiMapper;
 import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
+import com.example.demo.mapper.PromotMapper;
 import com.example.demo.mapper.ReservationMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +46,8 @@ public class AdminServiceImpl implements AdminService{
 	private InquiryMapper imapper;
 	@Autowired
 	private GongjiMapper gmapper;
-	
+	@Autowired
+	private PromotMapper pmapper;
 	@Override
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
 		Object useridObj = session.getAttribute("userid");
@@ -437,12 +441,33 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public String promotList(HttpServletRequest request, Model model) {
+		List<PromotDto> plist = pmapper.promotList();
+		
+		model.addAttribute("plist", plist);
+		
 		return "/admin/promotList";
 	}
 	
 	@Override
-	public String promotAdd(HttpServletRequest request, Model model) {
+	public String promotAdd() {
 		return "/admin/promotAdd";
+	}
+
+	@Override
+	public String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception {
+		pmapper.addPromot(pdto);
+		return "/admin/promotList";
+	}
+
+	@Override
+	public String promotContent(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		PromotDto pdto=pmapper.promotContent(id);
+		
+		pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
+		
+		model.addAttribute("pdto", pdto);	
+		return "/admin/promotContent";
 	}
 	
 		
