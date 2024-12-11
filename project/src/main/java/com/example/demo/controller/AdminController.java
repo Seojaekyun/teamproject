@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.AirplanesDto;
 import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.PromotDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.FlightService;
 import com.example.demo.service.GongjiService;
@@ -237,8 +239,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/promotAdd")
-	public String promotAdd(HttpServletRequest request, Model model) {
-		return service.promotAdd(request, model);
+	public String promotAdd() {
+		return service.promotAdd();
+	}
+	
+	@RequestMapping("/admin/addPromots")
+	public String addPromots(PromotDto pdto, MultipartHttpServletRequest request, HttpSession session) throws Exception {
+		return service.addPromots(pdto, request, session);
 	}
 	
 	
