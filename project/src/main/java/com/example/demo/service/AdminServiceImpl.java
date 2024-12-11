@@ -434,6 +434,16 @@ public class AdminServiceImpl implements AdminService{
 		
 		return "/admin/rsvdList";
 	}
+
+	@Override
+	public String promotList(HttpServletRequest request, Model model) {
+		return "/admin/promotList";
+	}
+	
+	@Override
+	public String promotAdd(HttpServletRequest request, Model model) {
+		return "/admin/promotAdd";
+	}
 	
 		
 }

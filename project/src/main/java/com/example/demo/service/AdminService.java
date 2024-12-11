@@ -18,6 +18,8 @@ public interface AdminService {
 	String rsvdList(HttpServletRequest request, Model model);
 	String oneMeminfo(HttpServletRequest request, Model model);
 	String memberUp(MemberDto mdto);
+	String promotList(HttpServletRequest request, Model model);
+	String promotAdd(HttpServletRequest request, Model model);
 	
 	
 }

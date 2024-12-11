@@ -231,5 +231,15 @@ public class AdminController {
 		return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
 	}
 	
+	@RequestMapping("/admin/promotList")
+	public String promotList(HttpServletRequest request, Model model) {
+		return service.promotList(request, model);
+	}
+	
+	@RequestMapping("/admin/promotAdd")
+	public String promotAdd(HttpServletRequest request, Model model) {
+		return service.promotAdd(request, model);
+	}
+	
 	
 }
