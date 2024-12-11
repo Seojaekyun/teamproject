@@ -248,5 +248,9 @@ public class AdminController {
 		return service.addPromots(pdto, multi);
 	}
 	
+	@RequestMapping("/admin/promotContent")
+	public String promotContent(HttpServletRequest request, Model model) {
+		return service.promotContent(request, model);
+	}
 	
 }
