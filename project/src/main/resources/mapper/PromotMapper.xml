@@ -20,7 +20,10 @@
 	<select id="promotContent" resultType="com.example.demo.dto.PromotDto">
 		select * from promot where id=#{param}
 	</select>
-	<update id="updateOk" parameterType="com.example.demo.dto.PromotDto">
+	<select id="promotUpdate" resultType="com.example.demo.dto.PromotDto">
+		select * from promot where id=#{param}
+	</select>
+	<update id="upPromots" parameterType="com.example.demo.dto.PromotDto">
 		update promot set title=#{title}, content=#{content}, subtitle=#{subtitle}
 		where id=#{id}
 	</update>

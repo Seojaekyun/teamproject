@@ -24,5 +24,7 @@ public interface AdminService {
 	String promotAdd();
 	String addPromots(PromotDto pdto, MultipartFile file) throws Exception;
 	String promotContent(HttpServletRequest request, Model model);
+	String promotUpdate(HttpServletRequest request, Model model);
+	String upPromots(HttpServletRequest request, PromotDto pdto);
 	
 }

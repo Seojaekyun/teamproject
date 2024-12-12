@@ -491,6 +491,39 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("pdto", pdto);	
 		return "/admin/promotContent";
 	}
+
+	@Override
+	public String promotUpdate(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		PromotDto pdto=pmapper.promotContent(id);
+	    pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
+	    
+	    model.addAttribute("pdto", pdto);
+	    return "/admin/promotUpdate";
+	}
+
+	@Override
+	public String upPromots(HttpServletRequest request, PromotDto pdto) {
+		/*
+		String fname=request.getParameter("fname");
+
+	    if (!file.isEmpty()) {
+	        String oname = file.getOriginalFilename();
+	        String str = ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
+	        str=MyUtils.getFileName(oname, str);
+	        
+	        fname=str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
+
+	        Path path = Paths.get(str);
+	        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	    }
+
+	    pdto.setFname(fname); // DTO에 파일 이름 설정
+	    */
+	    pmapper.upPromots(pdto); // DB에 저장
+
+	    return "redirect:/admin/promotContent?id="+pdto.getId(); // 리다이렉트
+	}
 	
 		
 }

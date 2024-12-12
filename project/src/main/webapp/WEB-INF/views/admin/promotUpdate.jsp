@@ -79,7 +79,8 @@
 <body>
 <section>
 	<h2>프로모션 추가</h2>
-	<form action="/admin/addPromots" method="post" enctype="multipart/form-data">
+	<form action="/admin/upPromots" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="${pdto.id}">
 		<div class="flex-container">
 			<div class="flex-item">
 				<label for="title">제목</label>
@@ -91,6 +92,7 @@
 			</div>
 			<div class="flex-item">
 				<label for="fname">파일 등록</label>
+				<img src="../static/promot/${pdto.fname}" width="50" name="fname">
 				<input type="file" id="fname" name="file">
 			</div>
 		</div>

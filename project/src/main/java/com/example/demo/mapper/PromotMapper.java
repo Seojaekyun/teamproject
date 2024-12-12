@@ -11,7 +11,8 @@ public interface PromotMapper {
 	void addPromot(PromotDto pdto);
 	List<PromotDto> promotList();
 	PromotDto promotContent(String id);
-	
+	PromotDto promotUpdate(String id);
+	void upPromots(PromotDto pdto);
 	
 	
 }
