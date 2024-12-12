@@ -107,7 +107,10 @@
         </tr>
         <tr>
             <th>내용</th>
-            <td id="content">${pdto.content}</td>
+            <td id="content">
+            	<img src="../static/promot/${pdto.fname}" width="470" height="400">
+            	${pdto.content}
+            </td>
         </tr>
     </table>
     <div id="btn">

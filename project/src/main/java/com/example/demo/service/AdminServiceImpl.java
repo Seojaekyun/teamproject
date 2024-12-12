@@ -464,43 +464,32 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception {
-	    Iterator<String> imsi = multi.getFileNames();
-	    
-	    String fname = "";  // 첫 번째 파일의 이름만 저장할 변수
-	    
-	    while (imsi.hasNext()) {
-	        String name = imsi.next();
-	        MultipartFile file = multi.getFile(name);
-	        
-	        if (!file.isEmpty()) {
-	            String oname = file.getOriginalFilename();  // 업로드된 파일의 원본 이름
+		Iterator<String> imsi=multi.getFileNames();
+		
+		String fname="";
+		
+		while (imsi.hasNext()) {
+			String name = imsi.next();
+			MultipartFile file = multi.getFile(name);
+			
+			if(!file.isEmpty()) {
+				String oname=file.getOriginalFilename();
+				String str=ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
+				str=MyUtils.getFileName(oname, str);
+				Path path=Paths.get(str);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				
+				fname=oname;
 	            
-	            // 파일 저장 경로 설정 (정적 경로에 파일 저장)
-	            String str = ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
-	            
-	            // 파일 경로의 파일 이름을 적절히 처리 (중복 방지 등)
-	            str = MyUtils.getFileName(oname, str);
-	            
-	            // 파일을 지정된 경로에 저장
-	            Path path = Paths.get(str);
-	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-	            
-	            // fname에 파일 이름만 저장 (상대 경로 또는 파일 이름만 저장 가능)
-	            fname = oname;
-	            
-	            // 첫 번째 파일만 처리하고 루프 종료
-	            break;
-	        }
-	    }
-	    
-	    // PromotDto 객체의 fname 필드에 파일 이름을 설정
-	    pdto.setFname(fname);
-	    
-	    // 데이터베이스에 파일 정보 저장 (파일 이름 포함)
-	    pmapper.addPromot(pdto);
-	    
-	    // 성공 후 다른 페이지로 리디렉션
-	    return "/admin/promotList";
+				break;
+			}
+		}
+		
+		pdto.setFname(fname);
+		
+		pmapper.addPromot(pdto);
+		
+		return "redirect:/admin/promotList";
 	}
 	
 	@Override
