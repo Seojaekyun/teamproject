@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.PromotDto;
 
@@ -23,7 +22,7 @@ public interface AdminService {
 	String memberUp(MemberDto mdto);
 	String promotList(HttpServletRequest request, Model model);
 	String promotAdd();
-	String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception;
+	String addPromots(PromotDto pdto, MultipartFile file) throws Exception;
 	String promotContent(HttpServletRequest request, Model model);
 	
 }

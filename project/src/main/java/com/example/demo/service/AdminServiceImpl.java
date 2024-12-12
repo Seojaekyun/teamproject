@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,9 +18,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.InquiryDto;
@@ -463,33 +461,24 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception {
-		Iterator<String> imsi=multi.getFileNames();
-		
-		String fname="";
-		
-		while (imsi.hasNext()) {
-			String name = imsi.next();
-			MultipartFile file = multi.getFile(name);
-			
-			if(!file.isEmpty()) {
-				String oname=file.getOriginalFilename();
-				String str=ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
-				str=MyUtils.getFileName(oname, str);
-				Path path=Paths.get(str);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				
-				fname=oname;
-	            
-				break;
-			}
-		}
-		
-		pdto.setFname(fname);
-		
-		pmapper.addPromot(pdto);
-		
-		return "redirect:/admin/promotList";
+	public String addPromots(PromotDto pdto, @RequestParam("file") MultipartFile file) throws Exception {
+	    String fname = "";
+
+	    if (!file.isEmpty()) {
+	        String oname = file.getOriginalFilename();
+	        String str = ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
+	        str = MyUtils.getFileName(oname, str);
+	        
+	        fname = str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
+
+	        Path path = Paths.get(str);
+	        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	    }
+
+	    pdto.setFname(fname); // DTO에 파일 이름 설정
+	    pmapper.addPromot(pdto); // DB에 저장
+
+	    return "redirect:/admin/promotList"; // 리다이렉트
 	}
 	
 	@Override

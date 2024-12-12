@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.PromotDto;
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.MainMapper;
@@ -27,9 +28,12 @@ public class MainServiceImpl implements MainService {
 	private List<String> chatMessages = new ArrayList<>();  // 메시지를 저장할 리스트
 	@Autowired
 	private FlightMapper fmapper;
-	
 	@Override
-	public String index() {
+	public String index(HttpServletRequest request, Model model) {
+		List<PromotDto> plist = mapper.plist();
+		
+		model.addAttribute("plist", plist);
+		System.out.println(plist.size());
 		return "/main/index";
 	}
 	
@@ -65,11 +69,6 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public String baggageGuide() {
-		return null;
-	}
-
-	@Override
-	public String eventList() {
 		return null;
 	}
 
@@ -145,6 +144,14 @@ public class MainServiceImpl implements MainService {
 	public String checkin() {
 		return "/reserve/checkin";
 	}
-	
+
+	@Override
+	public String eventList(HttpServletRequest request, Model model) {
+		List<PromotDto> plist = mapper.promotList();
+		
+		model.addAttribute("plist", plist);
+		System.out.println(plist.size());
+		return "/event/list";
+	}
 	
 }

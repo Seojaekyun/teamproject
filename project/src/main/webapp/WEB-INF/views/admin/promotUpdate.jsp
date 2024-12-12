@@ -83,11 +83,11 @@
 		<div class="flex-container">
 			<div class="flex-item">
 				<label for="title">제목</label>
-				<input type="text" id="title" name="title" required>
+				<input type="text" id="title" name="title" value="${pdto.title }">
 			</div>
 			<div class="flex-item">
 				<label for="title">부제</label>
-				<input type="text" id="subtitle" name="subtitle" required>
+				<input type="text" id="subtitle" name="subtitle" value="${pdto.subtitle }">
 			</div>
 			<div class="flex-item">
 				<label for="fname">파일 등록</label>
@@ -95,7 +95,7 @@
 			</div>
 		</div>
 		<label for="content">내용</label>
-		<textarea id="content" name="content" required></textarea>
+		<textarea id="content" name="content">${pdto.content }</textarea>
 		<button type="submit">프로모션 등록</button>
 	</form>
 </section>

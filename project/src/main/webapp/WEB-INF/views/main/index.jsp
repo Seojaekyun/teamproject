@@ -1770,21 +1770,13 @@
 		<section id="sec2" class="sec2 promotion-section fade-in-section">
 			<h3 style="text-align: center;">특가 프로모션</h3>
 			<div class="promotion-container">
+				<c:forEach items="${plist}" var="pdto">
 				<div class="promotion-item">
-					<img src="../static/resources/promotion1.jpeg" alt="프로모션 1">
-					<h3>여름 휴가 특가</h3>
-					<p>올여름 휴가를 위한 특별한 할인 항공권을 만나보세요!</p>
+					<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+                    <h3>${pdto.title}</h3>
+                    <p>${pdto.subtitle}</p>
 				</div>
-				<div class="promotion-item">
-					<img src="../static/resources/promotion2.jpeg" alt="프로모션 2">
-					<h3>가족 여행 패키지</h3>
-					<p>가족과 함께하는 여행을 위한 최적의 패키지를 제공합니다.</p>
-				</div>
-				<div class="promotion-item">
-					<img src="../static/resources/promotion3_1.jpeg" alt="프로모션 3">
-					<h3>얼리버드 할인</h3>
-					<p>미리 예약하고 더 큰 혜택을 누리세요!</p>
-				</div>
+				</c:forEach>
 			</div>
 		</section>
 		<section id="sec3" class="sec3 customer-review-section fade-in-section">

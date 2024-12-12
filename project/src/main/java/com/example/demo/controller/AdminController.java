@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.AirportsDto;
@@ -243,10 +245,11 @@ public class AdminController {
 		return service.promotAdd();
 	}
 	
-	@RequestMapping("/admin/addPromots")
-	public String addPromots(PromotDto pdto, MultipartHttpServletRequest multi) throws Exception {
-		return service.addPromots(pdto, multi);
+	@PostMapping("/admin/addPromots")
+	public String addPromots(PromotDto pdto, @RequestParam("file") MultipartFile file) throws Exception {
+	    return service.addPromots(pdto, file);
 	}
+
 	
 	@RequestMapping("/admin/promotContent")
 	public String promotContent(HttpServletRequest request, Model model) {

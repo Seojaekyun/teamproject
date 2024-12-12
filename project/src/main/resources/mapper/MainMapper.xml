@@ -4,6 +4,12 @@
 	<select id="loginOk" resultType="String">
 		select name from member where userid=#{userid} and pwd=#{pwd}
 	</select>
+	<select id="plist" resultType="com.example.demo.dto.PromotDto">
+		select * from promot limit 3
+	</select>
+	<select id="promotList" resultType="com.example.demo.dto.PromotDto">
+		select * from promot
+	</select>
 	
 	
 </mapper>

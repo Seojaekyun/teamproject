@@ -513,7 +513,7 @@
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q & A </a></li>
-						<li><a href="../main/eventList"> 이벤트 </a></li>
+						<li><a href="../event/list"> 이벤트 </a></li>
 					</ul>
 				</span>
 			</div>

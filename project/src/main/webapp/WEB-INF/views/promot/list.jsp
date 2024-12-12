@@ -150,22 +150,14 @@
                     <th>조회수</th>
                     <th>작성일</th>
                 </tr>
-                <c:forEach items="${glist}" var="gdto">
+                <c:forEach items="${plist}" var="pdto">
                 <tr>
-                    <td>
-                        <c:if test="${gdto.state == 2}">
-                            <span class="badge badge-important">필독</span>
-                        </c:if>
-                        <c:if test="${gdto.state == 1}">
-                            <span class="badge badge-notice">공지</span>
-                        </c:if>
-                    </td>
+                    <td>${pdto.fname}"></td>
                     <td style="text-align: left">
-                        <a href="readnum?id=${gdto.id}">${gdto.title}</a>
+                        <a href="readnum?id=${pdto.id}">${pdto.title}</a>
                     </td>
-                    <td>${gdto.writer}</td>
-                    <td>${gdto.readnum}</td>
-                    <td>${gdto.writeday}</td>
+                    <td>${pdto.readnum}</td>
+                    <td>${pdto.writeday}</td>
                 </tr>
                 </c:forEach>
             </table>

@@ -34,8 +34,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/main/index") 
-	public String index() {
-		return service.index();
+	public String index(HttpServletRequest request, Model model) {
+		return service.index(request, model);
 	}
 	
 	@RequestMapping("/guide/checkinGuide") 
@@ -51,11 +51,6 @@ public class MainController {
 	@RequestMapping("/guide/baggageGuide") 
 	public String baggageGuide() {
 		return service.baggageGuide();
-	}
-	
-	@RequestMapping("/main/eventList") 
-	public String eventList() {
-		return service.eventList();
 	}
 	
 	@RequestMapping("/guide/travel") 
@@ -143,6 +138,11 @@ public class MainController {
 	@RequestMapping("/reserve/checkin")
 	public String checkin() {
 		return service.checkin();
+	}
+	
+	@RequestMapping("/event/list") 
+	public String eventList(HttpServletRequest request, Model model) {
+		return service.eventList(request, model);
 	}
 		
 	

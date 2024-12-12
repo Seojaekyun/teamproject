@@ -8,8 +8,8 @@
 		select * from promot order by writeday DESC
 	</select>
 	<insert id="addPromot" parameterType="com.example.demo.dto.PromotDto">
-		insert into promot(title,content,writeday,fname)
-		values(#{title},#{content},now(),#{fname})
+		insert into promot(title,content,writeday,fname,subtitle)
+		values(#{title},#{content},now(),#{fname},#{subtitle})
 	</insert>
 	<update id="readnum">
 		update promot set readnum=readnum+1 where id=#{param}
@@ -21,7 +21,7 @@
 		select * from promot where id=#{param}
 	</select>
 	<update id="updateOk" parameterType="com.example.demo.dto.PromotDto">
-		update promot set title=#{title} , content=#{content} , state=#{state}
+		update promot set title=#{title}, content=#{content}, subtitle=#{subtitle}
 		where id=#{id}
 	</update>
 	<delete id="delete">

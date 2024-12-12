@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 public interface MainService {
-	public String index();
+	public String index(HttpServletRequest request, Model model);
 	public String saveMessage(String message, boolean isAdmin);
 	public List<String> getMessages();
 	public String clearChatMessages();
 	public String checkinGuide();
 	public String seatGuide();
 	public String baggageGuide();
-	public String eventList();
+	public String eventList(HttpServletRequest request, Model model);
 	public String travel();
 	public boolean checkLoginStatus(HttpSession session);
 	public String loginOk(MemberDto mdto, HttpSession session,

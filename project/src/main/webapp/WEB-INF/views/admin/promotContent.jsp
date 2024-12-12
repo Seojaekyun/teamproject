@@ -102,6 +102,10 @@
             <td>${pdto.title}</td>
         </tr>
         <tr>
+            <th>부제</th>
+            <td>${pdto.subtitle}</td>
+        </tr>
+        <tr>
             <th>조회수</th>
             <td>${pdto.readnum}</td>
         </tr>
@@ -115,7 +119,7 @@
     </table>
     <div id="btn">
         <a href="promotList">목록</a>
-        <a href="../promot/update?id=${pdto.id}">수정</a>
+        <a href="../promotUpdate?id=${pdto.id}">수정</a>
         <a href="delete?id=${pdto.id}">삭제</a>
     </div>
 
