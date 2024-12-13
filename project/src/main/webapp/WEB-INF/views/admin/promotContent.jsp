@@ -120,7 +120,7 @@
     <div id="btn">
         <a href="promotList">목록</a>
         <a href="promotUpdate?id=${pdto.id}">수정</a>
-        <a href="delete?id=${pdto.id}">삭제</a>
+        <a href="delPromot?id=${pdto.id}">삭제</a>
     </div>
 
 </body>

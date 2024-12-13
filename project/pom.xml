@@ -83,9 +83,9 @@
 		  <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
  	   </dependency>
  	   <dependency>
-		 <groupId>org.glassfish.web</groupId>
-		 <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-	   </dependency>
+		 	<groupId>org.glassfish.web</groupId>
+		 	<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		</dependency>
 		
 	   <dependency>
 		<groupId>org.sitemesh</groupId>

@@ -262,4 +262,9 @@ public class AdminController {
 	    return service.upPromots(request, file, pdto);
 	}
 	
+	@RequestMapping("/admin/delPromot")
+	public String delPromot(HttpServletRequest request) {
+		return service.delPromot(request);
+	}
+	
 }

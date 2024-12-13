@@ -39,11 +39,12 @@
         text-decoration: underline;
     }
     section .container {
-        max-width: 1200px;
+        max-width: 900px;
         margin: 20px auto;
         background-color: white;
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
     section .content h2 {
         font-size: 22px;
@@ -76,8 +77,8 @@
         display: none; /* 초기에는 숨김 처리 */
     }
     section .event-item img {
-        width: 100%;
-        height: auto;
+        width: auto;
+        height: 275px;;
     }
     section .event-item .event-content {
         padding: 15px;
@@ -134,6 +135,7 @@
             flex: 1 1 100%;
         }
     }
+    
 </style>
 <script>
     // 페이지 로드 시 첫 4개의 이벤트만 표시
@@ -187,10 +189,7 @@
         <div class="content">
             <h2>진행 중인 이벤트</h2>
             <div class="event-list">
-            	<c:if test="${empty plist}">
-            	    <p>프로모션 데이터가 없습니다.</p>
-            	</c:if>
-                <!-- 이벤트 아이템 1 -->
+                <!-- 이벤트 아이템 -->
                 <c:forEach items="${plist}" var="pdto">
                 <div class="event-item">
                     <img src="../static/resources/${pdto.fname }" alt="이벤트 이미지">

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.FlightDto;
@@ -523,6 +524,14 @@ public class AdminServiceImpl implements AdminService{
 	    pmapper.upPromots(pdto); // DB에 저장
 
 	    return "redirect:/admin/promotContent?id="+pdto.getId(); // 리다이렉트
+	}
+
+	@Override
+	public String delPromot(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		pmapper.delete(id);
+		
+		return "redirect:/admin/promotList";
 	}
 	
 		
