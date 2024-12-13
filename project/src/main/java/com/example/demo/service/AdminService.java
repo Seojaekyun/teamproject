@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.PromotDto;
@@ -25,6 +26,6 @@ public interface AdminService {
 	String addPromots(PromotDto pdto, MultipartFile file) throws Exception;
 	String promotContent(HttpServletRequest request, Model model);
 	String promotUpdate(HttpServletRequest request, Model model);
-	String upPromots(HttpServletRequest request, PromotDto pdto);
+	String upPromots(HttpServletRequest request, @RequestParam("file") MultipartFile file, PromotDto pdto) throws Exception;
 	
 }

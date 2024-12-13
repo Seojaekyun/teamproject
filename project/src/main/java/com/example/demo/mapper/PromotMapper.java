@@ -13,6 +13,7 @@ public interface PromotMapper {
 	PromotDto promotContent(String id);
 	PromotDto promotUpdate(String id);
 	void upPromots(PromotDto pdto);
+	void readnum(String id);
 	
 	
 }

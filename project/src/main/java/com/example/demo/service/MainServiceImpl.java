@@ -6,6 +6,8 @@ import com.example.demo.dto.PromotDto;
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.MainMapper;
+import com.example.demo.mapper.PromotMapper;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +30,8 @@ public class MainServiceImpl implements MainService {
 	private List<String> chatMessages = new ArrayList<>();  // 메시지를 저장할 리스트
 	@Autowired
 	private FlightMapper fmapper;
+	@Autowired
+	private PromotMapper pmapper;
 	@Override
 	public String index(HttpServletRequest request, Model model) {
 		List<PromotDto> plist = mapper.plist();
@@ -152,6 +156,25 @@ public class MainServiceImpl implements MainService {
 		model.addAttribute("plist", plist);
 		System.out.println(plist.size());
 		return "/event/list";
+	}
+
+	@Override
+	public String eventContent(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		PromotDto pdto=pmapper.promotContent(id);
+		
+		pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
+		
+		model.addAttribute("pdto", pdto);	
+		return "/event/content";
+	}
+
+	@Override
+	public String eventReadnum(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		pmapper.readnum(id);
+		
+		return "redirect:/event/content?id="+id;
 	}
 	
 }

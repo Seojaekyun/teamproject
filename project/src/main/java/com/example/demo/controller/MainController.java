@@ -144,6 +144,16 @@ public class MainController {
 	public String eventList(HttpServletRequest request, Model model) {
 		return service.eventList(request, model);
 	}
+	
+	@RequestMapping("/event/readnum")
+	public String readnum(HttpServletRequest request) {
+		return service.eventReadnum(request);
+	}
+	
+	@RequestMapping("/event/content") 
+	public String eventContent(HttpServletRequest request, Model model) {
+		return service.eventContent(request, model);
+	}
 		
 	
 }

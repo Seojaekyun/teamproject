@@ -193,24 +193,14 @@
                 <!-- 이벤트 아이템 1 -->
                 <c:forEach items="${plist}" var="pdto">
                 <div class="event-item">
-                    <img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+                    <img src="../static/resources/${pdto.fname }" alt="이벤트 이미지">
                     <div class="event-content">
                         <h3>${pdto.title}</h3>
                         <p>${pdto.subtitle}</p>
-                        <a href="eventDetail1">자세히 보기</a>
+                        <a href="readnum?id=${pdto.id }">자세히 보기</a>
                     </div>
                 </div>
                 </c:forEach>
-                <!-- 이벤트 아이템 2 -->
-                <div class="event-item">
-                    <img src="event9.jpg" alt="이벤트 9 이미지">
-                    <div class="event-content">
-                        <h3>인기 노선 추가 할인</h3>
-                        <p>인기 노선 항공권을 특별한 가격에 제공합니다.</p>
-                        <a href="eventDetail9">자세히 보기</a>
-                    </div>
-                </div>
-                <!-- 더 많은 이벤트를 추가할 수 있습니다. -->
             </div>
             <!-- 더보기 버튼 -->
             <div class="more-button">
@@ -219,9 +209,7 @@
         </div>
     </div>
 
-    <div>
-        <p>© 2024 eLT항공. 모든 권리 보유.</p>
-    </div>
+
 </section>
 
 </body>

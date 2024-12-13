@@ -30,7 +30,7 @@ public class MyUtils {
 			
 			String[] imsi=fname.split("[.]");
 			String newFname=imsi[0]+code+"."+imsi[1];
-			str=ResourceUtils.getFile("classpath:static/product").toPath().toString()+"/"+newFname;
+			str=ResourceUtils.getFile("classpath:static/resources").toPath().toString()+"/"+newFname;
 			
 			ff=new File(str);
 			

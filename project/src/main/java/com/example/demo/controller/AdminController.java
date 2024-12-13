@@ -258,8 +258,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/upPromots")
-	public String upPromots(HttpServletRequest request, PromotDto pdto) {
-	    return service.upPromots(request, pdto);
+	public String upPromots(HttpServletRequest request, @RequestParam("file") MultipartFile file, PromotDto pdto) throws Exception {
+	    return service.upPromots(request, file, pdto);
 	}
 	
 }

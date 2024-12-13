@@ -24,7 +24,7 @@
 		select * from promot where id=#{param}
 	</select>
 	<update id="upPromots" parameterType="com.example.demo.dto.PromotDto">
-		update promot set title=#{title}, content=#{content}, subtitle=#{subtitle}
+		update promot set title=#{title}, content=#{content}, subtitle=#{subtitle}, fname=#{fname}
 		where id=#{id}
 	</update>
 	<delete id="delete">

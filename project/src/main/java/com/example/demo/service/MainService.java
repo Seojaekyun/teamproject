@@ -31,6 +31,8 @@ public interface MainService {
 			String selectedDate, Integer page);
 	public String reserveInfo();
 	public String checkin();
+	public String eventContent(HttpServletRequest request, Model model);
+	public String eventReadnum(HttpServletRequest request);
 	
 	
 }

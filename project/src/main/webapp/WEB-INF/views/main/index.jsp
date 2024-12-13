@@ -624,7 +624,7 @@
 		background-color: #fff;
 		padding: 50px 0;
 		position: relative;
-		z-index: -1;
+		z-index: 1;
 	}
 	.promotion-container {
 		width: 1000px;
@@ -675,7 +675,7 @@
 	.review p {
 		color: #555;
 	}
-	.promotion-item:hover {
+	.promotion-container .promotion-item:hover {
 		transform: translateY(-5px);
 		transition: transform 0.3s ease;
 	}
@@ -808,7 +808,10 @@
 		margin-bottom: 1rem;
 		text-align: left;
 	}
-	
+	a {
+		text-decoration: none;
+		color: black;
+	}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -1771,11 +1774,15 @@
 			<h3 style="text-align: center;">특가 프로모션</h3>
 			<div class="promotion-container">
 				<c:forEach items="${plist}" var="pdto">
+				<a href="../event/readnum?id=${pdto.id }" class="promotion-item">
 				<div class="promotion-item">
-					<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+					
+						<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+					
                     <h3>${pdto.title}</h3>
                     <p>${pdto.subtitle}</p>
 				</div>
+				</a>
 				</c:forEach>
 			</div>
 		</section>

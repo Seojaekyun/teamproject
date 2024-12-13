@@ -1,73 +1,124 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-	section {
-		width:1000px;
-		height:600px;
-		margin:auto;
-		text-align:center;
-		overflow:auto;
-	}
-	section div {
-		width:700px;
-		line-height:50px;
-		border:1px solid green;
-		margin:auto;
-		margin-top:8px;
-	}
-	section #content {
-		overflow:auto;
-		padding-top:10px;
-		padding-bottom:10px;
-		line-height:30px;
-	}
-	section #rnum {
-		font-size:11px;
-		color:green;
-	}
-	section #btn a {
-		display:inline-block;
-		text-decoration:none;
-		width:100px;
-		height:28px;
-		line-height:30px;
-		border:1px solid green;
-		color:green;
-	}
-	section #imgs {
-		overflow-y:none;
-		padding-top:10px;
-		padding-bottom:10px;
-		padding-top:10px;
-	}
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+    h3 {
+        font-size: 24px;
+        color: #333;
+        border-bottom: 2px solid #4CAF50;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: left;
+        width: 90%;
+        max-width: 600px;
+        margin: 50px auto 20px;
+    }
+    table {
+        width: 90%;
+        max-width: 600px;
+        margin: 0 auto 20px;
+        border-collapse: collapse;
+    }
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+    }
+    table th {
+        background-color: #f4f4f4;
+        font-weight: 600;
+        width: 150px;
+        text-align: center;
+    }
+    table td {
+        background-color: #fff;
+        color: #333;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    #content {
+        min-height: 200px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    /* 버튼 스타일 */
+    #btn {
+        text-align: right;
+        width: 90%;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    #btn a {
+        display: inline-block;
+        text-decoration: none;
+        padding: 5px 10px;
+        border: 1px solid #4CAF50;
+        color: #4CAF50;
+        margin-left: 10px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        font-size: 12px;
+    }
+    #btn a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+        h3 {
+            font-size: 20px;
+            width: 95%;
+        }
+        table th, table td {
+            padding: 10px;
+            font-size: 14px;
+        }
+        #btn a {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    }
 </style>
 </head>
-<body> <!-- tour/content.jsp -->
-<section>
-	<h3> 여행 후기 </h3>
-    <div> 글쓴이 : ${writer} </div>
-    <div> ${tdto.title} : ${tdto.readnum} <span id="rnum">(조회수)</span></div>
-    <div id="imgs">
-		<c:forEach items="${timg}" var="img">
-		<img src="../static/resources/tour/${img}" width="150">
-		</c:forEach>
-	</div>
-	<div id="content"> ${tdto.content} </div>
-	<div id="btn">
-		<a href="list"> 목록 </a>
-		<c:if test="${userid == tdto.userid}">
-		<a href="update?id=${tdto.id}"> 수정 </a>
-		<a href="delete?id=${tdto.id}"> 삭제 </a>
-		</c:if>
-		<c:if test="${userid == 'admin' && tdto.userid != 'admin'}">
-		<a href="delete?id=${tdto.id}"> 삭제 </a>
-		</c:if>
-	</div>
-</section>
+<body>
+
+    <h3>공지사항</h3>
+    <table>
+        <tr>
+            <th>제목</th>
+            <td>${pdto.title}</td>
+        </tr>
+        <tr>
+            <th>부제</th>
+            <td>${pdto.subtitle}</td>
+        </tr>
+        <tr>
+            <th>조회수</th>
+            <td>${pdto.readnum}</td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td id="content">
+            	<img src="../static/resources/${pdto.fname}" width="470" height="400">
+            	${pdto.content}
+            </td>
+        </tr>
+    </table>
+    <div id="btn">
+        <a href="list">목록</a>
+    </div>
 </body>
 </html>

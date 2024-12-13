@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -466,7 +467,7 @@ public class AdminServiceImpl implements AdminService{
 
 	    if (!file.isEmpty()) {
 	        String oname = file.getOriginalFilename();
-	        String str = ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
+	        String str = ResourceUtils.getFile("classpath:static/resources").toString() + "/" + oname;
 	        str = MyUtils.getFileName(oname, str);
 	        
 	        fname = str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
@@ -503,13 +504,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public String upPromots(HttpServletRequest request, PromotDto pdto) {
-		/*
+	public String upPromots(HttpServletRequest request, @RequestParam("file") MultipartFile file, PromotDto pdto) throws Exception {
 		String fname=request.getParameter("fname");
 
 	    if (!file.isEmpty()) {
 	        String oname = file.getOriginalFilename();
-	        String str = ResourceUtils.getFile("classpath:static/promot").toString() + "/" + oname;
+	        String str = ResourceUtils.getFile("classpath:static/resources").toString() + "/" + oname;
 	        str=MyUtils.getFileName(oname, str);
 	        
 	        fname=str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
@@ -519,7 +519,7 @@ public class AdminServiceImpl implements AdminService{
 	    }
 
 	    pdto.setFname(fname); // DTO에 파일 이름 설정
-	    */
+	    
 	    pmapper.upPromots(pdto); // DB에 저장
 
 	    return "redirect:/admin/promotContent?id="+pdto.getId(); // 리다이렉트

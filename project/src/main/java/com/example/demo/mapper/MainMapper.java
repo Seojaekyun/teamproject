@@ -17,6 +17,7 @@ public interface MainMapper {
 	String loginOk(MemberDto mdto);
 	List<PromotDto> promotList();
 	List<PromotDto> plist();
+	void readnum(String id);
 	
 	
 }

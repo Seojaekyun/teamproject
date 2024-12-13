@@ -92,7 +92,7 @@
 			</div>
 			<div class="flex-item">
 				<label for="fname">파일 등록</label>
-				<img src="../static/promot/${pdto.fname}" width="50" name="fname">
+				<img src="../static/resources/${pdto.fname}" width="50" name="fname">
 				<input type="file" id="fname" name="file">
 			</div>
 		</div>

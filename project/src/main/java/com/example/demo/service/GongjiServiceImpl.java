@@ -58,10 +58,9 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String readnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
-		//System.out.println(id);
 		mapper.readnum(id);
 		
-		return "redirect:/gongji/content?id="+id;
+		return "redirect:/event/content?id="+id;
 	}
 
 	@Override
