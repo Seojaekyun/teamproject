@@ -1771,7 +1771,7 @@
 			</div>		
 		</div>
 		<section id="sec2" class="sec2 promotion-section fade-in-section">
-			<h3 style="text-align: center;">특가 프로모션</h3>
+			<h3 style="text-align: center;">프로모션</h3>
 			<div class="promotion-container">
 				<c:forEach items="${plist}" var="pdto">
 				<a href="../event/readnum?id=${pdto.id }" class="promotion-item">
