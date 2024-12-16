@@ -145,12 +145,6 @@
 
 <script>
 $(function() {
-    // 기본 오늘 날짜 설정 및 jQuery UI 날짜 선택기 설정
-    if ($("#selectedDate").val() === "") {
-        var today = new Date().toISOString().split('T')[0];
-        $("#selectedDate").val(today);
-    }
-
     $("#selectedDate").datepicker({
         dateFormat: "yy-mm-dd",
         onSelect: function() {
@@ -197,7 +191,7 @@ $(function() {
 			</select>
 			<br>
 			<label for="selectedDate">출발 날짜:</label>
-			<input type="text" id="selectedDate" name="selectedDate" value="${param.selectedDate}" readonly>
+			<input type="text" id="selectedDate" name="selectedDate" value="${param.selectedDate}" placeholder="날짜 선택" readonly>
 		</div>
 	</form>
 
