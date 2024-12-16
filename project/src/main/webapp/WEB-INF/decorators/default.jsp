@@ -391,6 +391,7 @@
 		transition: background-color 0.3s;
 		font-family: Arial, sans-serif;
 		font-size: 30px;
+		z-index: 9999;
 	}
 	#chatbot {
 		width: 95%;
