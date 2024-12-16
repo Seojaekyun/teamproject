@@ -1774,7 +1774,7 @@
 			<h3 style="text-align: center;">프로모션</h3>
 			<div class="promotion-container">
 				<c:forEach items="${plist}" var="pdto">
-				<a href="../event/readnum?id=${pdto.id }" class="promotion-item">
+				<a href="../event/eventReadnum?id=${pdto.id }" class="promotion-item">
 					<div class="promotion-item">
 						<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
 						<h3>${pdto.title}</h3>

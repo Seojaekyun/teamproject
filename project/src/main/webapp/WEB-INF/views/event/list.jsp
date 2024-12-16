@@ -196,7 +196,7 @@
                     <div class="event-content">
                         <h3>${pdto.title}</h3>
                         <p>${pdto.subtitle}</p>
-                        <a href="readnum?id=${pdto.id }">자세히 보기</a>
+                        <a href="eventReadnum?id=${pdto.id }">자세히 보기</a>
                     </div>
                 </div>
                 </c:forEach>

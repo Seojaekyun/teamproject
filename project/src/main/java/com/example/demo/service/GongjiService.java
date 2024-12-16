@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 
 public interface GongjiService {
 	String list(HttpServletRequest request, Model model);
-	String readnum(HttpServletRequest request);
 	String content(HttpServletRequest request, Model model);
 	String update(HttpServletRequest request, Model model);
 	String updateOk(GongjiDto gdto);
@@ -17,6 +16,7 @@ public interface GongjiService {
 	String gongjiWrite();
 	String gongjiContent(HttpServletRequest request, Model model);
 	String gongjiWriteOk(GongjiDto gdto, HttpSession session);
+	String gongjiReadnum(HttpServletRequest request);
 	
 	
 }

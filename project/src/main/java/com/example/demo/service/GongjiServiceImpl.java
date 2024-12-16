@@ -56,11 +56,11 @@ public class GongjiServiceImpl implements GongjiService {
 	}
 
 	@Override
-	public String readnum(HttpServletRequest request) {
+	public String gongjiReadnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
-		mapper.readnum(id);
+		mapper.gongjiReadnum(id);
 		
-		return "redirect:/event/content?id="+id;
+		return "redirect:/gongji/content?id="+id;
 	}
 
 	@Override
@@ -110,6 +110,5 @@ public class GongjiServiceImpl implements GongjiService {
 		
 		return "/admin/gongjiContent";
 	}
-	
 	
 }

@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>이벤트</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
     body {
@@ -94,8 +94,7 @@
 </style>
 </head>
 <body>
-
-    <h3>공지사항</h3>
+    <h3>이벤트</h3>
     <table>
         <tr>
             <th>제목</th>

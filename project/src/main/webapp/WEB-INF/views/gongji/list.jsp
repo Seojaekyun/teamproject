@@ -161,7 +161,7 @@
                         </c:if>
                     </td>
                     <td style="text-align: left">
-                        <a href="readnum?id=${gdto.id}">${gdto.title}</a>
+                        <a href="gongjiReadnum?id=${gdto.id}">${gdto.title}</a>
                     </td>
                     <td>${gdto.writer}</td>
                     <td>${gdto.readnum}</td>

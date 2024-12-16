@@ -21,9 +21,9 @@ public class GongjiController {
 		return service.list(request, model);
 	}
 	
-	@RequestMapping("/gongji/readnum")
-	public String readnum(HttpServletRequest request) {
-		return service.readnum(request);
+	@RequestMapping("/gongji/gongjiReadnum")
+	public String gongjiReadnum(HttpServletRequest request) {
+		return service.gongjiReadnum(request);
 	}
 	
 	@RequestMapping("/gongji/content")

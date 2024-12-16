@@ -145,8 +145,8 @@ public class MainController {
 		return service.eventList(request, model);
 	}
 	
-	@RequestMapping("/event/readnum")
-	public String readnum(HttpServletRequest request) {
+	@RequestMapping("/event/eventReadnum")
+	public String eventReadnum(HttpServletRequest request) {
 		return service.eventReadnum(request);
 	}
 	
