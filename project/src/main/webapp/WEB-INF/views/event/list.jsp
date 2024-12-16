@@ -177,14 +177,12 @@
     <header>
         <h1>이벤트 안내</h1>
     </header>
-
     <nav>
         <a href="eventList">전체 이벤트</a>
         <a href="ongoingEvents">진행 중인 이벤트</a>
         <a href="pastEvents">지난 이벤트</a>
         <a href="faq">FAQ</a>
     </nav>
-    
     <div class="container">
         <div class="content">
             <h2>진행 중인 이벤트</h2>
@@ -207,8 +205,6 @@
             </div>
         </div>
     </div>
-
-
 </section>
 
 </body>
