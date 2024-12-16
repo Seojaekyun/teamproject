@@ -5,11 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>title</title>
-<!-- Flatpickr(달력 라이브러리) CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<!-- Flatpickr 한국어 로케일 -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap');
@@ -512,7 +509,7 @@
 					onmouseout="hideCmenu(0)"> 고객센터
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
-						<li><a href="../inquiry/list"> Q & A </a></li>
+						<li><a href="../inquiry/list"> Q＆A </a></li>
 						<li><a href="../event/list"> 이벤트 </a></li>
 					</ul>
 				</span>

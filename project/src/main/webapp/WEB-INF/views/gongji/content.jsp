@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세</title>
     <style>
-        /* 공통 스타일 정의 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -141,7 +139,7 @@
 
         <nav>
             <a href="../gongji/list">공지사항</a>
-            <a href="../inquiry/list">Q & A</a>
+            <a href="../inquiry/list">Q＆A</a>
             <a href="">FAQ</a>
         </nav>
         
