@@ -3,121 +3,150 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>이벤트</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 0;
-    }
-    h3 {
-        font-size: 24px;
-        color: #333;
-        border-bottom: 2px solid #4CAF50;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        text-align: left;
-        width: 90%;
-        max-width: 600px;
-        margin: 50px auto 20px;
-    }
-    table {
-        width: 90%;
-        max-width: 600px;
-        margin: 0 auto 20px;
-        border-collapse: collapse;
-    }
-    table th, table td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-        vertical-align: top;
-    }
-    table th {
-        background-color: #f4f4f4;
-        font-weight: 600;
-        width: 150px;
-        text-align: center;
-    }
-    table td {
-        background-color: #fff;
-        color: #333;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-    }
-    #content {
-        min-height: 200px;
-        line-height: 1.6;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-    }
-    /* 버튼 스타일 */
-    #btn {
-        text-align: right;
-        width: 90%;
-        max-width: 600px;
-        margin: 20px auto;
-    }
-    #btn a {
-        display: inline-block;
-        text-decoration: none;
-        padding: 5px 10px;
-        border: 1px solid #4CAF50;
-        color: #4CAF50;
-        margin-left: 10px;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-        font-size: 12px;
-    }
-    #btn a:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
-    /* 반응형 디자인 */
-    @media (max-width: 768px) {
-        h3 {
-            font-size: 20px;
-            width: 95%;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트</title>
+    <style>
+        /* 공통 스타일 정의 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        table th, table td {
+        section header {
+            background-color: #00467F;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        section header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        section nav {
+            background-color: #0059A3;
             padding: 10px;
-            font-size: 14px;
+            text-align: center;
         }
-        #btn a {
-            padding: 8px 16px;
-            font-size: 14px;
+        section nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
         }
-    }
-</style>
+        section nav a:hover {
+            text-decoration: underline;
+            color: #FFD700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .content h2 {
+            font-size: 26px;
+            color: #00467F;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .event-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .event-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .event-content {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            padding: 20px;
+            background-color: #fafafa;
+            border-left: 4px solid #00467F;
+            border-radius: 4px;
+        }
+        .event-content img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #00467F;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cta-button:hover {
+            background-color: #003A66;
+            transform: translateY(-2px);
+        }
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .content h2 {
+                font-size: 22px;
+            }
+            .event-title {
+                font-size: 20px;
+            }
+            .cta-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h3>이벤트</h3>
-    <table>
-        <tr>
-            <th>제목</th>
-            <td>${pdto.title}</td>
-        </tr>
-        <tr>
-            <th>부제</th>
-            <td>${pdto.subtitle}</td>
-        </tr>
-        <tr>
-            <th>조회수</th>
-            <td>${pdto.readnum}</td>
-        </tr>
-        <tr>
-            <th>내용</th>
-            <td id="content">
-            	<img src="../static/resources/${pdto.fname}" width="470" height="400">
-            	${pdto.content}
-            </td>
-        </tr>
-    </table>
-    <div id="btn">
-        <a href="list">목록</a>
-    </div>
+    <section>
+        <header>
+            <h1>이벤트</h1>
+        </header>
+
+        <nav>
+            <a href="../gongji/list">공지사항</a>
+            <a href="../inquiry/list">Q & A</a>
+            <a href="">FAQ</a>
+        </nav>
+
+        <div class="container">
+            <div class="content">
+                <h2>이벤트 상세</h2>
+                <div class="event-title">
+                    <c:out value="${pdto.title}" />
+                </div>
+                <div class="event-meta">
+                    조회수: <c:out value="${pdto.readnum}" />
+                </div>
+                <div class="event-content">
+                    <img src="../static/resources/${pdto.fname}" alt="이벤트 이미지">
+                    <c:out value="${pdto.content}" escapeXml="false" />
+                </div>
+                <div style="text-align: center;">
+                    <a class="cta-button" href="list">목록으로</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
