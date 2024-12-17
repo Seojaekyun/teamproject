@@ -163,25 +163,64 @@
 		SELECT timezone FROM airports WHERE airport_code = #{airportCode}
 	</select>
 	<select id="getFlights" parameterType="map" resultType="com.example.demo.dto.FlightDto">
-		SELECT * FROM flights LIMIT #{start}, #{itemsPerPage}
+		SELECT * FROM flights where departure_time
+		<if test="selectedDate != null and selectedDate != ''">
+				>= #{selectedDate}
+			</if>
+			<if test="selectedDate == null or selectedDate == ''">
+				>=now()
+			</if>
+		order by departure_time asc LIMIT #{offset}, #{itemsPerPage}
 	</select>
 	<!-- 항공편 총 개수 조회 -->
 	<select id="countFlights" resultType="int">
-		SELECT COUNT(*) FROM flights
+		SELECT COUNT(*) FROM flights WHERE departure_time
+			<if test="selectedDate != null and selectedDate != ''">
+				>= #{selectedDate}
+			</if>
+			<if test="selectedDate == null or selectedDate == ''">
+				>=now()
+			</if>
+		 
 	</select>
 	<select id="getFlightsByFilters" parameterType="map" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE (#{departureAirport} IS NULL OR departure_airport = #{departureAirport})
 		AND (#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport})
-		AND departure_time &gt;= #{selectedDate}  <!-- >= 는 &gt;= 으로 변경 -->
+		AND departure_time
+			<if test="selectedDate != null and selectedDate != ''">
+				>= #{selectedDate}
+			</if>
+			<if test="selectedDate == null or selectedDate == ''">
+				>=now()
+			</if>  <!-- >= 는 &gt;= 으로 변경 -->
 		AND departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY)  <!-- < 는 &lt; 으로 변경 -->
-		LIMIT #{start}, #{itemsPerPage}
+		LIMIT #{offset}, #{itemsPerPage}
+	</select>
+	<select id="countFilteredFlights" resultType="int">
+		SELECT COUNT(*) FROM flights WHERE 1=1
+		<if test="departureAirport != null and departureAirport != ''">
+			AND departure_airport = #{departureAirport}
+		</if>
+		<if test="arrivalAirport != null and arrivalAirport != ''">
+			AND arrival_airport = #{arrivalAirport}
+		</if>
+		<if test="selectedDate != null and selectedDate != ''">
+			AND DATE(departure_time) >= #{selectedDate}
+		</if>
 	</select>
 	<select id="countFlightsByFilters" parameterType="map" resultType="int">
-		SELECT COUNT(*) FROM flights WHERE
+		SELECT COUNT(*) FROM flights WHERE 
 		(#{departureAirport} IS NULL OR departure_airport = #{departureAirport}) AND
 		(#{arrivalAirport} IS NULL OR arrival_airport = #{arrivalAirport}) AND
-		departure_time &gt;= #{selectedDate} AND
-		departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY) order by departure_time desc
+		departure_time
+			<if test="selectedDate != null and selectedDate != ''">
+				>= #{selectedDate}
+			</if>
+			<if test="selectedDate == null or selectedDate == ''">
+				>=now()
+			</if>
+		AND departure_time &lt; DATE_ADD(#{selectedDate}, INTERVAL 7 DAY) order by departure_time desc
+		LIMIT #{itemsPerPage} OFFSET #{offset}
 	</select>
 	<select id="getAllAirports" resultType="com.example.demo.dto.AirportsDto">
 		SELECT * FROM airports
@@ -195,7 +234,10 @@
 				AND arrival_airport = #{arrivalAirport}
 			</if>
 			<if test="selectedDate != null and selectedDate != ''">
-				AND DATE(departure_time) = #{selectedDate}
+				AND DATE(departure_time) >= #{selectedDate}
+			</if>
+			<if test="selectedDate == null or selectedDate == ''">
+				and departure_time >= now()
 			</if>
 		ORDER BY departure_time ASC LIMIT #{itemsPerPage} OFFSET #{offset}
 	</select>

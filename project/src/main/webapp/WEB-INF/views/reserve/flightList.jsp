@@ -225,19 +225,21 @@ $(function() {
 
     <!-- 페이지 네이션 -->
 	    <div class="pagination">
-	        <c:if test="${currentPage > 1}">
-	            <a href="?page=${currentPage - 1}">이전</a>
-	        </c:if>
-	        <c:set var="startPage" value="${currentPage - (currentPage - 1) % 10}"/>
-	        <c:forEach begin="${startPage}" end="${startPage + 9}" var="i">
-	            <c:if test="${i <= totalPages}">
-	                <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
-	            </c:if>
-	        </c:forEach>
-	        <c:if test="${currentPage < totalPages}">
-	            <a href="?page=${currentPage + 1}">다음</a>
-	        </c:if>
-	    </div>
+		    <c:if test="${currentPage > 1}">
+		        <a href="?page=${currentPage - 1}&selectedDate=${selectedDate}&departureAirport=${departureAirport}&arrivalAirport=${arrivalAirport}">이전</a>
+		    </c:if>
+		    <c:set var="startPage" value="${currentPage - (currentPage - 1) % 10}"/>
+		    <c:forEach begin="${startPage}" end="${startPage + 9}" var="i">
+		        <c:if test="${i <= totalPages}">
+		            <a href="?page=${i}&selectedDate=${selectedDate}&departureAirport=${departureAirport}&arrivalAirport=${arrivalAirport}" 
+		               class="${i == currentPage ? 'active' : ''}">${i}</a>
+		        </c:if>
+		    </c:forEach>
+		    <c:if test="${currentPage < totalPages}">
+		        <a href="?page=${currentPage + 1}&selectedDate=${selectedDate}&departureAirport=${departureAirport}&arrivalAirport=${arrivalAirport}">다음</a>
+		    </c:if>
+		</div>
+
 	</div>
 </section>
 </body>

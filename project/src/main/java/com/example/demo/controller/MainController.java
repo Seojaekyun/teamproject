@@ -100,9 +100,10 @@ public class MainController {
 			Model model) {
 		
 		// 전달된 파라미터를 로그로 출력 (디버깅용)
-		System.out.println("Departure Airport: " + departureAirport);
-		System.out.println("Arrival Airport: " + arrivalAirport);
+		//System.out.println("Departure Airport: " + departureAirport);
+		//System.out.println("Arrival Airport: " + arrivalAirport);
 		System.out.println("Selected Date: " + selectedDate);
+		System.out.println("Page Parameter: " + page);
 		
 		// 필터 조건이 있는 경우 필터링된 항공편 데이터를 가져오고, 그렇지 않으면 전체 데이터를 가져옵니다.
 		List<FlightDto> flights;
@@ -110,10 +111,10 @@ public class MainController {
 				(arrivalAirport != null && !arrivalAirport.isEmpty()) ||
 				(selectedDate != null && !selectedDate.isEmpty())) {
 			// 필터링된 항공편 데이터 가져오기
-			flights = service.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, page);
+			flights = service.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, page, model);
 		} else {
 			// 전체 항공편 리스트를 페이지네이션 처리하여 가져오기
-			flights = service.getFlightsByPage(page, model);
+			flights = service.getFlightsByPage(page, selectedDate, model);
 		}
 		
 		// 공항 목록 가져오기 및 모델에 추가

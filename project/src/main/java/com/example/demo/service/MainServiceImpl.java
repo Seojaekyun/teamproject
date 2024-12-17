@@ -107,13 +107,13 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
-	public List<FlightDto> getFlightsByPage(int page, Model model) {
+	public List<FlightDto> getFlightsByPage(int page, String selectedDate, Model model) {
 		int itemsPerPage = 10;  // 페이지당 항목 수
-		int start = (page - 1) * itemsPerPage;
+		int offset = (page - 1) * itemsPerPage;
 		
 		// 항공편 리스트를 페이징 처리하여 가져오기
-		List<FlightDto> flightList = fmapper.getFlights(start, itemsPerPage);
-		int totalFlights = fmapper.countFlights();
+		List<FlightDto> flightList = fmapper.getFlights(offset, itemsPerPage, selectedDate);
+		int totalFlights = fmapper.countFlights(selectedDate);
 		
 		// 전체 페이지 수 계산
 		int totalPages = (int) Math.ceil((double) totalFlights / itemsPerPage);
@@ -126,13 +126,25 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
-	public List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate, Integer page) {
-		// 매퍼에서 필터링된 항공편 목록 가져오기
-		int itemsPerPage = 10;  // 페이지당 항목 수
-		int offset = (page - 1) * itemsPerPage;
-		
-		return fmapper.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, itemsPerPage, offset);
+	public List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate, Integer page, Model model) {
+	    int itemsPerPage = 10;
+	    int offset = (page - 1) * itemsPerPage;
+	    
+	    List<FlightDto> flightList = fmapper.getFilteredFlights(departureAirport, arrivalAirport, selectedDate, itemsPerPage, offset);
+	    int totalFlights = fmapper.countFilteredFlights(departureAirport, arrivalAirport, selectedDate);
+	    
+	    int totalPages = (int) Math.ceil((double) totalFlights / itemsPerPage);
+	    
+	    model.addAttribute("flightList", flightList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("departureAirport", departureAirport);
+	    model.addAttribute("arrivalAirport", arrivalAirport);
+	    model.addAttribute("selectedDate", selectedDate);
+	    
+	    return flightList;
 	}
+
 	
 	@Override
 	public List<AirportsDto> getAllAirports() {

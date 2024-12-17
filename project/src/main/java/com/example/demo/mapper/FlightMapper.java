@@ -62,16 +62,17 @@ public interface FlightMapper {
 	Integer getFlightIdForAddingSeats();
 	FlightTimeDto getFlightTime(@Param("a") String a, @Param("b") String b);
 	String getAirportTimezone(@Param("airportCode") String airportCode);
-	List<FlightDto> getFlights(int start, int itemsPerPage);
-	int countFlights();
+	List<FlightDto> getFlights(int offset, int itemsPerPage, String selectedDate);
+	int countFlights(String selectedDate);
 	List<FlightDto> getFlightsByFilters(String departureAirport, String arrivalAirport,
-			String selectedDate, int start,	int itemsPerPage);
+			String selectedDate, int offset, int itemsPerPage);
 	int countFlightsByFilters(String departureAirport, String arrivalAirport, String selectedDate);
 	List<AirportsDto> getAllAirports();
 	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
 			String selectedDate, int itemsPerPage, int offset);
 	List<String> getDepartureAirportsByDate(String date);
 	List<String> getArrivalAirportsByDepartureAndDate(@Param("departure") String departure, @Param("date") String date);
+	int countFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate);
 
 	
 }

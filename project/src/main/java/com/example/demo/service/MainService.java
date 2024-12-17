@@ -25,10 +25,10 @@ public interface MainService {
 	public boolean checkLoginStatus(HttpSession session);
 	public String loginOk(MemberDto mdto, HttpSession session,
 			HttpServletRequest request, HttpServletResponse response);
-	List<FlightDto> getFlightsByPage(int page, Model model);
+	List<FlightDto> getFlightsByPage(int page, String selectedDate, Model model);
 	List<AirportsDto> getAllAirports();
 	List<FlightDto> getFilteredFlights(String departureAirport, String arrivalAirport,
-			String selectedDate, Integer page);
+			String selectedDate, Integer page, Model model);
 	public String reserveInfo();
 	public String checkin();
 	public String eventContent(HttpServletRequest request, Model model);
