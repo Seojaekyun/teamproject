@@ -25,7 +25,7 @@
 		width: 100%;
 		height: 500px;
 		background-repeat: no-repeat;
-		z-index: 0;
+		z-index: 2;
 	}
 	.air_align {
 		margin-left: 73px;
@@ -53,7 +53,7 @@
 		width: 100%;
 		height: 54px;
 		content: "";
-		z-index: 1;
+		z-index: 2;
 		margin: auto;
 		left: 9%;
 	}
@@ -209,7 +209,7 @@
 		top: 1px;
 		opacity: 0.6;
 		background:#fff;
-		z-index:1;
+		z-index:2;
 	}
 	#quick_booking {
 		margin-left:20px;
