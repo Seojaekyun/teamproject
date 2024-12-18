@@ -97,23 +97,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public String delete(HttpServletRequest request, HttpSession session) {
-		String userId=(String) session.getAttribute("userid");
-		String id=request.getParameter("id");
-		String name=request.getParameter("name");
-		if(userId!=name) {
-			return "redirect:/review/content?id="+id;
-		}
-		else if(userId==null){
-			return "redirect:/login/login";
-		}
-		else {
-			mapper.delete(id);
-			return "redirect:/review/list";
-		}
-	}
-	
-	@Override
 	public String reviewList(HttpServletRequest request, Model model) {
 		String pageParam = request.getParameter("page");
 	    int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;

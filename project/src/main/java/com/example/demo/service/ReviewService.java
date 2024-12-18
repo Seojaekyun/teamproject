@@ -13,7 +13,6 @@ public interface ReviewService {
 	String content(HttpServletRequest request, HttpSession session, Model model);
 	String update(HttpServletRequest request, Model model);
 	String updateOk(ReviewDto gdto);
-	String delete(HttpServletRequest request, HttpSession session);
 	String write();
 	String writeOk(ReviewDto gdto, HttpSession session);
 	String reviewContent(HttpServletRequest request, Model model);

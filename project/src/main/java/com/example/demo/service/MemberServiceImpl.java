@@ -287,5 +287,12 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	@Override
+	public String reviewDelete(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		remapper.delete(id);
+		return "redirect:/member/myRev";
+	}
+	
 	
 }

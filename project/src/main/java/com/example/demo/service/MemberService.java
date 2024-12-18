@@ -32,6 +32,7 @@ public interface MemberService {
 	void editPhone(String userid, String phone);
 	public String myInq(HttpSession session, HttpServletRequest request, Model model);
 	public String myRev(HttpSession session, HttpServletRequest request, Model model);
+	public String reviewDelete(HttpServletRequest request);
 	
 	
 }

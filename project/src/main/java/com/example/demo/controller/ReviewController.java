@@ -44,11 +44,6 @@ public class ReviewController {
 		return service.writeOk(redto, session);
 	}
 	
-	@RequestMapping("/review/delete")
-	public String delete(HttpServletRequest request, HttpSession session) {
-		return service.delete(request, session);
-	}
-	
 	@RequestMapping("/admin/reviewList")
 	public String reviewList(HttpServletRequest request, Model model) {
 		return service.reviewList(request, model);

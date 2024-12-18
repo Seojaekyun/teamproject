@@ -61,6 +61,11 @@ public class MemberController {
 		return service.myRev(session, request, model);
 	}
 	
+	@RequestMapping("/review/delete")
+	public String reviewDelete(HttpServletRequest request) {
+		return service.reviewDelete(request);
+	}
+	
 	@RequestMapping("/member/memberView")
 	public String memberView(HttpServletRequest request, HttpSession session, Model model) {
 		if (session.getAttribute("userid") == null) {
