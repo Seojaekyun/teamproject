@@ -56,6 +56,11 @@ public class MemberController {
 		return service.myInq(session, request, model);
 	}
 	
+	@RequestMapping("/member/myRev")
+	public String myRev(HttpSession session, HttpServletRequest request, Model model) {
+		return service.myRev(session, request, model);
+	}
+	
 	@RequestMapping("/member/memberView")
 	public String memberView(HttpServletRequest request, HttpSession session, Model model) {
 		if (session.getAttribute("userid") == null) {

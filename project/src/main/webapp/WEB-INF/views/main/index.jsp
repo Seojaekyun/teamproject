@@ -642,8 +642,8 @@
 		text-align: center;
 	}
 	.promotion-item img {
-		width: 100%;
-		height: auto;
+		width: auto;
+		height: 205px;
 	}
 	.promotion-item h3 {
 		margin: 15px 0;
@@ -654,7 +654,7 @@
 	}
 	.customer-review-section {
 		position: relative;
-		z-index: -1;
+		z-index: 1;
 		background-color: #D0E7F6;
 		padding: 50px 0;
 	}
@@ -676,6 +676,10 @@
 		color: #555;
 	}
 	.promotion-container .promotion-item:hover {
+		transform: translateY(-5px);
+		transition: transform 0.3s ease;
+	}
+	.review-container .review:hover {
 		transform: translateY(-5px);
 		transition: transform 0.3s ease;
 	}
@@ -1777,6 +1781,7 @@
 				<a href="../event/eventReadnum?id=${pdto.id }" class="promotion-item">
 					<div class="promotion-item">
 						<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+						<br>
 						<h3>${pdto.title}</h3>
 						<p>${pdto.subtitle}</p>
 					</div>
@@ -1787,18 +1792,14 @@
 		<section id="sec3" class="sec3 customer-review-section fade-in-section">
 			<h3 style="text-align: center;">고객 후기</h3>
 			<div class="review-container">
-				<div class="review">
-					<h4>김철수 님</h4>
-					<p>eLT항공과 함께한 여행은 정말 편안하고 즐거웠습니다. 서비스가 훌륭해요!</p>
-				</div>
-				<div class="review">
-					<h4>이영희 님</h4>
-					<p>합리적인 가격에 최고의 서비스를 제공하는 항공사입니다. 다음에도 이용할 예정입니다.</p>
-				</div>
-				<div class="review">
-					<h4>박민수 님</h4>
-					<p>직원들이 친절하고 기내식도 맛있었어요. 가족 모두 만족했습니다.</p>
-				</div>
+				<c:forEach items="${relist}" var="redto">
+				<a href="../review/reviewReadnum?id=${redto.id }" class="review-item">
+					<div class="review">
+						<h3>${redto.name}</h3>
+						<p>${redto.content}</p>
+					</div>
+				</a>
+				</c:forEach>
 			</div>
 		</section>   
 	</body>

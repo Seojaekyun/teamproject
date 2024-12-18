@@ -3,10 +3,12 @@ package com.example.demo.service;
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.PromotDto;
+import com.example.demo.dto.ReviewDto;
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.mapper.FlightMapper;
 import com.example.demo.mapper.MainMapper;
 import com.example.demo.mapper.PromotMapper;
+import com.example.demo.mapper.ReviewMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,12 +34,16 @@ public class MainServiceImpl implements MainService {
 	private FlightMapper fmapper;
 	@Autowired
 	private PromotMapper pmapper;
+	@Autowired
+	private ReviewMapper rmapper;
 	@Override
 	public String index(HttpServletRequest request, Model model) {
 		List<PromotDto> plist = mapper.plist();
+		List<ReviewDto> relist = mapper.relist();
 		
 		model.addAttribute("plist", plist);
-		System.out.println(plist.size());
+		model.addAttribute("relist", relist);
+		
 		return "/main/index";
 	}
 	
@@ -189,4 +195,31 @@ public class MainServiceImpl implements MainService {
 		return "redirect:/event/content?id="+id;
 	}
 	
+	@Override
+	public String reviewList(HttpServletRequest request, Model model) {
+		List<ReviewDto> relist = mapper.relist();
+		
+		model.addAttribute("relist", relist);
+		System.out.println(relist.size());
+		return "/review/list";
+	}
+
+	@Override
+	public String reviewContent(HttpServletRequest request, Model model) {
+		String id=request.getParameter("id");
+		ReviewDto redto=rmapper.content(id);
+		
+		redto.setContent(redto.getContent().replace("\r\n", "<br>"));
+		
+		model.addAttribute("redto", redto);	
+		return "/review/content";
+	}
+
+	@Override
+	public String reviewReadnum(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		rmapper.reviewReadnum(id);
+		
+		return "redirect:/review/content?id="+id;
+	}
 }

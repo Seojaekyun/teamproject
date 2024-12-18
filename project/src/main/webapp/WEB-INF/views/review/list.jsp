@@ -169,32 +169,24 @@
 	</nav>
 	<div class="container">
 		<div class="content">
-			<h2>Q＆A</h2>
+			<h2>여행 후기</h2>
 			<table class="qna-table">
 				<tr>
-					<th colspan="2">문의사항</th>
+					<th colspan="2"> 제 목</th>
 					<th>작성자</th>
 					<th>조회수</th>
 					<th>작성일</th>
 				</tr>
-				<c:forEach items="${ilist}" var="idto">
+				<c:forEach items="${relist}" var="redto">
 					<tr>
-						<td>
-							<c:if test="${idto.answer == 0}">
-								<span id="badge1">답변대기</span>
-							</c:if>
-							<c:if test="${idto.answer == 1}">
-								<span id="badge2">답변완료</span>
-							</c:if>
-						</td>
-						<td style="text-align: left">
-							<a href="readnum?id=${idto.id}">
-								${idto.title}
+						<td style="text-align: left" colspan="2">
+							<a href="reviewReadnum?id=${redto.id}">
+								${redto.title}
 							</a>
 						</td>
-						<td>${idto.userid}</td>
-						<td>${idto.readnum}</td>
-						<td>${idto.writeday}</td>
+						<td>${redto.name}</td>
+						<td>${redto.readnum}</td>
+						<td>${redto.writeday}</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -227,7 +219,7 @@
 			</c:if>
 		</div>
 		<div align="right">
-			<a href="write" id="write" style='align: right'>문의하기</a>
+			<a href="write" id="write" style='align: right'>후기 등록</a>
 		</div>
 	</div>
 </section>

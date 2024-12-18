@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
+import com.example.demo.dto.ReviewDto;
 import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
 import com.example.demo.mapper.ReservationMapper;
+import com.example.demo.mapper.ReviewMapper;
 import com.example.demo.util.MailSend;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +35,8 @@ public class MemberServiceImpl implements MemberService {
 	private InquiryMapper imapper;
 	@Autowired
 	private ReservationMapper rmapper;
+	@Autowired
+	private ReviewMapper remapper;
 	@Autowired
 	private MailSend Mailsend;
 	
@@ -259,6 +263,24 @@ public class MemberServiceImpl implements MemberService {
 			model.addAttribute("ilist", inquiries);
 			
 			return "/member/myInq";
+		}
+		else {
+			return "redirect:/member/login";
+		}
+	}
+	
+	@Override
+	public String myRev(HttpSession session, HttpServletRequest request, Model model) {
+		if (session.getAttribute("userid") != null) {
+			String name = session.getAttribute("userid").toString();
+			
+			// 해당 유저의 문의 데이터를 가져옴
+			List<ReviewDto> myRev = remapper.getMyRev(name);
+			
+			// 가져온 데이터를 모델에 추가하여 JSP에서 사용할 수 있도록 함
+			model.addAttribute("myRev", myRev);
+			
+			return "/member/myRev";
 		}
 		else {
 			return "redirect:/member/login";

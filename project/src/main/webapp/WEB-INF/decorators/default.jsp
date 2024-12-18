@@ -502,6 +502,7 @@
 						<li><a href="../member/memberView">나의정보</a></li>
 						<li><a href="../reserve/list">예약정보</a></li>
 						<li><a href="../member/myInq">나의문의</a></li>
+						<li><a href="../member/myRev"> 나의후기 </a></li>
 					</ul>
 				</span>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
@@ -512,6 +513,7 @@
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q＆A </a></li>
 						<li><a href="../event/list"> 이벤트 </a></li>
+						<li><a href="../review/list"> 여행후기 </a></li>
 					</ul>
 				</span>
 			</div>

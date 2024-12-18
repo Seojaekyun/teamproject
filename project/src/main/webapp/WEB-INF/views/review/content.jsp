@@ -150,38 +150,20 @@
 
     <div class="container">
         <div class="content">
-            <h2>Q＆A</h2>
+            <h2>여행후기</h2>
 
-            <div class="qna-title">제목: ${idto.title}</div>
+            <div class="qna-title">제목: ${redto.title}</div>
             <div class="qna-meta">
-                조회수: ${idto.readnum}
+                조회수: ${redto.readnum}
             </div>
             <div class="qna-content">
-                ${idto.content}
+                ${redto.content}
             </div>
 
             <!-- 버튼 영역 -->
             <div style="text-align: center;">
                 <a class="cta-button" href="list">목록</a>
-                <a class="cta-button" href="delete?id=${idto.id}">삭제</a>
             </div>
-
-            <!-- 답변 입력/보기 폼 -->
-            <c:choose>
-                <c:when test="${idto.answer == 0}">
-                    <form class="answer-form" action="answer" method="post">
-                        <input type="hidden" name="id" value="${idto.id}">
-                        <textarea name="answer" readonly>답변 대기중...</textarea>
-                    </form>
-                </c:when>
-                <c:when test="${idto.answer == 1}">
-                    <h3>답변 내용</h3>
-                    <form class="answer-form" action="updateAnswer" method="post">
-                        <input type="hidden" name="id" value="${idto.id}">
-                        <textarea name="answer" readonly>${idto.answertext}</textarea>
-                    </form>
-                </c:when>
-            </c:choose>
         </div>
     </div>
 </section>

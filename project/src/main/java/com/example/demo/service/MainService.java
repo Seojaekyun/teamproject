@@ -33,6 +33,9 @@ public interface MainService {
 	public String checkin();
 	public String eventContent(HttpServletRequest request, Model model);
 	public String eventReadnum(HttpServletRequest request);
+	String reviewReadnum(HttpServletRequest request);
+	String reviewContent(HttpServletRequest request, Model model);
+	String reviewList(HttpServletRequest request, Model model);
 	
 	
 }
