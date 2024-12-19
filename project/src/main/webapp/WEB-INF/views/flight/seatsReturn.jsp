@@ -7,72 +7,114 @@
     <title>좌석 선택</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <style>
-    .seatf {
-        width: 50px;
-        height: 60px;
-        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
-        background-position: center;
-        text-align: center;
-        line-height: 60px;
-        cursor: pointer;
-        border: none; /* 테두리 제거 */
-        font-weight: 750;
-        color: black;
-    }
-    .seatb {
-        width: 40px;
-        height: 50px;
-        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
-        background-position: center;
-        text-align: center;
-        line-height: 50px;
-        cursor: pointer;
-        border: none; /* 테두리 제거 */
-    }
-    .seat {
-        width: 30px;
-        height: 40px;
-        background-image: url('../static/resources/seat.png'); /* 좌석 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 좌석에 맞게 조정 */
-        background-position: center;
-        text-align: center;
-        line-height: 40px;
-        cursor: pointer;
-        border: none; /* 테두리 제거 */
-    }
-    .seat-number {
-        font-weight: bold;
-        margin-bottom: 1px; /* 좌석 이미지와 좌석 번호 사이 간격 */
-        font-size: 10px;
-    }
-    .available {
-        /* 사용 가능한 좌석일 경우 */
-        opacity: 1;
-    }
-    .unavailable {
-        /* 사용 불가능한 좌석일 경우 */
-        opacity: 0.5; /* 투명도 조절 */
-        cursor: not-allowed;
-    }
-    .selected {
-        box-shadow: 0px 0px 15px 5px #90EE90; /* 선택된 좌석에 연두색 그림자 추가 */
-        border: 2px solid #90EE90; /* 선택된 좌석에 연두색 테두리 */
-    }
-    .aisle {
-        width: 30px; /* 복도 공간 */
-        height: 20px;
-        background-color: transparent;
-    }
-    .row {
-        display: flex;
-        gap: 10px; /* 좌석 간의 간격 추가 */
-        justify-content: center;
-        margin-bottom: 10px; /* 행 간의 간격 */
-    }
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+            max-width: 800px; /* 창 폭 제한 */
+        }
+        .airplane {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .seat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .seatf {
+            width: 50px; /* 크기 줄임 */
+            height: 60px; /* 크기 줄임 */
+            background-color: #00aaff; /* 하늘색 */
+            color: white;
+            font-size: 12px; /* 글씨 크기 줄임 */
+            font-weight: bold;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 4px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .seatb {
+            width: 45px; /* 크기 줄임 */
+            height: 55px; /* 크기 줄임 */
+            background-color: #00aaff;
+            color: white;
+            font-size: 12px; /* 글씨 크기 줄임 */
+            font-weight: bold;
+            text-align: center;
+            line-height: 55px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 4px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .seat {
+            width: 35px; /* 크기 줄임 */
+            height: 45px; /* 크기 줄임 */
+            background-color: #00aaff;
+            color: white;
+            font-size: 12px; /* 글씨 크기 줄임 */
+            font-weight: bold;
+            text-align: center;
+            line-height: 45px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 4px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .seat-number {
+            font-size: 10px;
+            font-weight: normal;
+        }
+        .available {
+            opacity: 1;
+        }
+        .unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .selected {
+            box-shadow: 0px 0px 15px 5px #90EE90; /* 선택된 좌석에 연두색 그림자 추가 */
+            transform: scale(1.1); /* 선택된 좌석을 약간 키움 */
+        }
+        .aisle {
+            width: 40px;
+            height: 100%;
+            background-color: transparent;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #00aaff;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0077cc;
+        }
+        .seat-container div {
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .seat-container div:hover {
+            transform: scale(1.1);
+            background-color: #0099cc; /* 좌석 호버 시 색상 */
+        }
     </style>
-
 </head>
 <body>
     <div class="container">
@@ -243,11 +285,8 @@
                 type: 'returnSeatsSelected',
                 seats: selectedSeats
             }, '*');
-
-            // 창 닫기
             window.close();
         }
-
     </script>
 </body>
 </html>

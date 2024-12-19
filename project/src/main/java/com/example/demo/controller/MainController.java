@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,22 +37,22 @@ public class MainController {
 		return service.index(request, model);
 	}
 	
-	@RequestMapping("/guide/checkinGuide") 
+	@GetMapping("/guide/checkinGuide") 
 	public String checkinGuide() {
 		return service.checkinGuide();
 	}
 	
-	@RequestMapping("/guide/seatGuide") 
+	@GetMapping("/guide/seatGuide") 
 	public String seatGuide() {
 		return service.seatGuide();
 	}
 	
-	@RequestMapping("/guide/baggageGuide") 
+	@GetMapping("/guide/baggageGuide") 
 	public String baggageGuide() {
 		return service.baggageGuide();
 	}
 	
-	@RequestMapping("/guide/travel") 
+	@GetMapping("/guide/travel") 
 	public String travel() {
 		return service.travel();
 	}
@@ -91,7 +90,7 @@ public class MainController {
 		return service.loginOk(mdto,session,request,response);
 	}
 	
-	@RequestMapping("/reserve/flightList")
+	@GetMapping("/reserve/flightList")
 	public String flightList(
 			@RequestParam(required = false) String departureAirport,
 			@RequestParam(required = false) String arrivalAirport,
@@ -131,27 +130,27 @@ public class MainController {
 		return "/reserve/flightList";  // flightList.jsp로 이동
 	}
 	
-	@RequestMapping("/reserve/reserveInfo")
+	@GetMapping("/reserve/reserveInfo")
 	public String reserveInfo() {
 		return service.reserveInfo();
 	}
 	
-	@RequestMapping("/reserve/checkin")
+	@GetMapping("/reserve/checkin")
 	public String checkin() {
 		return service.checkin();
 	}
 	
-	@RequestMapping("/event/list") 
+	@GetMapping("/event/list") 
 	public String eventList(HttpServletRequest request, Model model) {
 		return service.eventList(request, model);
 	}
 	
-	@RequestMapping("/event/eventReadnum")
+	@GetMapping("/event/eventReadnum")
 	public String eventReadnum(HttpServletRequest request) {
 		return service.eventReadnum(request);
 	}
 	
-	@RequestMapping("/event/content") 
+	@GetMapping("/event/content") 
 	public String eventContent(HttpServletRequest request, Model model) {
 		return service.eventContent(request, model);
 	}
