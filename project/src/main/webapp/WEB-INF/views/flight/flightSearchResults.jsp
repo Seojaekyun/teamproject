@@ -69,7 +69,8 @@
         color: white;
     }
     .select-flight-btn {
-        padding: 12px 24px;
+    	font-size: 12px;
+        padding: 3px 6px;
         background-color: #00467F;
         color: white;
         border-radius: 5px;
@@ -108,7 +109,7 @@
     </nav>
 
     <div class="container">
-        <h2>가는 날 비행기</h2>
+        <h2>가는 비행기</h2>
         
         <!-- 가는날 비행기 목록 -->
         <c:if test="${not empty flights}">
@@ -156,7 +157,7 @@
 
         <!-- 오는날 비행기 목록 -->
         <c:if test="${not empty returnFlights}">
-            <h2>오는 날 비행기</h2>
+            <h2>오는 비행기</h2>
             <table class="table table-bordered flight-table">
                 <thead class="thead-dark">
                     <tr>
@@ -194,7 +195,7 @@
                                     <input type="hidden" name="selectedReturnFlightArrival" value="${flight.arrivalAirport}">
                                     <input type="hidden" name="selectedReturnFlightTime" value="${flight.departureTime}">
                                     <input type="hidden" name="selectedReturnFlightArrivalTime" value="${flight.arrivalTime}">
-                                    <button type="submit" class="select-flight-btn">오는편 선택</button>
+                                    <button type="submit" class="select-flight-btn">선택</button>
                                 </form>
                             </td>
                         </tr>

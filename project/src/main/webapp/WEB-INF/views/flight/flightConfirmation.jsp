@@ -127,7 +127,7 @@
                     <td>
                         <span id="goingSeatsDisplay"></span>
                         <div id="goingSeatButtonContainer">
-                            <button class="btn-seat-select" onclick="openSeatSelection()">가는편 좌석 선택</button>
+                            <button class="btn-seat-select" onclick="openSeatSelection()">좌석 선택</button>
                         </div>
                     </td>
                 </tr>
@@ -157,7 +157,7 @@
                     <td>
                         <span id="returnSeatsDisplay"></span>
                         <div id="returnSeatButtonContainer">
-                            <button class="btn-seat-select" onclick="openReturnSeatSelection()">오는편 좌석 선택</button>
+                            <button class="btn-seat-select" onclick="openReturnSeatSelection()">좌석 선택</button>
                         </div>
                     </td>
                 </tr>
