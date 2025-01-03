@@ -67,7 +67,7 @@
         var flightId = '${selectedGoingFlightId}';
         var passengers = '${passengers}';
         var url = '${pageContext.request.contextPath}/flights/seats?flightId=' + flightId + '&seatClass=' + seatClass + '&passengers=' + passengers;
-        window.open(url, 'Seat Selection', 'width=1200,height=800');
+        window.open(url, 'Seat Selection', 'width=600,height=800');
     }
     function updateSelectedSeats(seatNumbers) {
         document.getElementById('goingSelectedSeats').value = seatNumbers.join(',');
@@ -80,7 +80,7 @@
         var flightId = '${selectedReturnFlightId}';
         var passengers = '${passengers}';
         var url = '${pageContext.request.contextPath}/flights/seatsReturn?flightId=' + flightId + '&seatClass=' + seatClass + '&passengers=' + passengers;
-        window.open(url, 'Return Seat Selection', 'width=1200,height=800');
+        window.open(url, 'Return Seat Selection', 'width=600,height=800');
     }
     function updateReturnSelectedSeats(seatNumbers) {
         document.getElementById('returnSelectedSeats').value = seatNumbers.join(',');
