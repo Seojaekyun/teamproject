@@ -462,14 +462,7 @@
 								<li><a href="../guide/baggageGuide">수하물 안내</a></li>
 							</ul>
 						</li>
-						<li id="main3" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)"><span class="iconc">✈️</span>최저가
-							<ul class="menu">
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-							</ul>
-						</li>
-						<li id="main4" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)">
+						<li id="main4" onmouseover="viewMenu(2)" onmouseout="hideMenu(2)">
 							<a href="../guide/travel"> <span class="icond">✈️</span>여행지 </a>
 
 							<ul class="menu">
@@ -478,7 +471,7 @@
 								<li><a href="">테마 여행</a></li>
 							</ul>
 						</li>
-						<li id="main5" onmouseover="viewMenu(4)" onmouseout="hideMenu(4)"> <span class="icone">✈️</span>호텔/렌터카
+						<li id="main5" onmouseover="viewMenu(3)" onmouseout="hideMenu(3)"> <span class="icone">✈️</span>호텔/렌터카
 
 							<ul class="menu">
 								<li><a href="https://www.agoda.com/" target="_blank" rel="noopener noreferrer"> 호텔 </a></li>
@@ -497,25 +490,26 @@
 					<!-- <a href="../login/login"> 로그인 </a>&nbsp;|&nbsp; -->
 				</c:if>
 				<c:if test="${userid!=null&&userid!='admin'}">
-				<span id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)"> ${name}님 &nbsp;|&nbsp;
+				<div id="myInfo" onmouseover="viewMmenu(0)" onmouseout="hideMmenu(0)">
+					<span> ${name}님 &nbsp;|&nbsp; </span>
 					<ul class="mmenu">
 						<li><a href="../member/memberView">나의정보</a></li>
 						<li><a href="../reserve/list">예약정보</a></li>
 						<li><a href="../member/myInq">나의문의</a></li>
 						<li><a href="../member/myRev"> 나의후기 </a></li>
 					</ul>
-				</span>
+				</div>
 				<a href="../login/logout"> 로그아웃 </a>&nbsp;|&nbsp;
 				</c:if>
-				<span id="supMenu" onmouseover="viewCmenu(0)"
-					onmouseout="hideCmenu(0)"> 고객센터
+				<div id="supMenu" onmouseover="viewCmenu(0)" onmouseout="hideCmenu(0)">
+					<span > 고객센터 </span>
 					<ul class="cmenu">
 						<li><a href="../gongji/list"> 공지사항 </a></li>
 						<li><a href="../inquiry/list"> Q＆A </a></li>
 						<li><a href="../event/list"> 이벤트 </a></li>
 						<li><a href="../review/list"> 여행후기 </a></li>
 					</ul>
-				</span>
+				</div>
 			</div>
 			<div id="login">
 				<c:if test="${userid==null}">
@@ -643,7 +637,7 @@
 	</div>
 	</div>
 	
-	<sitemesh:write property="body" />
+<sitemesh:write property="body" />
 	
 	<div class="footer" style="color: white">
 		<span>© 2024 여행사. 모든 권리 보유.</span>
