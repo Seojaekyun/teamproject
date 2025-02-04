@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,12 +44,12 @@ public class AdminController {
 	@Qualifier("fs")
 	private FlightService fservice;
 	
-	@RequestMapping("/admin/index")
+	@GetMapping("/admin/index")
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
 		return service.adminI(session, request, model);
 	}
 	
-	@RequestMapping("/admin/reserveList")
+	@GetMapping("/admin/reserveList")
 	public String reserveList(
 			@RequestParam(required = false) String selectedDate,
 			@RequestParam(required = false, defaultValue = "1") Integer gmpPage,
@@ -63,7 +62,7 @@ public class AdminController {
 		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
 		
-	@RequestMapping("/admin/flightsList")
+	@GetMapping("/admin/flightsList")
 	public String flightsList(
 			@RequestParam(required = false, defaultValue = "1") Integer page,
 			@RequestParam(required = false) String selectedDate,
@@ -73,12 +72,12 @@ public class AdminController {
 		return service.flightList(page, selectedDate, flightType, model);
 	}
 	
-	@RequestMapping("/admin/memberList")
+	@GetMapping("/admin/memberList")
 	public String memberList(HttpServletRequest request, Model model) {
 		return service.memberList(request, model);
 	}
 	
-	@RequestMapping("/admin/memberUp")
+	@GetMapping("/admin/memberUp")
 	public String memberUp(@RequestParam int id, @RequestParam int level, Model model) {
 		// MemberDto 객체 생성
 		MemberDto mdto = new MemberDto();
@@ -91,67 +90,67 @@ public class AdminController {
 		return service.memberUp(mdto);
 	}
 	
-	@RequestMapping("/admin/oneMeminfo")
+	@GetMapping("/admin/oneMeminfo")
 	public String oneMeminfo(HttpServletRequest request, Model model) {
 		return service.oneMeminfo(request, model);
 	}
 	
-	@RequestMapping("/admin/inquiryList") // 새로운 매핑 추가
+	@GetMapping("/admin/inquiryList") // 새로운 매핑 추가
 	public String inquiryList(Model model, Integer page) {
 		return service.inquiryList(model, page);
 	}
 	
-	@RequestMapping("/admin/inquiryContent")
+	@GetMapping("/admin/inquiryContent")
 	public String inquiryContent(HttpServletRequest request, Model model) {
 		return iservice.inquiryContent(request, model);
 	}
 	
-	@RequestMapping("/admin/answer")
+	@PostMapping("/admin/answer")
 	public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
 		return iservice.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
 	}
 	
-	@RequestMapping("/admin/updateAnswer")
+	@PostMapping("/admin/updateAnswer")
 	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
 		return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
 	}
 	
-	@RequestMapping("/admin/gongjiList")
+	@GetMapping("/admin/gongjiList")
 	public String gongjiList(HttpServletRequest request, Model model) {
 		return service.gongjiList(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiContent")
+	@GetMapping("/admin/gongjiContent")
 	public String gongjiContent(HttpServletRequest request, Model model) {
 		return gservice.gongjiContent(request, model);
 	}
 	
-	@RequestMapping("/admin/gongjiWrite")
+	@GetMapping("/admin/gongjiWrite")
 	public String write() {
 		return gservice.gongjiWrite();
 	}
 	
-	@RequestMapping("/admin/gongjiWriteOk")
+	@PostMapping("/admin/gongjiWriteOk")
 	public String write(GongjiDto gdto, HttpSession session) {
 		return gservice.gongjiWriteOk(gdto, session);
 	}
 	
-	@RequestMapping("/gongji/update")
+	@GetMapping("/gongji/update")
 	public String gongjiUpdate(HttpServletRequest request, Model model) {
 		return gservice.update(request, model);
 	}
 	
-	@RequestMapping("/gongji/updateOk")
+	@PostMapping("/gongji/updateOk")
 	public String gongjiUpdateOk(GongjiDto gdto) {
 		return gservice.updateOk(gdto);
 	}
 	
-	@RequestMapping("/admin/gongjiDelete")
+	@PostMapping("/admin/gongjiDelete")
 	public String delete(HttpServletRequest request) {
 		return gservice.delete(request);
 	}
 	
-	@RequestMapping("/admin/rsvdList")
+	@GetMapping("/admin/rsvdList")
 	public String rsvdList(HttpServletRequest request, Model model) {
 		return service.rsvdList(request, model);
 	}
@@ -232,12 +231,12 @@ public class AdminController {
 		return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
 	}
 	
-	@RequestMapping("/admin/promotList")
+	@GetMapping("/admin/promotList")
 	public String promotList(HttpServletRequest request, Model model) {
 		return service.promotList(request, model);
 	}
 	
-	@RequestMapping("/admin/promotAdd")
+	@GetMapping("/admin/promotAdd")
 	public String promotAdd() {
 		return service.promotAdd();
 	}
@@ -247,12 +246,12 @@ public class AdminController {
 	    return service.addPromots(pdto, file);
 	}
 	
-	@RequestMapping("/admin/promotContent")
+	@GetMapping("/admin/promotContent")
 	public String promotContent(HttpServletRequest request, Model model) {
 		return service.promotContent(request, model);
 	}
 	
-	@RequestMapping("/admin/promotUpdate")
+	@GetMapping("/admin/promotUpdate")
 	public String promotUpdate(HttpServletRequest request, Model model) {
 	    return service.promotUpdate(request, model);
 	}
@@ -262,7 +261,7 @@ public class AdminController {
 	    return service.upPromots(request, file, pdto);
 	}
 	
-	@RequestMapping("/admin/delPromot")
+	@GetMapping("/admin/delPromot")
 	public String delPromot(HttpServletRequest request) {
 		return service.delPromot(request);
 	}

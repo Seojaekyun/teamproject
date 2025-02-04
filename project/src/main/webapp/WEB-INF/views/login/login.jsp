@@ -182,7 +182,7 @@
     	son.moveTo(200,200);
     }
     function reMember() {
-		son=open("../member/reForm","","width=300,height=300");
+		son=open("../member/reForm","","width=600,height=300");
 		son.moveTo(800,200);
   	}
   </script>

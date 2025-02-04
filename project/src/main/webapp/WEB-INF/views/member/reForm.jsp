@@ -5,42 +5,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <style>
-   #section form {
-     text-align:center;
-   }
-   #section input[type=text], [type=password] {
-     width:230px;
-     height:30px;
-     border:1px solid #000f9b;
-     border-radius: 5px;
-     outline:none;
-   }
-   #section input[type=submit] {
-     width:236px;
-     height:34px;
-     border:1px solid #000f9b;
-     background:#000f9b;
-     color:white;
-     font-size:15px;
-     border-radius: 5px;
-   }
-   #section div {
-     margin-top:8px;
-   }
- </style>
+<style>
+	#section form {
+		text-align:center;
+	}
+	#section input[type=text], [type=password] {
+		width:230px;
+		height:30px;
+		border:1px solid #000f9b;
+		border-radius: 5px;
+		outline:none;
+	}
+	#section input[type=submit] {
+		width:236px;
+		height:34px;
+		border:1px solid #000f9b;
+		background:#000f9b;
+		color:white;
+		font-size:15px;
+		border-radius: 5px;
+	}
+	#section div {
+		margin-top:8px;
+	}
+</style>
+<script type="text/javascript">
+	function showAlert(message) {
+	    alert(message);
+	}
+</script>
 </head>
 <body> <!-- member/usForm.jsp -->
-   <div id="section">
-    <form method="post" action="reMember">
-     <h3> 복구 신청 </h3>
-     <div> <input type="text" name="userid" placeholder="아이디"> </div>
-     <div> <input type="password" name="pwd" placeholder="비밀번호"> </div>
-     <div> <input type="submit" value="복구신청"> </div>
-    <c:if test="${err!=null}">
-     <div style="font-size:12px;color:red;"> 입력하신 정보가 일치하지 않습니다. </div>
-    </c:if>
-    </form>
-   </div>
+	<div id="section">
+	<c:if test="${not empty error}">
+		<script type="text/javascript">
+			showAlert("${error}");
+		</script>
+	</c:if>
+	<form method="post" action="reMember">
+	<h3> 복구 신청 </h3>
+		<div> <input type="text" name="userid" placeholder="아이디"> </div>
+		<div> <input type="password" name="pwd" placeholder="비밀번호"> </div>
+		<div> <input type="submit" value="복구신청"> </div>
+		<c:if test="${err!=null}">
+			<div style="font-size:12px;color:red;"> 입력하신 정보가 일치하지 않습니다. </div>
+		</c:if>
+	</form>
+	</div>
 </body>
 </html>

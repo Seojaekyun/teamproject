@@ -19,7 +19,7 @@ public class MailSend {
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 			
-			helper.setFrom("ghguswn76@naver.com");
+			helper.setFrom("alclstnp2@naver.com");
 			helper.setTo(email);
 			helper.setSubject(subject);
 			helper.setText(body, true);

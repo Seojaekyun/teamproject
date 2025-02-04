@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,44 +27,43 @@ public class MemberController {
 	@Autowired
 	private MemberMapper mapper;
 	
-	@RequestMapping("/member/member")
+	@GetMapping("/member/member")
 	public String member() {
 		return service.member();
 	}
 	
-	@RequestMapping("/member/useridCheck")
+	@GetMapping("/member/useridCheck")
 	public @ResponseBody String useridCheck(HttpServletRequest request) {
 		String userid=request.getParameter("userid");
 		return service.useridCheck(userid);
 	}
 	
-	@RequestMapping("/member/memberOk")
+	@PostMapping("/member/memberOk")
 	public String memberOk(MemberDto mdto) {
 		return service.memberOk(mdto);
 	}
 	
-	@RequestMapping("/reserve/list")
+	@GetMapping("/reserve/list")
 	public String rlist(HttpSession session, HttpServletRequest request, Model model) {
 		return service.rlist(session, request, model);
 	}
 
-
-	@RequestMapping("/member/myInq")
+	@GetMapping("/member/myInq")
 	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
 		return service.myInq(session, request, model);
 	}
 	
-	@RequestMapping("/member/myRev")
+	@GetMapping("/member/myRev")
 	public String myRev(HttpSession session, HttpServletRequest request, Model model) {
 		return service.myRev(session, request, model);
 	}
 	
-	@RequestMapping("/review/delete")
+	@GetMapping("/review/delete")
 	public String reviewDelete(HttpServletRequest request) {
 		return service.reviewDelete(request);
 	}
 	
-	@RequestMapping("/member/memberView")
+	@GetMapping("/member/memberView")
 	public String memberView(HttpServletRequest request, HttpSession session, Model model) {
 		if (session.getAttribute("userid") == null) {
 			return "redirect:/member/login";
@@ -84,7 +81,7 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/member/useridSearch")
+	@PostMapping("/member/useridSearch")
 	public String useridSearch(MemberDto mdto, Model model) {
 		String userid = service.searchUserId(mdto);
 		
@@ -97,19 +94,19 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/member/usForm")
+	@GetMapping("/member/usForm")
 	public String usForm(Model model) {
 		return "/member/usForm";
 	}
 	
-	@RequestMapping("/member/psForm")
+	@GetMapping("/member/psForm")
 	public String psForm(HttpServletRequest request, Model model) {
 		String err = request.getParameter("err");
 		model.addAttribute("err", err);
 		return "/member/psForm";
 	}
 	
-	@RequestMapping("/member/pwdSearch")
+	@PostMapping("/member/pwdSearch")
 	public String pwdSearch(MemberDto mdto, Model model) throws Exception {
 		service.pwdSearch(mdto, model); // 모델을 서비스에서 처리
 		return "/member/pwdSearch";
@@ -120,7 +117,7 @@ public class MemberController {
 		return service.id_verification(session, model);
 	}
 	
-	@RequestMapping("/member/id_delete")
+	@PostMapping("/member/id_delete")
 	public String idDelete(@RequestParam String userid,
 			@RequestParam String password, Model model) {
 		// 비밀번호 확인 로직 수행
@@ -194,16 +191,25 @@ public class MemberController {
 		return "redirect:/member/memberView";
 	}
 	
-	@RequestMapping("/member/reForm")
+	@GetMapping("/member/reForm")
 	public String reForm() {
 		return "/member/reForm";
 	}
 	
-	@RequestMapping("/member/reMember")
-	public String reMember(MemberDto mdto, Model model) {
-		mapper.reMember(mdto);  // 예시: updateMember는 Mapper에 정의된 메서드
-		// 데이터 처리 후 다시 뷰로 이동
-		return "/member/reMember";  // 작업 완료 후 리다이렉트 처리
+	@PostMapping("/member/reMember")
+	public String reMember(MemberDto mdto, Model model, RedirectAttributes redirectAttributes) {
+		// 해당 userid의 level 값을 DB에서 조회
+		int userLv=mapper.getUserLv(mdto.getUserid());
+		
+		// level이 4 또는 7이 아니면 작업을 진행하지 않음
+		if(userLv!=4&&userLv!=7) { // 레벨이 4 또는 7이 아닌 경우 처리
+			redirectAttributes.addFlashAttribute("error", "탈퇴 회원이 아닙니다.");
+			return "redirect:/member/reForm"; // 오류 메시지와 함께 같은 페이지로 리턴
+		}
+		else {
+			mapper.reMember(mdto);
+			return "/member/reMember";  // 예시: 성공 페이지로 리다이렉트
+		}
 	}
 	
 	

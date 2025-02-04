@@ -35,6 +35,7 @@ public interface MemberMapper {
 	void updatePhone(String userid, String phone);
 	public void memberUp(MemberDto mdto);
 	public void reMember(MemberDto mdto);
+	public int getUserLv(String userid);
 	
 		
 }

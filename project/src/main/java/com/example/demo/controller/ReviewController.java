@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.ReviewDto;
 import com.example.demo.service.ReviewService;
@@ -34,22 +33,22 @@ public class ReviewController {
 		return service.content(request, session, model);
 	}
 	
-	@RequestMapping("/review/write")
+	@GetMapping("/review/write")
 	public String write() {
 		return service.write();
 	}
 	
-	@RequestMapping("/review/writeOk")
+	@PostMapping("/review/writeOk")
 	public String write(ReviewDto redto, HttpSession session) {
 		return service.writeOk(redto, session);
 	}
 	
-	@RequestMapping("/admin/reviewList")
+	@GetMapping("/admin/reviewList")
 	public String reviewList(HttpServletRequest request, Model model) {
 		return service.reviewList(request, model);
 	}
 	
-	@RequestMapping("/admin/reviewContent")
+	@GetMapping("/admin/reviewContent")
 	public String reviewContent(HttpServletRequest request, Model model) {
 		return service.reviewContent(request, model);
 	}

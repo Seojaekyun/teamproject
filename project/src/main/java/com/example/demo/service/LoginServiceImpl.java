@@ -64,7 +64,7 @@ public class LoginServiceImpl implements LoginService{
 		MemberDto member = mapper.getMemberByUserId(mdto.getUserid());
 		if (member != null && member.getPwd().equals(mdto.getPwd())) {
 			// level이 4인 경우 로그인 차단
-			if (member.getLevel() == 4) {
+			if ((member.getLevel()==4)||member.getLevel()==7) {
 				// 로그인 차단 메시지를 전달하고 로그인 페이지로 리다이렉트
 				return "redirect:/login/login?err=levelRestricted";
 			}

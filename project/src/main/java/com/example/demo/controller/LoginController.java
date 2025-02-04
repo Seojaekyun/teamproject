@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.MemberDto;
 import com.example.demo.service.LoginService;
@@ -20,26 +20,26 @@ public class LoginController {
 	@Qualifier("ls")
 	private LoginService service;
 	
-	@RequestMapping("/login/login")
+	@GetMapping("/login/login")
 	public String login(HttpServletRequest request, Model model) {
 		return service.login(request,model);
 	}
 	
-	@RequestMapping("/login/loginAd")
+	@GetMapping("/login/loginAd")
 	public String loginAd(HttpServletRequest request, Model model) {
 		return service.loginAd(request,model);
 	}
 	
-	@RequestMapping("/login/loginOk") public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/login/loginOk") public String loginOk(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		return service.loginOk(mdto,session,request,response);
 	}
 	
-	@RequestMapping("/login/loginAdmin")
+	@PostMapping("/login/loginAdmin")
 	public String loginAdmin(MemberDto mdto, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		return service.loginAdmin(mdto,session,request,response);
 	}
 
-	@RequestMapping("/login/logout") public String logout(HttpSession session) {
+	@GetMapping("/login/logout") public String logout(HttpSession session) {
 		return service.logout(session);
 	}
 	

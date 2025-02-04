@@ -67,8 +67,11 @@
 		update member set level=#{level} where id=#{id}
 	</update>
 	<update id="reMember" parameterType="com.example.demo.dto.MemberDto">
-		UPDATE member SET level=5 WHERE userid = #{userid} 
+		UPDATE member SET level=5 WHERE userid = #{userid} AND level!=5
 	</update>
+	<select id="getUserLv" parameterType="String" resultType="int">
+		SELECT level FROM member WHERE userid = #{userid}
+	</select>
 	
 	
  </mapper>

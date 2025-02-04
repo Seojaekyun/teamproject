@@ -359,7 +359,7 @@ width: 50%;
         </div>
        <div class="delete_id">
     <c:choose>
-        <c:when test="${mdto.level == 0 || mdto.level == 1 || mdto.level == 2}">
+        <c:when test="${mdto.level == 0 || mdto.level == 1 || mdto.level == 2 || mdto.level == 6}">
             <a href="../member/id_verification"><input type="button" value="탈퇴신청" id="outbtn"></a>
         </c:when>
         <c:when test="${mdto.level == 3}">
