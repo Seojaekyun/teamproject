@@ -66,11 +66,11 @@
 		cursor: pointer;
 		position: relative;
 	}
-	header #two button a {
+	header #two button {
 		text-decoration: none;
 		color: white;
 	}
-	header #two button:hover a {
+	header #two button:hover {
 		font-weight: bold;
 	}
     #chatbot {
@@ -197,15 +197,16 @@
 					<img src="../static/resources/1234.png" height="60px" alt="로고">
 				</a>
 			</div>
-			<div id="two">    
-				<button><a href="reserveList">예약현황</a></button>
-				<button><a href="gongjiList">공지사항</a></button>
-				<button><a href="inquiryList">고객문의</a></button>
-				<button><a href="memberList">회원관리</a></button>
-				<button><a href="flightsList">비행일정</a></button>
-				<button><a href="promotList">프로모션</a></button>
-				<button><a href="rsvChart">예약통계</a></button>
+			<div id="two">
+				<button onclick="location.href='reserveList'">예약현황</button>
+				<button onclick="location.href='gongjiList'">공지사항</button>
+				<button onclick="location.href='inquiryList'">고객문의</button>
+				<button onclick="location.href='memberList'">회원관리</button>
+				<button onclick="location.href='flightsList'">비행일정</button>
+				<button onclick="location.href='promotList'">프로모션</button>
+				<button onclick="location.href='rsvChart'">예약통계</button>
 			</div>
+
 		</div>
 	</header>
 
