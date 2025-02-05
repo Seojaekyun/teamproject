@@ -33,6 +33,9 @@
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*) FROM promot
 	</select>
+	<select id="getPromotFileName" resultType="String">
+		SELECT fname FROM promot WHERE id=#{id}
+	</select>
 	<select id="listWithPaging" resultType="com.example.demo.dto.PromotDto">
 	
 	</select>

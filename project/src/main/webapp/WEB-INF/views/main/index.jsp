@@ -1780,7 +1780,7 @@
 				<c:forEach items="${plist}" var="pdto">
 				<a href="../event/eventReadnum?id=${pdto.id }" class="promotion-item">
 					<div class="promotion-item">
-						<img src="../static/promot/${pdto.fname }" alt="이벤트 이미지">
+						<img src="../static/resources/${pdto.fname }" alt="이벤트 이미지">
 						<br>
 						<h3>${pdto.title}</h3>
 						<p>${pdto.subtitle}</p>

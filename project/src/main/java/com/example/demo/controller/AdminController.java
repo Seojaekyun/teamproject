@@ -242,7 +242,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/addPromots")
-	public String addPromots(PromotDto pdto, @RequestParam("file") MultipartFile file) throws Exception {
+	public String addPromots(PromotDto pdto, @RequestParam MultipartFile file) throws Exception {
 	    return service.addPromots(pdto, file);
 	}
 	
@@ -257,7 +257,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/upPromots")
-	public String upPromots(HttpServletRequest request, @RequestParam("file") MultipartFile file, PromotDto pdto) throws Exception {
+	public String upPromots(HttpServletRequest request, @RequestParam MultipartFile file, PromotDto pdto) throws Exception {
 	    return service.upPromots(request, file, pdto);
 	}
 	

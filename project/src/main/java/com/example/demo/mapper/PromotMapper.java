@@ -15,6 +15,7 @@ public interface PromotMapper {
 	void upPromots(PromotDto pdto);
 	void readnum(String id);
 	void delete(String id);
+	String getPromotFileName(int id);
 	
 	
 }
