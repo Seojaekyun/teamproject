@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Q&A</title>
+<title>Q＆A</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 	body {
@@ -121,7 +121,7 @@
 </head>
 <body>
 
-	<h3>Q&A</h3>
+	<h3>Q＆A</h3>
 	<table>
 		<tr>
 			<th>제목</th>

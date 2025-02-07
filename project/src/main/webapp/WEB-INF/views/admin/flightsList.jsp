@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -174,7 +174,7 @@
 </div>
 
 <!-- 항공편 리스트 -->
-<div width="100%" style="text-align: center"><h2>항공편 리스트</h2></div>
+<div style="width: 100%; text-align: center"><h2>항공편 리스트</h2></div>
 <section id="sec1">
 	<div class="date-container">
 		<button id="clsd" onclick="clearDate()">날짜 선택 해제</button><br>    

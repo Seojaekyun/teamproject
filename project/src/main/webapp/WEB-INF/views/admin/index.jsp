@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,9 +20,10 @@
 		font-weight: 600;
 		margin: 10px 0px 10px 10px;
 	}
-	h5{
-		
+	#h5{
 		margin: 10px 0px 5px 10px;
+		align: left;
+		font-size: 12px;
 	}
 	section {
 		width: 1400px;
@@ -111,7 +112,7 @@
 	<div id="first">
 	    <div id="gmpFlights">
 	        <table>
-	            <caption><h5 align="left"> GMP 출항 </h5></caption>
+	            <caption><span id="h5"> GMP 출항 </span></caption>
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
@@ -133,7 +134,7 @@
 	    </div>
 	    <div id="icnFlights">
 	        <table>
-	            <caption><h5 align="left"> ICN 출항 </h5></caption>
+	            <caption><span id="h5"> ICN 출항 </span></caption>
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
@@ -155,7 +156,7 @@
 	    </div>
 	    <div id="otherFlights">
 	        <table>
-	            <caption><h5 align="left"> 기타 항공편 </h5></caption>
+	            <caption><span id="h5"> 기타 항공편 </span></caption>
 	            <tr>
 	                <td>항공편명</td>
 	                <td>출항시간</td>
@@ -181,7 +182,7 @@
 	<div id="second">
 		<div id="flights">
 			<table>
-				<caption><h5 align="left"> 출항 </h5></caption>
+				<caption><span id="h5"> 출항 </span></caption>
 				<tr>
 					<td>출발</td>
 					<td>도착</td>
@@ -204,7 +205,7 @@
 		</div>
 		<div id="flights">
 			<table>
-				<caption><h5 align="left"> 입항 </h5></caption>
+				<caption><span id="h5"> 입항 </span></caption>
 				<tr>
 					<td>출발</td>
 					<td>도착</td>
@@ -231,7 +232,7 @@
 	<div id="third">
 		<div id="topinq">
 			<table>
-				<caption><h5 align="left"> 주요문의 </h5></caption>
+				<caption><span id="h5"> 주요문의 </span></caption>
 				<tr>
 					<td id="num"> 순위 </td>
 					<td id="title"> 문의 사항 </td>
@@ -269,7 +270,7 @@
 		</div>
 		<div id="inq">
 			<table>
-				<caption><h5 align="left"> 최근문의 </h5></caption>
+				<caption><span id="h5"> 최근문의 </span></caption>
 				<tr>
 					<td> no. </td>
 					<td> 문의사항 </td>

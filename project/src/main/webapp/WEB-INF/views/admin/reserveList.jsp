@@ -157,7 +157,7 @@
 </style>
 </head>
 <body>
-<div width="100%" style="text-align: center"><h2>예약관리</h2></div>
+<div style="width: 100%; text-align: center"><h2>예약관리</h2></div>
 <!-- Section 1: 날짜 필터링된 예약 내역 (달력 포함) -->
 <section id="sec1">
 	<div id="cal">

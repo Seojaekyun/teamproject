@@ -213,24 +213,24 @@
             <!-- 부가 서비스 -->
             <div class="services-box">
                 <div class="service-item">
-        <img src="path/to/seat-icon.png" alt="좌석">
-        <p>
-            <c:choose>
-                <c:when test="${reservationInfo.seatNumber != null}">
-                    좌석 번호: ${reservationInfo.seatNumber}
-                </c:when>
-                <c:otherwise>
-                    좌석 신청 전
-                </c:otherwise>
-            </c:choose>
-        </p>
-    </div>
+			        <img src="path/to/seat-icon.png" alt="좌석">
+			        <p>
+			            <c:choose>
+			                <c:when test="${reservationInfo.seatNumber != null}">
+			                    좌석 번호: ${reservationInfo.seatNumber}
+			                </c:when>
+			                <c:otherwise>
+			                    좌석 신청 전
+			                </c:otherwise>
+			            </c:choose>
+			        </p>
+			    </div>
                 <div class="service-item">
                 <a href="/passport/passport?pnr=${reservationInfo.pnr}">
                 <button type="button" onclick="movePage()">  
                     <img src="path/to/passport-icon.png" alt="여권">
                      </button>
-                     
+                     </a>
                      
                 </div> 
                 <div class="service-item">  

@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Q & A 리스트</title>
+<title>Q ＆ A 리스트</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
     /* 기본 스타일 */
@@ -115,7 +115,7 @@
 <body>
 
 <div>
-    <h2>Q & A 관리</h2>
+    <h2>Q ＆ A 관리</h2>
 </div>
 <section>
     <table>

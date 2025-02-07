@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1778,14 +1778,12 @@
 			<h3 style="text-align: center;">프로모션</h3>
 			<div class="promotion-container">
 				<c:forEach items="${plist}" var="pdto">
-				<a href="../event/eventReadnum?id=${pdto.id }" class="promotion-item">
-					<div class="promotion-item">
-						<img src="../static/resources/${pdto.fname }" alt="이벤트 이미지">
-						<br>
-						<h3>${pdto.title}</h3>
-						<p>${pdto.subtitle}</p>
-					</div>
-				</a>
+				<div class="promotion-item" onclick="window.location.href='../event/eventReadnum?id=${pdto.id}'">
+					<img src="../static/resources/${pdto.fname}" alt="이벤트 이미지">
+					<br>
+					<h3>${pdto.title}</h3>
+					<p>${pdto.subtitle}</p>
+				</div>
 				</c:forEach>
 			</div>
 		</section>
@@ -1793,12 +1791,10 @@
 			<h3 style="text-align: center;">고객 후기</h3>
 			<div class="review-container">
 				<c:forEach items="${relist}" var="redto">
-				<a href="../review/reviewReadnum?id=${redto.id }" class="review-item">
-					<div class="review">
-						<h3>${redto.name}</h3>
-						<p>${redto.content}</p>
-					</div>
-				</a>
+				<div class="review" onclick="window.location.href='../review/reviewReadnum?id=${redto.id }'">
+					<h3>${redto.name}</h3>
+					<p>${redto.content}</p>
+				</div>
 				</c:forEach>
 			</div>
 		</section>   
