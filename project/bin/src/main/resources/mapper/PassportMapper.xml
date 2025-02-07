@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.PassportMapper">
+<select id="getAllNationalities" resultType="com.example.demo.dto.PassportDto">
+		SELECT * FROM Nationality
+	</select>
+	
+	<insert id="saveInfos" parameterType="com.example.demo.dto.PassportDto">
+        INSERT INTO passport (nationality, gender, birth, issuing_country, passport_num, ex_date, country_number, phone_number, email, reservation_id)
+        VALUES (#{nationality}, #{gender}, #{birth}, #{issuingCountry}, #{passportNum}, #{exDate}, #{countryNumber}, #{phoneNumber}, #{email}, #{reservationId})
+    </insert>
+    
+    <select id="getReservationIdByPnr" resultType="Integer">
+    select reservation_id from reservations where pnr=#{pnr}
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ReviewMapper">
+	<select id="list" resultType="com.example.demo.dto.ReviewDto">
+		SELECT * FROM reviews ORDER BY id DESC LIMIT #{offset}, #{limit}
+	</select>
+	<select id="reviewList" resultType="com.example.demo.dto.ReviewDto">
+		select * from reviews order by id desc
+	</select>
+	<insert id="writeOk" parameterType="com.example.demo.dto.ReviewDto">
+		insert into reviews(title, content, writeday, name)
+		values(#{title},#{content},now(),#{name})
+	</insert>
+	<update id="reviewReadnum">
+		update reviews set readnum=readnum+1 where id=#{param}
+	</update>
+	<select id="content" resultType="com.example.demo.dto.ReviewDto">
+		select * from reviews where id=#{param}
+	</select>
+	<select id="reviewContent" resultType="com.example.demo.dto.ReviewDto">
+		select * from reviews where id=#{param}
+	</select>
+	<update id="updateOk" parameterType="com.example.demo.dto.ReviewDto">
+		update reviews set title=#{title} , content=#{content} where id=#{id}
+	</update>
+	<delete id="delete">
+		delete from reviews where id=#{param}
+	</delete>
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM reviews
+	</select>
+	<select id="getMyRev" parameterType="String" resultType="com.example.demo.dto.ReviewDto">
+		SELECT * FROM reviews WHERE name = #{userid}
+	</select>
+	<select id="listWithPaging" resultType="com.example.demo.dto.ReviewDto">
+	
+	</select>
+	
+	
+</mapper>
