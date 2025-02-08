@@ -163,14 +163,14 @@
 <body>
 
 <div style="text-align: right; margin-bottom: 20px;">
-    <!-- 항공편 추가 버튼 -->
-    <button class="button" onclick="location.href='/admin/addFlight'">항공편 추가</button>
-
-    <!-- 좌석 추가 버튼 -->
-    <form action="/admin/addSeats" method="post" style="display:inline;">
-        <input type="hidden" name="flightId" value="${flightId}">
-        <button type="submit" class="button">좌석 추가</button>
-    </form>
+	<!-- 항공편 추가 버튼 -->
+	<button class="button" onclick="location.href='/admin/addFlight'">항공편 추가</button>
+	
+	<!-- 좌석 추가 버튼 -->
+	<form action="/admin/addSeats" method="post" style="display:inline;">
+		<input type="hidden" name="flightId" value="${flightId}">
+		<button type="submit" class="button">좌석 추가</button>
+	</form>
 </div>
 
 <!-- 항공편 리스트 -->
@@ -185,7 +185,6 @@
 			</c:if>
 		</div>
 	</div>
-
 	<div class="table-container">
 		<table id="otherTable">
 			<caption>해외 항공편</caption>

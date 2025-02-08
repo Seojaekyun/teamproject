@@ -7,127 +7,126 @@
 <title>공지사항 관리</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-    /* 전체적인 레이아웃 */
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f6f9;
-    }
-    h2 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-top: 20px;
-        text-align: center;
-    }
-    section {
-        max-width: 800px;
-        margin: 30px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    th, td {
-        padding: 6px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-    }
-    th {
-        background-color: #004EA2;
-        color: #fff;
-        font-weight: 500;
-        text-transform: uppercase;
-    }
-    td {
-        background-color: #fff;
-        color: #333;
-        font-size: 14px;
-    }
-    a {
-        color: #004EA2;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    /* 필독 및 공지 배지 스타일 */
-    #badge1 {
-        background-color: #DF251F;
-        color: white;
-        font-size: 11px;
-        padding: 3px 8px;
-        border-radius: 3px;
-        margin-right: 8px;
-        font-weight: 700;
-    }
-    #badge2 {
-        background-color: #4CAF50;
-        color: white;
-        font-size: 11px;
-        padding: 3px 8px;
-        border-radius: 3px;
-        margin-right: 8px;
-        font-weight: 700;
-    }
-    /* 작성하기 버튼 */
-    #write {
-        display: inline-block;
-        background-color: #004EA2;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
-    #write:hover {
-        background-color: #003580;
-    }
-    /* 페이지네이션 */
-    .pagination {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin-top: 10px;
-        font-size: 10px;
-    }
-    .pagination a, .pagination span {
-        padding: 5px 10px;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        color: #004EA2;
-    }
-    .pagination a.active, .pagination span.active {
-        background-color: #004EA2;
-        color: white;
-        border: none;
-    }
-    .pagination a:hover {
-        background-color: #f4f4f4;
-    }
-    /* 반응형 디자인 */
-    @media (max-width: 768px) {
-        h2 {
-            font-size: 20px;
-        }
-        th, td {
-            font-size: 14px;
-            padding: 10px;
-        }
-        #write {
-            font-size: 12px;
-            padding: 8px 15px;
-        }
-    }
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		margin: 0;
+		padding: 0;
+		background-color: #f4f6f9;
+	}
+	h2 {
+		font-size: 24px;
+		font-weight: 700;
+		margin-top: 20px;
+		text-align: center;
+	}
+	section {
+		max-width: 800px;
+		margin: 30px auto;
+		padding: 20px;
+		background-color: #fff;
+		border-radius: 8px;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 20px;
+	}
+	th, td {
+		padding: 6px;
+		text-align: center;
+		border-bottom: 1px solid #ddd;
+	}
+	th {
+		background-color: #004EA2;
+		color: #fff;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+	td {
+		background-color: #fff;
+		color: #333;
+		font-size: 14px;
+	}
+	a {
+		color: #004EA2;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	/* 필독 및 공지 배지 스타일 */
+	#badge1 {
+		background-color: #DF251F;
+		color: white;
+		font-size: 11px;
+		padding: 3px 8px;
+		border-radius: 3px;
+		margin-right: 8px;
+		font-weight: 700;
+	}
+	#badge2 {
+		background-color: #4CAF50;
+		color: white;
+		font-size: 11px;
+		padding: 3px 8px;
+		border-radius: 3px;
+		margin-right: 8px;
+		font-weight: 700;
+	}
+	/* 작성하기 버튼 */
+	#write {
+		display: inline-block;
+		background-color: #004EA2;
+		color: white;
+		padding: 5px 10px;
+		border-radius: 5px;
+		font-size: 12px;
+		text-align: center;
+		text-decoration: none;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+	#write:hover {
+		background-color: #003580;
+	}
+	/* 페이지네이션 */
+	.pagination {
+		display: flex;
+		justify-content: center;
+		gap: 5px;
+		margin-top: 10px;
+		font-size: 10px;
+	}
+	.pagination a, .pagination span {
+		padding: 5px 10px;
+		text-decoration: none;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		color: #004EA2;
+	}
+	.pagination a.active, .pagination span.active {
+		background-color: #004EA2;
+		color: white;
+		border: none;
+	}
+	.pagination a:hover {
+		background-color: #f4f4f4;
+	}
+	/* 반응형 디자인 */
+	@media (max-width: 768px) {
+		h2 {
+		font-size: 20px;
+		}
+		th, td {
+			font-size: 14px;
+			padding: 10px;
+		}
+		#write {
+			font-size: 12px;
+			padding: 8px 15px;
+		}
+	}
 </style>
 </head>
 <body>
