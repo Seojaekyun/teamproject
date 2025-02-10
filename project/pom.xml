@@ -65,22 +65,19 @@
 		<!-- JSP 의존성 -->
 		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
-			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-			<version>3.0.2</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		
 		<!-- Tomcat Jasper 의존성 (JSP 처리) -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>10.1.34</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>tomcat-embed-jasper</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
-		
+			
 		<!-- JSTL 구현체 -->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
-			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
-			<version>3.0.1</version><!--$NO-MVN-MAN-VER$-->
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		
 		<!-- 사이트 메쉬 (옵션) -->
@@ -110,6 +107,8 @@
 			<artifactId>jakarta.activation-api</artifactId>
 		</dependency>
 		
+	    
+		
 	</dependencies>
 	
 	<build>
@@ -122,6 +121,7 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.36</version>
 						</exclude>
 					</excludes>
 				</configuration>
