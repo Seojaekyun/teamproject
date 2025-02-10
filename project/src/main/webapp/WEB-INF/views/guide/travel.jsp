@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -220,14 +219,14 @@
 			</tr>
 		</table>
 
-		<h2>이벤트 & 프로모션</h2>
+		<h2>이벤트 ＆ 프로모션</h2>
 		<ul>
 			<li><strong>봄맞이 할인 이벤트:</strong> 특정 여행지 항공권 최대 30% 할인!</li>
 			<li><strong>가족 여행 패키지:</strong> 가족과 함께하는 특별한 여행 상품을 만나보세요.</li>
 			<li><strong>조기 예약 특가:</strong> 미리 예약하고 할인 혜택을 받으세요.</li>
 		</ul>
 
-		<h2>여행 블로그 & 후기</h2>
+		<h2>여행 블로그 ＆ 후기</h2>
 		<p>실제 여행자들의 생생한 후기를 확인하고 여행 팁을 얻어보세요.</p>
 		<div class="destination">
 			<div class="destination-card">
