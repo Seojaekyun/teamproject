@@ -171,8 +171,11 @@
 	    xhr.onreadystatechange = function() {
 	        if (xhr.readyState === 4 && xhr.status === 200) {
 	            var response = JSON.parse(xhr.responseText);
+	            console.log(response);
 	            var flightHour = response.hour;
 	            var flightMinute = response.minute;
+	            var unitPrice=response.unitPrice;
+	            console.log("unitPrice: ", unitPrice);
 	
 	            // 출발편 비행 시간 설정
 	            document.getElementById("flightHour").value = flightHour;
@@ -187,6 +190,7 @@
 	
 	            // 숨겨진 입력 필드에 값 설정
 	            document.getElementById("flightTime").value = flightTimeValue;
+	            document.getElementById("unitPrice").value = unitPrice;
 	
 	            // 귀국편 비행 시간도 동일하게 설정
 	            document.getElementById("returnFlightHour").value = flightHour;
@@ -201,6 +205,7 @@
 	
 	            // 숨겨진 입력 필드에 값 설정
 	            document.getElementById("returnFlightTime").value = returnFlightTimeValue;
+	            document.getElementById("returnUnitPrice").value = unitPrice;
 	
 	            // 도착 시간 계산
 	            calculateDepartureArrivalTime();
@@ -343,6 +348,9 @@
 					<option value="${airp.airplaneId}">${airp.airplaneId}. ${airp.model} / ${airp.capacity}석</option>
 					</c:forEach>
 				</select>
+				<label for="unitPrice">금액:</label>
+				<input type="text" id="unitPrice" name="unitPrice" readonly>
+				
 			</div>
 			
 			<div class="flex-item">
@@ -385,6 +393,8 @@
 					<option value="${airp.airplaneId}">${airp.airplaneId}. ${airp.model} / ${airp.capacity}석</option>
 					</c:forEach>
 				</select>
+				<label for="returnUnitPrice">금액:</label>
+				<input type="text" id="returnUnitPrice" name="returnUnitPrice" readonly>
 			</div>
 		</div>
 		<button type="submit">항공편 추가</button>

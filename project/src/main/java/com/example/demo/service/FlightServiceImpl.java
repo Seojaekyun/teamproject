@@ -147,7 +147,7 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
 	@Override
-    public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, String ftime, int airplaneId) {
+    public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, String ftime, int airplaneId, int unitPrice) {
         FlightDto flight = new FlightDto();
         flight.setDepartureAirport(departureAirport);
         flight.setArrivalAirport(arrivalAirport);
@@ -155,6 +155,7 @@ public class FlightServiceImpl implements FlightService {
         flight.setArrivalTime(arrivalTime);
         flight.setAirplaneId(airplaneId);
         flight.setFtime(ftime);
+        flight.setUnitPrice(unitPrice);
 
         fmapper.addFlight(flight);
     }
@@ -163,7 +164,7 @@ public class FlightServiceImpl implements FlightService {
     public List<AirplanesDto> getAllAirplanes() {
         return fmapper.findAllAirplanes();
     }
-
+    
     @Override
     public int[] getFlightTime(String departureAirport, String arrivalAirport) {
         FlightTimeDto flightTimeDto = fmapper.getFlightTime(departureAirport, arrivalAirport);
@@ -171,10 +172,12 @@ public class FlightServiceImpl implements FlightService {
             LocalTime flightTime = flightTimeDto.getFlightTime();
             int hours = flightTime.getHour();
             int minutes = flightTime.getMinute();
-            return new int[]{hours, minutes};
+            int unitPrice=flightTimeDto.getUnitPrice();
+            
+            return new int[]{hours, minutes, unitPrice};
         } else {
             // Handle case where flight time is not found
-            return new int[]{0, 0};
+            return new int[]{0, 0, 0};
         }
     }
 	
@@ -221,6 +224,14 @@ public class FlightServiceImpl implements FlightService {
     public List<String> getArrivalAirportsByDepartureAndDate(String departure, String date) {
         return fmapper.getArrivalAirportsByDepartureAndDate(departure, date);
     }
+	/*
+	@Override
+	public int getUnitPrice(String departureAirport, String arrivalAirport) {
+	    FlightTimeDto flightTimeDto = fmapper.getFlightTime(departureAirport, arrivalAirport);
+	    // unit_price 값을 반환하도록 수정
+	    return flightTimeDto.getUnitPrice();  // FlightTimeDto에서 unit_price를 가져오기
+	}
+	*/
 
 
 	 

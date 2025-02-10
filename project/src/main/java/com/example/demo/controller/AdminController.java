@@ -169,12 +169,28 @@ public class AdminController {
 	public Map<String, Integer> getFlightTime(@RequestParam String departureAirport,
 			@RequestParam String arrivalAirport) {
 		int[] flightTime = fservice.getFlightTime(departureAirport, arrivalAirport);
+		
 		Map<String, Integer> response = new HashMap<>();
 		response.put("hour", flightTime[0]);
 		response.put("minute", flightTime[1]);
+		response.put("unitPrice", flightTime[2]);
+		
 		return response;
 	}
-	
+	/*
+	@GetMapping("/admin/getUnitPrice")
+	@ResponseBody
+	public Map<String, Integer> getUnitPrice(@RequestParam String departureAirport,
+			@RequestParam String arrivalAirport) {
+	    // Unit Price 계산하는 부분
+	    int unitPrice = fservice.getUnitPrice(departureAirport, arrivalAirport);
+	    // Unit Price 응답 준비
+	    Map<String, Integer> response = new HashMap<>();
+	    response.put("unitPrice", unitPrice);
+	    
+	    return response;
+	}
+	*/
 	@PostMapping("/admin/addFlights")
 	public String addFlights(
 			@RequestParam String departureAirport,
@@ -183,6 +199,7 @@ public class AdminController {
 			@RequestParam String arrivalTime,
 			@RequestParam("ftimeValue") String ftime,
 			@RequestParam int airplaneId,
+			@RequestParam int unitPrice,
 			
 			@RequestParam String returnDepartureAirport,
 			@RequestParam String returnArrivalAirport,
@@ -190,14 +207,15 @@ public class AdminController {
 			@RequestParam String returnArrivalTime,
 			@RequestParam("returnFtimeValue") String returnFtime,
 			@RequestParam int returnAirplaneId,
+			@RequestParam int returnUnitPrice,
 			
 			Model model) {
 		
 		try {
 			// 출발편 추가
-			fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId);
+			fservice.addFlight(departureAirport, arrivalAirport, departureTime, arrivalTime, ftime, airplaneId, unitPrice);
 			// 귀국편 추가
-			fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId);
+			fservice.addFlight(returnDepartureAirport, returnArrivalAirport, returnDepartureTime, returnArrivalTime, returnFtime, returnAirplaneId, returnUnitPrice);
 			
 			model.addAttribute("message", "출발편과 귀국편이 성공적으로 추가되었습니다.");
 		}

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class FlightDto {
-	private int flightId, availableSeats, passengerCount, totalSeats, airplaneId;
+	private int flightId, availableSeats, passengerCount, totalSeats, airplaneId, unitPrice;
 	private String flightNumber, departureAirport, arrivalAirport, departureTime;
 	private String arrivalTime, flightDuration, flightName, ftime;
 	private SeatClass seatClass;
