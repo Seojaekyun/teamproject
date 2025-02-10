@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%
 	// 애플리케이션 스코프에서 채팅 메시지 리스트를 가져옴
+	@SuppressWarnings("unchecked")
 	List<String> chatMessages = (List<String>) application.getAttribute("chatMessages");
 	
 	if (chatMessages != null) {

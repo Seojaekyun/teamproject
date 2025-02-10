@@ -198,179 +198,183 @@
      
  </style>
 <script>
-  var uchk = 0; 
-  var pchk = 0;
-
-  // 아이디 체크 함수
-  function useridCheck(userid) {
-	  if(userid.trim().length >= 6) {
-		  var chk = new XMLHttpRequest();
-		  chk.onload = function() {
-			  if(chk.responseText == "0") {
-				  document.getElementById("umsg").innerText = "사용 가능한 아이디 입니다";
-				  document.getElementById("umsg").style.color = "blue";
-				  document.getElementById("umsg").style.fontSize="12px";
-
-				  uchk = 1;
-			  } else {
-				  document.getElementById("umsg").innerText = "사용불가능한 아이디 입니다";
-				  document.getElementById("umsg").style.color = "red";
-
-				  document.getElementById("umsg").style.fontSize="12px";
-
-				  uchk = 0;
-			  }	  
-		  }
-		  chk.open("get", "useridCheck?userid=" + userid);
-		  chk.send();
-	  } else {
-		  document.getElementById("umsg").innerText = "아이디를 다시 입력하고 체크하세요";
-		  document.getElementById("umsg").style.color = "red";
-
-		  document.getElementById("umsg").style.fontSize="12px";
-
-		  uchk = 0;
-	  }	  
-  }
-
-  // 서버 변경 함수
-  function chgServer(server) {
-	  document.mform.e2.value = server;
-  }
-
-  // 비밀번호 체크 함수
-  function pwdCheck() {
-	  var pwd = document.mform.pwd.value;
-	  var pwd2 = document.mform.pwd2.value;
-	 
-	  if (pwd == pwd2) {
-		   document.getElementById("pmsg").innerText = "비밀번호가 일치합니다";
-		   document.getElementById("pmsg").style.color = "blue";
-		   document.getElementById("pmsg").style.fontSize="12px";
-
-		   pchk = 1;
-	  } else {
-		   document.getElementById("pmsg").innerText = "비밀번호가 일치하지 않습니다";
-		   document.getElementById("pmsg").style.color = "red";
-
-		   document.getElementById("pmsg").style.fontSize="12px";
-
-		   pchk = 0;
-	  }
-  }
-
-  // 전화번호 형식화 함수
-  function formatPhone() {
-    const phone1 = document.getElementById('phone1').value;
-    const phone2 = document.getElementById('phone2').value;
-    const phone3 = document.getElementById('phone3').value;
-    const fullPhone = phone1 + "-" + phone2 + "-" + phone3;
-    document.getElementById('phoneHidden').value = fullPhone;
-    console.log(fullPhone); 
-  }
-
-  // 제출 전 체크 함수
-  function check() {
-	  formatPhone(); // 전화번호 형식화
-  
-	  var email = document.mform.e1.value + "@" + document.mform.e2.value;
-	  document.mform.email.value = email;
-	  
-	  if (uchk == 0) {
-		  alert("아이디를 체크하세요");
-		  return false;
-	  } else if (document.mform.name.value == "") {
-		  alert("이름을 입력하세요");
-		  return false;
-	  } else if (pchk == 0) {
-		  alert("비밀번호 체크하세요");
-		  return false;
-	  } else {
-		  return true;
-	  }
-  }
-  
-  function enforceUppercase(element) {
-	    element.value = element.value.toUpperCase();  // 대문자로 변환
-	    element.value = element.value.replace(/[^A-Z]/g, '');  // A-Z가 아닌 문자는 제거
-	  }
- </script>
+	var uchk = 0; 
+	var pchk = 0;
+	
+	// 아이디 체크 함수
+	function useridCheck(userid) {
+		if(userid.trim().length >= 6) {
+			var chk = new XMLHttpRequest();
+			chk.onload = function() {
+				if(chk.responseText == "0") {
+					document.getElementById("umsg").innerText = "사용 가능한 아이디 입니다";
+					document.getElementById("umsg").style.color = "blue";
+					document.getElementById("umsg").style.fontSize="12px";
+					
+					uchk = 1;
+				}
+				else {
+					document.getElementById("umsg").innerText = "사용불가능한 아이디 입니다";
+					document.getElementById("umsg").style.color = "red";
+					
+					document.getElementById("umsg").style.fontSize="12px";
+					
+					uchk = 0;
+				}
+			}
+			chk.open("get", "useridCheck?userid=" + userid);
+			chk.send();
+		}
+		else {
+			document.getElementById("umsg").innerText = "아이디를 다시 입력하고 체크하세요";
+			document.getElementById("umsg").style.color = "red";
+			
+			document.getElementById("umsg").style.fontSize="12px";
+			
+			uchk = 0;
+		}
+	}
+	
+	// 서버 변경 함수
+	function chgServer(server) {
+		document.mform.e2.value = server;
+	}
+	
+	// 비밀번호 체크 함수
+	function pwdCheck() {
+		var pwd = document.mform.pwd.value;
+		var pwd2 = document.mform.pwd2.value;
+		
+		if (pwd == pwd2) {
+			document.getElementById("pmsg").innerText = "비밀번호가 일치합니다";
+			document.getElementById("pmsg").style.color = "blue";
+			document.getElementById("pmsg").style.fontSize="12px";
+			
+			pchk = 1;
+		}
+		else {
+			document.getElementById("pmsg").innerText = "비밀번호가 일치하지 않습니다";
+			document.getElementById("pmsg").style.color = "red";
+			
+			document.getElementById("pmsg").style.fontSize="12px";
+			
+			pchk = 0;
+		}
+	}
+	
+	// 전화번호 형식화 함수
+	function formatPhone() {
+		const phone1 = document.getElementById('phone1').value;
+		const phone2 = document.getElementById('phone2').value;
+		const phone3 = document.getElementById('phone3').value;
+		const fullPhone = phone1 + "-" + phone2 + "-" + phone3;
+		document.getElementById('phoneHidden').value = fullPhone;
+		console.log(fullPhone);
+	}
+	
+	// 제출 전 체크 함수
+	function check() {
+		formatPhone(); // 전화번호 형식화
+		
+		var email = document.mform.e1.value + "@" + document.mform.e2.value;
+		document.mform.email.value = email;
+		
+		if (uchk == 0) {
+			alert("아이디를 체크하세요");
+			return false;
+		}
+		else if (document.mform.name.value == "") {
+			alert("이름을 입력하세요");
+			return false;
+		}
+		else if (pchk == 0) {
+			alert("비밀번호 체크하세요");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	function enforceUppercase(element) {
+		element.value = element.value.toUpperCase();  // 대문자로 변환
+		element.value = element.value.replace(/[^A-Z]/g, '');  // A-Z가 아닌 문자는 제거
+	}
+	
+</script>
 </head>
 <body> 
-    <form name="mform" method="post" action="memberOk" onsubmit="return check()">
-     <input type="hidden" name="email">
-     <h3 align="center"> 가입정보 </h3>
-     <ul class="joinbox">
-     <li>
-     <div class="namebox">
-     <h6>이름*</h6>
-   	 <input type="text" name="name" id="name" placeholder="이 름"> 
-     </div>
-     </li>
-     
-      <li>
-     <div class="enamebox">
-     <div class="sung">
-     <h6>영문 성*</h6>
-     <input type="text" name="sung" id="sung" placeholder="HONG" required oninput="enforceUppercase(this)" > 
-     </div>
-     <div class="lname">
-     <h6>영문 이름*</h6>
-     <input type="text" name="lname" id="lname" placeholder="GILDONG" required oninput="enforceUppercase(this)" > 
-     </div>
-     </div>
-     </li>
-     
-     <li>
-     <div class="idbox">
-     <h6>아이디*</h6>
-     <input type="text" name="userid" id="userid" placeholder="아이디(6자이상)" onblur="useridCheck(this.value)">
-     <br> <span id="umsg"></span> 
-     </div>
-     </li>
-    
-    <li>
-    <div class="pwdbox">
-     <h6>비밀번호*</h6>
-     <input type="password" name="pwd" id="pwd" placeholder="비밀번호" onkeyup="pwdCheck()">
-     </div>
-     </li>
-     
-     <li>
-     <div class="pwdidentify">
-     <h6>비밀번호 확인*</h6>
-     <input type="password" name="pwd2" id="pwdchk" placeholder="비밀번호 확인" onkeyup="pwdCheck()"> 
-     <br> <span id="pmsg"></span>
-     </div>
-     </li>
-     
-     <li>
-     <div class="phonebox">
-     <h6>휴대폰 번호*</h6>
-     <input type="text" name="phone1" id="phone1" placeholder="010"> -
-     <input type="text" name="phone2" id="phone2" placeholder="1234"> -
-     <input type="text" name="phone3" id="phone3" placeholder="5678">
-     <input type="hidden" name="phone" id="phoneHidden">
-     </div>
-     </li>
-     
-     <li>
-     <div class="emailbox">
-     <h6>이메일*</h6>
-     <input type="text" name="e1" id="txt2" placeholder="이메일아이디"> @
-     <input type="text" name="e2" id="txt2" placeholder="이메일주소">
-      <select onchange="chgServer(this.value)" class="emailmenu">
-         <option value="">직접입력</option>
-         <option value="naver.com">네이버</option>
-         <option value="daum.net">다음</option>
-         <option value="google.com">구글</option>
-         <option value="hotmail.com">핫메일</option>
-       </select>
-     </div>
-     </li>
-    
-     <div> <input type="submit" value="회원 가입" id="submit"> </div>     
-     </ul>
-    </form>
+	<form name="mform" method="post" action="memberOk" onsubmit="return check()">
+	<input type="hidden" name="email">
+	<h3 align="center"> 가입정보 </h3>
+		<ul class="joinbox">
+			<li>
+				<div class="namebox">
+					<h6>이름*</h6>
+					<input type="text" name="name" id="name" placeholder="이 름"> 
+				</div>
+			</li>
+			<li>
+				<div class="enamebox">
+					<div class="sung">
+						<h6>영문 성*</h6>
+						<input type="text" name="sung" id="sung" placeholder="HONG" required oninput="enforceUppercase(this)" > 
+					</div>
+					<div class="lname">
+						<h6>영문 이름*</h6>
+						<input type="text" name="lname" id="lname" placeholder="GILDONG" required oninput="enforceUppercase(this)" > 
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="idbox">
+					<h6>아이디*</h6>
+					<input type="text" name="userid" id="userid" placeholder="아이디(6자이상)" onblur="useridCheck(this.value)">
+					<br>
+					<span id="umsg"></span> 
+				</div>
+			</li>
+			<li>
+				<div class="pwdbox">
+					<h6>비밀번호*</h6>
+					<input type="password" name="pwd" id="pwd" placeholder="비밀번호" onkeyup="pwdCheck()">
+				</div>
+			</li>
+			<li>
+				<div class="pwdidentify">
+					<h6>비밀번호 확인*</h6>
+					<input type="password" name="pwd2" id="pwdchk" placeholder="비밀번호 확인" onkeyup="pwdCheck()"> 
+					<br>
+					<span id="pmsg"></span>
+				</div>
+			</li>
+			<li>
+				<div class="phonebox">
+					<h6>휴대폰 번호*</h6>
+					<input type="text" name="phone1" id="phone1" placeholder="010"> -
+					<input type="text" name="phone2" id="phone2" placeholder="1234"> -
+					<input type="text" name="phone3" id="phone3" placeholder="5678">
+					<input type="hidden" name="phone" id="phoneHidden">
+				</div>
+			</li>
+			<li>
+				<div class="emailbox">
+					<h6>이메일*</h6>
+					<input type="text" name="e1" id="txt2" placeholder="이메일아이디"> @
+					<input type="text" name="e2" id="txt2" placeholder="이메일주소">
+					<select onchange="chgServer(this.value)" class="emailmenu">
+						<option value="">직접입력</option>
+						<option value="naver.com">네이버</option>
+						<option value="daum.net">다음</option>
+						<option value="google.com">구글</option>
+						<option value="hotmail.com">핫메일</option>
+					</select>
+				</div>
+			</li>
+			<li>
+				<input type="submit" value="회원 가입" id="submit">
+			</li>
+		</ul>
+	</form>
 </body>
 </html>

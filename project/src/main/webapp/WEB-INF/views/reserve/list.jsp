@@ -145,7 +145,7 @@ $(function() {
 	<div id="tables">
 		<!-- 예약 테이블 -->
 		<div class="table-container" id="allFlights">
-		<div width="100%" style="text-align: center"><h2>나의 예약 정보</h2></div>
+		<div style="width: 100%; text-align: center"><h2>나의 예약 정보</h2></div>
 		<!-- 날짜 선택 필드 -->
 		<div id="cal">
 			<input type="text" id="datepicker" placeholder="날짜를 선택하세요" readonly/>
