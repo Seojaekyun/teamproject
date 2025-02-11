@@ -105,7 +105,7 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public int addReservation(
 			String userId, String flightId, String seatClass,
-			String passengerType, String pnr, String sung, String name) {
+			String passengerType, String pnr, String sung, String name, Integer goingPrice) {
 		ReservationDto reservation = new ReservationDto();
 		reservation.setUserid(userId);
 		reservation.setFlightId(Integer.parseInt(flightId));

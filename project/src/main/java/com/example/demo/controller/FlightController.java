@@ -365,7 +365,7 @@ public class FlightController {
 		// 오는편 좌석들 배열
 		String[] returnSeatsArray = returnSelectedSeats.split(",");
 		// 가는편 예약 저장
-		int goingReservationId = service.addReservation(userId, goingFlightId, seatClass, "가는편", goingPNR, user.getSung(), user.getLname());
+		int goingReservationId = service.addReservation(userId, goingFlightId, seatClass, "가는편", goingPNR, user.getSung(), user.getLname(), goingPrice);
 		// 가는편 좌석 처리: 여러 좌석이 배열로 들어올 경우 하나씩 처리
 		for (String seat : goingSeatsArray) {
 			int seatId = service.getSeatIdBySeatNumber(seat.trim());  // 좌석 번호를 통해 seat_id를 얻음
@@ -381,7 +381,7 @@ public class FlightController {
 		}
 		
 		// 오는편 예약 저장
-		int returnReservationId = service.addReservation(userId, returnFlightId, seatClass, "오는편", returnPNR, user.getSung(), user.getLname());
+		int returnReservationId = service.addReservation(userId, returnFlightId, seatClass, "오는편", returnPNR, user.getSung(), user.getLname(), returnPrice);
 		// 오는편 좌석 처리: 여러 좌석이 배열로 들어올 경우 하나씩 처리
 		for (String seat : returnSeatsArray) {
 			int seatId = service.getSeatIdBySeatNumber(seat.trim());
