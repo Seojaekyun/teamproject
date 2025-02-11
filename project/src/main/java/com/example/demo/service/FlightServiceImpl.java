@@ -233,6 +233,11 @@ public class FlightServiceImpl implements FlightService {
 	}
 	*/
 
+	@Override
+	public SeatDto getgoingFlightPrice(String goingSelectedSeats) {
+		return fmapper.getgoingFlightPrice(goingSelectedSeats);
+	}
+
 
 	 
 }

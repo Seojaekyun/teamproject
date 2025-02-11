@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 	.reservation-info {
 		margin-top: 30px;
 	}
-	.flight-info, .passenger-info {
+	.flight-info, .passenger-info, .price {
 		margin-bottom: 30px;
 		border: 1px solid #ddd;
 		padding: 20px;
@@ -79,6 +80,10 @@
 					<th>탑승객</th>
 					<td>${passengers}</td>
 				</tr>
+				<tr>
+					<th>금액</th>
+					<td><fmt:formatNumber value="${goingUnitPrice}" type="number"/>원</td>
+				</tr>
 			</table>
 		</div>
 		
@@ -126,6 +131,10 @@
 					<th>탑승객</th>
 					<td>${passengers}</td>
 				</tr>
+				<tr>
+					<th>금액</th>
+					<td><fmt:formatNumber value="${returnUnitPrice}" type="number"/>원</td>
+				</tr>
 			</table>
 		</div>
 		
@@ -155,9 +164,13 @@
 				</tr>
 			</table>
 		</div>
-		<div>
-			금액
-			<input type="text">	
+		<div class="price">
+			<table class="table table-bordered">
+				<tr>
+					<th>총액</th>
+					<td><fmt:formatNumber value="${totalPrice}" type="number"/>원</td>
+				</tr>
+			</table>
 		</div>
 		<!-- 버튼 -->
 		<div class="buttons">
@@ -178,6 +191,9 @@
 				<input type="hidden" name="returnDepartureTime" value="${returnDepartureTime}">
 				<input type="hidden" name="returnArrivalTime" value="${returnArrivalTime}">
 				<input type="hidden" name="returnFlightDuration" value="${returnFlightDuration}">
+				<input type="hidden" name="goingPrice" value="${goingUnitPrice}">
+				<input type="hidden" name="returnPrice" value="${returnUnitPrice}">
+				<input type="hidden" name="totalPrice" value="${totalPrice}">
 				<button type="submit" class="btn btn-success">예약하기</button>
 			</form>
 			<button class="btn btn-secondary" onclick="history.back()">이전으로</button>

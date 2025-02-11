@@ -57,6 +57,9 @@
 	<select id="getFlightByGoingFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE flight_id = #{goingFlightId}
 	</select>
+	<select id="getgoingFlightPrice" parameterType="String" resultType="com.example.demo.dto.SeatDto">
+		SELECT * FROM seattemplate WHERE seat_number = #{goingSelectedSeats}
+	</select>
 	<insert id="addReservation" parameterType="com.example.demo.dto.ReservationDto" useGeneratedKeys="true" keyProperty="reservationId">
 		INSERT INTO reservations (userid, flight_id, reservation_date, seat_class, passenger_type, sung, pnr, name, charge, charge_pay)
 		VALUES (#{userid}, #{flightId}, NOW(), #{seatClass}, #{passengerType}, #{sung}, #{pnr}, #{name}, #{charge}, #{chargePay})
@@ -130,7 +133,7 @@
 		SELECT * FROM FlightSeats WHERE flight_id = #{flightId} AND seat_class = #{seatClass} AND is_available = 1
 	</select>
 	<select id="getAvailableSeatsByFlightAndClass" resultType="com.example.demo.dto.SeatDto">
-		SELECT st.seat_id AS seatId, st.seat_number AS seatNumber, st.seat_class AS seatClass, fs.is_available AS available  <!-- 여기서 별칭 사용 -->
+		SELECT st.surcharge AS surcharge, st.seat_id AS seatId, st.seat_number AS seatNumber, st.seat_class AS seatClass, fs.is_available AS available  <!-- 여기서 별칭 사용 -->
 		FROM seattemplate st JOIN flightseats fs ON st.seat_id = fs.seat_id WHERE fs.flight_id = #{flightId} AND st.seat_class = #{seatClass}
 	</select>
 	<insert id="addFlight" parameterType="com.example.demo.dto.FlightDto">

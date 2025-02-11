@@ -254,8 +254,14 @@ public class FlightController {
 		
 		// 유저 정보를 가져옴
 		MemberDto user = service.getMemberInfoByUserId(userId);  // 회원 정보 조회
+		
 		FlightDto goingflight = service.getgoingFlightInfoByFlightId(goingFlightId);
+		String firstGoingSeat = goingSelectedSeats.split(",")[0];
+		SeatDto goingflightprice = service.getgoingFlightPrice(firstGoingSeat);
+		
 		FlightDto returnflight = service.getreturnFlightInfoByFlightId(returnFlightId);
+		String firstReturnSeat = returnSelectedSeats.split(",")[0];
+		SeatDto returnflightprice = service.getgoingFlightPrice(firstReturnSeat);
 		
 		if (user == null) {
 			return "redirect:/errorPage"; // 유저 정보가 없을 경우 처리
@@ -276,6 +282,7 @@ public class FlightController {
 		model.addAttribute("userLname", user.getLname());  // 이름
 		model.addAttribute("userEmail", user.getEmail());  // 이메일
 		model.addAttribute("userPhone", user.getPhone());  // 전화번호
+		
 		// 가는 항공편 정보 모델에 추가
 		model.addAttribute("selectedGoingFlightId", selectedGoingFlightId);
 		model.addAttribute("goingFlightName", goingflight.getFlightName());
@@ -284,6 +291,9 @@ public class FlightController {
 		model.addAttribute("goingDepartureTime", goingflight.getDepartureTime());
 		model.addAttribute("goingArrivalTime", goingflight.getArrivalTime());
 		model.addAttribute("goingFlightDruation", goingflight.getFlightDuration());
+		double goingUnitPrice = goingflightprice.getSurcharge() * goingflight.getUnitPrice();
+		model.addAttribute("goingUnitPrice", (int)(goingUnitPrice*passengers));
+	    
 		// 오는 항공평 정보 모델에 추가
 		model.addAttribute("selectedReturnFlightId", selectedReturnFlightId);
 		model.addAttribute("returnFlightName", returnflight.getFlightName());
@@ -292,6 +302,9 @@ public class FlightController {
 		model.addAttribute("returnDepartureTime", returnflight.getDepartureTime());
 		model.addAttribute("returnArrivalTime", returnflight.getArrivalTime());
 		model.addAttribute("returnFlightDruation", returnflight.getFlightDuration());
+		double returnUnitPrice = returnflightprice.getSurcharge() * returnflight.getUnitPrice();
+		model.addAttribute("returnUnitPrice", (int)(returnUnitPrice*passengers));
+		
 		// 선택한 좌석 정보를 배열로 변환
 		String[] goingSeatsArray = goingSelectedSeats.split(",");
 		String[] returnSeatsArray = returnSelectedSeats.split(",");
@@ -299,7 +312,9 @@ public class FlightController {
 		model.addAttribute("returnSeats", String.join(", ", returnSeatsArray));
 		model.addAttribute("passengers", passengers);
 		model.addAttribute("seatClass", seatClass);
+		model.addAttribute("surcharge", goingflightprice.getSurcharge());
 		model.addAttribute("userId", userId);
+		model.addAttribute("totalPrice", (int)((goingUnitPrice*passengers)+(returnUnitPrice*passengers)));
 		// 예약 페이지로 이동
 		return "flight/bookingPage";  // 예약 페이지 JSP 파일 경로
 	}
@@ -323,8 +338,14 @@ public class FlightController {
 			@RequestParam Integer passengers,
 			@RequestParam String goingSelectedSeats,  // 가는편 좌석
 			@RequestParam String returnSelectedSeats, // 오는편 좌석
+			@RequestParam Integer goingPrice,
+			@RequestParam Integer returnPrice,
 			HttpSession session, Model model) {
 		// 세션에서 로그인된 사용자 정보 확인
+		
+		System.out.println("Going Price: " + goingPrice);
+	    System.out.println("Return Price: " + returnPrice);
+	    
 		String userId = (String) session.getAttribute("userid");
 		if (userId == null) {
 			return "redirect:/login/login";  // 로그인 안 되어 있으면 로그인 페이지로 리다이렉트
@@ -383,24 +404,32 @@ public class FlightController {
 		// 예약 완료 페이지로 이동
 		model.addAttribute("goingPNR", goingPNR);  // 가는편 PNR
 		model.addAttribute("returnPNR", returnPNR);  // 오는편 PNR
+		
 		model.addAttribute("goingFlightId", goingFlightId);
 		model.addAttribute("returnFlightId", returnFlightId);
 		model.addAttribute("goingSelectedSeats", goingSelectedSeats);
 		model.addAttribute("returnSelectedSeats", returnSelectedSeats);
 		model.addAttribute("seatClass", seatClass);
 		model.addAttribute("passengers", passengers);
+		
 		model.addAttribute("goingFlightName", goingFlight.getFlightName());
 		model.addAttribute("goingFlightDeparture", goingFlight.getDepartureAirport());
 		model.addAttribute("goingFlightArrival", goingFlight.getArrivalAirport());
 		model.addAttribute("goingDepartureTime", goingFlight.getDepartureTime());
 		model.addAttribute("goingArrivalTime", goingFlight.getArrivalTime());
 		model.addAttribute("goingFlightDuration", goingFlight.getFlightDuration());
+		model.addAttribute("goingPrice", goingPrice);  // 가는편 가격
+		
 		model.addAttribute("returnFlightName", returnFlight.getFlightName());
 		model.addAttribute("returnFlightDeparture", returnFlight.getDepartureAirport());
 		model.addAttribute("returnFlightArrival", returnFlight.getArrivalAirport());
 		model.addAttribute("returnDepartureTime", returnFlight.getDepartureTime());
 		model.addAttribute("returnArrivalTime", returnFlight.getArrivalTime());
 		model.addAttribute("returnFlightDuration", returnFlight.getFlightDuration());
+		model.addAttribute("returnPrice", returnPrice);  // 오는편 가격
+		
+		model.addAttribute("totalPrice", goingPrice + returnPrice);
+		
 		return "flight/reservationConfirmationPage";  // 예약 완료 페이지
 	}
 	

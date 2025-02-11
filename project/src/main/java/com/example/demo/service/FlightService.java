@@ -34,6 +34,8 @@ public interface FlightService {
 	String getAirportTimezone(String departureAirport);
 	List<String> getDepartureAirportsByDate(String date);
 	List<String> getArrivalAirportsByDepartureAndDate(String departure, String date);
+	SeatDto getgoingFlightPrice(String goingSelectedSeats);
+
 	
 	
 }

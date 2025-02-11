@@ -73,6 +73,7 @@ public interface FlightMapper {
 	List<String> getDepartureAirportsByDate(String date);
 	List<String> getArrivalAirportsByDepartureAndDate(@Param("departure") String departure, @Param("date") String date);
 	int countFilteredFlights(String departureAirport, String arrivalAirport, String selectedDate);
+	SeatDto getgoingFlightPrice(String goingSelectedSeats);
 	
 	
 }

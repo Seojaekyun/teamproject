@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +122,7 @@
             <div class="details-item">비행 시간: ${goingFlightDuration}</div>
             <div class="details-item">탑승 인원: ${passengers}명 (성인 ${adultCount}명, 소아 ${childCount}명)</div>
             <div class="details-item">좌석 등급: ${seatClass}</div>
-            <div class="details-item">총 결제 금액: ${totalCharge}원</div>
+            <div class="details-item">총 결제 금액: <fmt:formatNumber value="${goingPrice}" type="number"/>원</div>
         </div>
     </div>
 
@@ -146,7 +147,7 @@
             <div class="details-item">비행 시간: ${returnFlightDuration}</div>
             <div class="details-item">탑승 인원: ${passengers}명 (성인 ${adultCount}명, 소아 ${childCount}명)</div>
             <div class="details-item">좌석 등급: ${seatClass}</div>
-            <div class="details-item">총 결제 금액: ${totalCharge}원</div>
+            <div class="details-item">총 결제 금액: <fmt:formatNumber value="${returnPrice}" type="number"/>원</div>
         </div>
     </div>
 
