@@ -155,7 +155,10 @@
 				</tr>
 			</table>
 		</div>
-		
+		<div>
+			금액
+			<input type="text">	
+		</div>
 		<!-- 버튼 -->
 		<div class="buttons">
 			<form action="${pageContext.request.contextPath}/flights/confirmBooking" method="post" style="display:inline;">
