@@ -22,7 +22,7 @@ public interface FlightService {
 	FlightDto getreturnFlightInfoByFlightId(String returnFlightId);
 	int addReservation(
 			String userId, String flightId, String seatClass,
-			String passengerType, String pnr, String sung, String name, Integer goingPrice);
+			String passengerType, String pnr, String sung, String name, String goingPrice);
 	int getSeatIdBySeatNumber(String seatNumber);
 	void addSeatToReservation(int reservationId, int seatId);
 	void updateSeatAvailability(int flightId, int seatId);

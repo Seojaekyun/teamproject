@@ -21,17 +21,7 @@
 		margin-top: 20px;
 	}
 </style>
-<script>
-	function checkFormSubmission() {
-		const goingSeats = document.querySelector('input[name="goingSelectedSeats"]').value;
-		const returnSeats = document.querySelector('input[name="returnSelectedSeats"]').value;
-		
-		console.log("Form 제출 확인 - 가는편 좌석: " + goingSeats);
-		console.log("Form 제출 확인 - 오는편 좌석: " + returnSeats);
-	}
-	
-	document.querySelector('form').addEventListener('submit', checkFormSubmission);
-</script>
+
 </head>
 <body>
 	<div class="container">
@@ -199,5 +189,16 @@
 			<button class="btn btn-secondary" onclick="history.back()">이전으로</button>
 		</div>
 	</div>
+<script>
+	function checkFormSubmission() {
+		const goingSeats = document.querySelector('input[name="goingSelectedSeats"]').value;
+		const returnSeats = document.querySelector('input[name="returnSelectedSeats"]').value;
+		
+		console.log("Form 제출 확인 - 가는편 좌석: " + goingSeats);
+		console.log("Form 제출 확인 - 오는편 좌석: " + returnSeats);
+	}
+	
+	document.querySelector('form').addEventListener('submit', checkFormSubmission);
+</script>
 </body>
 </html>

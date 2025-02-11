@@ -47,7 +47,12 @@ public class MemberController {
 	public String rlist(HttpSession session, HttpServletRequest request, Model model) {
 		return service.rlist(session, request, model);
 	}
-
+	
+	@GetMapping("/reserve/chargePay")
+	public String chargePay(HttpSession session, HttpServletRequest request, Model model) {
+		return service.chargePay(session, request, model);
+	}
+	
 	@GetMapping("/member/myInq")
 	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
 		return service.myInq(session, request, model);

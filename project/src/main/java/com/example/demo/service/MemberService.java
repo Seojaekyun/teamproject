@@ -33,6 +33,7 @@ public interface MemberService {
 	public String myInq(HttpSession session, HttpServletRequest request, Model model);
 	public String myRev(HttpSession session, HttpServletRequest request, Model model);
 	public String reviewDelete(HttpServletRequest request);
+	String chargePay(HttpSession session, HttpServletRequest request, Model model);
 	
 	
 }

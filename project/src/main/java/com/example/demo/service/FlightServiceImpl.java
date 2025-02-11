@@ -103,9 +103,9 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
 	@Override
-	public int addReservation(
-			String userId, String flightId, String seatClass,
-			String passengerType, String pnr, String sung, String name, Integer goingPrice) {
+	public int addReservation(String userId, String flightId, String seatClass,
+			String passengerType, String pnr, String sung, String name, String goingPrice) {
+		System.out.println("비행기값"+goingPrice);
 		ReservationDto reservation = new ReservationDto();
 		reservation.setUserid(userId);
 		reservation.setFlightId(Integer.parseInt(flightId));
@@ -114,6 +114,7 @@ public class FlightServiceImpl implements FlightService {
 		reservation.setPnr(pnr);
 		reservation.setSung(sung);
 		reservation.setName(name);
+		reservation.setCharge(Integer.parseInt(goingPrice));
 		
 		// 예약 저장 후 reservationId를 받아옴
 		fmapper.addReservation(reservation);

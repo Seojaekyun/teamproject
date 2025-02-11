@@ -130,6 +130,62 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public String chargePay(HttpSession session, HttpServletRequest request, Model model) {
+		String userid=(String) session.getAttribute("userid");
+		
+		// 페이지 번호와 한 페이지에 보여줄 항목 수
+		int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+		int itemsPerPage = 10;  // 한 페이지에 보여줄 항목 수
+		int offset = (page - 1) * itemsPerPage;  // OFFSET 계산
+		
+		// 유저의 그룹화된 예약 리스트 가져오기 (페이징 적용 및 선택된 날짜 기준으로 필터링)
+		List<Map<String, Object>> rsvClist;
+		
+		rsvClist = rmapper.getRsvcfac(userid, itemsPerPage, offset);  // 모든 예약 리스트
+		
+		// 예약 ID 리스트 추출
+		List<Integer> reservationIds = rsvClist.stream()
+				.map(reservation -> (Integer) reservation.get("reservation_id"))
+				.collect(Collectors.toList());
+		// 좌석 수 가져오기
+		Map<Integer, Integer> seatCounts = new HashMap<>();
+		if (!reservationIds.isEmpty()) {
+			List<Map<String, Object>> seatCountList = rmapper.getScrsvid(reservationIds);
+			for (Map<String, Object> seatCount : seatCountList) {
+				seatCounts.put((Integer) seatCount.get("reservation_id"), ((Long) seatCount.get("seat_count")).intValue());
+			}
+		}
+		// charge 정보 가져오기
+		Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
+		// chargeSums에서 BigDecimal을 int로 변환하여 사용
+		BigDecimal totalChargeValue = chargeSums != null && chargeSums.get("totalCharge") != null
+				? (BigDecimal) chargeSums.get("totalCharge")
+						: BigDecimal.ZERO;
+		BigDecimal totalChargePayValue = chargeSums != null && chargeSums.get("totalChargePay") != null
+				? (BigDecimal) chargeSums.get("totalChargePay")
+						: BigDecimal.ZERO;
+		int totalCharge = totalChargeValue.intValue();
+		int totalChargePay = totalChargePayValue.intValue();
+		// 전체 예약 수 가져오기
+		int totalReservations;
+		
+		totalReservations = rmapper.getTotalRsvc(userid);  // 모든 예약의 총 수
+		
+		// 총 페이지 수 계산
+		int totalPages = totalReservations > 0 ? (int) Math.ceil((double) totalReservations / itemsPerPage) : 1;
+		// JSP로 데이터 전달
+		model.addAttribute("rsvClist", rsvClist);
+		model.addAttribute("seatCounts", seatCounts);  // 좌석 수 전달
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
+		model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
+		model.addAttribute("totalReservations", totalReservations);  // 전체 예약 수 전달
+		
+		return "/reserve/chargePay";
+	}
+	
+	@Override
 	public int getCurrentLevel(String userid) {
 		return mapper.getCurrentLevel(userid);
 	}

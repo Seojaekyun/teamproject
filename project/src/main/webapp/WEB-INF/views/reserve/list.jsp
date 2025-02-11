@@ -165,28 +165,43 @@ $(function() {
 					<th>결제</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<tr>
-						<td><a href="/select/selection?pnr=${res.pnr}&date=${res.departure_time.substring(0, 10)}&sung=${res.sung}&name=${res.name}">${res.pnr}</a></td>
-						<td>${res.reservationDate}</td>
-						<td>${res.flightName}</td>
-						<td>${res.departure_time}</td>
-						<td>${res.seat_class}</td>
-						<td>${seatCounts[res.reservation_id]}</td>
-						<td>${totalCharge} 원</td>
-						<td>
-							<c:if test="${totalChargePay == 0}">
-								결제 예정
-							</c:if>
-							<c:if test="${totalChargePay != 0}">
-								결제 완료
-							</c:if>
-						</td>
-					</tr>
+				<tr>
+					<td><a href="/select/selection?pnr=${res.pnr}&date=${res.departure_time.substring(0, 10)}&sung=${res.sung}&name=${res.name}">${res.pnr}</a></td>
+					<td>${res.reservationDate}</td>
+					<td>${res.flightName}</td>
+					<td>${res.departure_time}</td>
+					<td>${res.seat_class}</td>
+					<td>${seatCounts[res.reservation_id]}</td>
+					<td>${totalCharge} 원</td>
+					<td>
+						<c:if test="${totalChargePay == 0}">
+							결제 예정
+						</c:if>
+						<c:if test="${totalChargePay == 1}">
+							결제 완료
+						</c:if>
+						<c:if test="${totalChargePay == 2}">
+							취소 요청
+						</c:if>
+						<c:if test="${totalChargePay == 3}">
+							취소 완료
+						</c:if>
+						<c:if test="${totalChargePay == 4}">
+							취소 불가
+						</c:if>
+					</td>
+				</tr>
 				</c:forEach>
+				<tr>
+					<td colspan="8" style="text-align: right;">
+						<a href="chargePay"><input type="button" value="결제하기"></a>
+						<a href="cancleRes"><input type="button" value="취소요청"></a>
+					</td>
+				</tr>
 				<c:if test="${empty rsvClist}">
-					<tr>
-						<td colspan="7">예약 데이터가 없습니다.</td>
-					</tr>
+				<tr>
+					<td colspan="7">예약 데이터가 없습니다.</td>
+				</tr>
 				</c:if>
 			</table>
 			<!-- 페이지네이션 -->

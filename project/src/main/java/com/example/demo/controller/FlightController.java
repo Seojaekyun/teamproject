@@ -338,8 +338,8 @@ public class FlightController {
 			@RequestParam Integer passengers,
 			@RequestParam String goingSelectedSeats,  // 가는편 좌석
 			@RequestParam String returnSelectedSeats, // 오는편 좌석
-			@RequestParam Integer goingPrice,
-			@RequestParam Integer returnPrice,
+			@RequestParam String goingPrice,
+			@RequestParam String returnPrice,
 			HttpSession session, Model model) {
 		// 세션에서 로그인된 사용자 정보 확인
 		
