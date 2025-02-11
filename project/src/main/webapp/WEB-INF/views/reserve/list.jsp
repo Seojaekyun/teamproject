@@ -105,6 +105,20 @@
 		background-color: #333;
 		cursor: default;
 	}
+	input[type=button] {
+		background-color: #0066cc;
+		color: white;
+		padding: 5px 8px;
+		margin: 2px;
+		border: none;
+		border-radius: 10px;
+		cursor: pointer;
+		font-size: 13px;
+	}
+	input[type=button]:hover {
+		background-color: #004da8;
+	}
+	
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
