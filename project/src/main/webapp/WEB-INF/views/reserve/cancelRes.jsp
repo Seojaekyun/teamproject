@@ -172,7 +172,7 @@
 					<th>좌석등급</th>
 					<th>예약인원</th>
 					<th>요금</th>
-					<th>결제</th>
+					<th>비고</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
 					<c:if test="${totalChargePay == 0}">
@@ -185,7 +185,7 @@
 						<td>${res.seat_class}</td>
 						<td>${seatCounts[res.reservation_id]}</td>
 						<td>${totalCharge} 원</td>
-						<td><a href="payment?pnr=${res.pnr }"><input type="button" value="결제"></a></td>
+						<td><input type="button" value="취소요청"></td>
 					</tr>
 					</c:if>
 				</c:forEach>

@@ -105,8 +105,8 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public int addReservation(String userId, String flightId, String seatClass,
 			String passengerType, String pnr, String sung, String name, String goingPrice) {
-		System.out.println("비행기값"+goingPrice);
 		ReservationDto reservation = new ReservationDto();
+		
 		reservation.setUserid(userId);
 		reservation.setFlightId(Integer.parseInt(flightId));
 		reservation.setSeatClass(seatClass);
@@ -149,38 +149,39 @@ public class FlightServiceImpl implements FlightService {
 	
 	@Override
     public void addFlight(String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, String ftime, int airplaneId, int unitPrice) {
-        FlightDto flight = new FlightDto();
-        flight.setDepartureAirport(departureAirport);
-        flight.setArrivalAirport(arrivalAirport);
-        flight.setDepartureTime(departureTime);
-        flight.setArrivalTime(arrivalTime);
-        flight.setAirplaneId(airplaneId);
-        flight.setFtime(ftime);
-        flight.setUnitPrice(unitPrice);
-
-        fmapper.addFlight(flight);
-    }
-
-    @Override
-    public List<AirplanesDto> getAllAirplanes() {
-        return fmapper.findAllAirplanes();
-    }
-    
-    @Override
-    public int[] getFlightTime(String departureAirport, String arrivalAirport) {
-        FlightTimeDto flightTimeDto = fmapper.getFlightTime(departureAirport, arrivalAirport);
-        if (flightTimeDto != null && flightTimeDto.getFlightTime() != null) {
-            LocalTime flightTime = flightTimeDto.getFlightTime();
-            int hours = flightTime.getHour();
-            int minutes = flightTime.getMinute();
-            int unitPrice=flightTimeDto.getUnitPrice();
-            
-            return new int[]{hours, minutes, unitPrice};
-        } else {
-            // Handle case where flight time is not found
-            return new int[]{0, 0, 0};
-        }
-    }
+		FlightDto flight = new FlightDto();
+		flight.setDepartureAirport(departureAirport);
+		flight.setArrivalAirport(arrivalAirport);
+		flight.setDepartureTime(departureTime);
+		flight.setArrivalTime(arrivalTime);
+		flight.setAirplaneId(airplaneId);
+		flight.setFtime(ftime);
+		flight.setUnitPrice(unitPrice);
+		
+		fmapper.addFlight(flight);
+	}
+	
+	@Override
+	public List<AirplanesDto> getAllAirplanes() {
+		return fmapper.findAllAirplanes();
+	}
+	
+	@Override
+	public int[] getFlightTime(String departureAirport, String arrivalAirport) {
+		FlightTimeDto flightTimeDto = fmapper.getFlightTime(departureAirport, arrivalAirport);
+		if(flightTimeDto != null && flightTimeDto.getFlightTime() != null) {
+			LocalTime flightTime = flightTimeDto.getFlightTime();
+			int hours = flightTime.getHour();
+			int minutes = flightTime.getMinute();
+			int unitPrice=flightTimeDto.getUnitPrice();
+			
+			return new int[]{hours, minutes, unitPrice};
+		}
+		else {
+			// Handle case where flight time is not found
+			return new int[]{0, 0, 0};
+		}
+	}
 	
 	@Override
 	public void addSeatsForFlight() {

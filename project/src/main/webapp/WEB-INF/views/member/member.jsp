@@ -4,199 +4,157 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <style>
- 	
- 	form{
-    width: 400px;
-    height:100%;
-    max-height: 740px;
-    border: 1px solid #D2D2D2;
-    border-radius: .4rem;
-    margin: auto;
-    margin-top: 60px;
-    margin-bottom: 100px;
-
- 	}
- 	
- 	h3 {
- 	font-size: 1.47em;
- 	margin: 30px;
- 
- 	}
- 	
- 	.joinbox {
-    width: 362px;
-    height: 700px;
-    margin: auto;
-    list-style-type: none;
-    padding-left: 0px;
+<style>
+	form{
+		width: 400px;
+		height:100%;
+		max-height: 740px;
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		margin: auto;
+		margin-top: 60px;
+		margin-bottom: 100px;
 	}
-	
+	h3 {
+	font-size: 1.47em;
+	margin: 30px;
+	}
+	.joinbox {
+		width: 362px;
+		height: 700px;
+		margin: auto;
+		list-style-type: none;
+		padding-left: 0px;
+	}
 	h6 {
-	margin-bottom: 7px;
-
+		margin-bottom: 7px;
 	}
- 	
- /* 	input {
- 	border: 1px solid #D2D2D2;
- 	border-radius: .4rem;
- 	width:360px;
-    height:40px;
-    align: center;
- 	}
-*/
-
-#name {
- 	border: 1px solid #D2D2D2;
- 	border-radius: .4rem;
- 	width:360px;
-    height:36px;
-    align: center;
-    margin-bottom:10px;
-}
-
-
-
- #sung, #lname {
-        border: 1px solid #D2D2D2;
-        border-radius: .4rem;
-        width: 170px; /* 넓이를 더 작게 조정해서 가로로 나란히 배치 가능 */
-        height: 36px;
-        margin-bottom: 10px;
-    }
-
-    .enamebox {
-        display: flex;
-        justify-content: space-between; /* 요소 사이의 간격을 고르게 분배 */
-        gap: 10px; /* 간격 조정 */
-        align-items: center; /* 세로 중앙 정렬 */
-    }
-#userid {
-
- 	border: 1px solid #D2D2D2;
- 	border-radius: .4rem;
- 	width:360px;
-    height:36px;
-    align: center;
-    margin-bottom:10px;
-    
-} 	
-
-#pwd {
-	border: 1px solid #D2D2D2;
- 	border-radius: .4rem;
- 	width:360px;
-    height:36px;
-    align: center;
-    margin-bottom:10px;
-}
-
-#pwdchk {
- 	border: 1px solid #D2D2D2;
- 	border-radius: .4rem;
- 	width:360px;
-    height:36px;
-    align: center;
-    margin-bottom:10px;
-}
-
-#phone1, #phone2, #phone3 {
-	border: 1px solid #D2D2D2;
-	border-radius: .4rem;
-	width: 103px;
-	height: 36px;
-	margin-bottom:10px;
-}
-
-#txt2 {
-	border: 1px solid #D2D2D2;
-	border-radius: .4rem;
-	width: 120px;
-	height: 36px;
-}
-
-.emailmenu {
-   font-family: Arial, sans-serif;
-    font-size: 13px;
-    color: #333;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 2px
-  }
-  
- .flex-row {
-  display: flex; /* Flexbox를 사용하여 수평 배치 */
-  justify-content: space-between; /* 공간을 균등하게 배분 */
-  align-items: center; /* 수직 중앙 정렬 */
-}
-
-
-
-.generation{
-	padding-bottom: 8px;
-    padding-left: 2px;
-    padding-top: 8px;
-    border-radius: .4rem;
-    font-size: 14px;
-    padding-right: 65px;
-    border: 1px solid #D2D2D2;
-}
-
-
-
- 	
-	
-	
-	
+	/* 	input {
+			border: 1px solid #D2D2D2;
+			border-radius: .4rem;
+			width:360px;
+			height:40px;
+			align: center;
+		}
+	*/
+	#name {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width:360px;
+		height:36px;
+		align: center;
+		margin-bottom:10px;
+	}
+	#sung, #lname {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width: 170px; /* 넓이를 더 작게 조정해서 가로로 나란히 배치 가능 */
+		height: 36px;
+		margin-bottom: 10px;
+	}
+	.enamebox {
+		display: flex;
+		justify-content: space-between; /* 요소 사이의 간격을 고르게 분배 */
+		gap: 10px; /* 간격 조정 */
+		align-items: center; /* 세로 중앙 정렬 */
+	}
+	#userid {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width:360px;
+		height:36px;
+		align: center;
+		margin-bottom:10px;
+	}
+	#pwd {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width:360px;
+		height:36px;
+		align: center;
+		margin-bottom:10px;
+	}
+	#pwdchk {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width:360px;
+		height:36px;
+		align: center;
+		margin-bottom:10px;
+	}
+	#phone1, #phone2, #phone3 {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width: 103px;
+		height: 36px;
+		margin-bottom:10px;
+	}
+	#txt2 {
+		border: 1px solid #D2D2D2;
+		border-radius: .4rem;
+		width: 120px;
+		height: 36px;
+	}
+	.emailmenu {
+		font-family: Arial, sans-serif;
+		font-size: 13px;
+		color: #333;
+		background-color: #f9f9f9;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 2px
+	}
+	.flex-row {
+		display: flex; /* Flexbox를 사용하여 수평 배치 */
+		justify-content: space-between; /* 공간을 균등하게 배분 */
+		align-items: center; /* 수직 중앙 정렬 */
+	}
+	.generation{
+		padding-bottom: 8px;
+		padding-left: 2px;
+		padding-top: 8px;
+		border-radius: .4rem;
+		font-size: 14px;
+		padding-right: 65px;
+		border: 1px solid #D2D2D2;
+	}
 	#submit {
-	text-align: center;
-    width: 360px;
-    height: 36px;
-    border-radius: .4rem;
-    background-color: black;
-    color: white;
-    cursor:pointer;
-    margin-top:70px;
-    position: absolute;
-    
+		text-align: center;
+		width: 360px;
+		height: 36px;
+		border-radius: .4rem;
+		background-color: black;
+		color: white;
+		cursor:pointer;
+		margin-top:70px;
+		position: absolute;
 	}
-	
 	.agree {
-	padding-top: 30px;
-    height: 125px;
-    font-weight: 500;
-    font-size: 14px;
+		padding-top: 30px;
+		height: 125px;
+		font-weight: 500;
+		font-size: 14px;
 	}
-	
 	#flag{
-	
+		
 	}
-	
 	.agree input[type="checkbox"] {
-  margin-right: 1px; /* radio 버튼과 텍스트 간의 간격 조정 */
-}
-	
-	#agreecontent{
-	border: 1px solid #D2D2D2;
-    list-style-type: none;
-    font-size: 13px;
-    border-radius: .4rem;
-    background-color: #D2D2D2;
-    font-weight: 500;
-    position: relative;
-    left: -40px;
-    width: 340px;
-    padding: 10px;
-    margin-top: 4px;
+		margin-right: 1px; /* radio 버튼과 텍스트 간의 간격 조정 */
 	}
-	
-	
-	
-	
-	
-     
- </style>
+	#agreecontent{
+		border: 1px solid #D2D2D2;
+		list-style-type: none;
+		font-size: 13px;
+		border-radius: .4rem;
+		background-color: #D2D2D2;
+		font-weight: 500;
+		position: relative;
+		left: -40px;
+		width: 340px;
+		padding: 10px;
+		margin-top: 4px;
+	}
+</style>
 <script>
 	var uchk = 0; 
 	var pchk = 0;
@@ -305,8 +263,8 @@
 </head>
 <body> 
 	<form name="mform" method="post" action="memberOk" onsubmit="return check()">
-	<input type="hidden" name="email">
-	<h3 align="center"> 가입정보 </h3>
+		<input type="hidden" name="email">
+		<h3 align="center"> 가입정보 </h3>
 		<ul class="joinbox">
 			<li>
 				<div class="namebox">

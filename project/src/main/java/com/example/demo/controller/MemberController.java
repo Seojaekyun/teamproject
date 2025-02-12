@@ -53,6 +53,16 @@ public class MemberController {
 		return service.chargePay(session, request, model);
 	}
 	
+	@GetMapping("/reserve/payment")
+	public String payment(HttpSession session, HttpServletRequest request, Model model) {
+		return service.payment(session, request, model);
+	}
+	
+	@GetMapping("/reserve/cancelRes")
+	public String cancelRes(HttpSession session, HttpServletRequest request, Model model) {
+		return service.cancelRes(session, request, model);
+	}
+	
 	@GetMapping("/member/myInq")
 	public String myInq(HttpSession session, HttpServletRequest request, Model model) {
 		return service.myInq(session, request, model);

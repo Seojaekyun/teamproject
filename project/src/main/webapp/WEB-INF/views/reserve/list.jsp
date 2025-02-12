@@ -209,7 +209,7 @@ $(function() {
 				<tr>
 					<td colspan="8" style="text-align: right;">
 						<a href="chargePay"><input type="button" value="결제하기"></a>
-						<a href="cancleRes"><input type="button" value="취소요청"></a>
+						<a href="cancelRes"><input type="button" value="취소요청"></a>
 					</td>
 				</tr>
 				<c:if test="${empty rsvClist}">

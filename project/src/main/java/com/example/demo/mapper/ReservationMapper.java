@@ -22,6 +22,7 @@ public interface ReservationMapper {
 	int getTotalReservations(String flightName, String departureTime);
 	ReservationDto getMyrsv(String string);
 	List<Map<String, Object>> getRsvcfac(String userid, int itemsPerPage, int offset);
+	List<Map<String, Object>> getRsvcPay(String pnr);
 	List<Map<String, Object>> getRsvcfacByDate(
 			String userid, String selectedDate, int itemsPerPage, int offset);
 	// getTotalRsvc에서 여러 결과를 반환할 수 있다면 selectList()로 수정

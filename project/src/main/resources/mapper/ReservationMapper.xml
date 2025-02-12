@@ -55,6 +55,16 @@
 		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
 		ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
 	</select>
+	<select id="getRsvcPay" resultType="map">
+		SELECT r.*, f.departure_airport AS departureAirport, f.arrival_airport as arrivalAirport, 
+		f.flight_name AS flightName, r.seat_class,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departureTime,
+		DATE_FORMAT(f.arrival_time, '%Y-%m-%d %H:%i:%s') as arrivalTime,
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate,
+		DATE_FORMAT(f.flight_duration, '%H:%i:%s') as flightDuration
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.pnr = #{pnr}
+		
+	</select>
 	<select id="getRsvcfacByDate" resultType="map">
 		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
 		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
