@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -471,7 +470,7 @@ public class AdminServiceImpl implements AdminService{
 			
 			fname = str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
 			
-			Path path = Paths.get(str);
+			Path path = Path.of(str);
 			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 		}
 		
@@ -518,7 +517,7 @@ public class AdminServiceImpl implements AdminService{
 			
 			fname=str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
 			
-			Path path=Paths.get(str);
+			Path path=Path.of(str);
 			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 		}
 		
