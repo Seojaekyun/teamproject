@@ -27,8 +27,8 @@
 		align-items: center;
 	}
 	.seatf {
-		width: 50px; /* 크기 줄임 */
-		height: 60px; /* 크기 줄임 */
+		width: 40px; /* 크기 줄임 */
+		height: 50px; /* 크기 줄임 */
 		background-color: #00aaff; /* 하늘색 */
 		color: white;
 		font-size: 12px; /* 글씨 크기 줄임 */
@@ -41,8 +41,8 @@
 		transition: transform 0.3s, box-shadow 0.3s;
 	}
 	.seatb {
-		width: 45px; /* 크기 줄임 */
-		height: 55px; /* 크기 줄임 */
+		width: 40px; /* 크기 줄임 */
+		height: 50px; /* 크기 줄임 */
 		background-color: #00aaff;
 		color: white;
 		font-size: 12px; /* 글씨 크기 줄임 */
@@ -55,8 +55,8 @@
 		transition: transform 0.3s, box-shadow 0.3s;
 	}
 	.seat {
-		width: 35px; /* 크기 줄임 */
-		height: 45px; /* 크기 줄임 */
+		width: 30px; /* 크기 줄임 */
+		height: 40px; /* 크기 줄임 */
 		background-color: #00aaff;
 		color: white;
 		font-size: 12px; /* 글씨 크기 줄임 */
@@ -84,7 +84,7 @@
 		transform: scale(1.1); /* 선택된 좌석을 약간 키움 */
 	}
 	.aisle {
-		width: 40px;
+		width: 30px;
 		height: 100%;
 		background-color: transparent;
 	}
@@ -94,8 +94,8 @@
 		justify-content: center;
 		margin-bottom: 12px;
 	}
-	.btn-primary {
-		width: 100%;
+	input [type="button"] {
+		width: 100px;
 		padding: 12px;
 		font-size: 16px;
 		font-weight: bold;
@@ -103,6 +103,8 @@
 		border: none;
 		border-radius: 8px;
 		transition: background-color 0.3s;
+		dsiplay: inline-block;
+		align: right;
 	}
 	.btn-primary:hover {
 		background-color: #0077cc;
@@ -198,13 +200,17 @@
 </head>
 <body>
 	<div class="container">
-	    <h2 class="mt-4">비행기 좌석 선택 - ${seatClass}</h2>
-		<p>비행기 ID: ${flightId}</p>
-		<p>탑승객 수: ${passengers}명</p>
-		
+		<h2 class="mt-4">비행기 좌석 선택 - ${seatClass}</h2>
+		<p><b>비행기 ID:&nbsp;</b> ${flightId} &nbsp;&nbsp;<b>탑승객 수:&nbsp;</b> ${passengers}명</p>
+		<!-- 선택한 좌석 표시 -->
+		<div class="mt-4">
+			<h4>선택한 좌석:&nbsp; <span id="selectedSeatsDisplay"></span></h4> 
+			<!-- 선택 완료 버튼 -->
+			<input type="button" class="btn btn-primary mt-4" onclick="confirmSelection()" value="선택 완료">
+		</div>
 		<!-- 비행기 좌석 배치 -->
 		<div id="seatsContainer" class="airplane">
-		    <c:set var="currentRow" value="" />
+			<c:set var="currentRow" value="" />
 			<c:forEach var="seat" items="${seats}" varStatus="status">
 			<c:set var="seatRow" value="${seat.seatNumber.substring(0, seat.seatNumber.length() - 1)}" />
 			<c:if test="${status.first || seatRow != currentRow}">
@@ -266,13 +272,7 @@
 			</c:if>
 			</c:forEach>
 		</div>
-		<!-- 선택한 좌석 표시 -->
-		<div class="mt-4">
-		    <h4>선택한 좌석:</h4>
-		    <p id="selectedSeatsDisplay"></p>
-		</div>
-		<!-- 선택 완료 버튼 -->
-		<button class="btn btn-primary mt-4" onclick="confirmSelection()">선택 완료</button>
+		
 	</div>
 
 </body>
