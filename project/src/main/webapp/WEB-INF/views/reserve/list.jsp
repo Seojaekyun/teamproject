@@ -186,7 +186,7 @@ $(function() {
 					<td>${res.departure_time}</td>
 					<td>${res.seat_class}</td>
 					<td>${seatCounts[res.reservation_id]}</td>
-					<td>${totalCharge} 원</td>
+					<td>${res.charge} 원</td>
 					<td>
 						<c:if test="${totalChargePay == 0}">
 							결제 예정

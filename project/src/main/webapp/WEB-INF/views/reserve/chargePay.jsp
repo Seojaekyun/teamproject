@@ -175,7 +175,7 @@
 					<th>결제</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${totalChargePay == 0}">
+					<c:if test="${res.chargePay != 1}">
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${res.pnr}</td>
@@ -184,7 +184,7 @@
 						<td>${res.departure_time}</td>
 						<td>${res.seat_class}</td>
 						<td>${seatCounts[res.reservation_id]}</td>
-						<td>${totalCharge} 원</td>
+						<td>${res.charge} 원</td>
 						<td><a href="payment?pnr=${res.pnr }"><input type="button" value="결제"></a></td>
 					</tr>
 					</c:if>

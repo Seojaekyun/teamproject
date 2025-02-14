@@ -33,13 +33,17 @@
         text-align: center;
     }
     .btn-seat-select, .btn-reservation {
-        padding: 10px 20px;
+        padding: 5px 10px;
         background-color: #00467F; /* 블루 색상 */
         color: white;
         border-radius: 5px;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        font-size: 12px;
+    }
+    .btn-reservation {
+        font-size: 15px;
     }
     .btn-seat-select:hover, .btn-reservation:hover {
         background-color: #003A66;
@@ -51,15 +55,7 @@
     .seat-selection-btn {
         margin-right: 10px;
     }
-    /* 좌석 선택 버튼 스타일 */
-    .btn-seat-select {
-        background-color: #00aaff; /* 하늘색 */
-        color: white;
-    }
-    /* 좌석 변경 버튼 스타일 */
-    .btn-seat-select:active {
-        background-color: #0088cc;
-    }
+    
 </style>
 <script>
     function openSeatSelection() {
@@ -73,7 +69,7 @@
         document.getElementById('goingSelectedSeats').value = seatNumbers.join(',');
         document.getElementById('goingSeatsDisplay').innerText = seatNumbers.join(', ');
         var seatButtonContainer = document.getElementById('goingSeatButtonContainer');
-        seatButtonContainer.innerHTML = '<button onclick="openSeatSelection()">좌석 변경</button>';
+        seatButtonContainer.innerHTML = '<button class="btn-seat-select" onclick="openSeatSelection()">좌석 변경</button>';
     }
     function openReturnSeatSelection() {
         var seatClass = '${seatClass}';
@@ -86,7 +82,7 @@
         document.getElementById('returnSelectedSeats').value = seatNumbers.join(',');
         document.getElementById('returnSeatsDisplay').innerText = seatNumbers.join(', ');
         var seatButtonContainer = document.getElementById('returnSeatButtonContainer');
-        seatButtonContainer.innerHTML = '<button onclick="openReturnSeatSelection()">좌석 변경</button>';
+        seatButtonContainer.innerHTML = '<button class="btn-seat-select" onclick="openReturnSeatSelection()">좌석 변경</button>';
     }
     window.addEventListener('message', function(event) {
         if (event.data.type === 'goingSeatsSelected') {

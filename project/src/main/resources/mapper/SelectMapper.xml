@@ -3,16 +3,12 @@
 <mapper namespace="com.example.demo.mapper.SelectMapper">
 	<!-- 1. reservations 정보 조회 -->
 	<select id="getReservationInfo" resultType="map" parameterType="map">
-select r.seat_class, rs.seat_id, r.flight_id, st.seat_number, f.departure_airport, f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id, f.flight_name
-from reservations r
-join reservation_seats rs on r.reservation_id = rs.reservation_id
-join seattemplate st on rs.seat_id = st.seat_id
-join flights f on r.flight_id = f.flight_id
-where 
-r.pnr = #{pnr}
-and r.sung = #{sung}
-and r.name = #{name} 
-and DATE(f.departure_time) = #{date}
+		select r.seat_class, rs.seat_id, r.flight_id, st.seat_number, f.departure_airport,
+		f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id,
+		f.flight_name from reservations r join reservation_seats rs on r.reservation_id = rs.reservation_id
+		join seattemplate st on rs.seat_id = st.seat_id join flights f on r.flight_id = f.flight_id
+		where r.pnr = #{pnr} and r.sung = #{sung} and r.name = #{name} 
+		and DATE(f.departure_time) = #{date}
 
 	</select>
 	<!-- 2. airports 정보 조회 -->

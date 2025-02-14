@@ -175,16 +175,16 @@
 					<th>비고</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${totalChargePay == 0}">
+					<c:if test="${res.charge_Pay != 4}">
 					<tr>
 						<td><input type="checkbox"></td>
-						<td>${res.pnr}</td>
+						<td>${res['pnr']}</td>
 						<td>${res.reservationDate}</td>
 						<td>${res.flightName}</td>
 						<td>${res.departure_time}</td>
 						<td>${res.seat_class}</td>
 						<td>${seatCounts[res.reservation_id]}</td>
-						<td>${totalCharge} 원</td>
+						<td>${res.charge} 원</td>
 						<td><input type="button" value="취소요청"></td>
 					</tr>
 					</c:if>

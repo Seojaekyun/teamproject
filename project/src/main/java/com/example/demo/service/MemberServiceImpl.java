@@ -155,17 +155,7 @@ public class MemberServiceImpl implements MemberService {
 				seatCounts.put((Integer) seatCount.get("reservation_id"), ((Long) seatCount.get("seat_count")).intValue());
 			}
 		}
-		// charge 정보 가져오기
-		Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
-		// chargeSums에서 BigDecimal을 int로 변환하여 사용
-		BigDecimal totalChargeValue = chargeSums != null && chargeSums.get("totalCharge") != null
-				? (BigDecimal) chargeSums.get("totalCharge")
-						: BigDecimal.ZERO;
-		BigDecimal totalChargePayValue = chargeSums != null && chargeSums.get("totalChargePay") != null
-				? (BigDecimal) chargeSums.get("totalChargePay")
-						: BigDecimal.ZERO;
-		int totalCharge = totalChargeValue.intValue();
-		int totalChargePay = totalChargePayValue.intValue();
+		
 		// 전체 예약 수 가져오기
 		int totalReservations;
 		
@@ -178,8 +168,7 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("seatCounts", seatCounts);  // 좌석 수 전달
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
-		model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
+		
 		model.addAttribute("totalReservations", totalReservations);  // 전체 예약 수 전달
 		
 		return "/reserve/chargePay";
@@ -189,16 +178,20 @@ public class MemberServiceImpl implements MemberService {
 	public String payment(HttpSession session, HttpServletRequest request, Model model) {
 		// URL 파라미터로 넘어온 pnr 값을 받음
 		String pnr = request.getParameter("pnr");
-		
-		// session에서 사용자 ID를 받음
-		
+				
 		// 예약 리스트 가져오기
 		List<Map<String, Object>> rsvClist;
-		rsvClist = rmapper.getRsvcPay(pnr);  // 모든 예약 리스트
+		rsvClist = rmapper.getRsvcPay(pnr);
+		List<Map<String, Object>> rsvSeatInfo;
+		rsvSeatInfo = rmapper.getReservationSeatInfo(pnr);
+		int scount = rsvSeatInfo.size();
 		
 		// JSP로 데이터 전달
 		model.addAttribute("rsvClist", rsvClist);
-		System.out.println("값:"+rsvClist);
+		model.addAttribute("rsvSeatInfo", rsvSeatInfo);
+		model.addAttribute("scount", scount);
+		//System.out.println("값:"+rsvClist);
+		//System.out.println("값:"+rsvSeatInfo);
 		return "/reserve/payment";
 	}
 	
@@ -228,18 +221,7 @@ public class MemberServiceImpl implements MemberService {
 				seatCounts.put((Integer) seatCount.get("reservation_id"), ((Long) seatCount.get("seat_count")).intValue());
 			}
 		}
-		// charge 정보 가져오기
-		Map<String, Object> chargeSums = rmapper.getSumOfCharges(userid);
-		// chargeSums에서 BigDecimal을 int로 변환하여 사용
-		BigDecimal totalChargeValue = chargeSums != null && chargeSums.get("totalCharge") != null
-				? (BigDecimal) chargeSums.get("totalCharge")
-						: BigDecimal.ZERO;
-		BigDecimal totalChargePayValue = chargeSums != null && chargeSums.get("totalChargePay") != null
-				? (BigDecimal) chargeSums.get("totalChargePay")
-						: BigDecimal.ZERO;
-		int totalCharge = totalChargeValue.intValue();
-		int totalChargePay = totalChargePayValue.intValue();
-		// 전체 예약 수 가져오기
+		
 		int totalReservations;
 		
 		totalReservations = rmapper.getTotalRsvc(userid);  // 모든 예약의 총 수
@@ -251,10 +233,10 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("seatCounts", seatCounts);  // 좌석 수 전달
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("totalCharge", totalCharge);  // 계산된 totalCharge 전달
-		model.addAttribute("totalChargePay", totalChargePay);  // 계산된 totalChargePay 전달
+
 		model.addAttribute("totalReservations", totalReservations);  // 전체 예약 수 전달
 		
+		System.out.println("값:"+rsvClist);
 		return "/reserve/cancelRes";
 	}
 	

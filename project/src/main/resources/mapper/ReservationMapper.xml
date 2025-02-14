@@ -51,7 +51,7 @@
 	<select id="getRsvcfac" resultType="map">
 		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
 		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
-		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate, r.charge
 		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
 		ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
 	</select>
@@ -61,7 +61,7 @@
 		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departureTime,
 		DATE_FORMAT(f.arrival_time, '%Y-%m-%d %H:%i:%s') as arrivalTime,
 		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate,
-		DATE_FORMAT(f.flight_duration, '%H:%i:%s') as flightDuration
+		DATE_FORMAT(f.flight_duration, '%H:%i:%s') as flightDuration, r.charge
 		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.pnr = #{pnr}
 		
 	</select>
@@ -116,6 +116,12 @@
 	<select id="getSeatClassReservations" resultType="Integer">
 		SELECT COUNT(*) FROM reservations GROUP BY seat_class;
 	</select>
+	<select id="getReservationSeatInfo" resultType="map" parameterType="map">
+SELECT st.seat_number FROM reservations r JOIN reservation_seats rs
+ON r.reservation_id = rs.reservation_id JOIN seattemplate st ON rs.seat_id = st.seat_id
+JOIN flights f ON r.flight_id = f.flight_id WHERE r.pnr = #{pnr}
+</select>
+	
 	
 	
 </mapper>

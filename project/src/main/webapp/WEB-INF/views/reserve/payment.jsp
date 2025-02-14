@@ -102,22 +102,25 @@
 	<!-- 가는편 항공편 정보 -->
 	<div class="flight-box">
 		<c:forEach var="res" items="${rsvClist}">
-		<div class="flight-header">${res['pnr']}</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
+		<div class="flight-header">PNR (예약 번호): ${res['pnr']}</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
 		<div class="flight-info">
 			<div>
 				<p class="flight-time">출발 시간: ${res['departureTime']}</p>
 				<p class="flight-time">도착 시간: ${res['arrivalTime']}</p>
 			</div>
 			<div>
-				<p class="flight-time">선택한 좌석: </p> <!-- 좌석 데이터가 없으면 공백 표시 -->
+				<p class="flight-time">선택한 좌석:
+				<c:forEach var="rsi" items="${rsvSeatInfo}">
+				${rsi['seat_number']} <!-- 좌석 데이터가 없으면 공백 표시 -->
+				</c:forEach>
+				</P>
 			</div>
 		</div>
-		<div class="pnr-box">PNR (예약 번호): ${res['pnr']}</div> <!-- pnr 값 출력 -->
 		<div id="going-details" class="flight-details">
 			<div class="details-item">출발지: ${res['departureAirport']}</div>
 			<div class="details-item">도착지: ${res['arrivalAirport']}</div> <!-- 출발지, 도착지 추가 -->
 			<div class="details-item">비행 시간: ${res['flightDuration']}</div> <!-- 비행 시간 추가 -->
-			<div class="details-item">탑승 인원: ${res['passenger_count']}</div> <!-- 탑승 인원 추가 -->
+			<div class="details-item">탑승 인원: ${scount}</div> <!-- 탑승 인원 추가 -->
 			<div class="details-item">좌석 등급: ${res['seat_class']}</div> <!-- 좌석 등급 추가 -->
 			<div class="details-item">총 결제 금액: <fmt:formatNumber value="${res['charge']}" type="number"/>원</div> <!-- 총 결제 금액 추가 -->
 		</div>
