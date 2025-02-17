@@ -22,7 +22,7 @@
     .flight-box {
     	width: 1000px;
         background-color: #fff;
-        border: 1px solid #ddd;
+        border: 1px solid #0066cc;
         border-radius: 10px;
         padding: 25px;
         margin: auto;
@@ -42,7 +42,7 @@
         text-align: center;
     }
     .flight-header {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         color: #333;
     }
@@ -53,7 +53,7 @@
     .flight-details {
         margin-top: 15px;
         padding-top: 10px;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid #0066cc;
     }
     .toggle-details {
         cursor: pointer;
@@ -105,14 +105,14 @@
 	}
 	#sudan #sudanFirst {
 		width: 100%;
-		height:180px;
-		border:1px solid purple;
+		height:110px;
+		border:1px solid #0066cc;
 		padding:10px;
 	}
 	#sudan #sudanSecond {
 		width: 100%;
 		height:40px;
-		border:1px solid purple;
+		border:1px solid #0066cc;
 		border-top:none;
 		padding:10px;
 	}
@@ -129,6 +129,13 @@
 		width:120px;
 		height:28px;
 		margin-left:10px;
+	}
+	#pnr {
+		font-size: 19px;
+		font-weight: 600;
+		text-align: right;
+		width: 120px;
+		border: none;
 	}
 </style>
 <script>
@@ -170,7 +177,8 @@
 		<c:forEach var="res" items="${rsvClist}">
 		<input type="hidden" name="reservationId" value="${res.reservation_id }">
 		<input type="hidden" name="charge" value="${res['charge']}">
-		<div class="flight-header">PNR (예약 번호): <input type="text" name="pnr" value="${res['pnr']}" readonly> &nbsp; (${res['passenger_type']})</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
+		<div class="flight-header">PNR (예약 번호): <input type="text" name="pnr" id="pnr" value="${res['pnr']}" readonly> &nbsp; (${res['passenger_type']})</div>
+		<br>
 		<div class="flight-info">
 			<div>
 				<p class="flight-time">출발 시간: ${res['departureTime']}</p>
@@ -178,9 +186,9 @@
 			</div>
 			<div>
 				<p class="flight-time">선택한 좌석:
-				<c:forEach var="rsi" items="${rsvSeatInfo}">
-				${rsi['seat_number']} <!-- 좌석 데이터가 없으면 공백 표시 -->
-				</c:forEach>
+					<c:forEach var="rsi" items="${rsvSeatInfo}">
+					${rsi['seat_number']} <!-- 좌석 데이터가 없으면 공백 표시 -->
+					</c:forEach>
 				</P>
 			</div>
 		</div>
@@ -215,9 +223,8 @@
 		<br>
 		<section id="member"> <!-- 구매자 정보 -->
 			<table>
-				<caption> <span id="h3"> 예약자 정보 </span> </caption>
 				<tr>
-					<td width="200"> 이 름 </td>
+					<td width="200"> 예약자 성명 </td>
 					<td> ${res['name'] } &nbsp; ${res['sung'] } </td>
 				</tr>
 			</table>

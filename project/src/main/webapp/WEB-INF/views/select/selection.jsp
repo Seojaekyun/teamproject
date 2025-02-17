@@ -137,43 +137,43 @@
 	<a href="../reserve/list"><input type="button" id="menu" value="목록으로"></a>
 	<!-- 예약 상단 정보 -->
 	<div class="reservation-header">
-		<h2>예약번호: <span>${reservationList[0].pnr}</span></h2>
-		<p>${reservationList[0].departureCity} -> ${reservationList[0].arrivalCity}</p>
+		<h2>예약번호: <span>${rsvList[0].pnr}</span></h2>
+		<p>${rsvList[0].departureCity} -> ${rsvList[0].arrivalCity}</p>
 	</div>
 	<!-- 항공편 동적 리스트 출력 -->
-	<c:forEach var="reservationInfo" items="${reservationList}">
+	<c:forEach var="rsvInfo" items="${rsvList}">
 	<div class="flight-info-container">
 		<div class="direction">
-			<span>${reservationInfo.departureAirport} -> ${reservationInfo.arrivalAirport}</span>
+			<span>${rsvInfo.departureAirport} -> ${rsvInfo.arrivalAirport}</span>
 		</div>
 		<div class="flight-section">
 			<div class="flight-details">
 				<div class="info-row">
-					<label>${reservationInfo.departureTime.substring(0, 10)}</label>  
+					<label>${rsvInfo.departureTime.substring(0, 10)}</label>  
 				</div>
 				<div class="info-row">
-					<label>항공편명:</label> <span>${reservationInfo.flightName}</span>
+					<label>항공편명:</label> <span>${rsvInfo.flightName}</span>
 				</div>
 				<div class="info-row">
-					<label>좌석 등급:</label> <span>${reservationInfo.seatClass}</span>
-					<label>좌석 번호:</label> <span>${reservationInfo.seatNumber}</span>
+					<label>좌석 등급:</label> <span>${rsvInfo.seatClass}</span>
+					<label>좌석 번호:</label> <span>${rsvInfo.seatNumber}</span>
 				</div>
 			</div>
 			<div class="info-row">
-				<label>출발 시간:</label> <span>${reservationInfo.departureTime.substring(11, 16)}</span>
-				<label>공항 이름:</label> <span>${reservationInfo.departureAirportName}</span>
-				<label>출발 공항:</label> <span>${reservationInfo.departureAirport}</span>
+				<label>출발 시간:</label> <span>${rsvInfo.departureTime.substring(11, 16)}</span>
+				<label>공항 이름:</label> <span>${rsvInfo.departureAirportName}</span>
+				<label>출발 공항:</label> <span>${rsvInfo.departureAirport}</span>
 			</div>
 			<div class="info-row">
-				<label>소요 시간:</label> <span>${reservationInfo.flightDuration.substring(0, 5)}</span>
+				<label>소요 시간:</label> <span>${rsvInfo.flightDuration.substring(0, 5)}</span>
 			</div>
 			<div class="info-row">
-				<label>도착 시간:</label> <span>${reservationInfo.arrivalTime.substring(11, 16)}</span>
-				<label>공항 이름:</label> <span>${reservationInfo.arrivalAirportName}</span>
-				<label>도착 공항:</label> <span>${reservationInfo.arrivalAirport}</span>
+				<label>도착 시간:</label> <span>${rsvInfo.arrivalTime.substring(11, 16)}</span>
+				<label>공항 이름:</label> <span>${rsvInfo.arrivalAirportName}</span>
+				<label>도착 공항:</label> <span>${rsvInfo.arrivalAirport}</span>
 			</div>
 			<div class="flight-summary">
-				<c:if test="${reservationInfo.charge_pay==1}">
+				<c:if test="${rsvInfo.charge_pay==1}">
 				<button class="checkin-btn">체크인</button>
 				</c:if>
 			</div>
@@ -184,8 +184,8 @@
 				<img src="path/to/seat-icon.png" alt="좌석">
 				<p>
 					<c:choose>
-					<c:when test="${reservationInfo.seatNumber != null}">
-					좌석 번호: ${reservationInfo.seatNumber}
+					<c:when test="${rsvInfo.seatNumber != null}">
+					좌석 번호: ${rsvInfo.seatNumber}
 					</c:when>
 					<c:otherwise>
 					좌석 신청 전
@@ -194,7 +194,7 @@
 				</p>
 			</div>
 			<div class="service-item">
-				<a href="/passport/passport?pnr=${reservationInfo.pnr}">
+				<a href="/passport/passport?pnr=${rsvInfo.pnr}">
 					<button type="button" onclick="movePage()">  
 						<img src="path/to/passport-icon.png" alt="여권">
 					</button>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.SelectMapper">
 	<!-- 1. reservations 정보 조회 -->
-	<select id="getReservationInfo" resultType="map" parameterType="map">
+	<select id="getRsvInfo" resultType="map" parameterType="map">
 		select r.seat_class, r.charge_pay, rs.seat_id, r.flight_id, st.seat_number, f.departure_airport,
 		f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id,
 		f.flight_name from reservations r join reservation_seats rs

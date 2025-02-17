@@ -22,14 +22,14 @@ public class SelectController {
     private SelectService selectService;
 
     @GetMapping("/select/selection")
-    public String getReservationDetails(
+    public String getRsvDetails(
             @RequestParam String pnr,
             @RequestParam String sung,
             @RequestParam String name, 
             @RequestParam String date,
             Model model) {
-        List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name, date);
-        model.addAttribute("reservationList", reservationList);
+        List<SelectDto> rsvList = selectService.getRsvDetails(pnr, sung, name, date);
+        model.addAttribute("rsvList", rsvList);
         return "select/selection"; // selection.jsp로 이동
     }
 
@@ -44,9 +44,9 @@ public class SelectController {
         
         System.out.println("Received parameters - PNR: " + pnr + ", 성: " + sung + ", 이름: " + name + ", 날짜: " + date);
 
-        List<SelectDto> reservationList = selectService.getReservationDetails(pnr, sung, name, date);
+        List<SelectDto> rsvList = selectService.getRsvDetails(pnr, sung, name, date);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("exists", reservationList != null && !reservationList.isEmpty());
+        response.put("exists", rsvList != null && !rsvList.isEmpty());
         return response;
     }
 }
