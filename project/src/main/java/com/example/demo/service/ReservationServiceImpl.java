@@ -66,6 +66,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public String chargeOk(ReservationDto rdto) {
+		rmapper.payOk(rdto);
 		rmapper.chargeOk(rdto);
 		return "redirect:/reserve/list";
 	}

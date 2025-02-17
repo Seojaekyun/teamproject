@@ -123,6 +123,10 @@
 	<update id="chargeOk" parameterType="com.example.demo.dto.ReservationDto">
 		update reservations set charge_pay=1 where pnr=#{pnr}
 	</update>
+	<insert id="payOk" parameterType="com.example.demo.dto.ReservationDto">
+	 insert into payments (reservation_id, amount, payment_date, payment_method)
+	 values(#{reservationId}, #{charge}, now(), #{sudan})
+	</insert>
 	
 	
 </mapper>

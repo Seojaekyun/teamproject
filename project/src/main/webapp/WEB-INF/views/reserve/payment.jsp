@@ -168,6 +168,8 @@
 	<!-- 가는편 항공편 정보 -->
 	<div class="flight-box">
 		<c:forEach var="res" items="${rsvClist}">
+		<input type="hidden" name="reservationId" value="${res.reservation_id }">
+		<input type="hidden" name="charge" value="${res['charge']}">
 		<div class="flight-header">PNR (예약 번호): <input type="text" name="pnr" value="${res['pnr']}" readonly> &nbsp; (${res['passenger_type']})</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
 		<div class="flight-info">
 			<div>

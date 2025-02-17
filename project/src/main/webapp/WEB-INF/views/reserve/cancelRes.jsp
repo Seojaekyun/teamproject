@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>요금 결제</title>
+<title>예약 취소</title>
 <style>
 	body {
 		font-family: 'Noto Sans KR', sans-serif;
@@ -158,7 +158,7 @@
 	<div id="tables">
 		<!-- 예약 테이블 -->
 		<div class="table-container" id="allFlights">
-		<div style="width: 100%; text-align: center"><h2>미결제 예약 내역</h2></div>
+		<div style="width: 100%; text-align: center"><h2>예약 내역</h2></div>
 		<div id="cal">
 			<a href="list"><input type="button" id="menu" value="이전으로"></a>
 		</div>
