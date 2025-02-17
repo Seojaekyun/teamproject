@@ -188,19 +188,19 @@ $(function() {
 					<td>${seatCounts[res.reservation_id]}</td>
 					<td>${res.charge} 원</td>
 					<td>
-						<c:if test="${totalChargePay == 0}">
+						<c:if test="${res.charge_pay == 0}">
 							결제 예정
 						</c:if>
-						<c:if test="${totalChargePay == 1}">
+						<c:if test="${res.charge_pay == 1}">
 							결제 완료
 						</c:if>
-						<c:if test="${totalChargePay == 2}">
+						<c:if test="${res.charge_pay == 2}">
 							취소 요청
 						</c:if>
-						<c:if test="${totalChargePay == 3}">
+						<c:if test="${res.charge_pay == 3}">
 							취소 완료
 						</c:if>
-						<c:if test="${totalChargePay == 4}">
+						<c:if test="${res.charge_pay == 4}">
 							취소 불가
 						</c:if>
 					</td>

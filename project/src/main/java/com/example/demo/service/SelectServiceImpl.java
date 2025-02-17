@@ -50,6 +50,7 @@ public class SelectServiceImpl implements SelectService {
 			sdto.setSeatClass((String) reservationInfo.get("seat_class"));
 			sdto.setSeatNumber((String) reservationInfo.get("seat_number")); // seatNumber 가져오기
 			sdto.setFlightId(flightId);  // int 값으로 처리
+			sdto.setCharge_pay((Integer) reservationInfo.get("charge_pay"));
 			
 			// airplane_id를 int로 처리
 			sdto.setAirplaneId((Integer) reservationInfo.get("airplane_id"));

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
 
 public interface ReservationService {
@@ -13,6 +14,7 @@ public interface ReservationService {
 	List<Integer> getFlightReservations();
 	List<Integer> getSeatClassReservations();
 	List<String> getSeatClassLabels();
+	String chargeOk(ReservationDto rdto);
 	
 	
 }

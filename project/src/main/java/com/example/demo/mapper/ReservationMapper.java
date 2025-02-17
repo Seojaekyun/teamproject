@@ -42,6 +42,7 @@ public interface ReservationMapper {
 	List<String> getSeatClassLabels();
 	List<Integer> getSeatClassReservations();
 	List<Map<String, Object>> getReservationSeatInfo(String pnr);
+	void chargeOk(ReservationDto rdto);
 	
 	
 }

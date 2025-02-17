@@ -173,7 +173,9 @@
 				<label>도착 공항:</label> <span>${reservationInfo.arrivalAirport}</span>
 			</div>
 			<div class="flight-summary">
+				<c:if test="${reservationInfo.charge_pay==1}">
 				<button class="checkin-btn">체크인</button>
+				</c:if>
 			</div>
 		</div>
 		<!-- 부가 서비스 -->

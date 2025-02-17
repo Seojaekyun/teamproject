@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.FlightDto;
+import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.SeatDto;
 import com.example.demo.service.FlightService;
 import com.example.demo.service.ReservationService;
@@ -110,5 +111,8 @@ public class ReservationController {
 		return "admin/rsvChart";  // JSP 파일로 이동
 	}
 	
-	
+	@PostMapping("/reserve/chargeOk")
+	public String chargeOk(ReservationDto rdto) {
+		return reservationService.chargeOk(rdto);
+	}
 }

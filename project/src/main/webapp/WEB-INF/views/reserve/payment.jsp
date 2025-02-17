@@ -29,6 +29,9 @@
         margin-bottom: 25px;
         box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
     }
+    table {
+    	width: 100%;
+    }
     .flight-info {
         display: flex;
         justify-content: space-between;
@@ -61,7 +64,7 @@
     .toggle-details:hover {
         color: #003d7a;
     }
-    button {
+    button, submit {
         background-color: #0066cc;
         color: white;
         padding: 10px 20px;
@@ -94,15 +97,78 @@
         color: #333;
         margin-top: 20px;
     }
+    #sudan .sub {
+		display:none;
+	}
+	#sudan #fsub {
+		display:block;
+	}
+	#sudan #sudanFirst {
+		width: 100%;
+		height:180px;
+		border:1px solid purple;
+		padding:10px;
+	}
+	#sudan #sudanSecond {
+		width: 100%;
+		height:40px;
+		border:1px solid purple;
+		border-top:none;
+		padding:10px;
+	}
+	#sudan .subMain {
+		display:none;
+	}
+	#sudan #up {
+		display:none;
+	}
+	#sudan #down {
+		
+	}
+	#sudan select {
+		width:120px;
+		height:28px;
+		margin-left:10px;
+	}
 </style>
+<script>
+	function viewSub(n) {
+		var sub=document.getElementsByClassName("sub");
+		for(i=0;i<sub.length;i++) {
+			sub[i].style.display="none";
+		}
+		sub[n].style.display="block";
+	}
+	
+	function down() { // 다른결제수단을 보이게 하기  => #sudanSecond의 높이 : 180 , .subMain를 block
+		document.getElementById("sudanSecond").style.height="180px";
+		var subMain=document.getElementsByClassName("subMain");
+		for(i=0;i<subMain.length;i++) {
+			subMain[i].style.display="block";
+		}
+		document.getElementById("up").style.display="inline";
+		document.getElementById("down").style.display="none";
+	}
+	
+	function up() { // 다른결제수단을 숨기기  => #sudanSecond의 높이 : 40, .subMain를 none
+		document.getElementById("sudanSecond").style.height="40px";
+		var subMain=document.getElementsByClassName("subMain");
+		for(i=0;i<subMain.length;i++) {
+			subMain[i].style.display="none";
+		}
+		document.getElementById("up").style.display="none";
+		document.getElementById("down").style.display="inline";
+	}
+	
+</script>
 </head>
 <body>
 	<h2>예약 세부 사항</h2>
-	
+	<form name="gform" method="post" action="chargeOk">
 	<!-- 가는편 항공편 정보 -->
 	<div class="flight-box">
 		<c:forEach var="res" items="${rsvClist}">
-		<div class="flight-header">PNR (예약 번호): ${res['pnr']}</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
+		<div class="flight-header">PNR (예약 번호): <input type="text" name="pnr" value="${res['pnr']}" readonly> &nbsp; (${res['passenger_type']})</div>  <!-- res.pnr 대신 res['pnr'] 사용 -->
 		<div class="flight-info">
 			<div>
 				<p class="flight-time">출발 시간: ${res['departureTime']}</p>
@@ -117,21 +183,143 @@
 			</div>
 		</div>
 		<div id="going-details" class="flight-details">
-			<div class="details-item">출발지: ${res['departureAirport']}</div>
-			<div class="details-item">도착지: ${res['arrivalAirport']}</div> <!-- 출발지, 도착지 추가 -->
-			<div class="details-item">비행 시간: ${res['flightDuration']}</div> <!-- 비행 시간 추가 -->
-			<div class="details-item">탑승 인원: ${scount}</div> <!-- 탑승 인원 추가 -->
-			<div class="details-item">좌석 등급: ${res['seat_class']}</div> <!-- 좌석 등급 추가 -->
-			<div class="details-item">총 결제 금액: <fmt:formatNumber value="${res['charge']}" type="number"/>원</div> <!-- 총 결제 금액 추가 -->
-		</div>
-		<div style="text-align: right;">
-			<input type="button" id="btn1" onclick="window.location.href='';" value="결제하기">
+			<table>
+				<tr>
+					<td>
+						<div class="details-item">출발지: ${res['departureAirport']}</div>	
+					</td>
+					<td>
+						<div class="details-item">비행 시간: ${res['flightDuration']}</div>
+					</td>
+					<td>
+						<div class="details-item">좌석 등급: ${res['seat_class']}</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="details-item">도착지: ${res['arrivalAirport']}</div> <!-- 출발지, 도착지 추가 -->
+					</td>
+					<td>
+						<div class="details-item">탑승 인원: ${scount}</div> <!-- 탑승 인원 추가 -->
+					</td>
+					<td>
+						<div class="details-item">총 결제 금액: <fmt:formatNumber value="${res['charge']}" type="number"/>원</div> <!-- 총 결제 금액 추가 -->
+					</td>
+				</tr>
+			</table>
 		</div>
 		<br>
 		<hr>
-		<button onclick="window.location.href='chargePay';">돌아가기</button>
+		<br>
+		<section id="member"> <!-- 구매자 정보 -->
+			<table>
+				<caption> <span id="h3"> 예약자 정보 </span> </caption>
+				<tr>
+					<td width="200"> 이 름 </td>
+					<td> ${res['name'] } &nbsp; ${res['sung'] } </td>
+				</tr>
+			</table>
+		</section>
+		<br>
 		</c:forEach>
+		<section id="sudan">
+			<span id="h3"> 결제 수단 </span>
+			<div id="sudanFirst">
+				<div>
+					<input type="radio" value="0" name="sudan" class="sudan" checked onclick="viewSub(0)"> 신용/체크카드
+					<div class="sub" id="fsub">
+						<select name="card">
+							<option value="0"> 선 택 </option>
+							<option value="1"> 신한카드 </option>
+							<option value="2"> 농협카드 </option>
+							<option value="3"> 우리카드 </option>
+							<option value="4"> 국민카드 </option>
+							<option value="5"> 하나카드 </option>
+						</select>
+						<select name="halbu">
+							<option value="0"> 일시불 </option>
+							<option value="2"> 2개월 </option>
+							<option value="3"> 3개월 </option>
+							<option value="6"> 6개월 </option>
+							<option value="12"> 12개월</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<input type="radio" name="sudan" value="1"  class="sudan" onclick="viewSub(1)"> e-Pay
+					<div class="sub">
+						0원
+					</div>
+				</div>
+			</div>
+			<div id="sudanSecond">
+				<div> 다른 결제 수단
+					<span id="down" onclick="down()">▼</span>
+					<span id="up" onclick="up()">▲</span>
+				</div>
+				<div class="subMain">
+					<input type="radio" name="sudan" value="2"  class="sudan" onclick="viewSub(2)"> 계좌이체
+					<div class="sub">
+						<select name="bank">
+							<option value="0"> 선 택 </option>
+							<option value="1"> 신한은행 </option>
+							<option value="2"> 농협은행 </option>
+							<option value="3"> 우리은행 </option>
+							<option value="4"> 국민은행 </option>
+							<option value="5"> 하나은행 </option>
+						</select>
+					</div>
+				</div>
+				<div class="subMain">
+					<input type="radio" name="sudan" value="3" class="sudan" onclick="viewSub(3)"> 법인카드
+					<div class="sub">
+						<select name="lcard">
+							<option value="0"> 선 택 </option>
+							<option value="1"> 신한카드 </option>
+							<option value="2"> 농협카드 </option>
+							<option value="3"> 우리카드 </option>
+							<option value="4"> 국민카드 </option>
+							<option value="5"> 하나카드 </option>
+						</select>
+					</div>
+				</div>
+				<div class="subMain">
+					<input type="radio" name="sudan" value="4" class="sudan" onclick="viewSub(4)"> 휴대폰
+					<div class="sub">
+						<select name="tong">
+							<option value="0"> 선 택 </option>
+							<option value="1"> SKT </option>
+							<option value="2"> KT </option>
+							<option value="3"> LG </option>
+							<option value="4"> 알뜰폰 </option>
+						</select>
+					</div>
+				</div>
+				<div class="subMain">
+					<input type="radio" name="sudan" value="5" class="sudan" onclick="viewSub(5)"> 무통장입금
+					<div class="sub">
+						<select name="nbank">
+							<option value="0"> 선 택 </option>
+							<option value="1"> 신한은행 </option>
+							<option value="2"> 농협은행 </option>
+							<option value="3"> 우리은행 </option>
+							<option value="4"> 국민은행 </option>
+							<option value="5"> 하나은행 </option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</section>
+		<br>
+		<section id="last">
+			<div style="text-align: right;">
+			<input type="submit" id="btn1" value="결제하기" id="submit">
+			</div>
+			<br>
+		</section>
 	</div>
-	
+	</form>
+	<hr>
+	<button onclick="window.location.href='chargePay';">돌아가기</button>
 </body>
 </html>

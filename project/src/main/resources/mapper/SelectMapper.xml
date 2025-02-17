@@ -3,21 +3,21 @@
 <mapper namespace="com.example.demo.mapper.SelectMapper">
 	<!-- 1. reservations 정보 조회 -->
 	<select id="getReservationInfo" resultType="map" parameterType="map">
-		select r.seat_class, rs.seat_id, r.flight_id, st.seat_number, f.departure_airport,
+		select r.seat_class, r.charge_pay, rs.seat_id, r.flight_id, st.seat_number, f.departure_airport,
 		f.arrival_airport, f.departure_time, f.arrival_time, f.flight_duration, f.airplane_id,
-		f.flight_name from reservations r join reservation_seats rs on r.reservation_id = rs.reservation_id
-		join seattemplate st on rs.seat_id = st.seat_id join flights f on r.flight_id = f.flight_id
-		where r.pnr = #{pnr} and r.sung = #{sung} and r.name = #{name} 
-		and DATE(f.departure_time) = #{date}
+		f.flight_name from reservations r join reservation_seats rs
+		on r.reservation_id = rs.reservation_id join seattemplate st on rs.seat_id = st.seat_id
+		join flights f on r.flight_id = f.flight_id
+		where r.pnr=#{pnr} and r.sung=#{sung} and r.name=#{name} and DATE(f.departure_time)=#{date}
 
 	</select>
 	<!-- 2. airports 정보 조회 -->
 	<select id="getAirportInfo" resultType="map">
-		SELECT a1.airport_name AS departure_airport_name, a1.city AS departure_city, a2.airport_name AS arrival_airport_name,
-		a2.city AS arrival_city FROM airports a1 JOIN flights f ON f.departure_airport = a1.airport_code JOIN airports a2
+		SELECT a1.airport_name AS departure_airport_name, a1.city AS departure_city,
+		a2.airport_name AS arrival_airport_name, a2.city AS arrival_city FROM airports a1
+		JOIN flights f ON f.departure_airport = a1.airport_code JOIN airports a2
 		ON f.arrival_airport = a2.airport_code WHERE f.flight_id = #{flight_id}
 	</select>
-
 	
 	
 </mapper>
