@@ -151,25 +151,21 @@
 				<div class="info-row">
 					<label>${rsvInfo.departureTime.substring(0, 10)}</label>  
 				</div>
-				<div class="info-row">
-					<label>항공편명:</label> <span>${rsvInfo.flightName}</span>
-				</div>
-				<div class="info-row">
-					<label>좌석 등급:</label> <span>${rsvInfo.seatClass}</span>
-					<label>좌석 번호:</label> <span>${rsvInfo.seatNumber}</span>
-				</div>
 			</div>
 			<div class="info-row">
-				<label>출발 시간:</label> <span>${rsvInfo.departureTime.substring(11, 16)}</span>
-				<label>공항 이름:</label> <span>${rsvInfo.departureAirportName}</span>
-				<label>출발 공항:</label> <span>${rsvInfo.departureAirport}</span>
-			</div>
-			<div class="info-row">
+				<label>항공편명:</label> <span>${rsvInfo.flightName}</span>
+				<label>좌석 등급:</label> <span>${rsvInfo.seatClass}</span>
+				<label>좌석 번호:</label> <span>${rsvInfo.seatNumber}</span>
 				<label>소요 시간:</label> <span>${rsvInfo.flightDuration.substring(0, 5)}</span>
 			</div>
 			<div class="info-row">
+				<label>출발 시간:</label> <span>${rsvInfo.departureTime.substring(11, 16)}</span>
+				<label>출발지:</label> <span>${rsvInfo.departureAirportName}</span>
+				<label>출발 공항:</label> <span>${rsvInfo.departureAirport}</span>
+			</div>
+			<div class="info-row">
 				<label>도착 시간:</label> <span>${rsvInfo.arrivalTime.substring(11, 16)}</span>
-				<label>공항 이름:</label> <span>${rsvInfo.arrivalAirportName}</span>
+				<label>도착지:</label> <span>${rsvInfo.arrivalAirportName}</span>
 				<label>도착 공항:</label> <span>${rsvInfo.arrivalAirport}</span>
 			</div>
 			<div class="flight-summary">

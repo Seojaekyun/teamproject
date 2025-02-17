@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -220,32 +220,23 @@
 				<c:choose>
 				<c:when test="${seatRow >= 1 && seatRow <= 10}">
 				<div class="seat-container">
-				    <div class="seatf ${seat.available ? 'available' : 'unavailable'}"
-				    	data-seat-number="${seat.seatNumber}"
-				    	data-available="${seat.available}"
-				    	onclick="selectSeat(this)">
-				    		${seat.seatNumber}
+				    <div class="seatf ${seat.available ? 'available' : 'unavailable'}" data-seat-number="${seat.seatNumber}" data-available="${seat.available}" onclick="selectSeat(this)">
+				    	${seat.seatNumber}
 				    </div>
 				</div>
 				<div class="aisle"></div>
 				</c:when>
 				<c:when test="${seatRow >= 11 && seatRow <= 30}">
 				<div class="seat-container">
-				    <div class="seatb ${seat.available ? 'available' : 'unavailable'}"
-				    data-seat-number="${seat.seatNumber}"
-				    data-available="${seat.available}"
-				    onclick="selectSeat(this)">
-				    	${seat.seatNumber}
+				    <div class="seatb ${seat.available ? 'available' : 'unavailable'}" data-seat-number="${seat.seatNumber}" data-available="${seat.available}" onclick="selectSeat(this)">
+						${seat.seatNumber}
 				    </div>
 				</div>
 				<div class="aisle"></div>
 				</c:when>
 				<c:when test="${seatRow >= 31 && seatRow <= 49}">
 				<div class="seat-container">
-				    <div class="seat ${seat.available ? 'available' : 'unavailable'}"
-					data-seat-number="${seat.seatNumber}"
-					data-available="${seat.available}"
-					onclick="selectSeat(this)">
+				    <div class="seat ${seat.available ? 'available' : 'unavailable'}" data-seat-number="${seat.seatNumber}" data-available="${seat.available}" onclick="selectSeat(this)">
 						${seat.seatNumber}
 				    </div>
 				</div>
@@ -255,10 +246,7 @@
 				</c:when>
 				<c:when test="${seatRow >= 50}">
 				<div class="seat-container">
-				    <div class="seat ${seat.available ? 'available' : 'unavailable'}"
-					data-seat-number="${seat.seatNumber}"
-					data-available="${seat.available}"
-					onclick="selectSeat(this)">
+				    <div class="seat ${seat.available ? 'available' : 'unavailable'}" data-seat-number="${seat.seatNumber}" data-available="${seat.available}" onclick="selectSeat(this)">
 						${seat.seatNumber}
 				    </div>
 				</div>
@@ -268,12 +256,11 @@
 				</c:when>
 				</c:choose>
 			<c:if test="${status.last || seatRow != seats[status.index + 1].seatNumber.substring(0, seats[status.index + 1].seatNumber.length() - 1)}">
-			</div>
+			</div><!-- row end -->
 			</c:if>
 			</c:forEach>
 		</div>
-		
 	</div>
-
+	
 </body>
 </html>
