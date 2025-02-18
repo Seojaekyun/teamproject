@@ -193,12 +193,15 @@
 						<td>${seatCounts[rsv.reservationId]}</td>
 						<td>${rsv.charge} 원</td>
 						<td>
-						<c:if test="${rsv.state == 0}">
+							<c:if test="${rsv.state == 0}">
 							<span id="badge1">결제완료</span> <!-- '필독' 배지 -->
-						</c:if>
-						<c:if test="${rsv.state == 1}">
+							</c:if>
+							<c:if test="${rsv.state == 1}">
 							<span id="badge1">환불완료</span> <!-- '필독' 배지 -->
-						</c:if>
+							</c:if>
+							<c:if test="${rsv.state == 2}">
+							<span id="badge1">미결제</span> <!-- '필독' 배지 -->
+							</c:if>
 						</td>
 						<td>
 						<c:if test="${rsv.chargePay == 0}">

@@ -46,7 +46,7 @@ public interface ReservationMapper {
 	void payOk(ReservationDto rdto);
 	void payReturn(ReservationDto rdto);
 	void cancelOpper(ReservationDto rdto);
-	int getState(int reservationId);
+	Integer getState(int reservationId);
 	void cancelConfirm(String rid);
 	void payReturn(String rid);
 	

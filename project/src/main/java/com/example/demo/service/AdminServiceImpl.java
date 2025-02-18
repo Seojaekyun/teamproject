@@ -434,9 +434,9 @@ public class AdminServiceImpl implements AdminService{
 			int seatCount = rmapper.getSeatCountByReservationId(reservation.getReservationId());
 			seatCounts.put(reservation.getReservationId(), seatCount);
 			int reservationId = reservation.getReservationId();  // reservationId 추출
-		    int payState = rmapper.getState(reservationId);  // payments 값 가져오기
-		    
-		    reservation.setState(payState);
+			Integer payState = rmapper.getState(reservationId);
+			reservation.setState(payState);
+			System.out.println("값:"+payState);
 		}
 		
 		// 모델에 추가

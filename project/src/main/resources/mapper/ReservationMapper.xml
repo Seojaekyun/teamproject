@@ -39,9 +39,11 @@
 		WHERE f.departure_time = #{departureTime} AND f.flight_name = #{flightName}
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
-	<select id="getState" resultType="int">
-		SELECT state FROM payments where reservation_id=#{resId};
-	</select>
+	<select id="getState" resultType="Integer">
+    SELECT IFNULL(state, 2) FROM payments WHERE reservation_id = #{resId};
+</select>
+
+
 	<select id="getTotalReservations" resultType="int">
 		SELECT COUNT(*) FROM (SELECT r.reservation_id FROM reservations r JOIN flights f
 		ON r.flight_id = f.flight_id WHERE f.departure_time = #{departureTime}
