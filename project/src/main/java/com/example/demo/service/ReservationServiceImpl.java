@@ -70,6 +70,12 @@ public class ReservationServiceImpl implements ReservationService {
 		rmapper.chargeOk(rdto);
 		return "redirect:/reserve/list";
 	}
+
+	@Override
+	public String cancelOpper(ReservationDto rdto) {
+		rmapper.cancelOpper(rdto);
+		return "redirect:/reserve/list";
+	}
 	
 	
 }

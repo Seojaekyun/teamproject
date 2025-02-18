@@ -28,5 +28,7 @@ public interface AdminService {
 	String promotUpdate(HttpServletRequest request, Model model);
 	String upPromots(HttpServletRequest request, @RequestParam MultipartFile file, PromotDto pdto) throws Exception;
 	String delPromot(HttpServletRequest request);
+	String cancelConfirm(HttpServletRequest request, Model model);
+	String payReturn(HttpServletRequest request, Model model);
 	
 }

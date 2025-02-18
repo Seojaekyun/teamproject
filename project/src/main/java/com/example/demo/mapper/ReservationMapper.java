@@ -44,6 +44,12 @@ public interface ReservationMapper {
 	List<Map<String, Object>> getReservationSeatInfo(String pnr);
 	void chargeOk(ReservationDto rdto);
 	void payOk(ReservationDto rdto);
+	void payReturn(ReservationDto rdto);
+	void cancelOpper(ReservationDto rdto);
+	int getState(int reservationId);
+	void cancelConfirm(String rid);
+	void payReturn(String rid);
+	
 	
 	
 }

@@ -39,6 +39,9 @@
 		WHERE f.departure_time = #{departureTime} AND f.flight_name = #{flightName}
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
+	<select id="getState" resultType="int">
+		SELECT state FROM payments where reservation_id=#{resId};
+	</select>
 	<select id="getTotalReservations" resultType="int">
 		SELECT COUNT(*) FROM (SELECT r.reservation_id FROM reservations r JOIN flights f
 		ON r.flight_id = f.flight_id WHERE f.departure_time = #{departureTime}
@@ -124,9 +127,18 @@
 		update reservations set charge_pay=1 where pnr=#{pnr}
 	</update>
 	<insert id="payOk" parameterType="com.example.demo.dto.ReservationDto">
-	 insert into payments (reservation_id, amount, payment_date, payment_method)
-	 values(#{reservationId}, #{charge}, now(), #{sudan})
+		insert into payments (reservation_id, amount, payment_date, payment_method)
+		values(#{reservationId}, #{charge}, now(), #{sudan})
 	</insert>
+	<update id="cancelOpper" parameterType="com.example.demo.dto.ReservationDto">
+		update reservations set charge_pay=2 where pnr=#{pnr}
+	</update>
+	<update id="cancelConfirm" parameterType="com.example.demo.dto.ReservationDto">
+		update reservations set charge_pay=3 where reservation_id=#{rid}
+	</update>
+	<update id="payReturn" parameterType="com.example.demo.dto.ReservationDto">
+		update payments set state=1 where reservation_id=#{rid}
+	</update>
 	
 	
 </mapper>

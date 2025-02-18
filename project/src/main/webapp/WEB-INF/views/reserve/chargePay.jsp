@@ -175,7 +175,7 @@
 					<th>결제</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${res.charge_pay != 1}">
+					<c:if test="${res.charge_pay==0}">
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${res.pnr}</td>

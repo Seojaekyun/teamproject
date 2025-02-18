@@ -115,4 +115,9 @@ public class ReservationController {
 	public String chargeOk(ReservationDto rdto) {
 		return reservationService.chargeOk(rdto);
 	}
+	
+	@GetMapping("/reserve/cancelOpper")
+	public String cancelOpper(ReservationDto rdto) {
+		return reservationService.cancelOpper(rdto);
+	}
 }

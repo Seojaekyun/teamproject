@@ -15,6 +15,7 @@ public interface ReservationService {
 	List<Integer> getSeatClassReservations();
 	List<String> getSeatClassLabels();
 	String chargeOk(ReservationDto rdto);
+	String cancelOpper(ReservationDto rdto);
 	
 	
 }

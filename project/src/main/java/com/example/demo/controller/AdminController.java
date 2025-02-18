@@ -155,6 +155,16 @@ public class AdminController {
 		return service.rsvdList(request, model);
 	}
 	
+	@GetMapping("/admin/cancelConfirm")
+	public String cancelConfirm(HttpServletRequest request, Model model) {
+		return service.cancelConfirm(request, model);
+	}
+	
+	@GetMapping("/admin/payReturn")
+	public String payReturn(HttpServletRequest request, Model model) {
+		return service.payReturn(request, model);
+	}
+	
 	@GetMapping("/admin/addFlight")
 	public String showAddFlightForm(Model model) {
 		List<AirportsDto> airports = fservice.getAllAirports();

@@ -164,6 +164,19 @@
 					<th>출항일시</th> 
 					<td colspan="2">${rfn.departureTime}</td>
 					</c:forEach>
+					<td>
+						<c:forEach var="rsv" items="${rsvList}">
+						<c:if test="${rsv.chargePay==2 }">
+						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소처리"></a>
+						</c:if>
+						<!--<c:if test="${rsv.chargePay==2 && rsv.departureTime<=now()}">
+						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소불가"></a>
+						</c:if> -->
+						<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
+						<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
+						</c:if>
+						</c:forEach>
+					</td>
 				</tr>
 				<tr>
 					<th>고객ID</th>
@@ -180,19 +193,28 @@
 						<td>${seatCounts[rsv.reservationId]}</td>
 						<td>${rsv.charge} 원</td>
 						<td>
-						<c:if test="${rsv.chargePay == 0}">
-							<span id="badge1">미결제</span> <!-- '필독' 배지 -->
-						</c:if>
-						<c:if test="${rsv.chargePay == 1}">
+						<c:if test="${rsv.state == 0}">
 							<span id="badge1">결제완료</span> <!-- '필독' 배지 -->
+						</c:if>
+						<c:if test="${rsv.state == 1}">
+							<span id="badge1">환불완료</span> <!-- '필독' 배지 -->
 						</c:if>
 						</td>
 						<td>
-						<c:if test="${rsv.rsvcls == 0}">
-							<span id="badge1"> - </span> <!-- '필독' 배지 -->
+						<c:if test="${rsv.chargePay == 0}">
+							<span id="badge1"> - </span>
 						</c:if>
-						<c:if test="${rsv.rsvcls == 1}">
-							<span id="badge1">취소요청</span> <!-- '필독' 배지 -->
+						<c:if test="${rsv.chargePay == 1}">
+							<span id="badge1"> - </span>
+						</c:if>
+						<c:if test="${rsv.chargePay == 2}">
+							<span id="badge1"> 취소요청 </span> <!-- '필독' 배지 -->
+						</c:if>
+						<c:if test="${rsv.chargePay == 3}">
+							<span id="badge1"> 취소완료 </span>
+						</c:if>
+						<c:if test="${rsv.chargePay == 4}">
+							<span id="badge1"> 취소불가 </span>
 						</c:if>
 						</td>
 					</tr>

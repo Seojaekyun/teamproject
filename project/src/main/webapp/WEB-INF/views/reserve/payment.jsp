@@ -121,9 +121,10 @@
 	}
 	#sudan #up {
 		display:none;
+		font-size: 18px;
 	}
 	#sudan #down {
-		
+		font-size: 18px;
 	}
 	#sudan select {
 		width:120px;
@@ -238,12 +239,12 @@
 					<input type="radio" value="0" name="sudan" class="sudan" checked onclick="viewSub(0)"> 신용/체크카드
 					<div class="sub" id="fsub">
 						<select name="card">
-							<option value="0"> 선 택 </option>
-							<option value="1"> 신한카드 </option>
-							<option value="2"> 농협카드 </option>
-							<option value="3"> 우리카드 </option>
-							<option value="4"> 국민카드 </option>
-							<option value="5"> 하나카드 </option>
+							<option> 선 택 </option>
+							<option value="0"> 신한카드 </option>
+							<option value="1"> 농협카드 </option>
+							<option value="2"> 우리카드 </option>
+							<option value="3"> 국민카드 </option>
+							<option value="4"> 하나카드 </option>
 						</select>
 						<select name="halbu">
 							<option value="0"> 일시불 </option>
@@ -270,12 +271,12 @@
 					<input type="radio" name="sudan" value="2"  class="sudan" onclick="viewSub(2)"> 계좌이체
 					<div class="sub">
 						<select name="bank">
-							<option value="0"> 선 택 </option>
-							<option value="1"> 신한은행 </option>
-							<option value="2"> 농협은행 </option>
-							<option value="3"> 우리은행 </option>
-							<option value="4"> 국민은행 </option>
-							<option value="5"> 하나은행 </option>
+							<option> 선 택 </option>
+							<option value="0"> 신한은행 </option>
+							<option value="1"> 농협은행 </option>
+							<option value="2"> 우리은행 </option>
+							<option value="3"> 국민은행 </option>
+							<option value="4"> 하나은행 </option>
 						</select>
 					</div>
 				</div>
@@ -283,12 +284,12 @@
 					<input type="radio" name="sudan" value="3" class="sudan" onclick="viewSub(3)"> 법인카드
 					<div class="sub">
 						<select name="lcard">
-							<option value="0"> 선 택 </option>
-							<option value="1"> 신한카드 </option>
-							<option value="2"> 농협카드 </option>
-							<option value="3"> 우리카드 </option>
-							<option value="4"> 국민카드 </option>
-							<option value="5"> 하나카드 </option>
+							<option> 선 택 </option>
+							<option value="0"> 신한카드 </option>
+							<option value="1"> 농협카드 </option>
+							<option value="2"> 우리카드 </option>
+							<option value="3"> 국민카드 </option>
+							<option value="4"> 하나카드 </option>
 						</select>
 					</div>
 				</div>
@@ -296,11 +297,11 @@
 					<input type="radio" name="sudan" value="4" class="sudan" onclick="viewSub(4)"> 휴대폰
 					<div class="sub">
 						<select name="tong">
-							<option value="0"> 선 택 </option>
-							<option value="1"> SKT </option>
-							<option value="2"> KT </option>
-							<option value="3"> LG </option>
-							<option value="4"> 알뜰폰 </option>
+							<option> 선 택 </option>
+							<option value="0"> SKT </option>
+							<option value="1"> KT </option>
+							<option value="2"> LG </option>
+							<option value="3"> 알뜰폰 </option>
 						</select>
 					</div>
 				</div>
@@ -308,12 +309,12 @@
 					<input type="radio" name="sudan" value="5" class="sudan" onclick="viewSub(5)"> 무통장입금
 					<div class="sub">
 						<select name="nbank">
-							<option value="0"> 선 택 </option>
-							<option value="1"> 신한은행 </option>
-							<option value="2"> 농협은행 </option>
-							<option value="3"> 우리은행 </option>
-							<option value="4"> 국민은행 </option>
-							<option value="5"> 하나은행 </option>
+							<option> 선 택 </option>
+							<option value="0"> 신한은행 </option>
+							<option value="1"> 농협은행 </option>
+							<option value="2"> 우리은행 </option>
+							<option value="3"> 국민은행 </option>
+							<option value="4"> 하나은행 </option>
 						</select>
 					</div>
 				</div>

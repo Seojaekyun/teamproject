@@ -423,7 +423,7 @@ public class AdminServiceImpl implements AdminService{
 		// 필터링된 예약 리스트 가져오기
 		List<ReservationDto> rsvList = rmapper.getRsvdetail(flightName, departureTime, start, itemsPerPage);
 		List<ReservationDto> rsvfn = rmapper.getRsvdfn(flightName, departureTime);
-		
+				
 		// 필터링된 데이터에 맞는 총 예약 수 가져오기
 		int totalReservations = rmapper.getTotalReservations(flightName, departureTime);
 		int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);
@@ -433,6 +433,10 @@ public class AdminServiceImpl implements AdminService{
 		for (ReservationDto reservation : rsvList) {
 			int seatCount = rmapper.getSeatCountByReservationId(reservation.getReservationId());
 			seatCounts.put(reservation.getReservationId(), seatCount);
+			int reservationId = reservation.getReservationId();  // reservationId 추출
+		    int payState = rmapper.getState(reservationId);  // payments 값 가져오기
+		    
+		    reservation.setState(payState);
 		}
 		
 		// 모델에 추가
@@ -442,7 +446,27 @@ public class AdminServiceImpl implements AdminService{
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPages", totalPages);
 		
+		System.out.println("값:");
+		
 		return "/admin/rsvdList";
+	}
+	
+	@Override
+	public String cancelConfirm(HttpServletRequest request, Model model) {
+		String fname=request.getParameter("flightName");
+		String dtime=request.getParameter("departureTime");
+		String rid=request.getParameter("reservationId");
+		rmapper.cancelConfirm(rid);
+		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
+	}
+	
+	@Override
+	public String payReturn(HttpServletRequest request, Model model) {
+		String fname=request.getParameter("flightName");
+		String dtime=request.getParameter("departureTime");
+		String rid=request.getParameter("reservationId");
+		rmapper.payReturn(rid);
+		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
 	}
 
 	@Override

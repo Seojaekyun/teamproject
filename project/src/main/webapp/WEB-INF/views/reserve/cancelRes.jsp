@@ -175,7 +175,7 @@
 					<th>비고</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${res.charge_Pay != 4}">
+					<c:if test="${res.charge_pay!=3||res.charge_pay!=4}">
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${res['pnr']}</td>
@@ -185,7 +185,7 @@
 						<td>${res.seat_class}</td>
 						<td>${seatCounts[res.reservation_id]}</td>
 						<td>${res.charge} 원</td>
-						<td><input type="button" value="취소요청"></td>
+						<td><a href="cancelOpper?pnr=${res.pnr }"><input type="button" value="취소요청"></a></td>
 					</tr>
 					</c:if>
 				</c:forEach>

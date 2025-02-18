@@ -181,7 +181,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
-						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
 						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
@@ -215,7 +215,7 @@
 		<!-- GMP 항공편 테이블 -->
 		<div class="table-container" id="gmpFlights">
 			<table>
-				<caption>GMP 출발 예약</caption>
+				<caption>GMP 출발 예약 </caption>
 				<tr>
 					<th>항공편명</th>
 					<th>출항시간</th>
@@ -223,7 +223,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${gmpRsv}">
 					<tr>
-						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
 						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
@@ -260,7 +260,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${icnRsv}">
 					<tr>
-						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
 						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
@@ -297,7 +297,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${otherRsv}">
 					<tr>
-						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}">${rsv.flightName}</a></td>
+						<td><a href="rsvdList?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}">${rsv.flightName}</a></td>
 						<td>${rsv.departureTime}</td>
 						<td>${availableSeatsMap[rsv.flightId] != null ? availableSeatsMap[rsv.flightId] : 0}</td>
 					</tr>
