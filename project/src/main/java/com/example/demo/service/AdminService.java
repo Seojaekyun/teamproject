@@ -30,5 +30,6 @@ public interface AdminService {
 	String delPromot(HttpServletRequest request);
 	String cancelConfirm(HttpServletRequest request, Model model);
 	String payReturn(HttpServletRequest request, Model model);
+	String cancelRejection(HttpServletRequest request, Model model);
 	
 }

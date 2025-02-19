@@ -251,6 +251,7 @@
 		SELECT DISTINCT arrival_airport FROM flights WHERE departure_airport = #{departure}
 		AND DATE(departure_time) = #{date}
 	</select>
-		
+	
+	
 	
 </mapper>

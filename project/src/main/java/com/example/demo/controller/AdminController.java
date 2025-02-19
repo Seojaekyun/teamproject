@@ -160,6 +160,11 @@ public class AdminController {
 		return service.cancelConfirm(request, model);
 	}
 	
+	@GetMapping("/admin/cancelRejection")
+	public String cancelRejection(HttpServletRequest request, Model model) {
+		return service.cancelRejection(request, model);
+	}
+	
 	@GetMapping("/admin/payReturn")
 	public String payReturn(HttpServletRequest request, Model model) {
 		return service.payReturn(request, model);

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -414,6 +415,7 @@ public class AdminServiceImpl implements AdminService{
 	public String rsvdList(HttpServletRequest request, Model model) {
 		String flightName = request.getParameter("flightName");
 		String departureTime = request.getParameter("departureTime");
+		LocalDate today = LocalDate.now();
 		
 		// 페이지 처리 관련 변수
 		int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -440,13 +442,12 @@ public class AdminServiceImpl implements AdminService{
 		}
 		
 		// 모델에 추가
+		model.addAttribute("canday", today.minusDays(1));
 		model.addAttribute("rsvList", rsvList);
 		model.addAttribute("rsvfn", rsvfn);
 		model.addAttribute("seatCounts", seatCounts);  // 좌석 수 맵 추가
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPages", totalPages);
-		
-		System.out.println("값:");
 		
 		return "/admin/rsvdList";
 	}
@@ -457,6 +458,15 @@ public class AdminServiceImpl implements AdminService{
 		String dtime=request.getParameter("departureTime");
 		String rid=request.getParameter("reservationId");
 		rmapper.cancelConfirm(rid);
+		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
+	}
+	
+	@Override
+	public String cancelRejection(HttpServletRequest request, Model model) {
+		String fname=request.getParameter("flightName");
+		String dtime=request.getParameter("departureTime");
+		String rid=request.getParameter("reservationId");
+		rmapper.cancelRejection(rid);
 		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
 	}
 	

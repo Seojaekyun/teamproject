@@ -20,9 +20,10 @@
         justify-content: space-between;
     }
     #sec1 #tables {
+    	margin: auto;
         display: flex;
         justify-content: space-between;
-        width: 60%;
+        width: 80%;
     }
     #sec2 #tables {
         display: flex;
@@ -56,6 +57,7 @@
         border: 1px solid #ddd;
         padding: 10px;
         text-align: center;
+        width: 120px;
     }
     th {
         background-color: #000A8E;
@@ -160,20 +162,10 @@
 				<tr>
 					<c:forEach var="rfn" items="${rsvfn}">
 					<th>항공편명</th>
-					<td>${rfn.flightName}</td>
+					<td colspan="2">${rfn.flightName}</td>
 					<th>출항일시</th> 
-					<td colspan="2">${rfn.departureTime}</td>
+					<td colspan="3">${rfn.departureTime}</td>
 					</c:forEach>
-					<td>
-						<c:forEach var="rsv" items="${rsvList}">
-						<c:if test="${rsv.chargePay==2 }">
-						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소처리"></a>
-						</c:if>
-						<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
-						<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
-						</c:if>
-						</c:forEach>
-					</td>
 				</tr>
 				<tr>
 					<th>고객ID</th>
@@ -181,7 +173,8 @@
 					<th>예약인원</th>
 					<th>요금</th>
 					<th>결제여부</th>
-					<th>비고</th>
+					<th>요청</th>
+					<th>처리</th>
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
@@ -217,6 +210,21 @@
 							<span id="badge1"> 취소불가 </span>
 						</c:if>
 						</td>
+						<td>
+							<c:if test="${rsv.chargePay==0||rsv.chargePay==1||(rsv.chargePay==3&&rsv.state!=0)||rsv.chargePay==4 }">
+							-
+							</c:if>
+							<c:if test="${rsv.chargePay==2 && (rsv.departureTime >= canday)}">
+							<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소처리"></a>
+							</c:if>
+							<c:if test="${rsv.chargePay==2 && (rsv.departureTime <= canday)}">
+							<a href="cancelRejection?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소불가"></a>
+							</c:if>
+							<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
+							<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
+							</c:if>
+							
+						</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty rsvList}">
@@ -226,53 +234,52 @@
 				</c:if>
 			</table>
 			<!-- 페이지네이션 -->
-<div class="pagination">
-    <c:if test="${totalPages > 1}">
-        <!-- 페이지네이션 범위 설정 -->
-        <c:set var="startPage" value="${currentPage - 1}" />
-        <c:set var="endPage" value="${currentPage + 1}" />
-
-        <!-- 시작 페이지가 1보다 작으면 1로 설정 -->
-        <c:if test="${startPage < 1}">
-            <c:set var="startPage" value="1" />
-            <c:set var="endPage" value="3" />
-        </c:if>
-
-        <!-- endPage가 totalPages보다 크면 totalPages로 설정 -->
-        <c:if test="${endPage > totalPages}">
-            <c:set var="endPage" value="${totalPages}" />
-        </c:if>
-
-        <!-- 총 페이지가 3페이지 이하인 경우, endPage와 startPage 조정 -->
-        <c:if test="${totalPages <= 3}">
-            <c:set var="endPage" value="${totalPages}" />
-            <c:set var="startPage" value="1" />
-        </c:if>
-
-        <!-- 이전 3페이지로 이동 버튼 -->
-        <c:if test="${currentPage > 3}">
-            <a href="javascript:void(0);" onclick="loadAllPage(${currentPage - 3});">이전 3</a>
-        </c:if>
-
-        <!-- 페이지 번호 표시 -->
-        <c:forEach begin="${startPage}" end="${endPage}" var="i">
-            <c:choose>
-                <c:when test="${i == currentPage}">
-                    <span class="active">${i}</span>
-                </c:when>
-                <c:otherwise>
-                    <a href="javascript:void(0);" onclick="loadAllPage(${i});">${i}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-        <!-- 다음 3페이지로 이동 버튼 -->
-        <c:if test="${currentPage + 3 <= totalPages}">
-            <a href="javascript:void(0);" onclick="loadAllPage(${currentPage + 3});">다음 3</a>
-        </c:if>
-    </c:if>
-</div>
-
+			<div class="pagination">
+			    <c:if test="${totalPages > 1}">
+			        <!-- 페이지네이션 범위 설정 -->
+			        <c:set var="startPage" value="${currentPage - 1}" />
+			        <c:set var="endPage" value="${currentPage + 1}" />
+			
+			        <!-- 시작 페이지가 1보다 작으면 1로 설정 -->
+			        <c:if test="${startPage < 1}">
+			            <c:set var="startPage" value="1" />
+			            <c:set var="endPage" value="3" />
+			        </c:if>
+			
+			        <!-- endPage가 totalPages보다 크면 totalPages로 설정 -->
+			        <c:if test="${endPage > totalPages}">
+			            <c:set var="endPage" value="${totalPages}" />
+			        </c:if>
+			
+			        <!-- 총 페이지가 3페이지 이하인 경우, endPage와 startPage 조정 -->
+			        <c:if test="${totalPages <= 3}">
+			            <c:set var="endPage" value="${totalPages}" />
+			            <c:set var="startPage" value="1" />
+			        </c:if>
+			
+			        <!-- 이전 3페이지로 이동 버튼 -->
+			        <c:if test="${currentPage > 3}">
+			            <a href="javascript:void(0);" onclick="loadAllPage(${currentPage - 3});">이전 3</a>
+			        </c:if>
+			
+			        <!-- 페이지 번호 표시 -->
+			        <c:forEach begin="${startPage}" end="${endPage}" var="i">
+			            <c:choose>
+			                <c:when test="${i == currentPage}">
+			                    <span class="active">${i}</span>
+			                </c:when>
+			                <c:otherwise>
+			                    <a href="javascript:void(0);" onclick="loadAllPage(${i});">${i}</a>
+			                </c:otherwise>
+			            </c:choose>
+			        </c:forEach>
+			
+			        <!-- 다음 3페이지로 이동 버튼 -->
+			        <c:if test="${currentPage + 3 <= totalPages}">
+			            <a href="javascript:void(0);" onclick="loadAllPage(${currentPage + 3});">다음 3</a>
+			        </c:if>
+			    </c:if>
+			</div>
 		</div>
 	</div>
 </section>

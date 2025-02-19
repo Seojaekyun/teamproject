@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -51,6 +51,8 @@ public class FlightController {
 			@RequestParam(required = false) Integer childCount,
 			@RequestParam(required = false) Integer infantCount,
 			Model model) {
+		LocalDate today = LocalDate.now();
+		
 		// 승객 수를 총합으로 계산하거나 개별적으로 처리
 		if (passengers == null) {
 			passengers = (adultCount != null ? adultCount : 0) + (childCount != null ? childCount : 0);
@@ -60,6 +62,7 @@ public class FlightController {
 		List<FlightDto> departingFlights = service.findFlights(departure, arrival, departureDate, arrivalDate, seatClass, passengers);
 		
 		// 조회된 가는날 비행기 데이터를 모델에 추가
+		model.addAttribute("today", today);
 		model.addAttribute("flights", departingFlights);
 		
 		// 오는날 정보를 모델에 추가하여 flightSearchResults.jsp에서 사용할 수 있도록 함

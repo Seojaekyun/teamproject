@@ -128,6 +128,7 @@
                 </thead>
                 <tbody>
                     <c:forEach var="flight" items="${flights}">
+                    <c:if test="${flight.departureTime >= today}">
                         <tr>
                             <td>${flight.flightId}</td>
                             <td>${flight.departureAirport}</td>
@@ -150,6 +151,7 @@
                                 </form>
                             </td>
                         </tr>
+                    </c:if>
                     </c:forEach>
                 </tbody>
             </table>
@@ -173,6 +175,7 @@
                 </thead>
                 <tbody>
                     <c:forEach var="flight" items="${returnFlights}">
+                    <c:if test="${flight.departureTime >= selectedGoingFlightArrivalTime}">
                         <tr>
                             <td>${flight.flightId}</td>
                             <td>${flight.departureAirport}</td>
@@ -199,6 +202,7 @@
                                 </form>
                             </td>
                         </tr>
+                    </c:if>
                     </c:forEach>
                 </tbody>
             </table>

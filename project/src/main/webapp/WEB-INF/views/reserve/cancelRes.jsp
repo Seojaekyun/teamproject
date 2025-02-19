@@ -175,7 +175,7 @@
 					<th>비고</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${res.charge_pay!=3||res.charge_pay!=4}">
+					<c:if test="${res.charge_pay==0||res.charge_pay==1}">
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${res['pnr']}</td>

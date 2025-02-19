@@ -45,8 +45,7 @@ public class FlightServiceImpl implements FlightService {
 	// findFlights 메서드 수정: seatClass와 passengers 추가
 	
 	@Override
-	public List<FlightDto> findFlights(
-			String departure, String arrival, String departureDate,
+	public List<FlightDto> findFlights(String departure, String arrival, String departureDate,
 			String arrivalDate, String seatClass, Integer passengers) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("departure", departure);
@@ -239,7 +238,6 @@ public class FlightServiceImpl implements FlightService {
 	public SeatDto getgoingFlightPrice(String goingSelectedSeats) {
 		return fmapper.getgoingFlightPrice(goingSelectedSeats);
 	}
-
-
-	 
+	
+	
 }

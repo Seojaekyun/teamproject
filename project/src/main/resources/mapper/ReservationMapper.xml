@@ -40,10 +40,8 @@
 		GROUP BY r.flight_id ORDER BY f.departure_time
 	</select>
 	<select id="getState" resultType="Integer">
-    SELECT IFNULL(state, 2) FROM payments WHERE reservation_id = #{resId};
-</select>
-
-
+		SELECT COALESCE((SELECT state FROM payments WHERE reservation_id = #{resId}), 2);
+	</select>
 	<select id="getTotalReservations" resultType="int">
 		SELECT COUNT(*) FROM (SELECT r.reservation_id FROM reservations r JOIN flights f
 		ON r.flight_id = f.flight_id WHERE f.departure_time = #{departureTime}
@@ -137,6 +135,9 @@
 	</update>
 	<update id="cancelConfirm" parameterType="com.example.demo.dto.ReservationDto">
 		update reservations set charge_pay=3 where reservation_id=#{rid}
+	</update>
+	<update id="cancelRejection" parameterType="com.example.demo.dto.ReservationDto">
+		update reservations set charge_pay=4 where reservation_id=#{rid}
 	</update>
 	<update id="payReturn" parameterType="com.example.demo.dto.ReservationDto">
 		update payments set state=1 where reservation_id=#{rid}

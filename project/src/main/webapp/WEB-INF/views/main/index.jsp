@@ -1021,6 +1021,7 @@
 			mode: "range",
 			dateFormat: "Y-m-d",
 			showMonths: 2,
+			minDate: "today",
 			onChange: function(selectedDates, dateStr, instance) {
 				if (tripMethod === "round" && selectedDates.length === 2) {
 					document.getElementById('date-btn').value = selectedDates[0].toLocaleDateString() +
@@ -1047,6 +1048,7 @@
 						dateFormat: "Y-m-d",
 						showMonths: 2,
 						defaultDate: "today",
+						minDate: "today",
 						onChange: function (selectedDates, dateStr, instance) {
 							if (selectedDates.length === 2) {
 								dateInput.value = selectedDates[0].toLocaleDateString() + " ~ " + selectedDates[1].toLocaleDateString();
@@ -1065,6 +1067,7 @@
 						dateFormat: "Y-m-d",
 						showMonths: 2,
 						defaultDate: "today",
+						minDate: "today",
 						onChange: function (selectedDates, dateStr, instance) {
 							if (selectedDates.length === 1) {
 								dateInput.value = "가는 날: " + selectedDates[0].toLocaleDateString();
@@ -1084,7 +1087,8 @@
 			dateFormat: "Y-m-d",
 			allowInput: true,
 			showMonths: 2,
-			maxDate: new Date().fp_incr(365)
+			maxDate: new Date().fp_incr(365),
+			minDate: "today"
 		});
 	});
 	function showContent(type) {

@@ -94,6 +94,19 @@
             updateReturnSelectedSeats(seatNumbers);
         }
     });
+    function confirmRsv() {
+    	var goingSelectedSeats = document.getElementById('goingSelectedSeats').value;
+        var returnSelectedSeats = document.getElementById('returnSelectedSeats').value;
+        
+		if (goingSelectedSeats === '') {
+			alert('좌석을 선택해 주세요.');
+			return false;
+		}
+		else if (returnSelectedSeats === '') {
+			alert('좌석을 선택해 주세요.');
+			return false;
+		}
+    }
 </script>
 </head>
 <body>
@@ -178,7 +191,7 @@
         </table>
 
         <!-- 예약하기 버튼 -->
-        <form action="${pageContext.request.contextPath}/flights/booking" method="post">
+        <form action="${pageContext.request.contextPath}/flights/booking" method="post" onsubmit="return confirmRsv()">
             <input type="hidden" name="goingFlightId" value="${selectedGoingFlightId}">
             <input type="hidden" name="returnFlightId" value="${selectedReturnFlightId}">
             <input type="hidden" name="seatClass" value="${seatClass}">

@@ -11,8 +11,7 @@ import com.example.demo.dto.AirportsDto;
 public interface FlightService {
 	List<AirportsDto> getAllAirports();
 	List<FlightDto> getAvailableFlightsByDate(String date);
-	List<FlightDto> findFlights(
-			String departure, String arrival, String departureDate,
+	List<FlightDto> findFlights(String departure, String arrival, String departureDate,
 			String arrivalDate, String seatClass, Integer passengers);
 	List<FlightDto> getAvailableFlights();
 	List<SeatDto> getSeatsByFlightId(int flightId);
@@ -35,7 +34,6 @@ public interface FlightService {
 	List<String> getDepartureAirportsByDate(String date);
 	List<String> getArrivalAirportsByDepartureAndDate(String departure, String date);
 	SeatDto getgoingFlightPrice(String goingSelectedSeats);
-
 	
 	
 }
