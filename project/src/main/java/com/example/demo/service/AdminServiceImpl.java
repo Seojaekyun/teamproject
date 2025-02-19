@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -345,6 +347,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public String oneMeminfo(HttpServletRequest request, Model model) {
 		String userId = request.getParameter("userid");
+		LocalDate today = LocalDate.now();
 		
 		// 유저 정보와 예약 리스트를 가져옴
 		MemberDto member = mmapper.getMemberById(userId);
@@ -352,8 +355,16 @@ public class AdminServiceImpl implements AdminService{
 		if (member != null) {
 			List<ReservationDto> myrsv = rmapper.getRsvUserid(userId);
 			member.setReservations(myrsv);
+			
+			for (ReservationDto reservation : myrsv) {
+				int reservationId = reservation.getReservationId(); // 예약 ID 가져오기
+				Integer payState = rmapper.getState(reservationId); // 예약 ID로 state 조회
+				reservation.setState(payState); // state 값 설정
+				System.out.println("값:"+payState);
+			}
 		}
 		
+		model.addAttribute("canday", today.minusDays(1));
 		model.addAttribute("member", member);
 		model.addAttribute("myrsv", member.getReservations()); // 예약 리스트 전달
 		
@@ -453,12 +464,30 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public String cancelConfirm(HttpServletRequest request, Model model) {
-		String fname=request.getParameter("flightName");
-		String dtime=request.getParameter("departureTime");
-		String rid=request.getParameter("reservationId");
-		rmapper.cancelConfirm(rid);
-		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
+	public String cancelConfirm(HttpServletRequest request) {
+	    String referer = request.getHeader("Referer"); // 요청을 보낸 이전 페이지 URL 가져오기
+	    String rid = request.getParameter("reservationId"); // 취소할 예약 ID
+	    
+	    rmapper.cancelConfirm(rid); // 예약 취소 처리
+
+	    if (referer != null && !referer.isEmpty()) {
+	        try {
+	            URI refererUri = new URI(referer);
+	            String query = refererUri.getQuery(); // 기존 쿼리 스트링 가져오기
+
+	            // 기존 쿼리 스트링이 있으면 유지하면서 reservationId 추가
+	            String newQuery = (query != null && !query.isEmpty()) 
+	                ? query + "&reservationId=" + rid 
+	                : "reservationId=" + rid;
+
+	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
+	        } catch (URISyntaxException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // referer가 없거나 예외 발생 시 기본 페이지로 이동
+	    return "redirect:/admin/rsvdList";
 	}
 	
 	@Override

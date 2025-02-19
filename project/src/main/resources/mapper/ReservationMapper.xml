@@ -31,7 +31,7 @@
 		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
 		f.departure_time FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
 		WHERE f.departure_time = #{departureTime} AND f.flight_name = #{flightName}
-		GROUP BY r.seat_class, r.userid ORDER BY f.departure_time LIMIT #{start}, #{itemsPerPage}
+		ORDER BY f.departure_time LIMIT #{start}, #{itemsPerPage}
 	</select>
 	<select id="getRsvdfn" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
@@ -87,7 +87,8 @@
 		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay FROM reservations r WHERE r.userid = #{userid}
 	</select>
 	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
-		SELECT * FROM reservations WHERE userid = #{userid} ORDER BY reservation_date DESC
+		SELECT r.*, f.departure_time AS departureTime, f.flight_name as flightName FROM
+		reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid} ORDER BY reservation_date DESC
 	</select>
 	<select id="getTotalRsvcByDate" resultType="int">
 		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id

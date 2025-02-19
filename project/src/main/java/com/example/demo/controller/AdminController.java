@@ -51,23 +51,17 @@ public class AdminController {
 	
 	@GetMapping("/admin/reserveList")
 	public String reserveList(
-			@RequestParam(required = false) String selectedDate,
-			@RequestParam(required = false, defaultValue = "1") Integer gmpPage,
-			@RequestParam(required = false, defaultValue = "1") Integer icnPage,
-			@RequestParam(required = false, defaultValue = "1") Integer otherPage,
-			@RequestParam(required = false, defaultValue = "1") Integer page,
-			Model model) {
-		
+			@RequestParam(required = false) String selectedDate, @RequestParam(required = false, defaultValue = "1") Integer gmpPage,
+			@RequestParam(required = false, defaultValue = "1") Integer icnPage, @RequestParam(required = false, defaultValue = "1") Integer otherPage,
+			@RequestParam(required = false, defaultValue = "1") Integer page, Model model) {
 		// 서비스로 전달
 		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
 		
 	@GetMapping("/admin/flightsList")
 	public String flightsList(
-			@RequestParam(required = false, defaultValue = "1") Integer page,
-			@RequestParam(required = false) String selectedDate,
-			@RequestParam(required = false, defaultValue = "all") String flightType,
-			Model model) {
+			@RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false) String selectedDate,
+			@RequestParam(required = false, defaultValue = "all") String flightType, Model model) {
 		
 		return service.flightList(page, selectedDate, flightType, model);
 	}
@@ -156,8 +150,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/cancelConfirm")
-	public String cancelConfirm(HttpServletRequest request, Model model) {
-		return service.cancelConfirm(request, model);
+	public String cancelConfirm(HttpServletRequest request) {
+		return service.cancelConfirm(request);
 	}
 	
 	@GetMapping("/admin/cancelRejection")
@@ -181,8 +175,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/getFlightTime")
 	@ResponseBody
-	public Map<String, Integer> getFlightTime(@RequestParam String departureAirport,
-			@RequestParam String arrivalAirport) {
+	public Map<String, Integer> getFlightTime(@RequestParam String departureAirport, @RequestParam String arrivalAirport) {
 		int[] flightTime = fservice.getFlightTime(departureAirport, arrivalAirport);
 		
 		Map<String, Integer> response = new HashMap<>();
@@ -208,22 +201,11 @@ public class AdminController {
 	*/
 	@PostMapping("/admin/addFlights")
 	public String addFlights(
-			@RequestParam String departureAirport,
-			@RequestParam String arrivalAirport,
-			@RequestParam String departureTime,
-			@RequestParam String arrivalTime,
-			@RequestParam("ftimeValue") String ftime,
-			@RequestParam int airplaneId,
-			@RequestParam int unitPrice,
-			
-			@RequestParam String returnDepartureAirport,
-			@RequestParam String returnArrivalAirport,
-			@RequestParam String returnDepartureTime,
-			@RequestParam String returnArrivalTime,
-			@RequestParam("returnFtimeValue") String returnFtime,
-			@RequestParam int returnAirplaneId,
-			@RequestParam int returnUnitPrice,
-			
+			@RequestParam String departureAirport, @RequestParam String arrivalAirport, @RequestParam String departureTime,
+			@RequestParam String arrivalTime, @RequestParam("ftimeValue") String ftime, @RequestParam int airplaneId,
+			@RequestParam int unitPrice, @RequestParam String returnDepartureAirport, @RequestParam String returnArrivalAirport,
+			@RequestParam String returnDepartureTime, @RequestParam String returnArrivalTime,
+			@RequestParam("returnFtimeValue") String returnFtime, @RequestParam int returnAirplaneId, @RequestParam int returnUnitPrice,
 			Model model) {
 		
 		try {
@@ -245,8 +227,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/getTimezones")
 	@ResponseBody
-	public Map<String, String> getTimezones(@RequestParam String departureAirport,
-			@RequestParam String arrivalAirport) {
+	public Map<String, String> getTimezones(@RequestParam String departureAirport, @RequestParam String arrivalAirport) {
 		String departureTimezone = fservice.getAirportTimezone(departureAirport);
 		String arrivalTimezone = fservice.getAirportTimezone(arrivalAirport);
 		
@@ -257,10 +238,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/addSeats")
-	public String addSeats() {
-		// flightId는 내부에서 처리되므로 전달하지 않음
+	public String addSeats() { // flightId는 내부에서 처리되므로 전달하지 않음
 		fservice.addSeatsForFlight();
-		
 		return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
 	}
 	

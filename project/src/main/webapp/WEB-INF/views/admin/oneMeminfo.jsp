@@ -47,7 +47,7 @@
 		margin-bottom: 15px;
 		text-align: left;
 	}
-	button, input[type="button"] {
+	#btn {
 		background-color: #007BFF;
 		color: white;
 		border: none;
@@ -57,7 +57,7 @@
 		font-size: 1em;
 		margin-top: 20px;
 	}
-	button:hover, input[type="button"]:hover {
+	#btn:hover {
 		background-color: #0056b3;
 	}
 	.pagination {
@@ -104,7 +104,7 @@
 	<section>
 		<!-- 이전으로 버튼 -->
 		<div style="text-align: left; margin-bottom: 20px;">
-			<a href="memberList"><input type="button" value="이전으로"></a>
+			<a href="memberList"><input type="button" id="btn" value="이전으로"></a>
 		</div>
 
 		<!-- 회원 정보 테이블 -->
@@ -143,11 +143,42 @@
 			<tr>
 				<th>최근예약현황</th>
 				<th>요청사항</th>
+				<th>처리</th>
 			</tr>
 			<c:forEach items="${member.reservations}" var="rsv">
 				<tr>
 					<td>${rsv.reservationDate}</td>
-					<td>-</td>
+					<td>
+						<c:if test="${rsv.chargePay == 0}">
+							<span id="badge1"> - </span>
+						</c:if>
+						<c:if test="${rsv.chargePay == 1}">
+							<span id="badge1"> - </span>
+						</c:if>
+						<c:if test="${rsv.chargePay == 2}">
+							<span id="badge1"> 취소요청 </span> <!-- '필독' 배지 -->
+						</c:if>
+						<c:if test="${rsv.chargePay == 3}">
+							<span id="badge1"> 취소완료 </span>
+						</c:if>
+						<c:if test="${rsv.chargePay == 4}">
+							<span id="badge1"> 취소불가 </span>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${rsv.chargePay==0||rsv.chargePay==1||(rsv.chargePay==3&&rsv.state!=0)||rsv.chargePay==4 }">
+						-
+						</c:if>
+						<c:if test="${rsv.chargePay==2 && (rsv.departureTime >= canday)}">
+						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소처리"></a>
+						</c:if>
+						<c:if test="${rsv.chargePay==2 && (rsv.departureTime <= canday)}">
+						<a href="cancelRejection?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소불가"></a>
+						</c:if>
+						<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
+						<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -23,7 +23,7 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		height: 700px;
+		height: 740px;
 	}
 	#sec1 .table-container {
 		width: 100%;
@@ -33,7 +33,7 @@
 		border-radius: 10px;
 		overflow: hidden;
 		margin-bottom: 20px;
-		height: 680px;
+		height: 720px;
 	}
 	table {
 		width: 100%;

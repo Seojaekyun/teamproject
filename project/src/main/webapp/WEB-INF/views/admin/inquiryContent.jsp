@@ -12,7 +12,6 @@
 		background-color: #f9f9f9;
 		margin: 0;
 		padding: 0;
-		text-align: center;
 	}
 	h3 {
 		font-size: 24px;

@@ -161,13 +161,14 @@
 				<caption>예약 상세</caption>
 				<tr>
 					<c:forEach var="rfn" items="${rsvfn}">
-					<th>항공편명</th>
+					<th colspan="2">항공편명</th>
 					<td colspan="2">${rfn.flightName}</td>
-					<th>출항일시</th> 
-					<td colspan="3">${rfn.departureTime}</td>
+					<th colspan="2">출항일시</th> 
+					<td colspan="2">${rfn.departureTime}</td>
 					</c:forEach>
 				</tr>
 				<tr>
+					<th>PNR</th>
 					<th>고객ID</th>
 					<th>좌석등급</th>
 					<th>예약인원</th>
@@ -178,6 +179,7 @@
 				</tr>
 				<c:forEach var="rsv" items="${rsvList}">
 					<tr>
+						<td>${rsv.pnr}</td>
 						<td>${rsv.userid}</td>
 						<td>${rsv.seatClass}</td>
 						<td>${seatCounts[rsv.reservationId]}</td>
@@ -194,21 +196,21 @@
 							</c:if>
 						</td>
 						<td>
-						<c:if test="${rsv.chargePay == 0}">
+							<c:if test="${rsv.chargePay == 0}">
 							<span id="badge1"> - </span>
-						</c:if>
-						<c:if test="${rsv.chargePay == 1}">
+							</c:if>
+							<c:if test="${rsv.chargePay == 1}">
 							<span id="badge1"> - </span>
-						</c:if>
-						<c:if test="${rsv.chargePay == 2}">
+							</c:if>
+							<c:if test="${rsv.chargePay == 2}">
 							<span id="badge1"> 취소요청 </span> <!-- '필독' 배지 -->
-						</c:if>
-						<c:if test="${rsv.chargePay == 3}">
+							</c:if>
+							<c:if test="${rsv.chargePay == 3}">
 							<span id="badge1"> 취소완료 </span>
-						</c:if>
-						<c:if test="${rsv.chargePay == 4}">
+							</c:if>
+							<c:if test="${rsv.chargePay == 4}">
 							<span id="badge1"> 취소불가 </span>
-						</c:if>
+							</c:if>
 						</td>
 						<td>
 							<c:if test="${rsv.chargePay==0||rsv.chargePay==1||(rsv.chargePay==3&&rsv.state!=0)||rsv.chargePay==4 }">
@@ -223,7 +225,6 @@
 							<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
 							<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
 							</c:if>
-							
 						</td>
 					</tr>
 				</c:forEach>
