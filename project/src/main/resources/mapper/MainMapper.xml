@@ -11,7 +11,7 @@
 		select * from promot ORDER BY id DESC
 	</select>
 	<select id="relist" resultType="com.example.demo.dto.ReviewDto">
-		select * from reviews ORDER BY id DESC limit 3
+		select * from reviews ORDER BY id DESC limit 6
 	</select>
 	
 	

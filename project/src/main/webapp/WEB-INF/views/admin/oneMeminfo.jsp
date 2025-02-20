@@ -31,9 +31,11 @@
 	th, td {
 		border: 1px solid #ddd;
 		padding: 12px;
+		font-size: 12px;
+		height: 22px;
 	}
 	th {
-		background-color: #007BFF;
+		background-color: #001160;
 		color: white;
 		text-transform: uppercase;
 	}
@@ -48,14 +50,13 @@
 		text-align: left;
 	}
 	#btn {
-		background-color: #007BFF;
+		background-color: #001160;
 		color: white;
 		border: none;
-		padding: 10px 20px;
+		padding: 5px 10px;
 		border-radius: 5px;
 		cursor: pointer;
-		font-size: 1em;
-		margin-top: 20px;
+		font-size: 12px;
 	}
 	#btn:hover {
 		background-color: #0056b3;
@@ -94,8 +95,8 @@
 			font-size: 18px;
 		}
 		button, input[type="button"] {
-			padding: 8px 15px;
-			font-size: 14px;
+			padding: 5px 10px;
+			font-size: 12px;
 		}
 	}
 </style>
@@ -141,7 +142,7 @@
 		<table>
 			<caption><h4>예약 내역</h4></caption> <!-- 테이블 제목 -->
 			<tr>
-				<th>최근예약현황</th>
+				<th style="width: 30%">최근예약현황</th>
 				<th>요청사항</th>
 				<th>처리</th>
 			</tr>
@@ -169,14 +170,20 @@
 						<c:if test="${rsv.chargePay==0||rsv.chargePay==1||(rsv.chargePay==3&&rsv.state!=0)||rsv.chargePay==4 }">
 						-
 						</c:if>
-						<c:if test="${rsv.chargePay==2 && (rsv.departureTime >= canday)}">
-						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소처리"></a>
+						<c:if test="${rsv.chargePay==2 && (rsv.departureTime >= rsv.offerDay)}">
+						<a href="cancelConfirm?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}&flightId=${rsv.flightId}">
+							<input type="button" value="취소처리">
+						</a>
 						</c:if>
-						<c:if test="${rsv.chargePay==2 && (rsv.departureTime <= canday)}">
-						<a href="cancelRejection?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="취소불가"></a>
+						<c:if test="${rsv.chargePay==2 && (rsv.departureTime <= rsv.offerDay)}">
+						<a href="cancelRejection?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}&flightId=${rsv.flightId}">
+							<input type="button" value="취소불가">
+						</a>
 						</c:if>
 						<c:if test="${rsv.chargePay==3 && rsv.state==0 }">
-						<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId }"><input type="button" value="환불처리"></a>
+						<a href="payReturn?flightName=${rsv.flightName}&departureTime=${rsv.departureTime}&reservationId=${rsv.reservationId}&flightId=${rsv.flightId}">
+							<input type="button" value="환불처리">
+						</a>
 						</c:if>
 					</td>
 				</tr>
@@ -186,7 +193,7 @@
 		<!-- 페이지네이션 -->
 		<div class="pagination">
 			<c:if test="${currentPage > 1}">
-				<a href="?page=${currentPage - 1}">이전</a>
+				<a href="?userid=${member.userid}&page=${currentPage - 1}">이전</a>
 			</c:if>
 			<c:forEach begin="1" end="${totalPages}" var="i">
 				<c:choose>
@@ -194,12 +201,12 @@
 						<span>${i}</span>
 					</c:when>
 					<c:otherwise>
-						<a href="?page=${i}">${i}</a>
+						<a href="?userid=${member.userid}&page=${i}">${i}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${currentPage < totalPages}">
-				<a href="?page=${currentPage + 1}">다음</a>
+				<a href="?userid=${member.userid}&page=${currentPage + 1}">다음</a>
 			</c:if>
 		</div>
 	</section>

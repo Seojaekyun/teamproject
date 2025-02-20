@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ReviewDto;
 
@@ -14,7 +15,7 @@ public interface ReviewService {
 	String update(HttpServletRequest request, Model model);
 	String updateOk(ReviewDto gdto);
 	String write();
-	String writeOk(ReviewDto gdto, HttpSession session);
+	String writeOk(ReviewDto gdto, HttpSession session, MultipartFile file) throws Exception;
 	String reviewContent(HttpServletRequest request, Model model);
 	String reviewList(HttpServletRequest request, Model model);
 	

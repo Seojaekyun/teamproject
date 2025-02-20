@@ -141,7 +141,7 @@ public class MemberServiceImpl implements MemberService {
 		// 유저의 그룹화된 예약 리스트 가져오기 (페이징 적용 및 선택된 날짜 기준으로 필터링)
 		List<Map<String, Object>> rsvClist;
 		
-		rsvClist = rmapper.getRsvcfac(userid, itemsPerPage, offset);  // 모든 예약 리스트
+		rsvClist = rmapper.getRsvcfacP(userid, itemsPerPage, offset);  // 모든 예약 리스트
 		
 		// 예약 ID 리스트 추출
 		List<Integer> reservationIds = rsvClist.stream()
@@ -159,7 +159,7 @@ public class MemberServiceImpl implements MemberService {
 		// 전체 예약 수 가져오기
 		int totalReservations;
 		
-		totalReservations = rmapper.getTotalRsvc(userid);  // 모든 예약의 총 수
+		totalReservations = rmapper.getTotalRsvcP(userid);  // 모든 예약의 총 수
 		
 		// 총 페이지 수 계산
 		int totalPages = totalReservations > 0 ? (int) Math.ceil((double) totalReservations / itemsPerPage) : 1;
@@ -207,7 +207,7 @@ public class MemberServiceImpl implements MemberService {
 		// 유저의 그룹화된 예약 리스트 가져오기 (페이징 적용 및 선택된 날짜 기준으로 필터링)
 		List<Map<String, Object>> rsvClist;
 		
-		rsvClist = rmapper.getRsvcfac(userid, itemsPerPage, offset);  // 모든 예약 리스트
+		rsvClist = rmapper.getRsvcfacC(userid, itemsPerPage, offset);  // 모든 예약 리스트
 		
 		// 예약 ID 리스트 추출
 		List<Integer> reservationIds = rsvClist.stream()
@@ -224,7 +224,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		int totalReservations;
 		
-		totalReservations = rmapper.getTotalRsvc(userid);  // 모든 예약의 총 수
+		totalReservations = rmapper.getTotalRsvcC(userid);  // 모든 예약의 총 수
 		
 		// 총 페이지 수 계산
 		int totalPages = totalReservations > 0 ? (int) Math.ceil((double) totalReservations / itemsPerPage) : 1;

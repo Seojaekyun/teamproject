@@ -24,7 +24,7 @@ public interface FlightService {
 			String passengerType, String pnr, String sung, String name, String goingPrice);
 	int getSeatIdBySeatNumber(String seatNumber);
 	void addSeatToReservation(int reservationId, int seatId);
-	void updateSeatAvailability(int flightId, int seatId);
+	void updateSeatAvailability(int flightId, int seatId, int goingReservationId);
 	void addFlight(String departureAirport, String arrivalAirport, String departureTime,
 			String arrivalTime, String ftime, int airplaneId, int unitPrice);
 	List<AirplanesDto> getAllAirplanes();

@@ -8,8 +8,8 @@
 		select * from reviews order by id desc
 	</select>
 	<insert id="writeOk" parameterType="com.example.demo.dto.ReviewDto">
-		insert into reviews(title, content, writeday, name)
-		values(#{title},#{content},now(),#{name})
+		insert into reviews(title, content, writeday, fname, name)
+		values(#{title},#{content},now(),#{fname},#{name})
 	</insert>
 	<update id="reviewReadnum">
 		update reviews set readnum=readnum+1 where id=#{param}
@@ -21,7 +21,7 @@
 		select * from reviews where id=#{param}
 	</select>
 	<update id="updateOk" parameterType="com.example.demo.dto.ReviewDto">
-		update reviews set title=#{title} , content=#{content} where id=#{id}
+		update reviews set title=#{title}, content=#{content}, fname=#{fname} where id=#{id}
 	</update>
 	<delete id="delete">
 		delete from reviews where id=#{param}

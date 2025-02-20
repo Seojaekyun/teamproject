@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class ReviewDto {
 	private int id, readnum;
-	private String title, content, writeday, name;
-	
+	private String title, content, writeday, name, fname;
 	
 }

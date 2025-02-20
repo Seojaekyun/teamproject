@@ -309,7 +309,7 @@ public class AdminServiceImpl implements AdminService{
 		String pageParam = request.getParameter("page");
 		int page = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
 		
-		int itemsPerPage = 20; // 페이지당 출력할 항목 수
+		int itemsPerPage = 10; // 페이지당 출력할 항목 수
 		int totalItems = mmapper.getTotalMemberCount(); // 전체 회원 수 가져오기
 		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 		
@@ -346,30 +346,58 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public String oneMeminfo(HttpServletRequest request, Model model) {
-		String userId = request.getParameter("userid");
-		LocalDate today = LocalDate.now();
-		
-		// 유저 정보와 예약 리스트를 가져옴
-		MemberDto member = mmapper.getMemberById(userId);
-		
-		if (member != null) {
-			List<ReservationDto> myrsv = rmapper.getRsvUserid(userId);
-			member.setReservations(myrsv);
-			
-			for (ReservationDto reservation : myrsv) {
-				int reservationId = reservation.getReservationId(); // 예약 ID 가져오기
-				Integer payState = rmapper.getState(reservationId); // 예약 ID로 state 조회
-				reservation.setState(payState); // state 값 설정
-				System.out.println("값:"+payState);
-			}
-		}
-		
-		model.addAttribute("canday", today.minusDays(1));
-		model.addAttribute("member", member);
-		model.addAttribute("myrsv", member.getReservations()); // 예약 리스트 전달
-		
-		return "/admin/oneMeminfo";
+	    String userId = request.getParameter("userid");
+
+	    // 현재 페이지 정보 가져오기
+	    int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+	    int itemsPerPage = 5;  // 한 페이지당 표시할 예약 개수
+	    int offset = (currentPage - 1) * itemsPerPage;  // OFFSET 계산
+
+	    // 유저 정보 가져오기
+	    MemberDto member = mmapper.getMemberById(userId);
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	    List<ReservationDto> myrsv = new ArrayList<>();
+	    int totalReservations = 0;
+
+	    if (member != null) {
+	        // 특정 유저의 예약 리스트 (페이징 적용)
+	        myrsv = rmapper.getRsvUserid(userId, itemsPerPage, offset);
+
+	        // 전체 예약 수 가져오기 (페이징을 위해 필요)
+	        totalReservations = rmapper.getTresByUser(userId);
+
+	        for (ReservationDto reservation : myrsv) {
+	            int reservationId = reservation.getReservationId();
+	            Integer payState = rmapper.getState(reservationId);
+	            reservation.setState(payState);
+	            System.out.println("값:" + payState);
+
+	            // offerDay +1일 처리
+	            String offerDay = reservation.getOfferDay();
+	            if (offerDay != null) {
+	                LocalDate parsedDate = LocalDate.parse(offerDay, formatter);
+	                LocalDate adjustedDate = parsedDate.plusDays(1);  // +1일
+	                reservation.setOfferDay(adjustedDate.format(formatter));
+	            }
+	        }
+
+	        member.setReservations(myrsv);
+	    }
+
+	    // 총 페이지 수 계산
+	    int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);
+
+	    // 모델에 데이터 추가
+	    model.addAttribute("member", member);
+	    model.addAttribute("myrsv", myrsv);  // 페이징 적용된 예약 리스트
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalReservations", totalReservations);
+
+	    return "/admin/oneMeminfo";
 	}
+
 	
 	@Override
 	public String inquiryList(Model model, Integer page) {
@@ -426,7 +454,6 @@ public class AdminServiceImpl implements AdminService{
 	public String rsvdList(HttpServletRequest request, Model model) {
 		String flightName = request.getParameter("flightName");
 		String departureTime = request.getParameter("departureTime");
-		LocalDate today = LocalDate.now();
 		
 		// 페이지 처리 관련 변수
 		int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -441,19 +468,29 @@ public class AdminServiceImpl implements AdminService{
 		int totalReservations = rmapper.getTotalReservations(flightName, departureTime);
 		int totalPages = (int) Math.ceil((double) totalReservations / itemsPerPage);
 		
-		// 각 예약번호별 좌석 수 계산
-		Map<Integer, Integer> seatCounts = new HashMap<>();
-		for (ReservationDto reservation : rsvList) {
-			int seatCount = rmapper.getSeatCountByReservationId(reservation.getReservationId());
-			seatCounts.put(reservation.getReservationId(), seatCount);
-			int reservationId = reservation.getReservationId();  // reservationId 추출
-			Integer payState = rmapper.getState(reservationId);
-			reservation.setState(payState);
-			System.out.println("값:"+payState);
-		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+	    // 각 예약번호별 좌석 수 계산 및 offerDay -1일 처리
+	    Map<Integer, Integer> seatCounts = new HashMap<>();
+	    for (ReservationDto reservation : rsvList) {
+	        int seatCount = rmapper.getSeatCountByReservationId(reservation.getReservationId());
+	        seatCounts.put(reservation.getReservationId(), seatCount);
+	        
+	        int reservationId = reservation.getReservationId();
+	        Integer payState = rmapper.getState(reservationId);
+	        reservation.setState(payState);
+	        System.out.println("값:" + payState);
+
+	        // offerDay +1일 처리
+	        String offerDay = reservation.getOfferDay();
+	        if (offerDay != null) {
+	            LocalDate parsedDate = LocalDate.parse(offerDay, formatter);
+	            LocalDate adjustedDate = parsedDate.plusDays(1); // +1일 처리
+	            reservation.setOfferDay(adjustedDate.format(formatter)); // 다시 저장
+	        }
+	    }
 		
 		// 모델에 추가
-		model.addAttribute("canday", today.minusDays(1));
 		model.addAttribute("rsvList", rsvList);
 		model.addAttribute("rsvfn", rsvfn);
 		model.addAttribute("seatCounts", seatCounts);  // 좌석 수 맵 추가
@@ -467,9 +504,11 @@ public class AdminServiceImpl implements AdminService{
 	public String cancelConfirm(HttpServletRequest request) {
 	    String referer = request.getHeader("Referer"); // 요청을 보낸 이전 페이지 URL 가져오기
 	    String rid = request.getParameter("reservationId"); // 취소할 예약 ID
-	    
+	    String fid = request.getParameter("flightId");
 	    rmapper.cancelConfirm(rid); // 예약 취소 처리
-
+	    rmapper.cancelSeat(fid, rid);
+	    rmapper.delSeat(rid);
+	    
 	    if (referer != null && !referer.isEmpty()) {
 	        try {
 	            URI refererUri = new URI(referer);
@@ -492,20 +531,52 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public String cancelRejection(HttpServletRequest request, Model model) {
-		String fname=request.getParameter("flightName");
-		String dtime=request.getParameter("departureTime");
+		String referer = request.getHeader("Referer");
 		String rid=request.getParameter("reservationId");
 		rmapper.cancelRejection(rid);
-		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
+		
+		if (referer != null && !referer.isEmpty()) {
+	        try {
+	            URI refererUri = new URI(referer);
+	            String query = refererUri.getQuery(); // 기존 쿼리 스트링 가져오기
+
+	            // 기존 쿼리 스트링이 있으면 유지하면서 reservationId 추가
+	            String newQuery = (query != null && !query.isEmpty()) 
+	                ? query + "&reservationId=" + rid 
+	                : "reservationId=" + rid;
+
+	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
+	        } catch (URISyntaxException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		
+		return "redirect:/admin/rsvdList";
 	}
 	
 	@Override
 	public String payReturn(HttpServletRequest request, Model model) {
-		String fname=request.getParameter("flightName");
-		String dtime=request.getParameter("departureTime");
+		String referer = request.getHeader("Referer");
 		String rid=request.getParameter("reservationId");
 		rmapper.payReturn(rid);
-		return "redirect:/admin/rsvdList?flightName="+fname+"&departureTime="+dtime+"&reservationId="+rid;
+		
+		if (referer != null && !referer.isEmpty()) {
+	        try {
+	            URI refererUri = new URI(referer);
+	            String query = refererUri.getQuery(); // 기존 쿼리 스트링 가져오기
+
+	            // 기존 쿼리 스트링이 있으면 유지하면서 reservationId 추가
+	            String newQuery = (query != null && !query.isEmpty()) 
+	                ? query + "&reservationId=" + rid 
+	                : "reservationId=" + rid;
+
+	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
+	        } catch (URISyntaxException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		
+		return "redirect:/admin/rsvdList";
 	}
 
 	@Override

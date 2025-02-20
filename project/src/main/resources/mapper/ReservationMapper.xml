@@ -58,6 +58,20 @@
 		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
 		ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
 	</select>
+	<select id="getRsvcfacP" resultType="map">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate, r.charge, r.charge_pay
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+		and r.charge_pay = 0 ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<select id="getRsvcfacC" resultType="map">
+		SELECT r.*, f.departure_airport AS departureAirport, f.flight_name AS flightName,
+		DATE_FORMAT(f.departure_time, '%Y-%m-%d %H:%i:%s') AS departure_time, r.seat_class,
+		DATE_FORMAT(r.reservation_date, '%Y-%m-%d %H:%i:%s') AS reservationDate, r.charge, r.charge_pay
+		FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+		and r.charge_pay in (0, 1) ORDER BY r.reservation_date DESC LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
 	<select id="getRsvcPay" resultType="map">
 		SELECT r.*, f.departure_airport AS departureAirport, f.arrival_airport as arrivalAirport, 
 		f.flight_name AS flightName, r.seat_class,
@@ -86,9 +100,13 @@
 	<select id="getSumOfCharges" resultType="map">
 		SELECT SUM(r.charge) AS totalCharge, SUM(r.charge_pay) AS totalChargePay FROM reservations r WHERE r.userid = #{userid}
 	</select>
-	<select id="getRsvUserid" parameterType="String" resultType="com.example.demo.dto.ReservationDto">
+	<select id="getRsvUserid" parameterType="map" resultType="com.example.demo.dto.ReservationDto">
 		SELECT r.*, f.departure_time AS departureTime, f.flight_name as flightName FROM
-		reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid} ORDER BY reservation_date DESC
+		reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userId} ORDER BY reservation_date DESC
+		LIMIT #{itemsPerPage} OFFSET #{offset}
+	</select>
+	<select id="getTresByUser" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM reservations WHERE userid = #{userId}
 	</select>
 	<select id="getTotalRsvcByDate" resultType="int">
 		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
@@ -96,6 +114,14 @@
 	</select>
 	<select id="getTotalRsvc" resultType="int">
 		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id WHERE r.userid = #{userid}
+	</select>
+	<select id="getTotalRsvcP" resultType="int">
+		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE r.userid = #{userid} and r.charge_pay = 0
+	</select>
+	<select id="getTotalRsvcC" resultType="int">
+		SELECT COUNT(*) FROM reservations r JOIN flights f ON r.flight_id = f.flight_id
+		WHERE r.userid = #{userid} and r.charge_pay in (0, 1)
 	</select>
 	<!-- 월별 예약 통계 쿼리 -->
 	<select id="getMonthlyLabels" resultType="String">
@@ -132,12 +158,18 @@
 		values(#{reservationId}, #{charge}, now(), #{sudan})
 	</insert>
 	<update id="cancelOpper" parameterType="com.example.demo.dto.ReservationDto">
-		update reservations set charge_pay=2 where pnr=#{pnr}
+		update reservations set charge_pay=2, offer_day=NOW() where pnr=#{pnr}
 	</update>
 	<update id="cancelConfirm" parameterType="com.example.demo.dto.ReservationDto">
 		update reservations set charge_pay=3 where reservation_id=#{rid}
 	</update>
-	<update id="cancelRejection" parameterType="com.example.demo.dto.ReservationDto">
+	<update id="cancelSeat" parameterType="com.example.demo.dto.ReservationDto">
+		update flightseats set is_available=1, reservation_id=0 where flight_id=#{fid} and reservation_id=#{rid}
+	</update>
+	<delete id="delSeat" parameterType="com.example.demo.dto.ReservationDto">
+		delete from reservation_seats where reservation_id=#{rid}
+	</delete>
+	<update id="cancelRejection" parameterType="com.example.demo.dto.FlightDto">
 		update reservations set charge_pay=4 where reservation_id=#{rid}
 	</update>
 	<update id="payReturn" parameterType="com.example.demo.dto.ReservationDto">

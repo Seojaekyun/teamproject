@@ -175,23 +175,21 @@
 					<th>결제</th>
 				</tr>
 				<c:forEach var="res" items="${rsvClist}">
-					<c:if test="${res.charge_pay==0}">
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>${res.pnr}</td>
-						<td>${res.reservationDate}</td>
-						<td>${res.flightName}</td>
-						<td>${res.departure_time}</td>
-						<td>${res.seat_class}</td>
-						<td>${seatCounts[res.reservation_id]}</td>
-						<td>${res.charge} 원</td>
-						<td><a href="payment?pnr=${res.pnr }"><input type="button" value="결제"></a></td>
-					</tr>
-					</c:if>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>${res.pnr}</td>
+					<td>${res.reservationDate}</td>
+					<td>${res.flightName}</td>
+					<td>${res.departure_time}</td>
+					<td>${res.seat_class}</td>
+					<td>${seatCounts[res.reservation_id]}</td>
+					<td>${res.charge} 원</td>
+					<td><a href="payment?pnr=${res.pnr }"><input type="button" value="결제"></a></td>
+				</tr>
 				</c:forEach>
 				<c:if test="${empty rsvClist}">
 					<tr>
-						<td colspan="7">예약 데이터가 없습니다.</td>
+						<td colspan="9">미결제 예약이 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>

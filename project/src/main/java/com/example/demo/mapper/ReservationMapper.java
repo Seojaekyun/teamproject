@@ -30,7 +30,7 @@ public interface ReservationMapper {
 	// 만약 하나의 결과만 반환하려면 기존대로 사용하되 쿼리를 수정
 	int getTotalRsvcByDate(String userid, String selectedDate);
 	Map<String, Object> getSumOfCharges(String userid);
-	List<ReservationDto> getRsvUserid(String userId);
+	List<ReservationDto> getRsvUserid(String userId, int itemsPerPage, int offset);
 	List<Map<String, Object>> getRsvChart();
 	List<Map<String, Object>> getScrsvid(List<Integer> reservationIds);
 	List<Map<String, Object>> getAvailableSeatCountByFlightId();
@@ -44,13 +44,18 @@ public interface ReservationMapper {
 	List<Map<String, Object>> getReservationSeatInfo(String pnr);
 	void chargeOk(ReservationDto rdto);
 	void payOk(ReservationDto rdto);
-	
 	void cancelOpper(ReservationDto rdto);
 	Integer getState(int reservationId);
 	void cancelConfirm(String rid);
 	void payReturn(String rid);
 	void cancelRejection(String rid);
-	
+	void cancelSeat(String fid, String rid);
+	List<Map<String, Object>> getRsvcfacP(String userid, int itemsPerPage, int offset);
+	List<Map<String, Object>> getRsvcfacC(String userid, int itemsPerPage, int offset);
+	int getTotalRsvcP(String userid);
+	int getTotalRsvcC(String userid);
+	int getTresByUser(String userId);
+	void delSeat(String rid);
 	
 	
 }

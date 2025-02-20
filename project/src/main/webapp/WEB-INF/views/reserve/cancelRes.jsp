@@ -191,7 +191,7 @@
 				</c:forEach>
 				<c:if test="${empty rsvClist}">
 					<tr>
-						<td colspan="7">예약 데이터가 없습니다.</td>
+						<td colspan="9">취소 가능한 예약이 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>

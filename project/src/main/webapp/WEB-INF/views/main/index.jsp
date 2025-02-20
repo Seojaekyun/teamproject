@@ -369,7 +369,7 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-		#seats-btn i {
+	#seats-btn i {
 		font-size: 18px;
 		color: #333;
 	}
@@ -662,12 +662,22 @@
 		width: 1000px;
 		max-width: 90%;
 		margin: auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
 	}
 	.review {
 		background-color: #fff;
 		border-radius: 10px;
 		padding: 20px;
 		margin-bottom: 20px;
+		width: 32%;
+		display: flex;
+		justify-content: space-between;
+	}
+	.review div{
+		background-color: #fff;
+		display: inline-block;
 	}
 	.review h4 {
 		margin-bottom: 10px;
@@ -1796,8 +1806,15 @@
 			<div class="review-container">
 				<c:forEach items="${relist}" var="redto">
 				<div class="review" onclick="window.location.href='../review/reviewReadnum?id=${redto.id }'">
-					<h3>${redto.name}</h3>
-					<p>${redto.content}</p>
+					<div>
+						<h3>${redto.name}</h3>
+						<p>${redto.content}</p>
+					</div>
+					<c:if test="${redto.fname != null}">
+					<div>
+						<img src="../static/resources/${redto.fname}" style="width: 100px;" alt="리뷰 이미지">
+					</div>
+					</c:if>
 				</div>
 				</c:forEach>
 			</div>

@@ -156,7 +156,7 @@
 <body> <!-- inquiry/write.jsp -->
     <section>
         <header>
-            <h1>온라인 체크인 안내</h1>
+            <h1>즐거운 여행 후기</h1>
         </header>
 
         <nav>
@@ -169,7 +169,7 @@
             <div class="content">
                 <h2>작성하기</h2>
                 <!-- 문의 작성 폼 -->
-                <form method="post" action="writeOk">
+                <form method="post" action="writeOk" enctype="multipart/form-data">
                 <input type="hidden" name="name" value="${userid}">
                     <div>
                         <label for="title">제목</label>
@@ -179,6 +179,10 @@
                         <label for="content">내용</label>
                         <textarea name="content" id="content" maxlength="400" placeholder="후기를 입력하세요" required></textarea>
                     </div>
+                    <div class="flex-item">
+						<label for="fname">파일 등록</label>
+						<input type="file" id="fname" name="file">
+					</div>
                     
                     <div>
                         <input type="submit" value="후기 등록">

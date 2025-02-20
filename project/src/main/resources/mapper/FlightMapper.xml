@@ -71,7 +71,7 @@
 		INSERT INTO reservation_seats (reservation_id, seat_id) VALUES (#{reservationId}, #{seatId})
 	</insert>
 	<update id="updateSeatAvailability">
-		UPDATE flightseats SET is_available = 0 WHERE flight_id = #{flightId} AND seat_id = #{seatId}
+		UPDATE flightseats SET is_available = 0, reservation_id = #{reservationId} WHERE flight_id = #{flightId} AND seat_id = #{seatId}
 	</update>
 	<select id="getFlightByReturnFlightId" parameterType="String" resultType="com.example.demo.dto.FlightDto">
 		SELECT * FROM flights WHERE flight_id = #{returnFlightId}

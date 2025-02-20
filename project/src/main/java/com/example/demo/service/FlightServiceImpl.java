@@ -142,8 +142,8 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
 	@Override
-	public void updateSeatAvailability(int flightId, int seatId) {
-		fmapper.updateSeatAvailability(flightId, seatId);
+	public void updateSeatAvailability(int flightId, int seatId, int goingReservationId) {
+		fmapper.updateSeatAvailability(flightId, seatId, goingReservationId);
 	}
 	
 	@Override

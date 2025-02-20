@@ -374,7 +374,7 @@ public class FlightController {
 			int seatId = service.getSeatIdBySeatNumber(seat.trim());  // 좌석 번호를 통해 seat_id를 얻음
 			if (seatId > 0) {
 				service.addSeatToReservation(goingReservationId, seatId); // reservation_seats 테이블에 좌석 추가
-				service.updateSeatAvailability(Integer.parseInt(goingFlightId), seatId); // 좌석 가용성 업데이트
+				service.updateSeatAvailability(Integer.parseInt(goingFlightId), seatId, goingReservationId); // 좌석 가용성 업데이트
 			}
 			else {
 				// 좌석 ID가 유효하지 않은 경우 처리
@@ -390,7 +390,7 @@ public class FlightController {
 			int seatId = service.getSeatIdBySeatNumber(seat.trim());
 			if (seatId > 0) {
 				service.addSeatToReservation(returnReservationId, seatId); // reservation_seats 테이블에 좌석 추가
-				service.updateSeatAvailability(Integer.parseInt(returnFlightId), seatId); // 좌석 가용성 업데이트
+				service.updateSeatAvailability(Integer.parseInt(returnFlightId), seatId, returnReservationId); // 좌석 가용성 업데이트
 			}
 			else {
 				// 좌석 ID가 유효하지 않은 경우 처리

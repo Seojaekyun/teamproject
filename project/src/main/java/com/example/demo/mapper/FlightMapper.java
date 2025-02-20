@@ -53,7 +53,8 @@ public interface FlightMapper {
 			@Param("seatId") int seatId);
 	void updateSeatAvailability(
 			@Param("flightId") int flightId,
-			@Param("seatId") int seatId);
+			@Param("seatId") int seatId,
+			@Param("reservationId") int reservationId);
 	List<Map<String, Object>> getTotalSeatsByFlightId();
 	void addFlight(FlightDto flight);
 	List<AirplanesDto> findAllAirplanes();

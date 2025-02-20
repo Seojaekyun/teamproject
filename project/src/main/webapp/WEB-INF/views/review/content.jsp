@@ -156,6 +156,7 @@
                 조회수: ${redto.readnum}
             </div>
             <div class="qna-content">
+            	<img src="../static/resources/${redto.fname}" alt="리뷰 이미지">
                 ${redto.content}
             </div>
 

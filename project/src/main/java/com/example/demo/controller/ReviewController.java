@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ReviewDto;
 import com.example.demo.service.ReviewService;
@@ -39,8 +40,8 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/review/writeOk")
-	public String write(ReviewDto redto, HttpSession session) {
-		return service.writeOk(redto, session);
+	public String write(ReviewDto redto, HttpSession session, @RequestParam MultipartFile file) throws Exception {
+		return service.writeOk(redto, session, file);
 	}
 	
 	@GetMapping("/admin/reviewList")

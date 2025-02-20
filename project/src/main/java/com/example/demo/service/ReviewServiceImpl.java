@@ -1,14 +1,21 @@
 package com.example.demo.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ReviewDto;
 import com.example.demo.mapper.ReviewMapper;
+import com.example.demo.util.MyUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -49,12 +56,24 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	@Override
-	public String writeOk(ReviewDto redto, HttpSession session) {
+	public String writeOk(ReviewDto redto, HttpSession session, @RequestParam MultipartFile file) throws Exception {
 		String userId=(String) session.getAttribute("userid");
+		String fname = "";
 		if (userId==null) {
 			return "redirect:/login/login";
 		}
 		else {
+			if (!file.isEmpty()) {
+				String oname = file.getOriginalFilename();
+				String str = ResourceUtils.getFile("classpath:static/resources").toString() + "/" + oname;
+				str=MyUtils.getFileName(oname, str);
+				
+				fname = str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
+				
+				Path path = Path.of(str);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			}
+			redto.setFname(fname);
 			mapper.writeOk(redto);
 			return "redirect:/review/list";
 		}
