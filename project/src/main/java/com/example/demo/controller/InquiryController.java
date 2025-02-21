@@ -40,8 +40,8 @@ public class InquiryController {
 	}
 	
 	@GetMapping("/inquiry/content")
-	public String content(HttpServletRequest request, Model model) {
-		return service.content(request, model);
+	public String content(HttpSession session, HttpServletRequest request, Model model) {
+		return service.content(session, request, model);
 	}
 	
 	@GetMapping("/inquiry/update")
@@ -57,6 +57,21 @@ public class InquiryController {
 	@GetMapping("/inquiry/delete")
 	public String delete(HttpServletRequest request) {
 		return service.delete(request);
+	}
+	
+	@GetMapping("/admin/inquiryList") // 새로운 매핑 추가
+	public String inquiryList(Model model, Integer page) {
+		return service.inquiryList(model, page);
+	}
+	
+	@GetMapping("/admin/inquiryContent")
+	public String inquiryContent(HttpServletRequest request, Model model) {
+		return service.inquiryContent(request, model);
+	}
+	
+	@PostMapping("/admin/answer")
+	public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+		return service.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
 	}
 	
 	

@@ -163,7 +163,12 @@
             <!-- 버튼 영역 -->
             <div style="text-align: center;">
                 <a class="cta-button" href="list">목록</a>
+                <c:if test="${idto.userid == userid && idto.answer == 0}">
+                <a class="cta-button" href="update?id=${idto.id}">수정</a>
+                </c:if>
+                <c:if test="${idto.userid == userid }">
                 <a class="cta-button" href="delete?id=${idto.id}">삭제</a>
+                </c:if>
             </div>
 
             <!-- 답변 입력/보기 폼 -->

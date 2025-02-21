@@ -86,21 +86,6 @@ public class AdminController {
 		return service.oneMeminfo(request, model);
 	}
 	
-	@GetMapping("/admin/inquiryList") // 새로운 매핑 추가
-	public String inquiryList(Model model, Integer page) {
-		return service.inquiryList(model, page);
-	}
-	
-	@GetMapping("/admin/inquiryContent")
-	public String inquiryContent(HttpServletRequest request, Model model) {
-		return iservice.inquiryContent(request, model);
-	}
-	
-	@PostMapping("/admin/answer")
-	public String answer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
-		return iservice.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
-	}
-	
 	@PostMapping("/admin/updateAnswer")
 	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
 		return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
@@ -147,20 +132,7 @@ public class AdminController {
 		
 		return response;
 	}
-	/*
-	@GetMapping("/admin/getUnitPrice")
-	@ResponseBody
-	public Map<String, Integer> getUnitPrice(@RequestParam String departureAirport,
-			@RequestParam String arrivalAirport) {
-	    // Unit Price 계산하는 부분
-	    int unitPrice = fservice.getUnitPrice(departureAirport, arrivalAirport);
-	    // Unit Price 응답 준비
-	    Map<String, Integer> response = new HashMap<>();
-	    response.put("unitPrice", unitPrice);
-	    
-	    return response;
-	}
-	*/
+	
 	@PostMapping("/admin/addFlights")
 	public String addFlights(
 			@RequestParam String departureAirport, @RequestParam String arrivalAirport, @RequestParam String departureTime,

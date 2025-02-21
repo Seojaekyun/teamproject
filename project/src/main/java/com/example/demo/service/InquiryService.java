@@ -11,13 +11,14 @@ public interface InquiryService {
     String write();
     String writeOk(InquiryDto idto, HttpSession session);
     String readnum(HttpServletRequest request);
-    String content(HttpServletRequest request, Model model);
+    String content(HttpSession session, HttpServletRequest request, Model model);
     String update(HttpServletRequest request, Model model);
     String updateOk(InquiryDto idto);
     String delete(HttpServletRequest request);
 	String inquiryContent(HttpServletRequest request, Model model);
 	String answer(int inquiryId, String answerText);
 	String updateAnswer(int inquiryId, String answerText);
+	String inquiryList(Model model, Integer page);
 	
 	
 }

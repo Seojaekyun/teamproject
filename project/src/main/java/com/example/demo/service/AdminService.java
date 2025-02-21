@@ -11,7 +11,6 @@ public interface AdminService {
 	String flightList(Integer page, String selectedDate, String flightType, Model model);
 	String reserveList(String selectedDate, Integer gmpPage,
 			Integer icnPage, Integer otherPage, Integer page, Model model);
-	String inquiryList(Model model, Integer page);
 	String rsvdList(HttpServletRequest request, Model model);
 	String oneMeminfo(HttpServletRequest request, Model model);
 	String memberUp(MemberDto mdto);

@@ -41,6 +41,31 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 	
 	@Override
+	public String inquiryList(Model model, Integer page) {
+		if (page == null) {
+			page = 1;  // 기본 페이지 값 설정
+		}
+		
+		int itemsPerPage = 20;  // 페이지당 항목 수
+		int offset = (page - 1) * itemsPerPage;  // 페이지에 따른 시작점 계산
+		
+		// 전체 문의 수 가져오기
+		int totalItems = mapper.getInquiryCount();
+		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+		
+		// 페이징된 문의 리스트 가져오기
+		List<InquiryDto> ilist = mapper.list(offset, itemsPerPage);
+		
+		// 모델에 추가
+		model.addAttribute("ilist", ilist);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems", totalItems);
+		
+		return "/admin/inquiryList";
+	}
+	
+	@Override
 	public String write() {
 		return "/inquiry/write";
 	}
@@ -59,11 +84,16 @@ public class InquiryServiceImpl implements InquiryService {
 	}
 	
 	@Override
-	public String content(HttpServletRequest request, Model model) {
+	public String content(HttpSession session, HttpServletRequest request, Model model) {
+		String userid=(String)session.getAttribute("userid");
+		if(userid!=null) {
+			model.addAttribute(userid);
+		}
 		String id = request.getParameter("id");
 		InquiryDto idto = mapper.content(id);
 		idto.setContent(idto.getContent().replace("\\r\\n", "<br>"));
 		model.addAttribute("idto", idto);
+		
 		return "/inquiry/content";
 	}
 	

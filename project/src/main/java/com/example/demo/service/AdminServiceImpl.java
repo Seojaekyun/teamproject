@@ -381,32 +381,6 @@ public class AdminServiceImpl implements AdminService{
 
 	    return "/admin/oneMeminfo";
 	}
-
-	
-	@Override
-	public String inquiryList(Model model, Integer page) {
-		if (page == null) {
-			page = 1;  // 기본 페이지 값 설정
-		}
-		
-		int itemsPerPage = 20;  // 페이지당 항목 수
-		int offset = (page - 1) * itemsPerPage;  // 페이지에 따른 시작점 계산
-		
-		// 전체 문의 수 가져오기
-		int totalItems = imapper.getInquiryCount();
-		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-		
-		// 페이징된 문의 리스트 가져오기
-		List<InquiryDto> ilist = imapper.list(offset, itemsPerPage);
-		
-		// 모델에 추가
-		model.addAttribute("ilist", ilist);
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("totalItems", totalItems);
-		
-		return "/admin/inquiryList";
-	}
 	
 	@Override
 	public String rsvdList(HttpServletRequest request, Model model) {

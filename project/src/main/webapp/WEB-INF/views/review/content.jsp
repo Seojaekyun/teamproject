@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Q＆A</title>
+<title>후기</title>
 <style>
     body {
         font-family: Arial, sans-serif;
