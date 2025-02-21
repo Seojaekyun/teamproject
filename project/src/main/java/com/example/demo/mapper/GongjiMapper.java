@@ -11,8 +11,7 @@ import com.example.demo.dto.GongjiDto;
 public interface GongjiMapper {
 	void writeOk(GongjiDto gdto);
 	List<GongjiDto> list(@Param("offset") int offset, @Param("limit") int limit);
-	void gongjiReadnum(String id);
-	GongjiDto content(String id);
+	void readnum(String id);
 	void updateOk(GongjiDto gdto);
 	void delete(String id);
 	GongjiDto gongjiContent(String id);

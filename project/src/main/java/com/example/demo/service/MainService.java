@@ -20,7 +20,6 @@ public interface MainService {
 	public String checkinGuide();
 	public String seatGuide();
 	public String baggageGuide();
-	public String eventList(HttpServletRequest request, Model model);
 	public String travel();
 	public boolean checkLoginStatus(HttpSession session);
 	public String loginOk(MemberDto mdto, HttpSession session,
@@ -31,11 +30,6 @@ public interface MainService {
 			String selectedDate, Integer page, Model model);
 	public String reserveInfo();
 	public String checkin();
-	public String eventContent(HttpServletRequest request, Model model);
-	public String eventReadnum(HttpServletRequest request);
-	String reviewReadnum(HttpServletRequest request);
-	String reviewContent(HttpServletRequest request, Model model);
-	String reviewList(HttpServletRequest request, Model model);
 	
 	
 }

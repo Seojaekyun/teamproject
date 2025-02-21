@@ -2,9 +2,6 @@ package com.example.demo.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,27 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.FlightDto;
-import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
-import com.example.demo.dto.PromotDto;
 import com.example.demo.dto.ReservationDto;
 import com.example.demo.dto.StateCountDto;
 import com.example.demo.mapper.FlightMapper;
-import com.example.demo.mapper.GongjiMapper;
 import com.example.demo.mapper.InquiryMapper;
 import com.example.demo.mapper.MemberMapper;
-import com.example.demo.mapper.PromotMapper;
 import com.example.demo.mapper.ReservationMapper;
-import com.example.demo.util.MyUtils;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 
 @Service
 @Qualifier("as")
@@ -53,10 +40,7 @@ public class AdminServiceImpl implements AdminService{
 	private ReservationMapper rmapper;
 	@Autowired
 	private InquiryMapper imapper;
-	@Autowired
-	private GongjiMapper gmapper;
-	@Autowired
-	private PromotMapper pmapper;
+	
 	@Override
 	public String adminI(HttpSession session, HttpServletRequest request, Model model) {
 		Object useridObj = session.getAttribute("userid");
@@ -425,32 +409,6 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public String gongjiList(HttpServletRequest request, Model model) {
-		// 페이지 번호 파라미터 받기 (기본값은 1)
-		String pageParam = request.getParameter("page");
-		int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
-		
-		int itemsPerPage = 20;  // 페이지당 항목 수
-		int offset = (currentPage - 1) * itemsPerPage;  // 시작 인덱스 계산
-		
-		// 전체 공지사항 수 가져오기
-		int totalItems = gmapper.getTotalCount();
-		
-		// 페이징 적용하여 리스트 가져오기
-		List<GongjiDto> glist = gmapper.list(offset, itemsPerPage);
-		
-		// 전체 페이지 수 계산
-		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-		
-		// 모델에 필요한 데이터 추가
-		model.addAttribute("glist", glist);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("totalPages", totalPages);
-		
-		return "/admin/gongjiList";
-	}
-	
-	@Override
 	public String rsvdList(HttpServletRequest request, Model model) {
 		String flightName = request.getParameter("flightName");
 		String departureTime = request.getParameter("departureTime");
@@ -579,95 +537,6 @@ public class AdminServiceImpl implements AdminService{
 		return "redirect:/admin/rsvdList";
 	}
 
-	@Override
-	public String promotList(HttpServletRequest request, Model model) {
-		List<PromotDto> plist = pmapper.promotList();
-		
-		model.addAttribute("plist", plist);
-		
-		return "/admin/promotList";
-	}
-	
-	@Override
-	public String promotAdd() {
-		return "/admin/promotAdd";
-	}
-
-	@Override
-	public String addPromots(PromotDto pdto, @RequestParam MultipartFile file) throws Exception {
-		String fname = "";
-		
-		if (!file.isEmpty()) {
-			String oname = file.getOriginalFilename();
-			String str = ResourceUtils.getFile("classpath:static/resources").toString() + "/" + oname;
-			str = MyUtils.getFileName(oname, str);
-			
-			fname = str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
-			
-			Path path = Path.of(str);
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		}
-		
-		pdto.setFname(fname); // DTO에 파일 이름 설정
-		pmapper.addPromot(pdto); // DB에 저장
-		
-		return "redirect:/admin/promotList"; // 리다이렉트
-	}
-	
-	@Override
-	public String promotContent(HttpServletRequest request, Model model) {
-		String id=request.getParameter("id");
-		PromotDto pdto=pmapper.promotContent(id);
-		
-		pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
-		
-		model.addAttribute("pdto", pdto);	
-		return "/admin/promotContent";
-	}
-
-	@Override
-	public String promotUpdate(HttpServletRequest request, Model model) {
-		String id=request.getParameter("id");
-		PromotDto pdto=pmapper.promotContent(id);
-		pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
-		
-		model.addAttribute("pdto", pdto);
-		return "/admin/promotUpdate";
-	}
-	
-	@Override
-	public String upPromots(HttpServletRequest request, @RequestParam MultipartFile file, PromotDto pdto) throws Exception {
-		String fname=request.getParameter("fname"); // request에서 이전 파일 이름을 가져옵니다.
-		
-		if(file.isEmpty()) {
-			if(fname==null||fname.isEmpty()) {
-				fname=pdto.getFname(); // DTO에서 이전 파일 이름 가져오기
-			}
-		}
-		else { // 새로운 파일 업로드 처리
-			String oname = file.getOriginalFilename();
-			String str = ResourceUtils.getFile("classpath:static/resources").toString() + "/" + oname;
-			str = MyUtils.getFileName(oname, str);
-			
-			fname=str.substring(str.lastIndexOf("/") + 1); // 파일 이름 설정
-			
-			Path path=Path.of(str);
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		}
-		
-		pdto.setFname(fname); // DTO에 파일 이름 설정
-		pmapper.upPromots(pdto); // DB에 저장
-		
-		return "redirect:/admin/promotContent?id=" + pdto.getId(); // 리다이렉트
-	}
-	
-	@Override
-	public String delPromot(HttpServletRequest request) {
-		String id = request.getParameter("id");
-		pmapper.delete(id);
-		
-		return "redirect:/admin/promotList";
-	}
 	
 		
 }

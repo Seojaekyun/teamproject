@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공지사항</title>
+<title>이벤트 안내</title>
 <style>
+    /* 스타일 정의 */
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -37,159 +38,173 @@
     section nav a:hover {
         text-decoration: underline;
     }
-    .container {
-        max-width: 1200px;
+    section .container {
+        max-width: 900px;
         margin: 20px auto;
         background-color: white;
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
-    .content {
-    	height: 550px;
-    }
-    .content h2 {
+    section .content h2 {
         font-size: 22px;
+        color: #00467F;
+        margin-bottom: 20px;
+    }
+    section .content p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    section .content ul {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+    section .content ul li {
+        margin-bottom: 10px;
+    }
+    section .event-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    section .event-item {
+        flex: 1 1 calc(50% - 20px);
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: none; /* 초기에는 숨김 처리 */
+    }
+    section .event-item img {
+        width: auto;
+        height: 275px;;
+    }
+    section .event-item .event-content {
+        padding: 15px;
+    }
+    section .event-item h3 {
+        font-size: 20px;
         color: #00467F;
         margin-bottom: 10px;
     }
-    table {
-        width: 100%;
-        height: 500px;
-        border-collapse: collapse;
+    section .event-item p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
     }
-    table, th, td {
-        border-bottom: 1px solid #ddd;
-        height: 30px;        
-    }
-    th, td {
-        padding: 12px;
-        text-align: center;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    td {
-		font-size: 12px;
-    }
-	a {
-		text-decoration: none;
-	}
-	a:hover {
-		text-decoration: none;
-		font-weight: bold;
-	}
-    .badge {
+    section .event-item a {
         display: inline-block;
-        padding: 3px;
-        font-size: 11px;
-        font-weight: bold;
-        border-radius: 3px;
-        margin-right: 5px;
+        padding: 8px 12px;
+        background-color: #00467F;
         color: white;
+        text-decoration: none;
+        border-radius: 4px;
     }
-    .badge-important {
-        background-color: #DF251F; /* 필독 배지 색상 */
+    section .event-item a:hover {
+        background-color: #003A66;
     }
-    .badge-notice {
-        background-color: #65FF5E; /* 공지 배지 색상 */
+    section .more-button {
+        text-align: center;
+        margin-top: 30px;
+    }
+    section .more-button button {
+        padding: 10px 20px;
+        background-color: #00467F;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    section .more-button button:hover {
+        background-color: #003A66;
+    }
+    .event-item:hover {
+	    transform: translateY(-5px);
+	    transition: transform 0.3s ease;
+	}
+
+    /* 반응형 디자인 */
+    @media screen and (max-width: 768px) {
+        section .event-item {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+    @media screen and (max-width: 480px) {
+        section .event-item {
+            flex: 1 1 100%;
+        }
     }
     
-    .pagination {
-		text-align: center;
-		margin-top: 20px;
-	}
-	.pagination a {
-		display: inline-block;
-		padding: 5px 10px;
-		margin: 0 3px;
-		background-color: #4CAF50;
-		color: white;
-		text-decoration: none;
-		border-radius: 5px;
-		font-size: 12px;
-	}
-	.pagination a.active, .pagination span.active {
-		background-color: #333;
-		color: white;
-		cursor: default;
-		text-decoration: none;
-	}
-	.pagination span {
-		display: inline-block;
-		padding: 5px 10px;
-		margin: 0 3px;
-		background-color: #4CAF50;
-		color: white;
-		text-decoration: none;
-		border-radius: 5px;
-		font-size: 12px;
-		cursor: default;
-	}
 </style>
+<script>
+    // 페이지 로드 시 첫 4개의 이벤트만 표시
+    document.addEventListener('DOMContentLoaded', function() {
+        let eventItems = document.querySelectorAll('.event-item');
+        let itemsToShow = 4; // 처음에 보여줄 이벤트 개수
+        let currentItems = 0;
+
+        // 처음에 4개 이벤트 보여주기
+        for (let i = 0; i < itemsToShow && i < eventItems.length; i++) {
+            eventItems[i].style.display = 'block';
+            currentItems++;
+        }
+
+        // 더보기 버튼 클릭 시 추가로 4개의 이벤트 보여주기
+        document.getElementById('moreBtn').addEventListener('click', function() {
+            let itemsToLoad = 4;
+            let itemsLoaded = 0;
+
+            for (let i = currentItems; i < eventItems.length && itemsLoaded < itemsToLoad; i++) {
+                eventItems[i].style.display = 'block';
+                currentItems++;
+                itemsLoaded++;
+            }
+
+            // 모든 이벤트를 다 보여주면 더보기 버튼 숨기기
+            if (currentItems >= eventItems.length) {
+                document.getElementById('moreBtn').style.display = 'none';
+            }
+        });
+    });
+    
+    
+</script>
 </head>
 <body>
 
 <section>
     <header>
-        <h1>고객센터</h1>
+        <h1>이벤트 안내</h1>
     </header>
-
     <nav>
-        <a href="../gongji/list">공지사항</a>
-        <a href="../inquiry/list">Q ＆ A</a>
-        <a href="">FAQ</a>
+        <a href="eventList">전체 이벤트</a>
+        <a href="ongoingEvents">진행 중인 이벤트</a>
+        <a href="pastEvents">지난 이벤트</a>
+        <a href="faq">FAQ</a>
     </nav>
-    
     <div class="container">
         <div class="content">
-            <h2>공지사항</h2>
-            <table class="notice-table">
-                <tr>
-                    <th colspan="2">제 목</th>
-                    <th>작성자</th>
-                    <th>조회수</th>
-                    <th>작성일</th>
-                </tr>
+            <h2>진행 중인 이벤트</h2>
+            <div class="event-list">
+                <!-- 이벤트 아이템 -->
                 <c:forEach items="${plist}" var="pdto">
-                <tr>
-                    <td>${pdto.fname}"></td>
-                    <td style="text-align: left">
-                        <a href="readnum?id=${pdto.id}">${pdto.title}</a>
-                    </td>
-                    <td>${pdto.readnum}</td>
-                    <td>${pdto.writeday}</td>
-                </tr>
+                <div class="event-item">
+                    <img src="../static/resources/${pdto.fname }" alt="이벤트 이미지">
+                    <div class="event-content">
+                        <h3>${pdto.title}</h3>
+                        <p>${pdto.subtitle}</p>
+                        <a href="promotReadnum?id=${pdto.id }">자세히 보기</a>
+                    </div>
+                </div>
                 </c:forEach>
-            </table>
+            </div>
+            <!-- 더보기 버튼 -->
+            <div class="more-button">
+                <button id="moreBtn">더 보기</button>
+            </div>
         </div>
-        <!-- 페이징 처리 -->
-		<div class="pagination">
-			<c:set var="prevPage" value="${currentPage - 10 < 1 ? 1 : currentPage - 10}" />
-			<a href="?page=${prevPage}">&laquo; 이전10</a>
-			<c:set var="startPage" value="${currentPage <= 5 ? 1 : currentPage - 4}" />
-			<c:set var="endPage" value="${startPage + 9}" />
-			<c:if test="${startPage < 1}">
-				<c:set var="startPage" value="1" />
-			</c:if>
-			<c:if test="${endPage > totalPages}">
-				<c:set var="endPage" value="${totalPages}" />
-				<c:set var="startPage" value="${endPage - 9 > 0 ? endPage - 9 : 1}" />
-			</c:if>
-			<c:forEach begin="${startPage}" end="${endPage}" var="i">
-				<c:choose>
-					<c:when test="${i == currentPage}">
-						<span class="active">${i}</span>
-					</c:when>
-					<c:otherwise>
-						<a href="?page=${i}">${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:set var="nextPage" value="${currentPage + 10 > totalPages ? totalPages : currentPage + 10}" />
-			<a href="?page=${nextPage}">다음10 &raquo;</a>
-		</div>
     </div>
-   
 </section>
 
 </body>

@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.AirportsDto;
 import com.example.demo.dto.AirplanesDto;
-import com.example.demo.dto.GongjiDto;
 import com.example.demo.dto.MemberDto;
-import com.example.demo.dto.PromotDto;
 import com.example.demo.service.AdminService;
 import com.example.demo.service.FlightService;
 import com.example.demo.service.GongjiService;
@@ -107,41 +104,6 @@ public class AdminController {
 	@PostMapping("/admin/updateAnswer")
 	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
 		return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
-	}
-	
-	@GetMapping("/admin/gongjiList")
-	public String gongjiList(HttpServletRequest request, Model model) {
-		return service.gongjiList(request, model);
-	}
-	
-	@GetMapping("/admin/gongjiContent")
-	public String gongjiContent(HttpServletRequest request, Model model) {
-		return gservice.gongjiContent(request, model);
-	}
-	
-	@GetMapping("/admin/gongjiWrite")
-	public String write() {
-		return gservice.gongjiWrite();
-	}
-	
-	@PostMapping("/admin/gongjiWriteOk")
-	public String write(GongjiDto gdto, HttpSession session) {
-		return gservice.gongjiWriteOk(gdto, session);
-	}
-	
-	@GetMapping("/gongji/update")
-	public String gongjiUpdate(HttpServletRequest request, Model model) {
-		return gservice.update(request, model);
-	}
-	
-	@PostMapping("/gongji/updateOk")
-	public String gongjiUpdateOk(GongjiDto gdto) {
-		return gservice.updateOk(gdto);
-	}
-	
-	@PostMapping("/admin/gongjiDelete")
-	public String delete(HttpServletRequest request) {
-		return gservice.delete(request);
 	}
 	
 	@GetMapping("/admin/rsvdList")
@@ -243,39 +205,6 @@ public class AdminController {
 		return "redirect:/admin/flightsList";  // 완료 후 항공편 목록 페이지로 이동
 	}
 	
-	@GetMapping("/admin/promotList")
-	public String promotList(HttpServletRequest request, Model model) {
-		return service.promotList(request, model);
-	}
 	
-	@GetMapping("/admin/promotAdd")
-	public String promotAdd() {
-		return service.promotAdd();
-	}
-	
-	@PostMapping("/admin/addPromots")
-	public String addPromots(PromotDto pdto, @RequestParam MultipartFile file) throws Exception {
-	    return service.addPromots(pdto, file);
-	}
-	
-	@GetMapping("/admin/promotContent")
-	public String promotContent(HttpServletRequest request, Model model) {
-		return service.promotContent(request, model);
-	}
-	
-	@GetMapping("/admin/promotUpdate")
-	public String promotUpdate(HttpServletRequest request, Model model) {
-	    return service.promotUpdate(request, model);
-	}
-	
-	@PostMapping("/admin/upPromots")
-	public String upPromots(HttpServletRequest request, @RequestParam MultipartFile file, PromotDto pdto) throws Exception {
-	    return service.upPromots(request, file, pdto);
-	}
-	
-	@GetMapping("/admin/delPromot")
-	public String delPromot(HttpServletRequest request) {
-		return service.delPromot(request);
-	}
 	
 }

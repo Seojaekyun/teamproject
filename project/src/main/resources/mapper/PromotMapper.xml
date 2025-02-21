@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.PromotMapper">
-	<select id="list" resultType="com.example.demo.dto.PromotDto">
-		SELECT * FROM promot ORDER BY writeday DESC
+	<select id="plist" resultType="com.example.demo.dto.PromotDto">
+		select * from promot ORDER BY id DESC limit 3
 	</select>
 	<select id="promotList" resultType="com.example.demo.dto.PromotDto">
-		select * from promot order by writeday DESC
+		select * from promot order by id DESC
 	</select>
 	<insert id="addPromot" parameterType="com.example.demo.dto.PromotDto">
 		insert into promot(title,content,writeday,fname,subtitle)
@@ -14,9 +14,6 @@
 	<update id="readnum">
 		update promot set readnum=readnum+1 where id=#{param}
 	</update>
-	<select id="content" resultType="com.example.demo.dto.PromotDto">
-		select * from promot where id=#{param}
-	</select>
 	<select id="promotContent" resultType="com.example.demo.dto.PromotDto">
 		select * from promot where id=#{param}
 	</select>

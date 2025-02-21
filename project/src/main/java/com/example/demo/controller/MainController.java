@@ -140,20 +140,5 @@ public class MainController {
 		return service.checkin();
 	}
 	
-	@GetMapping("/event/list") 
-	public String eventList(HttpServletRequest request, Model model) {
-		return service.eventList(request, model);
-	}
-	
-	@GetMapping("/event/eventReadnum")
-	public String eventReadnum(HttpServletRequest request) {
-		return service.eventReadnum(request);
-	}
-	
-	@GetMapping("/event/content") 
-	public String eventContent(HttpServletRequest request, Model model) {
-		return service.eventContent(request, model);
-	}
-		
 	
 }

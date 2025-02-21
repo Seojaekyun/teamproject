@@ -38,8 +38,8 @@ public class MainServiceImpl implements MainService {
 	private ReviewMapper rmapper;
 	@Override
 	public String index(HttpServletRequest request, Model model) {
-		List<PromotDto> plist = mapper.plist();
-		List<ReviewDto> relist = mapper.relist();
+		List<PromotDto> plist = pmapper.plist();
+		List<ReviewDto> relist = rmapper.relist();
 		
 		model.addAttribute("plist", plist);
 		model.addAttribute("relist", relist);
@@ -166,60 +166,6 @@ public class MainServiceImpl implements MainService {
 	public String checkin() {
 		return "/reserve/checkin";
 	}
-
-	@Override
-	public String eventList(HttpServletRequest request, Model model) {
-		List<PromotDto> plist = mapper.promotList();
-		
-		model.addAttribute("plist", plist);
-		System.out.println(plist.size());
-		return "/event/list";
-	}
-
-	@Override
-	public String eventContent(HttpServletRequest request, Model model) {
-		String id=request.getParameter("id");
-		PromotDto pdto=pmapper.promotContent(id);
-		
-		pdto.setContent(pdto.getContent().replace("\r\n", "<br>"));
-		
-		model.addAttribute("pdto", pdto);	
-		return "/event/content";
-	}
-
-	@Override
-	public String eventReadnum(HttpServletRequest request) {
-		String id=request.getParameter("id");
-		pmapper.readnum(id);
-		
-		return "redirect:/event/content?id="+id;
-	}
 	
-	@Override
-	public String reviewList(HttpServletRequest request, Model model) {
-		List<ReviewDto> relist = mapper.relist();
-		
-		model.addAttribute("relist", relist);
-		System.out.println(relist.size());
-		return "/review/list";
-	}
-
-	@Override
-	public String reviewContent(HttpServletRequest request, Model model) {
-		String id=request.getParameter("id");
-		ReviewDto redto=rmapper.content(id);
-		
-		redto.setContent(redto.getContent().replace("\r\n", "<br>"));
-		
-		model.addAttribute("redto", redto);	
-		return "/review/content";
-	}
-
-	@Override
-	public String reviewReadnum(HttpServletRequest request) {
-		String id=request.getParameter("id");
-		rmapper.reviewReadnum(id);
-		
-		return "redirect:/review/content?id="+id;
-	}
+	
 }

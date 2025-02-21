@@ -4,15 +4,6 @@
 	<select id="loginOk" resultType="String">
 		select name from member where userid=#{userid} and pwd=#{pwd}
 	</select>
-	<select id="plist" resultType="com.example.demo.dto.PromotDto">
-		select * from promot ORDER BY id DESC limit 3
-	</select>
-	<select id="promotList" resultType="com.example.demo.dto.PromotDto">
-		select * from promot ORDER BY id DESC
-	</select>
-	<select id="relist" resultType="com.example.demo.dto.ReviewDto">
-		select * from reviews ORDER BY id DESC limit 6
-	</select>
 	
 	
 </mapper>

@@ -7,7 +7,6 @@ import com.example.demo.dto.PromotDto;
 
 @Mapper
 public interface PromotMapper {
-
 	void addPromot(PromotDto pdto);
 	List<PromotDto> promotList();
 	PromotDto promotContent(String id);
@@ -16,6 +15,7 @@ public interface PromotMapper {
 	void readnum(String id);
 	void delete(String id);
 	String getPromotFileName(int id);
+	List<PromotDto> plist();
 	
 	
 }

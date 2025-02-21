@@ -37,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService {
 	    int totalItems = mapper.getTotalCount();
 
 	    // 페이징 적용하여 리스트 가져오기
-	    List<ReviewDto> relist = mapper.list(offset, itemsPerPage);
+	    List<ReviewDto> relist = mapper.reviewList(offset, itemsPerPage);
 
 	    // 전체 페이지 수 계산
 	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
@@ -78,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
 			return "redirect:/review/list";
 		}
 	}
-
+	
 	@Override
 	public String reviewReadnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
@@ -86,11 +86,11 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return "redirect:/review/content?id="+id;
 	}
-
+	
 	@Override
 	public String content(HttpServletRequest request, HttpSession session, Model model) {
 		String id=request.getParameter("id");
-		ReviewDto redto=mapper.content(id);
+		ReviewDto redto=mapper.reviewContent(id);
 		
 		redto.setContent(redto.getContent().replace("\r\n", "<br>"));
 		
@@ -98,23 +98,23 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return "/review/content";
 	}
-
+	
 	@Override
 	public String update(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
-		ReviewDto redto=mapper.content(id);
+		ReviewDto redto=mapper.reviewContent(id);
 		
 		model.addAttribute("redto", redto);
 		
 		return "/review/update";
 	}
-
+	
 	@Override
 	public String updateOk(ReviewDto redto) {
 		mapper.updateOk(redto);
 		return "redirect:/review/content?id="+redto.getId();
 	}
-
+	
 	@Override
 	public String reviewList(HttpServletRequest request, Model model) {
 		String pageParam = request.getParameter("page");
@@ -127,7 +127,7 @@ public class ReviewServiceImpl implements ReviewService {
 	    int totalItems = mapper.getTotalCount();
 
 	    // 페이징 적용하여 리스트 가져오기
-	    List<ReviewDto> relist = mapper.list(offset, itemsPerPage);
+	    List<ReviewDto> relist = mapper.reviewList(offset, itemsPerPage);
 
 	    // 전체 페이지 수 계산
 	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
@@ -139,7 +139,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return "/admin/reviewList";
 	}
-
+	
 	@Override
 	public String reviewContent(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");

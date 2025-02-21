@@ -44,6 +44,32 @@ public class GongjiServiceImpl implements GongjiService {
 	}
 	
 	@Override
+	public String gongjiList(HttpServletRequest request, Model model) {
+		// 페이지 번호 파라미터 받기 (기본값은 1)
+		String pageParam = request.getParameter("page");
+		int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+		
+		int itemsPerPage = 20;  // 페이지당 항목 수
+		int offset = (currentPage - 1) * itemsPerPage;  // 시작 인덱스 계산
+		
+		// 전체 공지사항 수 가져오기
+		int totalItems = mapper.getTotalCount();
+		
+		// 페이징 적용하여 리스트 가져오기
+		List<GongjiDto> glist = mapper.list(offset, itemsPerPage);
+		
+		// 전체 페이지 수 계산
+		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+		
+		// 모델에 필요한 데이터 추가
+		model.addAttribute("glist", glist);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPages", totalPages);
+		
+		return "/admin/gongjiList";
+	}
+	
+	@Override
 	public String gongjiWrite() {
 		return "/admin/gongjiWrite";
 	}
@@ -56,9 +82,9 @@ public class GongjiServiceImpl implements GongjiService {
 	}
 
 	@Override
-	public String gongjiReadnum(HttpServletRequest request) {
+	public String readnum(HttpServletRequest request) {
 		String id=request.getParameter("id");
-		mapper.gongjiReadnum(id);
+		mapper.readnum(id);
 		
 		return "redirect:/gongji/content?id="+id;
 	}
@@ -66,7 +92,7 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String content(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
-		GongjiDto gdto=mapper.content(id);
+		GongjiDto gdto=mapper.gongjiContent(id);
 		
 		gdto.setContent(gdto.getContent().replace("\r\n", "<br>"));
 		
@@ -78,11 +104,11 @@ public class GongjiServiceImpl implements GongjiService {
 	@Override
 	public String update(HttpServletRequest request, Model model) {
 		String id=request.getParameter("id");
-		GongjiDto gdto=mapper.content(id);
+		GongjiDto gdto=mapper.gongjiContent(id);
 		
 		model.addAttribute("gdto", gdto);
 		
-		return "/gongji/update";
+		return "/admin/gongjiUpdate";
 	}
 
 	@Override
