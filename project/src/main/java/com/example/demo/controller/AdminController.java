@@ -47,19 +47,18 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/reserveList")
-	public String reserveList(
-			@RequestParam(required = false) String selectedDate, @RequestParam(required = false, defaultValue = "1") Integer gmpPage,
-			@RequestParam(required = false, defaultValue = "1") Integer icnPage, @RequestParam(required = false, defaultValue = "1") Integer otherPage,
-			@RequestParam(required = false, defaultValue = "1") Integer page, Model model) {
-		// 서비스로 전달
+	public String reserveList(@RequestParam(required=false) String selectedDate,
+			@RequestParam(required=false, defaultValue="1") Integer gmpPage,
+			@RequestParam(required=false, defaultValue="1") Integer icnPage,
+			@RequestParam(required=false, defaultValue="1") Integer otherPage,
+			@RequestParam(required=false, defaultValue="1") Integer page, Model model) {
 		return service.reserveList(selectedDate, gmpPage, icnPage, otherPage, page, model);
 	}
 		
 	@GetMapping("/admin/flightsList")
-	public String flightsList(
-			@RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false) String selectedDate,
-			@RequestParam(required = false, defaultValue = "all") String flightType, Model model) {
-		
+	public String flightsList(@RequestParam(required=false, defaultValue="1") Integer page,
+			@RequestParam(required=false) String selectedDate,
+			@RequestParam(required=false, defaultValue="all") String flightType, Model model) {
 		return service.flightList(page, selectedDate, flightType, model);
 	}
 	
@@ -69,26 +68,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/memberUp")
-	public String memberUp(@RequestParam int id, @RequestParam int level, Model model) {
-		// MemberDto 객체 생성
-		MemberDto mdto = new MemberDto();
-		
-		// id와 state 값을 mdto 객체에 세팅
-		mdto.setId(id);
-		mdto.setLevel(level);
-		
-		// 서비스 호출하여 회원 정보 업데이트
-		return service.memberUp(mdto);
+	public String memberUp(MemberDto mdto, @RequestParam int id, @RequestParam int level, Model model) {
+		return service.memberUp(mdto, id, level, model);
 	}
 	
 	@GetMapping("/admin/oneMeminfo")
 	public String oneMeminfo(HttpServletRequest request, Model model) {
 		return service.oneMeminfo(request, model);
-	}
-	
-	@PostMapping("/admin/updateAnswer")
-	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
-		return iservice.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
 	}
 	
 	@GetMapping("/admin/rsvdList")

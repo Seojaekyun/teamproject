@@ -13,7 +13,7 @@ public interface AdminService {
 			Integer icnPage, Integer otherPage, Integer page, Model model);
 	String rsvdList(HttpServletRequest request, Model model);
 	String oneMeminfo(HttpServletRequest request, Model model);
-	String memberUp(MemberDto mdto);
+	String memberUp(MemberDto mdto, int id, int level, Model model);
 	String cancelConfirm(HttpServletRequest request);
 	String payReturn(HttpServletRequest request, Model model);
 	String cancelRejection(HttpServletRequest request, Model model);

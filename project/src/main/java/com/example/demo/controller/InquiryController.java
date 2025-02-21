@@ -74,5 +74,10 @@ public class InquiryController {
 		return service.answer(inquiryId, answerText); // 서비스의 답변 저장 로직 호출 후 리턴
 	}
 	
+	@PostMapping("/admin/updateAnswer")
+	public String updateAnswer(@RequestParam("id") int inquiryId, @RequestParam("answer") String answerText) {
+		return service.updateAnswer(inquiryId, answerText); // 서비스의 답변 수정 로직 호출 후 리턴
+	}
+	
 	
 }

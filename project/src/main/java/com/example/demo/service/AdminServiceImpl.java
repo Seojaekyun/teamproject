@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.demo.dto.FlightDto;
 import com.example.demo.dto.InquiryDto;
 import com.example.demo.dto.MemberDto;
@@ -79,13 +81,11 @@ public class AdminServiceImpl implements AdminService{
 			model.addAttribute("countsList", countsList);
 			
 			// 현재 시간 이후의 예약 5개씩 조회
-			List<ReservationDto> rsvList = rmapper.getRsvanow().stream()
-					.filter(rsv -> {
-						// String 타입의 departureTime을 LocalDateTime으로 변환
-						LocalDateTime departureTime = LocalDateTime.parse(rsv.getDepartureTime(), formatter);
-						return departureTime.isAfter(now);  // 현재 시간 이후인지 확인
-					})
-					.collect(Collectors.toList());
+			List<ReservationDto> rsvList = rmapper.getRsvanow().stream().filter(rsv -> {
+				// String 타입의 departureTime을 LocalDateTime으로 변환
+				LocalDateTime departureTime = LocalDateTime.parse(rsv.getDepartureTime(), formatter);
+				return departureTime.isAfter(now);  // 현재 시간 이후인지 확인
+			}).collect(Collectors.toList());
 			
 			// GMP로 시작하는 항공편의 예약 리스트
 			List<ReservationDto> gmpRsv = rsvList.stream()
@@ -134,7 +134,8 @@ public class AdminServiceImpl implements AdminService{
         List<ReservationDto> rsvList;
         if (selectedDate != null && !selectedDate.isEmpty()) {
             rsvList = rmapper.getRsvByDate(selectedDate);  // 특정 날짜의 예약 내역 가져오기
-        } else {
+        }
+        else {
             rsvList = rmapper.getRsvanow();  // 선택한 날짜가 없으면 현재 이후 예약 내역 가져오기
         }
 
@@ -232,17 +233,15 @@ public class AdminServiceImpl implements AdminService{
 		flightList.forEach(flight -> {
 			Long totalSeats = totalSeatsMap.get(flight.getFlightId());
 			flight.setTotalSeats(totalSeats != null ? totalSeats.intValue() : 0);  // int로 변환
-			System.out.println("Flight ID: " + flight.getFlightId() + " has " + flight.getTotalSeats() + " total seats.");
+			System.out.println("Flight ID: "+flight.getFlightId()+" has "+flight.getTotalSeats()+" total seats.");
 		});
 		
 		// 출발 공항에 따라 분류 (기존 로직 유지)
 		List<FlightDto> gmpFlights = flightList.stream()
-				.filter(flight -> flight.getDepartureAirport().equals("GMP"))
-				.collect(Collectors.toList());
+				.filter(flight -> flight.getDepartureAirport().equals("GMP")).collect(Collectors.toList());
 		
 		List<FlightDto> icnFlights = flightList.stream()
-				.filter(flight -> flight.getDepartureAirport().equals("ICN"))
-				.collect(Collectors.toList());
+				.filter(flight -> flight.getDepartureAirport().equals("ICN")).collect(Collectors.toList());
 		
 		List<FlightDto> otherFlights = flightList.stream()
 				.filter(flight -> !flight.getDepartureAirport().equals("GMP") && !flight.getDepartureAirport().equals("ICN"))
@@ -250,9 +249,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		// 각 항공편 분류에 따라 페이지네이션 처리 및 JSP에 데이터 전달
 		if ("all".equals(flightType)) {
-			List<FlightDto> pagedFlights = flightList.subList(
-					start, Math.min(start + itemsPerPage, flightList.size()));
-			int totalPages = (int) Math.ceil((double) flightList.size() / itemsPerPage);
+			List<FlightDto> pagedFlights=flightList.subList(start, Math.min(start+itemsPerPage, flightList.size()));
+			int totalPages=(int) Math.ceil((double)flightList.size()/itemsPerPage);
 			model.addAttribute("flightList", pagedFlights);
 			model.addAttribute("totalPages", totalPages);
 			model.addAttribute("currentPage", page);
@@ -321,10 +319,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public String memberUp(MemberDto mdto) {
+	public String memberUp(MemberDto mdto, @RequestParam int id, @RequestParam int level, Model model) {
+		mdto = new MemberDto();		
+		// id와 state 값을 mdto 객체에 세팅
+		mdto.setId(id);
+		mdto.setLevel(level);
 		
 		mmapper.memberUp(mdto);
-		
 		return "redirect:/admin/memberList";
 	}
 	
@@ -452,7 +453,8 @@ public class AdminServiceImpl implements AdminService{
 	                : "reservationId=" + rid;
 
 	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
-	        } catch (URISyntaxException e) {
+	        }
+	        catch (URISyntaxException e) {
 	            e.printStackTrace();
 	        }
 	    }
@@ -478,7 +480,8 @@ public class AdminServiceImpl implements AdminService{
 	                : "reservationId=" + rid;
 
 	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
-	        } catch (URISyntaxException e) {
+	        }
+	        catch (URISyntaxException e) {
 	            e.printStackTrace();
 	        }
 	    }
@@ -503,7 +506,8 @@ public class AdminServiceImpl implements AdminService{
 	                : "reservationId=" + rid;
 
 	            return "redirect:" + refererUri.getPath() + "?" + newQuery;
-	        } catch (URISyntaxException e) {
+	        }
+	        catch (URISyntaxException e) {
 	            e.printStackTrace();
 	        }
 	    }
